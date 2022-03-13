@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ControlledCamera.gd" type="Script" id=1]
+
+[node name="H" type="Spatial"]
+
+[node name="V" type="Spatial" parent="."]
+
+[node name="ClippedCamera" type="ClippedCamera" parent="V"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.80412 )
+script = ExtResource( 1 )
