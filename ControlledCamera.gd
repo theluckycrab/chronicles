@@ -3,12 +3,15 @@ extends Spatial
 onready var H = get_parent().get_parent()
 onready var V = get_parent()
 
+var transformTarget = null
+
 var rightStickVector = Vector2.ZERO
 var mouseMotionVector = Vector2.ZERO
 var rightStickDeadZone = 0.25
-var hSpeed = 1.25
-var vSpeed = 1.25
+var hSpeed = 2.75
+var vSpeed = 2.75
 var vLookLimitDegrees = 35
+var trackSpeed = 0.1
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -18,6 +21,7 @@ func _input(event):
 		rightStickVector.y = Input.get_joy_axis(1, JOY_AXIS_3)
 
 func _physics_process(_delta):
+	Track_Target()
 	Calc_Rotation()
 	Apply_Rotation()
 	
@@ -33,7 +37,6 @@ func Apply_RightStick_DeadZone():
 		
 func Apply_Look_Limit():
 	var y = rad2deg(V.rotation.x) + rightStickVector.y
-	print(y)
 	if y > vLookLimitDegrees * .25 and sign(rightStickVector.y) == -1:
 		rightStickVector.y = 0
 	elif y < -vLookLimitDegrees and sign(rightStickVector.y) == 1:
@@ -57,3 +60,13 @@ func Get_V_Rotation():
 	
 func Get_Rotation():
 	return Vector2(H.rotation.y, V.rotation.x)
+
+func Track_Target():
+	if !transformTarget:
+		return
+	var position:Vector3 = H.global_transform.origin
+	var newPosition = transformTarget.global_transform.origin
+	H.global_transform.origin = position.linear_interpolate(newPosition, trackSpeed)
+	
+func Set_Track_Target(who):
+	transformTarget = who
