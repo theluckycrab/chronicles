@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "PlayerStateFall",
+"language": "GDScript",
+"path": "res://PlayerStates/PlayerStateFall.gd"
+}, {
+"base": "Spatial",
+"class": "PlayerStateIdle",
+"language": "GDScript",
+"path": "res://PlayerStates/PlayerStateIdle.gd"
+} ]
+_global_script_class_icons={
+"PlayerStateFall": "",
+"PlayerStateIdle": ""
+}
+
 [application]
 
 config/name="chronicles"

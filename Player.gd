@@ -14,6 +14,7 @@ func _ready():
 	Grab_Camera()
 
 func _physics_process(_delta):
+	$StateMachine.Execute()
 	Get_Controlled_Velocity()
 	Move()
 	
@@ -62,7 +63,7 @@ func Face_Controlled_Velocity():
 	Body_Face(angle)
 	
 func Body_Face(targetAngle, turnSpeed:float=0.2):
-	$MeshInstance.rotation.y = lerp_angle($MeshInstance.rotation.y, targetAngle, turnSpeed)
+	$Armature.rotation.y = lerp_angle($Armature.rotation.y, targetAngle, turnSpeed)
 	
 func Grab_Camera():
 	var cam = get_viewport().get_camera()
