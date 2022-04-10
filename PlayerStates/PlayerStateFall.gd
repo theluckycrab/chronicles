@@ -1,7 +1,7 @@
 extends Spatial
 class_name PlayerStateFall
 
-var animation = null
+var animation = "Fall"
 var priority = 0
 var host = null
 var slot = "Fall"

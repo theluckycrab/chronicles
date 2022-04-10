@@ -14,8 +14,8 @@ func _ready():
 	Grab_Camera()
 
 func _physics_process(_delta):
-	$StateMachine.Execute()
 	Get_Controlled_Velocity()
+	$StateMachine.Execute()
 	Move()
 	
 func Get_Controlled_Velocity():
@@ -79,3 +79,6 @@ func Set_Controlled_Velocity(vel:Vector3):
 func Reset_Velocity():
 	velocity.controlled = Vector3.ZERO
 	velocity.force = Vector3.ZERO
+	
+func Animate(anim):
+	$Armature/AnimationPlayer.play(anim)

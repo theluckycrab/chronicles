@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "PlayerStateIdle",
 "language": "GDScript",
 "path": "res://PlayerStates/PlayerStateIdle.gd"
+}, {
+"base": "Spatial",
+"class": "PlayerStateWalk",
+"language": "GDScript",
+"path": "res://PlayerStates/PlayerStateWalk.gd"
 } ]
 _global_script_class_icons={
 "PlayerStateFall": "",
-"PlayerStateIdle": ""
+"PlayerStateIdle": "",
+"PlayerStateWalk": ""
 }
 
 [application]

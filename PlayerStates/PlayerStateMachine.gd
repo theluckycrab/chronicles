@@ -8,7 +8,8 @@ var state = {
 			
 var stateDict = {
 					"Idle" : PlayerStateIdle.new(),
-					"Fall" : PlayerStateFall.new()
+					"Fall" : PlayerStateFall.new(),
+					"Walk" : PlayerStateWalk.new()
 				}
 				
 onready var host = get_parent()
@@ -16,15 +17,8 @@ onready var host = get_parent()
 func _ready():
 	Create_Fallback_Children()
 	
-func _physics_process(delta):
-	if state.current:
-		$StateDisplay/VBoxContainer/HBoxContainer/currentLabel.text = str(state.current.slot)
-	else:
-		$StateDisplay/VBoxContainer/HBoxContainer/currentLabel.text = "null"
-	if state.next:
-		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = str(state.next.slot)
-	else:
-		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = "null"
+func _physics_process(_delta):
+	Update_State_Display()
 			
 func Execute():
 	if state.current:
@@ -57,6 +51,8 @@ func Set_State(newState):
 		state.current.Exit()
 	state.current = newState
 	state.current.Enter()
+	if state.current.animation:
+		host.Animate(state.current.animation)
 	state.next = null
 	pass
 
@@ -69,3 +65,13 @@ func Create_Fallback_Children():
 	for i in stateDict:
 		add_child(stateDict[i])
 		stateDict[i].host = host
+		
+func Update_State_Display():
+	if state.current:
+		$StateDisplay/VBoxContainer/HBoxContainer/currentLabel.text = str(state.current.slot)
+	else:
+		$StateDisplay/VBoxContainer/HBoxContainer/currentLabel.text = "null"
+	if state.next:
+		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = str(state.next.slot)
+	else:
+		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = "null"
