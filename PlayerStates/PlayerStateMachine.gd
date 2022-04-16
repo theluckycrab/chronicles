@@ -9,7 +9,8 @@ var state = {
 var stateDict = {
 					"Idle" : PlayerStateIdle.new(),
 					"Fall" : PlayerStateFall.new(),
-					"Walk" : PlayerStateWalk.new()
+					"Walk" : PlayerStateWalk.new(),
+					"Jump" : PlayerStateJump.new()
 				}
 				
 onready var host = get_parent()
@@ -18,6 +19,7 @@ func _ready():
 	Create_Fallback_Children()
 	
 func _physics_process(_delta):
+	controls()
 	Update_State_Display()
 			
 func Execute():
@@ -75,3 +77,7 @@ func Update_State_Display():
 		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = str(state.next.slot)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer2/nextLabel.text = "null"
+
+func controls():
+	if Input.is_action_just_pressed("jump"):
+		Set_State(stateDict["Jump"])

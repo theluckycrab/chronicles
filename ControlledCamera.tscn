@@ -2,10 +2,12 @@
 
 [ext_resource path="res://ControlledCamera.gd" type="Script" id=1]
 
-[node name="H" type="Spatial"]
+[node name="ControlledCamera" type="Spatial"]
 
-[node name="V" type="Spatial" parent="."]
+[node name="H" type="Spatial" parent="."]
 
-[node name="ClippedCamera" type="ClippedCamera" parent="V"]
+[node name="V" type="Spatial" parent="H"]
+
+[node name="ClippedCamera" type="ClippedCamera" parent="H/V"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5.804 )
 script = ExtResource( 1 )

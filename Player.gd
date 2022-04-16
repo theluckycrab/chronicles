@@ -1,5 +1,7 @@
 extends KinematicBody
 
+var run_test = PlayerStateRun.new()
+
 var velocity = {
 				controlled = Vector3.ZERO,
 				force = Vector3.ZERO
@@ -7,13 +9,19 @@ var velocity = {
 				
 var gravity = {
 				active = true,
-				base = -4
+				base = -9
 				}
+
+var stored_delta = 0
+				
 				
 func _ready():
 	Grab_Camera()
 
-func _physics_process(_delta):
+func _physics_process(delta):
+	stored_delta = delta
+	if Input.is_action_pressed("sprint"):
+		$StateMachine.state.next = run_test
 	Get_Controlled_Velocity()
 	$StateMachine.Execute()
 	Move()
