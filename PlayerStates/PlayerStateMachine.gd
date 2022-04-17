@@ -4,14 +4,17 @@ var state = {
 				current = null,
 				next = null,
 				last = null,
+				string = ""
 			}
 			
-var stateDict = {
+var base_state_dict = {
 					"Idle" : PlayerStateIdle.new(),
 					"Fall" : PlayerStateFall.new(),
 					"Walk" : PlayerStateWalk.new(),
 					"Jump" : PlayerStateJump.new()
 				}
+				
+var stateDict = base_state_dict.duplicate(true)
 				
 onready var host = get_parent()
 				
@@ -56,6 +59,7 @@ func Set_State(newState):
 	if state.current.animation:
 		host.Animate(state.current.animation)
 	state.next = null
+	state.string = newState.slot
 	pass
 
 func Reset():
@@ -81,3 +85,10 @@ func Update_State_Display():
 func controls():
 	if Input.is_action_just_pressed("jump"):
 		Set_State(stateDict["Jump"])
+
+func swap_state(slot:String, state_object:Node):
+	state_object.host = host
+	stateDict[slot] = state_object
+	
+func reset_state(slot:String):
+	stateDict[slot] = base_state_dict[slot]

@@ -20,11 +20,21 @@ func _ready():
 
 func _physics_process(delta):
 	stored_delta = delta
-	if Input.is_action_pressed("sprint"):
-		$StateMachine.state.next = run_test
-	Get_Controlled_Velocity()
+	if Input.is_action_just_pressed("sprint"):
+		if $StateMachine.stateDict["Walk"] == run_test:
+			reset_state("Walk")
+		else:
+			swap_state("Walk", run_test)
+	#Get_Controlled_Velocity()
+	Get_Controlled_Velocity_WASD()
 	$StateMachine.Execute()
 	Move()
+	
+func Get_Controlled_Velocity_WASD():
+	var x = Input.get_action_strength("d") - Input.get_action_strength("a")
+	var y = Input.get_action_strength("s") - Input.get_action_strength("w")
+	var speedMult = 5
+	velocity.controlled = Vector3(x, 0, y).normalized() * speedMult
 	
 func Get_Controlled_Velocity():
 	var lStickDeadZone = 0.25
@@ -90,3 +100,9 @@ func Reset_Velocity():
 	
 func Animate(anim):
 	$Armature/AnimationPlayer.play(anim)
+	
+func swap_state(slot:String, state_object:Node):
+	$StateMachine.swap_state(slot, state_object)
+	
+func reset_state(slot:String):
+	$StateMachine.reset_state(slot)
