@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://PlayerStates/PlayerStateMachine.gd" type="Script" id=1]
+[ext_resource path="res://PlayerStates/player_state_machine.gd" type="Script" id=1]
 
 [node name="StateMachine" type="Spatial"]
 script = ExtResource( 1 )
@@ -27,12 +27,12 @@ margin_bottom = -5.0
 margin_right = 146.0
 margin_bottom = 14.0
 
-[node name="currentLabel2" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer"]
+[node name="CurrentLabel2" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer"]
 margin_right = 55.0
 margin_bottom = 14.0
 text = "Current: "
 
-[node name="currentLabel" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer"]
+[node name="CurrentLabel" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer"]
 margin_left = 59.0
 margin_right = 59.0
 margin_bottom = 14.0
@@ -42,12 +42,12 @@ margin_top = 18.0
 margin_right = 146.0
 margin_bottom = 32.0
 
-[node name="nextLabel2" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer2"]
+[node name="NextLabel2" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer2"]
 margin_right = 38.0
 margin_bottom = 14.0
 text = "Next	: "
 
-[node name="nextLabel" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer2"]
+[node name="NextLabel" type="Label" parent="StateDisplay/VBoxContainer/HBoxContainer2"]
 margin_left = 42.0
 margin_right = 42.0
 margin_bottom = 14.0

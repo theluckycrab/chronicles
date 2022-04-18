@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://StateMachine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://state_machine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blender/BaseHumanoid/Walk.anim" type="Animation" id=3]
 [ext_resource path="res://Blender/BaseHumanoid/Idle.anim" type="Animation" id=4]
 [ext_resource path="res://Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]

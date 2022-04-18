@@ -1,31 +1,39 @@
 extends Spatial
 class_name PlayerStateWalk
 
-var animation = "Walk"
-var priority = 0
+var animation: String = "Walk"
+var priority: int = 0
 var host = null
-var slot = "Walk"
+var slot: String = "Walk"
 
-var sprinting = false
+var sprinting: bool = false
 
-func Controls():
+
+func controls() -> void:
 	pass
 	
-func Enter():
+	
+func enter() -> void:
 	pass
 	
-func Exit():
+	
+func exit() -> void:
 	pass
 	
-func canExit():
+	
+func can_exit() -> bool:
 	return true
 	
-func canEnter():
+	
+func can_enter() -> bool:
 	return host.is_on_floor() and !host.velocity.controlled == Vector3.ZERO
 	
-func Execute():
+	
+func execute() -> void:
 #	sprinting = Input.is_action_pressed("sprint")
 #	if sprinting:
 #		host.velocity.controlled *= 2
 #		host.Animate("Idle")
 	pass
+	
+	
