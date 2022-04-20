@@ -19,7 +19,7 @@ func _input(event) -> void:
 		mouse_motion_vector = Vector2.ZERO
 		right_stick_vector.x = Input.get_joy_axis(1, JOY_AXIS_2)
 		right_stick_vector.y = Input.get_joy_axis(1, JOY_AXIS_3)
-	apply_rotation(mouse_motion_vector, Vector2(0.6, 0.6))
+	apply_rotation(mouse_motion_vector, Vector2(0.2, 0.2))
 
 
 func _ready() -> void:
