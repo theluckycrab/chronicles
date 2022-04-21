@@ -15,7 +15,8 @@ var speed_mult = 5
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
-onready var inventory = $Inventory
+onready var inventory = Inventory.new()
+onready var skeleton = $Armature/Skeleton
 
 
 func _ready() -> void:
@@ -30,7 +31,7 @@ func _physics_process(delta) -> void:
 		else:
 			swap_state("Walk", run_test)
 	if Input.is_action_just_pressed("item"):
-		inventory.use_item()
+		inventory.get_item().execute(self)
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -125,3 +126,14 @@ func swap_state(slot:String, state_object:Node) -> void:
 	
 func reset_state(slot:String) -> void:
 	state_machine.reset_state(slot)
+	
+
+func equip_item(item_data) -> Node:
+	var item = preload("res://test_item.tscn").instance()
+	item.set_script(load("res://test_item.gd"))
+	item.mesh = load(item_data.mesh_file_path)
+	$Armature.add_child(item)
+	item.set_skeleton(skeleton.get_path())
+	item.material_override = SpatialMaterial.new()
+	item.material_override.albedo_color = Color.purple
+	return item

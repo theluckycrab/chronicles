@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Spatial",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://inventory.gd"
+}, {
+"base": "Spatial",
 "class": "PlayerStateFall",
 "language": "GDScript",
 "path": "res://PlayerStates/player_state_fall.gd"
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://test_item.gd"
 } ]
 _global_script_class_icons={
+"Inventory": "",
 "PlayerStateFall": "",
 "PlayerStateIdle": "",
 "PlayerStateJump": "",
