@@ -1,43 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube014.mesh" type="ArrayMesh" id=1]
-[ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube019.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://test_item.gd" type="Script" id=3]
-[ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube013.mesh" type="ArrayMesh" id=4]
-[ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube017.mesh" type="ArrayMesh" id=5]
-[ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube034.mesh" type="ArrayMesh" id=6]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.217488, 0.0967335, 0.189257 )
-
-[node name="Item" type="RigidBody"]
-collision_layer = 0
+[node name="Item" type="MeshInstance"]
 script = ExtResource( 3 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
-
-[node name="Head" type="MeshInstance" parent="."]
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-
-[node name="Chest" type="MeshInstance" parent="."]
-mesh = ExtResource( 2 )
-material/0 = null
-material/1 = null
-
-[node name="Gloves" type="MeshInstance" parent="."]
-mesh = ExtResource( 4 )
-material/0 = null
-material/1 = null
-
-[node name="Legs" type="MeshInstance" parent="."]
-mesh = ExtResource( 6 )
-material/0 = null
-material/1 = null
-material/2 = null
-
-[node name="Boots" type="MeshInstance" parent="."]
-mesh = ExtResource( 5 )
-material/0 = null

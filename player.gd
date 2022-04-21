@@ -15,6 +15,7 @@ var speed_mult = 5
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
+onready var inventory = $Inventory
 
 
 func _ready() -> void:
@@ -28,6 +29,8 @@ func _physics_process(delta) -> void:
 			reset_state("Walk")
 		else:
 			swap_state("Walk", run_test)
+	if Input.is_action_just_pressed("item"):
+		inventory.use_item()
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
