@@ -20,3 +20,9 @@ func use_item():
 
 func get_item():
 	return items[items.keys()[iterator]]
+	
+func add_item(item, count = 1):
+	pass
+	
+func change_item_count(_item, _count):
+	pass
