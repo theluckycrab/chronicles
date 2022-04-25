@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://state_machine.tscn" type="PackedScene" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://Blender/BaseHumanoid/Fall.anim" type="Animation" id=12]
 [ext_resource path="res://Blender/BaseHumanoid/APose.anim" type="Animation" id=13]
 [ext_resource path="res://test_item.tscn" type="PackedScene" id=14]
-[ext_resource path="res://inventory.gd" type="Script" id=16]
 [ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube003.mesh" type="ArrayMesh" id=17]
 
 [sub_resource type="BoxShape" id=2]
@@ -75,6 +74,3 @@ skeleton = NodePath("../Skeleton")
 material/0 = null
 
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
-
-[node name="Inventory" type="Spatial" parent="."]
-script = ExtResource( 16 )

@@ -1,10 +1,11 @@
 class_name Inventory
 extends Spatial
 
-var items = {"Donger":TestItem.new()}
-var iterator = 0
+var items = [TestItem.new()]
+var iterator: int = 0
 
-func controls():
+
+func controls() -> void:
 	if Input.is_action_just_pressed("ui_up"):
 		iterator += 1
 	elif Input.is_action_just_pressed("ui_down"):
@@ -14,15 +15,46 @@ func controls():
 	elif iterator < 0:
 		iterator = items.size() -1
 
-func use_item():
-	items[iterator]
-	pass
 
-func get_item():
+func use_item() -> void:
+	items[iterator]
+
+
+func get_item() -> TestItem:
 	return items[items.keys()[iterator]]
 	
-func add_item(item, count = 1):
-	pass
 	
-func change_item_count(_item, _count):
-	pass
+func add_item(item:TestItem, count: int = 1) -> void:
+	var stats = item.stats
+	var n_item = TestItem.new()
+	n_item.stats = stats
+
+	if !n_item.stats.is_modified:
+		for i in items:
+			if i.stats.item_name == n_item.stats.item_name:
+				i.stats.count += count
+				return
+		n_item.stats.count = count
+		items.append(n_item)
+	else:
+		if count > 1:
+			for i in count:
+				add_item(n_item)
+		else:
+			items.append(n_item)
+	
+	
+func remove_item(item, count: int = 1) -> void:
+	if item is TestItem:
+		item = item.stats
+	else:
+		item = {item_name = item}
+	for i in items:
+		if i.stats.item_name == item.item_name:
+			i.stats.count -= count
+			if i.stats.count <= 0:
+				items.erase(i)
+				print(item.item_name + " deleted from inventory.")
+			else:
+				print(count, " " + item.item_name + " removed from inventory.")
+			return

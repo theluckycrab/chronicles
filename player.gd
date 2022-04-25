@@ -31,7 +31,14 @@ func _physics_process(delta) -> void:
 		else:
 			swap_state("Walk", run_test)
 	if Input.is_action_just_pressed("item"):
-		inventory.get_item().execute(self)
+		#inventory.get_item().execute(self)
+		var i = TestItem.new()
+		i.stats.item_name = "Dicks"
+		i.stats.is_modified = true
+		inventory.add_item(i, 2)
+		print(inventory.items)
+	if Input.is_action_just_pressed("trash_item"):
+		inventory.remove_item("Dicks")
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
