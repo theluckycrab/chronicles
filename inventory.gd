@@ -27,7 +27,7 @@ func get_item() -> TestItem:
 func add_item(item:TestItem, count: int = 1) -> void:
 	var stats = item.stats
 	var n_item = TestItem.new()
-	n_item.stats = stats
+	n_item.stats = stats.duplicate(true)
 
 	if !n_item.stats.is_modified:
 		for i in items:
@@ -49,12 +49,17 @@ func remove_item(item, count: int = 1) -> void:
 		item = item.stats
 	else:
 		item = {item_name = item}
+		
 	for i in items:
 		if i.stats.item_name == item.item_name:
-			i.stats.count -= count
-			if i.stats.count <= 0:
-				items.erase(i)
+			i.stats.count -= 1 
+			if i.stats.count < 1: 
+				items.erase(i) 
 				print(item.item_name + " deleted from inventory.")
+				break
+				return
 			else:
 				print(count, " " + item.item_name + " removed from inventory.")
+				break
+				return
 			return

@@ -36,9 +36,12 @@ func _physics_process(delta) -> void:
 		i.stats.item_name = "Dicks"
 		i.stats.is_modified = true
 		inventory.add_item(i, 2)
+		update_item_display()
 		print(inventory.items)
 	if Input.is_action_just_pressed("trash_item"):
 		inventory.remove_item("Dicks")
+		update_item_display()
+	inventory.controls()
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -144,3 +147,15 @@ func equip_item(item_data) -> Node:
 	item.material_override = SpatialMaterial.new()
 	item.material_override.albedo_color = Color.purple
 	return item
+
+
+func update_item_display() -> void:
+	var list = inventory.items
+	var display = $ItemList
+	for i in display.get_children():
+		i.queue_free()
+	for i in list:
+		i = i.stats
+		var label = Label.new()
+		display.add_child(label)
+		label.text = i.item_name + str(i.count)
