@@ -1,0 +1,26 @@
+[gd_scene format=2]
+
+[node name="Category" type="HBoxContainer"]
+margin_right = 76.0
+margin_bottom = 14.0
+
+[node name="CategoryIndicator" type="Label" parent="."]
+margin_right = 8.0
+margin_bottom = 14.0
+text = ">"
+
+[node name="CategoryTitle" type="Label" parent="."]
+margin_left = 12.0
+margin_right = 29.0
+margin_bottom = 14.0
+text = "All"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+margin_left = 33.0
+margin_right = 37.0
+margin_bottom = 14.0
+
+[node name="ItemList" type="HBoxContainer" parent="."]
+margin_left = 41.0
+margin_right = 41.0
+margin_bottom = 14.0

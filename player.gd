@@ -21,6 +21,8 @@ onready var skeleton = $Armature/Skeleton
 
 func _ready() -> void:
 	grab_camera()
+	inventory.items[0].add_tag(["Dicks", "Balls", "Weiners"])
+	print(inventory.items[0].get_tags())
 
 
 func _physics_process(delta) -> void:
@@ -31,13 +33,13 @@ func _physics_process(delta) -> void:
 		else:
 			swap_state("Walk", run_test)
 	if Input.is_action_just_pressed("item"):
-		#inventory.get_item().execute(self)
-		var i = TestItem.new()
-		i.stats.item_name = "Dicks"
-		i.stats.is_modified = true
-		inventory.add_item(i, 2)
-		update_item_display()
-		print(inventory.items)
+		inventory.get_item().activate(self)
+#		var i = TestItem.new()
+#		i.stats.item_name = "Dicks"
+#		i.stats.is_modified = true
+#		inventory.add_item(i, 2)
+#		update_item_display()
+#		print(inventory.items)
 	if Input.is_action_just_pressed("trash_item"):
 		inventory.remove_item("Dicks")
 		update_item_display()

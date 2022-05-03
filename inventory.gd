@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [TestItem.new()]
+var items = [Item.new()]
 var iterator: int = 0
 
 
@@ -14,14 +14,10 @@ func controls() -> void:
 		iterator = 0
 	elif iterator < 0:
 		iterator = items.size() -1
-
-
-func use_item() -> void:
-	items[iterator]
-
+		
 
 func get_item() -> TestItem:
-	return items[items.keys()[iterator]]
+	return items[iterator]
 	
 	
 func add_item(item:TestItem, count: int = 1) -> void:
@@ -62,4 +58,3 @@ func remove_item(item, count: int = 1) -> void:
 				print(count, " " + item.item_name + " removed from inventory.")
 				break
 				return
-			return
