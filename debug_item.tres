@@ -7,11 +7,11 @@
 script = ExtResource( 1 )
 stats = {
 "ability": ExtResource( 2 ),
-"count": 1,
-"description": "no description set",
-"is_modified": false,
-"item_name": "name not set",
+"count": 999,
+"description": "A legendary item said to bypass the rules of the game.",
+"is_modified": true,
+"item_name": "Key of the Twilight",
 "mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": 5,
-"tags": [  ]
+"slot": 0,
+"tags": [ "DEBUG", "CHEAT" ]
 }

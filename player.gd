@@ -21,9 +21,9 @@ onready var skeleton = $Armature/Skeleton
 
 func _ready() -> void:
 	grab_camera()
-	inventory.items[0].add_tag(["Dicks", "Balls", "Weiners"])
-	print(inventory.items[0].get_tags())
-
+	inventory.items[2].set_name("Dickdongs")
+	inventory.items[3].add_tags(["Kinda Gay"])
+	inventory.items[3].set_slot(Item.Slots.BOOTS)
 
 func _physics_process(delta) -> void:
 	stored_delta = delta

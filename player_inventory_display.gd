@@ -7,19 +7,22 @@ var iterator = 0
 var item_select = 0
 
 func _ready():
-	call_deferred("get_categories")
+#	call_deferred("get_categories")
+	call_deferred("make_icons")
+	
 	
 func _physics_process(delta):
-	controls()
-	for i in get_children():
-		i.get_node("CategoryIndicator").modulate = Color.transparent
-		for j in i.get_node("ItemList").get_children():
-			j.modulate = Color.white
+	pass
+#	controls()
+#	for i in get_children():
+#		i.get_node("CategoryIndicator").modulate = Color.transparent
+#		for j in i.get_node("ItemList").get_children():
+#			j.modulate = Color.white
 		
 		
-	get_child(iterator).get_node("CategoryIndicator").modulate = Color.red
-	if get_child(iterator).get_node("ItemList").get_children().size() > item_select:
-		get_child(iterator).get_node("ItemList").get_child(item_select).modulate = Color.red
+#	get_child(iterator).get_node("CategoryIndicator").modulate = Color.red
+#	if get_child(iterator).get_node("ItemList").get_children().size() > item_select:
+#		get_child(iterator).get_node("ItemList").get_child(item_select).modulate = Color.red
 	
 	
 func get_categories():
@@ -73,3 +76,10 @@ func controls():
 
 func get_item():
 	print(get_child(iterator).get_node("ItemList").get_child(item_select).text)
+
+func make_icons():
+	host = get_node(host)
+	for i in host.inventory.items:
+		var icon = preload("res://item_display.tscn").instance()
+		icon.item = i
+		host.get_node("ItemList").add_child(icon)

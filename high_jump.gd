@@ -1,5 +1,8 @@
 extends Ability
 
+func _init():
+	ability_name = "High Jump"
+
 func execute(host) -> void:
 	#var item = host.equip_item(self)
 	host.add_force(Vector3.UP * 400)

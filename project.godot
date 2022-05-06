@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://item_data.gd"
 }, {
+"base": "Control",
+"class": "ItemDisplay",
+"language": "GDScript",
+"path": "res://item_display.gd"
+}, {
 "base": "Spatial",
 "class": "PlayerStateFall",
 "language": "GDScript",
@@ -58,6 +63,7 @@ _global_script_class_icons={
 "Ability": "",
 "Inventory": "",
 "Item": "",
+"ItemDisplay": "",
 "PlayerStateFall": "",
 "PlayerStateIdle": "",
 "PlayerStateJump": "",

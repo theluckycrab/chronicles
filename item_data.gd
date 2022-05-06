@@ -1,16 +1,17 @@
 class_name Item
 extends Resource
 
-enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS}
+enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS, NOTSET}
 
-var stats = {
-				slot = Slots.HEAD,
-				mesh_file_path = "res://Blender/BaseHumanoid/pants.mesh",
+export(Dictionary) var stats = {
+				item_name = "name not set",
+				slot = Slots.NOTSET,
 				is_modified = false,
-				item_name = "Balls",
 				count = 1,
 				ability = preload("res://high_jump.tres"),
-				tags = []
+				tags = [],
+				mesh_file_path = "res://Blender/BaseHumanoid/pants.mesh",
+				description = "no description set"
 }
 
 func activate(host):
@@ -22,7 +23,7 @@ func get_tags():
 func has_tag(tag):
 	return stats.tags.has(tag)
 	
-func add_tag(tag):
+func add_tags(tag):
 	if has_tag(tag):
 		return
 	if ! tag is Array:
@@ -33,3 +34,12 @@ func add_tag(tag):
 	
 func remove_tag(tag):
 	stats.tags.remove(tag)
+	
+func set_name(n):
+	stats.item_name = n
+
+func set_slot(s):
+	stats.slot = s
+	
+func set_description(d):
+	stats.description = d

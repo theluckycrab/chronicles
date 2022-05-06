@@ -1,9 +1,8 @@
 class_name Inventory
 extends Spatial
 
-var items = [Item.new()]
+var items = [Item.new(), Item.new(), load("res://debug_item.tres").duplicate(), load("res://debug_item.tres").duplicate()]
 var iterator: int = 0
-
 
 func controls() -> void:
 	if Input.is_action_just_pressed("ui_up"):
