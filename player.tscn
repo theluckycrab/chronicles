@@ -70,4 +70,5 @@ anims/Walk = ExtResource( 3 )
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
 
 [node name="ItemList" parent="." instance=ExtResource( 14 )]
+visible = false
 host = NodePath("..")

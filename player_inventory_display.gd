@@ -18,8 +18,8 @@ func _physics_process(delta):
 #		i.get_node("CategoryIndicator").modulate = Color.transparent
 #		for j in i.get_node("ItemList").get_children():
 #			j.modulate = Color.white
-		
-		
+
+
 #	get_child(iterator).get_node("CategoryIndicator").modulate = Color.red
 #	if get_child(iterator).get_node("ItemList").get_children().size() > item_select:
 #		get_child(iterator).get_node("ItemList").get_child(item_select).modulate = Color.red

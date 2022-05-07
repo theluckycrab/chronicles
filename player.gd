@@ -24,6 +24,7 @@ func _ready() -> void:
 	inventory.items[2].set_name("Dickdongs")
 	inventory.items[3].add_tags(["Kinda Gay"])
 	inventory.items[3].set_slot(Item.Slots.BOOTS)
+	inventory.items[2].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
 
 func _physics_process(delta) -> void:
 	stored_delta = delta

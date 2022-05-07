@@ -43,3 +43,6 @@ func set_slot(s):
 	
 func set_description(d):
 	stats.description = d
+
+func set_mesh_file_path(p):
+	stats.mesh_file_path = p

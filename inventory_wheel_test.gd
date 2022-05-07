@@ -1,7 +1,7 @@
 extends Control
 
-var items = ["a", "b", "c", "d", "e", "f", "g"]
-var radius = 150
+export var items = ["a", "b", "c", "d", "e", "f", "g"]
+export var radius = 150
 
 func _ready():
 	var pos = get_rect().size / 2
