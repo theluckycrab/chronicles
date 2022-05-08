@@ -2,7 +2,8 @@ extends Node
 
 var abilities = {
 	"High Jump" : preload("res://Abilities/high_jump.tres"),
-	"Draw Attack" : preload("res://Abilities/draw_attack.tres")
+	"Draw Attack" : preload("res://Abilities/draw_attack.tres"),
+	"Treasure Sense" : preload("res://Abilities/treasure_sense.tres")
 }
 
 var items = {
@@ -14,5 +15,6 @@ var items = {
 }
 
 var effects = {
-	"Slow Fall" : preload("res://Effects/effect.gd")
+	"Slow Fall" : preload("res://Effects/effect.gd"),
+	"Treasure Sense" : preload("res://Effects/treasure_sense_effect.gd")
 }

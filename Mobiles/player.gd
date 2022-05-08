@@ -20,6 +20,7 @@ var passives = []
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
+onready var armature = $Armature
 onready var inventory = Inventory.new()
 onready var skeleton = $Armature/Skeleton
 
@@ -45,7 +46,8 @@ func _physics_process(delta) -> void:
 		#inventory.get_item().activate(self)
 		equip(inventory.items[0])
 	if Input.is_action_just_pressed("trash_item"):
-		equip(defaults["Head"])
+		#equip(defaults["Head"])
+		equipment["Head"].activate(self)
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -195,3 +197,15 @@ func remove_passives(item):
 		for j in passives:
 			if i == j.effect_name:
 				passives.erase(j)
+				
+func add_passive(effect_name):
+	var e = Data.effects[effect_name].new()
+	e.enter(self)
+	passives.append(e)
+	
+func remove_passive(effect_name):
+	for i in passives:
+		if i.effect_name == effect_name:
+			i.exit(self)
+			passives.erase(i)
+			return

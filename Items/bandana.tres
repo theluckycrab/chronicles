@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Items/item_data.gd" type="Script" id=1]
+[ext_resource path="res://Abilities/treasure_sense.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -14,7 +15,7 @@ overrides = {
 }
 passive = [  ]
 active = {
-"ability": "High Jump"
+"ability": ExtResource( 2 )
 }
 internal = {
 "count": 1,
