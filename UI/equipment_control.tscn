@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://item_icon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://wheel_inventory_test.tscn" type="PackedScene" id=2]
-[ext_resource path="res://equipment_control.gd" type="Script" id=3]
+[ext_resource path="res://UI/item_icon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/wheel_inventory_test.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/equipment_control.gd" type="Script" id=3]
 
 [node name="EquipmentControl" type="Control"]
 anchor_right = 0.061

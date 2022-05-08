@@ -12,52 +12,52 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Ability",
 "language": "GDScript",
-"path": "res://ability.gd"
+"path": "res://Abilities/ability.gd"
 }, {
 "base": "Spatial",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://inventory.gd"
+"path": "res://Items/inventory.gd"
 }, {
 "base": "Resource",
 "class": "Item",
 "language": "GDScript",
-"path": "res://item_data.gd"
+"path": "res://Items/item_data.gd"
 }, {
 "base": "Control",
 "class": "ItemDisplay",
 "language": "GDScript",
-"path": "res://item_display.gd"
+"path": "res://UI/item_display.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateFall",
 "language": "GDScript",
-"path": "res://PlayerStates/player_state_fall.gd"
+"path": "res://Mobiles/PlayerStates/player_state_fall.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateIdle",
 "language": "GDScript",
-"path": "res://PlayerStates/player_state_idle.gd"
+"path": "res://Mobiles/PlayerStates/player_state_idle.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateJump",
 "language": "GDScript",
-"path": "res://PlayerStates/player_state_jump.gd"
+"path": "res://Mobiles/PlayerStates/player_state_jump.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateRun",
 "language": "GDScript",
-"path": "res://PlayerStates/player_state_run.gd"
+"path": "res://Mobiles/PlayerStates/player_state_run.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateWalk",
 "language": "GDScript",
-"path": "res://PlayerStates/player_state_walk.gd"
+"path": "res://Mobiles/PlayerStates/player_state_walk.gd"
 }, {
 "base": "MeshInstance",
 "class": "TestItem",
 "language": "GDScript",
-"path": "res://test_item.gd"
+"path": "res://Items/test_item.gd"
 } ]
 _global_script_class_icons={
 "Ability": "",
@@ -75,12 +75,12 @@ _global_script_class_icons={
 [application]
 
 config/name="chronicles"
-run/main_scene="res://start.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/start.tscn"
+config/icon="res://System/icon.png"
 
 [autoload]
 
-Events="*res://events.gd"
+Events="*res://System/events.gd"
 
 [input]
 
@@ -136,4 +136,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://System/default_env.tres"

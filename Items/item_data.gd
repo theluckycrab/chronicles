@@ -3,12 +3,38 @@ extends Resource
 
 enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS, MAIN, OFF, NOTSET}
 
+export(Dictionary) var visual = {
+				item_name = "name not set",
+				slot = "slot not set",
+				mesh_file_path = "res://Blender/BaseHumanoid/pants.mesh",
+				description = "no description set"
+				
+}
+
+export(Dictionary) var overrides = {
+				
+}
+
+export(Dictionary) var passive = {
+				
+}
+
+export(Dictionary) var active = {
+				ability = preload("res://Abilities/high_jump.tres")
+}
+
+export(Dictionary) var internal = {
+				is_modified = false,
+				count = 1,
+				tags = []
+}
+
 export(Dictionary) var stats = {
 				item_name = "name not set",
 				slot = Slots.NOTSET,
 				is_modified = false,
 				count = 1,
-				ability = preload("res://high_jump.tres"),
+				ability = preload("res://Abilities/high_jump.tres"),
 				tags = [],
 				mesh_file_path = "res://Blender/BaseHumanoid/pants.mesh",
 				description = "no description set"

@@ -142,7 +142,7 @@ func reset_state(slot:String) -> void:
 	
 
 func equip_item(item_data) -> Node:
-	var item = preload("res://test_item.tscn").instance()
+	var item = preload("res://Items/test_item.tscn").instance()
 	item.set_script(load("res://test_item.gd"))
 	item.mesh = load(item_data.mesh_file_path)
 	$Armature.add_child(item)

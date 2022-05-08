@@ -6,7 +6,7 @@ onready var off_list = $OffList
 onready var main_list = $MainList
 onready var boots_list = $BootsList
 onready var hat_list = $HatList
-onready var icon = preload("res://item_icon.tscn")
+onready var icon = preload("res://UI/item_icon.tscn")
 var iterator = 0
 onready var itList = $MainList
 
