@@ -1,21 +1,27 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Items/item_data.gd" type="Script" id=1]
-[ext_resource path="res://Abilities/high_jump.tres" type="Resource" id=2]
 [ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube015.mesh" type="ArrayMesh" id=3]
 [ext_resource path="res://Items/item_cube.gd" type="Script" id=4]
 
 [sub_resource type="Resource" id=1]
 resource_local_to_scene = true
 script = ExtResource( 1 )
-stats = {
-"ability": ExtResource( 2 ),
-"count": 1,
+visual = {
 "description": "no description set",
-"is_modified": false,
 "item_name": "name not set",
 "mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": 5,
+"slot": "slot not set"
+}
+overrides = {
+}
+passive = [  ]
+active = {
+"ability": "High Jump"
+}
+internal = {
+"count": 1,
+"is_modified": false,
 "tags": [  ]
 }
 

@@ -3,5 +3,5 @@ extends Resource
 
 export(String) var ability_name = "name not set"
 
-func _execute(_host) -> void:
+func _execute(_item, _host) -> void:
 	pass

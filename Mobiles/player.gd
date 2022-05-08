@@ -48,6 +48,8 @@ func _physics_process(delta) -> void:
 	if Input.is_action_just_pressed("trash_item"):
 		#equip(defaults["Head"])
 		equipment["Head"].activate(self)
+	if Input.is_action_just_pressed("ui_cancel"):
+		reset_default("Head")
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -168,6 +170,11 @@ func unequip(item:Item):
 	remove_overrides(item)
 	remove_passives(item)
 	
+func reset_default(slot):
+	if equipment[slot] == defaults[slot]:
+		return
+	equip(defaults[slot])
+	
 func equip_visuals(item:Item):
 	var skeleton = $Armature/Skeleton
 	var mount = $Armature/Skeleton.get_node_or_null(item.visual.slot)
@@ -183,7 +190,7 @@ func equip_overrides(item):
 	
 func equip_passive(item):
 	for i in item.passive:
-		passives.append(Data.effects[i].new())
+		add_passive(item, i)
 	pass
 	
 func remove_visuals(item):
@@ -193,13 +200,13 @@ func remove_overrides(item):
 	pass
 	
 func remove_passives(item):
-	for i in item.passive:
-		for j in passives:
-			if i == j.effect_name:
-				passives.erase(j)
+	for i in passives:
+		if i.source == item:
+			remove_passive(i.effect_name)
 				
-func add_passive(effect_name):
+func add_passive(source, effect_name):
 	var e = Data.effects[effect_name].new()
+	e.source = source
 	e.enter(self)
 	passives.append(e)
 	

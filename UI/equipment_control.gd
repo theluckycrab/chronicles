@@ -69,9 +69,6 @@ func controls():
 		show_list(boots_list)
 	elif Input.is_action_just_pressed("ui_up"):
 		show_list(hat_list)
-	elif Input.is_action_just_pressed("ui_accept"):
-		print(get_item().visual.item_name)
-		get_item().active.ability.execute(get_parent().get_node("Player"))
 
 func get_item():
 	return itList.get_child(iterator).item

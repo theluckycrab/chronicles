@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://Items/item_data.gd" type="Script" id=1]
-[ext_resource path="res://Abilities/high_jump.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,7 +14,7 @@ overrides = {
 }
 passive = [  ]
 active = {
-"ability": ExtResource( 3 )
+"ability": "High Jump"
 }
 internal = {
 "count": 1,

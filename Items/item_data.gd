@@ -26,7 +26,7 @@ export(Dictionary) var internal = {
 }
 
 func activate(host):
-	active.ability.execute(host)
+	Data.abilities[active.ability].execute(self, host)
 
 func get_tags():
 	return internal.tags
@@ -57,3 +57,6 @@ func set_description(d):
 
 func set_mesh_file_path(p):
 	visual.mesh_file_path = p
+	
+func set_ability(a_name):
+	active.ability = Data.abilities[a_name].duplicate()
