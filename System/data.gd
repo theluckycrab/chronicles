@@ -12,3 +12,7 @@ var items = {
 	"Wizard Hat" : preload("res://Items/wizard_hat.tres"),
 	"Bandana" : preload("res://Items/bandana.tres")
 }
+
+var effects = {
+	"Slow Fall" : preload("res://Effects/effect.gd")
+}

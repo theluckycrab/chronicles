@@ -13,9 +13,7 @@ export(Dictionary) var overrides = {
 				
 }
 
-export(Dictionary) var passive = {
-				
-}
+export(Array, String) var passive = []
 
 export(Dictionary) var active = {
 				ability = "High Jump"

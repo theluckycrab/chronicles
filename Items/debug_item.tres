@@ -13,8 +13,7 @@ visual = {
 }
 overrides = {
 }
-passive = {
-}
+passive = [  ]
 active = {
 "ability": ExtResource( 2 )
 }

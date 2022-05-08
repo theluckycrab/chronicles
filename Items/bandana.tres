@@ -12,8 +12,7 @@ visual = {
 }
 overrides = {
 }
-passive = {
-}
+passive = [  ]
 active = {
 "ability": "High Jump"
 }

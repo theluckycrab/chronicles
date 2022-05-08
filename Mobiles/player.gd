@@ -16,6 +16,7 @@ var speed_mult = 5
 var defaults = {"Head":Data.items["Bandana"].duplicate(),
 		}
 var equipment = defaults.duplicate(true)
+var passives = []
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
@@ -32,6 +33,8 @@ func _ready() -> void:
 	inventory.items[1].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
 
 func _physics_process(delta) -> void:
+	for i in passives:
+		i.execute(self)
 	stored_delta = delta
 	if Input.is_action_just_pressed("sprint"):
 		if $StateMachine.state_dict["Walk"] == run_test:
@@ -152,10 +155,16 @@ func update_item_display() -> void:
 		
 		
 func equip(item:Item):
+	unequip(equipment[item.visual.slot])
 	equip_visuals(item)
 	equip_overrides(item)
 	equip_passive(item)
 	pass
+	
+func unequip(item:Item):
+	remove_visuals(item)
+	remove_overrides(item)
+	remove_passives(item)
 	
 func equip_visuals(item:Item):
 	var skeleton = $Armature/Skeleton
@@ -171,4 +180,18 @@ func equip_overrides(item):
 	pass
 	
 func equip_passive(item):
+	for i in item.passive:
+		passives.append(Data.effects[i].new())
 	pass
+	
+func remove_visuals(item):
+	pass
+	
+func remove_overrides(item):
+	pass
+	
+func remove_passives(item):
+	for i in item.passive:
+		for j in passives:
+			if i == j.effect_name:
+				passives.erase(j)
