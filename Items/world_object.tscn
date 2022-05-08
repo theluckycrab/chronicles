@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Items/world_object_test.gd" type="Script" id=1]
+[ext_resource path="res://Items/world_object.gd" type="Script" id=1]
 [ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube015.mesh" type="ArrayMesh" id=2]
 
 [sub_resource type="BoxShape" id=1]

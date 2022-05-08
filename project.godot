@@ -53,11 +53,6 @@ _global_script_classes=[ {
 "class": "PlayerStateWalk",
 "language": "GDScript",
 "path": "res://Mobiles/PlayerStates/player_state_walk.gd"
-}, {
-"base": "MeshInstance",
-"class": "TestItem",
-"language": "GDScript",
-"path": "res://Items/test_item.gd"
 } ]
 _global_script_class_icons={
 "Ability": "",
@@ -68,8 +63,7 @@ _global_script_class_icons={
 "PlayerStateIdle": "",
 "PlayerStateJump": "",
 "PlayerStateRun": "",
-"PlayerStateWalk": "",
-"TestItem": ""
+"PlayerStateWalk": ""
 }
 
 [application]
@@ -81,6 +75,7 @@ config/icon="res://System/icon.png"
 [autoload]
 
 Events="*res://System/events.gd"
+Data="*res://System/data.gd"
 
 [input]
 

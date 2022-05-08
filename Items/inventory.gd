@@ -1,27 +1,17 @@
 class_name Inventory
 extends Spatial
 
-var items = [Item.new(), Item.new(), load("res://Items/debug_item.tres").duplicate(), load("res://Items/katana.tres").duplicate()]
+var items = [load(Data.items["Wizard Hat"]).duplicate(), load(Data.items["Debug Item"]).duplicate(), load(Data.items["Katana"]).duplicate()]
 var iterator: int = 0
 
-func controls() -> void:
-	if Input.is_action_just_pressed("ui_up"):
-		iterator += 1
-	elif Input.is_action_just_pressed("ui_down"):
-		iterator -= 1
-	if iterator > items.size() -1:
-		iterator = 0
-	elif iterator < 0:
-		iterator = items.size() -1
-		
 
-func get_item() -> TestItem:
+func get_item() -> Item:
 	return items[iterator]
 	
 	
-func add_item(item:TestItem, count: int = 1) -> void:
+func add_item(item:Item, count: int = 1) -> void:
 	var stats = item.stats
-	var n_item = TestItem.new()
+	var n_item = Item.new()
 	n_item.stats = stats.duplicate(true)
 
 	if !n_item.stats.is_modified:
@@ -40,7 +30,7 @@ func add_item(item:TestItem, count: int = 1) -> void:
 	
 	
 func remove_item(item, count: int = 1) -> void:
-	if item is TestItem:
+	if item is Item:
 		item = item.stats
 	else:
 		item = {item_name = item}

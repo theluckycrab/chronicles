@@ -33,26 +33,26 @@ shape = SubResource( 2 )
 mesh = ExtResource( 10 )
 material/0 = null
 
-[node name="MeshInstance2" type="MeshInstance" parent="Armature/Skeleton"]
+[node name="Chest" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 8 )
 material/0 = null
 material/1 = null
 
-[node name="MeshInstance3" type="MeshInstance" parent="Armature/Skeleton"]
+[node name="Head" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
 material/0 = null
 
-[node name="MeshInstance4" type="MeshInstance" parent="Armature/Skeleton"]
+[node name="Hands" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
 material/0 = null
 material/1 = null
 
-[node name="MeshInstance5" type="MeshInstance" parent="Armature/Skeleton"]
+[node name="Legs" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 7 )
 material/0 = null
 material/1 = null
 
-[node name="MeshInstance6" type="MeshInstance" parent="Armature/Skeleton"]
+[node name="Feet" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 11 )
 material/0 = null
 material/1 = null

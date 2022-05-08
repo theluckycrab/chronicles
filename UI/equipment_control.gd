@@ -41,16 +41,16 @@ func generate_lists():
 		var nicon = icon.instance()
 		nicon.item = i
 		nicon.visible = false
-		match i.stats.slot:
-			Item.Slots.HEAD:
+		match i.visual.slot:
+			"Head":
 				hat_list.add_child(nicon)
 				nicon.get_node("Icon").flip_v = true
 				$HatList/ItemIcon/Icon.flip_v = true
-			Item.Slots.BOOTS:
+			"Boots":
 				boots_list.add_child(nicon)
-			Item.Slots.LEGS:
+			"Mainhand":
 				main_list.add_child(nicon)
-			Item.Slots.NOTSET:
+			"Offhand":
 				off_list.add_child(nicon)
 				
 func controls():

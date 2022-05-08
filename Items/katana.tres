@@ -6,16 +6,11 @@
 
 [resource]
 script = ExtResource( 1 )
-internal = {
-"count": 1,
-"is_modified": false,
-"tags": [  ]
-}
 visual = {
-"description": "no description set",
-"item_name": "name not set",
+"description": "A blade made of corpse iron. It is suitable for Iaido.",
+"item_name": "Katana",
 "mesh_file_path": "res://Blender/BaseHumanoid/placeholder_sword.tres",
-"slot": "slot not set"
+"slot": "Mainhand"
 }
 overrides = {
 }
@@ -23,6 +18,11 @@ passive = {
 }
 active = {
 "ability": ExtResource( 3 )
+}
+internal = {
+"count": 1,
+"is_modified": false,
+"tags": [  ]
 }
 stats = {
 "ability": ExtResource( 2 ),

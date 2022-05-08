@@ -5,6 +5,24 @@
 
 [resource]
 script = ExtResource( 1 )
+visual = {
+"description": "no description set",
+"item_name": "name not set",
+"mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
+"slot": "Offhand"
+}
+overrides = {
+}
+passive = {
+}
+active = {
+"ability": ExtResource( 2 )
+}
+internal = {
+"count": 1,
+"is_modified": false,
+"tags": [  ]
+}
 stats = {
 "ability": ExtResource( 2 ),
 "count": 1,

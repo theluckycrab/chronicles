@@ -1,8 +1,6 @@
 class_name Item
 extends Resource
 
-enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS, MAIN, OFF, NOTSET}
-
 export(Dictionary) var visual = {
 				item_name = "name not set",
 				slot = "slot not set",
@@ -31,7 +29,6 @@ export(Dictionary) var internal = {
 
 export(Dictionary) var stats = {
 				item_name = "name not set",
-				slot = Slots.NOTSET,
 				is_modified = false,
 				count = 1,
 				ability = preload("res://Abilities/high_jump.tres"),

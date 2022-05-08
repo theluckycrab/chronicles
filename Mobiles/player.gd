@@ -13,6 +13,8 @@ var gravity = {
 var stored_delta = 0
 var speed_mult = 5
 
+var equipment = {}
+
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
 onready var inventory = Inventory.new()
@@ -22,9 +24,8 @@ onready var skeleton = $Armature/Skeleton
 func _ready() -> void:
 	grab_camera()
 	inventory.items[2].set_name("Dickdongs")
-	inventory.items[3].add_tags(["Kinda Gay"])
-	inventory.items[3].set_slot(Item.Slots.BOOTS)
-	inventory.items[2].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
+	inventory.items[2].add_tags(["Kinda Gay"])
+	inventory.items[1].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
 
 func _physics_process(delta) -> void:
 	stored_delta = delta
@@ -34,17 +35,10 @@ func _physics_process(delta) -> void:
 		else:
 			swap_state("Walk", run_test)
 	if Input.is_action_just_pressed("item"):
-		inventory.get_item().activate(self)
-#		var i = TestItem.new()
-#		i.stats.item_name = "Dicks"
-#		i.stats.is_modified = true
-#		inventory.add_item(i, 2)
-#		update_item_display()
-#		print(inventory.items)
+		#inventory.get_item().activate(self)
+		equip(inventory.items[0])
 	if Input.is_action_just_pressed("trash_item"):
-		inventory.remove_item("Dicks")
-		update_item_display()
-	inventory.controls()
+		equip(inventory.items[1])
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -139,17 +133,6 @@ func swap_state(slot:String, state_object:Node) -> void:
 	
 func reset_state(slot:String) -> void:
 	state_machine.reset_state(slot)
-	
-
-func equip_item(item_data) -> Node:
-	var item = preload("res://Items/test_item.tscn").instance()
-	item.set_script(load("res://test_item.gd"))
-	item.mesh = load(item_data.mesh_file_path)
-	$Armature.add_child(item)
-	item.set_skeleton(skeleton.get_path())
-	item.material_override = SpatialMaterial.new()
-	item.material_override.albedo_color = Color.purple
-	return item
 
 
 func update_item_display() -> void:
@@ -162,3 +145,28 @@ func update_item_display() -> void:
 		var label = Label.new()
 		display.add_child(label)
 		label.text = i.item_name + str(i.count)
+		
+		
+func equip(item:Item):
+	equip_visuals(item)
+	equip_overrides(item)
+	equip_passive(item)
+	equip_active(item)
+	pass
+	
+func equip_visuals(item:Item):
+	print(item.visual.item_name)
+	var skeleton = $Armature/Skeleton
+	var mount = $Armature/Skeleton.get_node(item.visual.slot)
+	mount.mesh = load(item.visual.mesh_file_path).duplicate(true)
+	equipment[item.visual.slot] = item
+	pass
+	
+func equip_overrides(item):
+	pass
+	
+func equip_passive(item):
+	pass
+	
+func equip_active(item):
+	pass
