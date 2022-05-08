@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://state_machine.tscn" type="PackedScene" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube072.mesh" type="ArrayMesh" id=11]
 [ext_resource path="res://Blender/BaseHumanoid/Fall.anim" type="Animation" id=12]
 [ext_resource path="res://Blender/BaseHumanoid/APose.anim" type="Animation" id=13]
-[ext_resource path="res://player_inventory_display.tscn" type="PackedScene" id=14]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.21859, 1, 0.236159 )
@@ -68,7 +67,3 @@ anims/Walk = ExtResource( 3 )
 [node name="MoveTarget" type="Position3D" parent="Armature/AnimationPlayer"]
 
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
-
-[node name="ItemList" parent="." instance=ExtResource( 14 )]
-visible = false
-host = NodePath("..")

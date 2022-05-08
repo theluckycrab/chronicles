@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [Item.new(), Item.new(), load("res://debug_item.tres").duplicate(), load("res://debug_item.tres").duplicate()]
+var items = [Item.new(), Item.new(), load("res://debug_item.tres").duplicate(), load("res://katana.tres").duplicate()]
 var iterator: int = 0
 
 func controls() -> void:

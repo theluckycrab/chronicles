@@ -1,7 +1,7 @@
 class_name Item
 extends Resource
 
-enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS, NOTSET}
+enum Slots{HEAD, CHEST, GLOVES, LEGS, BOOTS, MAIN, OFF, NOTSET}
 
 export(Dictionary) var stats = {
 				item_name = "name not set",
