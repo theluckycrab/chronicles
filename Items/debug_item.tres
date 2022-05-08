@@ -23,13 +23,3 @@ internal = {
 "is_modified": false,
 "tags": [  ]
 }
-stats = {
-"ability": ExtResource( 2 ),
-"count": 999,
-"description": "A legendary item said to bypass the rules of the game.",
-"is_modified": true,
-"item_name": "Key of the Twilight",
-"mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": 0,
-"tags": [ "DEBUG", "CHEAT" ]
-}

@@ -1,22 +1,21 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://Items/item_data.gd" type="Script" id=1]
-[ext_resource path="res://Abilities/high_jump.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
 visual = {
 "description": "no description set",
-"item_name": "name not set",
-"mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": "Legs"
+"item_name": "Bandana",
+"mesh_file_path": "res://Blender/BaseHumanoid/BaseHumanoid_Cube070.mesh",
+"slot": "Head"
 }
 overrides = {
 }
 passive = {
 }
 active = {
-"ability": ExtResource( 2 )
+"ability": "High Jump"
 }
 internal = {
 "count": 1,

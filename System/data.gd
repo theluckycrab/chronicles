@@ -1,13 +1,14 @@
 extends Node
 
 var abilities = {
-	"High Jump" : "res://Abilities/high_jump.tres",
-	"Draw Attack" : "res://Abilities/draw_attack.tres"
+	"High Jump" : preload("res://Abilities/high_jump.tres"),
+	"Draw Attack" : preload("res://Abilities/draw_attack.tres")
 }
 
 var items = {
-	"Debug Item" : "res://Items/debug_item.tres",
-	"Katana" : "res://Items/katana.tres",
-	"Test Item" : "res://Items/item_data.tres",
-	"Wizard Hat" : "res://Items/wizard_hat.tres"
+	"Debug Item" : preload("res://Items/debug_item.tres"),
+	"Katana" : preload("res://Items/katana.tres"),
+	"Test Item" : preload("res://Items/item_data.tres"),
+	"Wizard Hat" : preload("res://Items/wizard_hat.tres"),
+	"Bandana" : preload("res://Items/bandana.tres")
 }

@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://Items/item_data.gd" type="Script" id=1]
-[ext_resource path="res://Abilities/draw_attack.tres" type="Resource" id=2]
 [ext_resource path="res://Abilities/high_jump.tres" type="Resource" id=3]
 
 [resource]
@@ -23,14 +22,4 @@ internal = {
 "count": 1,
 "is_modified": false,
 "tags": [  ]
-}
-stats = {
-"ability": ExtResource( 2 ),
-"count": 1,
-"description": "This blade, forged of corpse iron, has a special spring-loaded sheath to make you feel like a samurai!",
-"is_modified": false,
-"item_name": "Katana",
-"mesh_file_path": "res://Blender/BaseHumanoid/placeholder_sword.tres",
-"slot": 5,
-"tags": [ "\"Iron\"", "\"Weeb\"" ]
 }

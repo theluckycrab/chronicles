@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [load(Data.items["Wizard Hat"]).duplicate(), load(Data.items["Debug Item"]).duplicate(), load(Data.items["Katana"]).duplicate()]
+var items = [Data.items["Wizard Hat"].duplicate(), Data.items["Debug Item"].duplicate(), Data.items["Katana"].duplicate()]
 var iterator: int = 0
 
 

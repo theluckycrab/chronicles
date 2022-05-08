@@ -13,7 +13,9 @@ var gravity = {
 var stored_delta = 0
 var speed_mult = 5
 
-var equipment = {}
+var defaults = {"Head":Data.items["Bandana"].duplicate(),
+		}
+var equipment = defaults.duplicate(true)
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
@@ -22,6 +24,8 @@ onready var skeleton = $Armature/Skeleton
 
 
 func _ready() -> void:
+	for i in defaults:
+		equip(defaults[i])
 	grab_camera()
 	inventory.items[2].set_name("Dickdongs")
 	inventory.items[2].add_tags(["Kinda Gay"])
@@ -38,7 +42,7 @@ func _physics_process(delta) -> void:
 		#inventory.get_item().activate(self)
 		equip(inventory.items[0])
 	if Input.is_action_just_pressed("trash_item"):
-		equip(inventory.items[1])
+		equip(defaults["Head"])
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -151,22 +155,20 @@ func equip(item:Item):
 	equip_visuals(item)
 	equip_overrides(item)
 	equip_passive(item)
-	equip_active(item)
 	pass
 	
 func equip_visuals(item:Item):
-	print(item.visual.item_name)
 	var skeleton = $Armature/Skeleton
-	var mount = $Armature/Skeleton.get_node(item.visual.slot)
-	mount.mesh = load(item.visual.mesh_file_path).duplicate(true)
+	var mount = $Armature/Skeleton.get_node_or_null(item.visual.slot)
+	if mount:
+		mount.mesh = load(item.visual.mesh_file_path).duplicate(true)
 	equipment[item.visual.slot] = item
 	pass
 	
 func equip_overrides(item):
+	#states
+	#animations
 	pass
 	
 func equip_passive(item):
-	pass
-	
-func equip_active(item):
 	pass
