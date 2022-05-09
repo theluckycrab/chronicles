@@ -1,13 +1,9 @@
 extends Ability
 
-var active = false
-var base = 0
-var zoom
+var active : bool = false
 
-func _init():
-	ability_name = "Treasure Sense"
 
-func execute(item, host) -> void:
+func execute(item: Item, host: Object) -> void:
 	if !active:
 		host.add_passive(item, "Treasure Sense")
 	else:

@@ -1,7 +1,5 @@
 extends Ability
 
-func _init():
-	ability_name = "Draw Attack"
 
-func execute(item, host) -> void:
+func execute(_item: Item, _host: Object) -> void:
 	print("Swap states to draw attack")

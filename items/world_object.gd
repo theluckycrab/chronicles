@@ -1,13 +1,13 @@
 extends Spatial
 
-export(String) var item
+export(String) var item = "Debug Item"
 
 onready var mesh = $KinematicBody/MeshInstance
 onready var body = $KinematicBody
 onready var shape = $KinematicBody/CollisionShape.get_shape()
 
 
-func _ready():
+func _ready() -> void:
 	item = Data.items[item].duplicate()
 	mesh.mesh = load(item.visual.mesh_file_path)
 	var mpos = mesh.mesh.get_aabb()

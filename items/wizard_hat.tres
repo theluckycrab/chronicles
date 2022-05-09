@@ -5,14 +5,14 @@
 [resource]
 script = ExtResource( 1 )
 visual = {
-"description": "no description set",
-"item_name": "name not set",
+"description": "A large hat for gliding.",
+"item_name": "Wizard Hat",
 "mesh_file_path": "res://Blender/BaseHumanoid/wizard_hat.mesh",
 "slot": "Head"
 }
 overrides = {
 }
-passive = [  ]
+passive = [ "Slow Fall" ]
 active = {
 "ability": "High Jump"
 }

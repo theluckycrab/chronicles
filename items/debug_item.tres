@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource( 1 )
 visual = {
-"description": "no description set",
-"item_name": "name not set",
+"description": "A legendary item said to bypass the rules of the system itself.",
+"item_name": "Key of the Twilight",
 "mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": "slot not set"
+"slot": "Offhand"
 }
 overrides = {
 }

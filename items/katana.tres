@@ -5,16 +5,16 @@
 [resource]
 script = ExtResource( 1 )
 visual = {
-"description": "no description set",
-"item_name": "name not set",
-"mesh_file_path": "res://Blender/BaseHumanoid/pants.mesh",
-"slot": "slot not set"
+"description": "A blade forged of corpse iron.",
+"item_name": "Katana",
+"mesh_file_path": "res://Blender/BaseHumanoid/placeholder_sword.tres",
+"slot": "Mainhand"
 }
 overrides = {
 }
 passive = [  ]
 active = {
-"ability": "High Jump"
+"ability": "Draw Attack"
 }
 internal = {
 "count": 1,

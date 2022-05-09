@@ -1,10 +1,6 @@
 extends Ability
 
-func _init():
-	ability_name = "High Jump"
 
-func execute(item, host) -> void:
-	#var item = host.equip_item(self)
+func execute(_item: Item, host: Object) -> void:
 	host.add_force(Vector3.UP * 400)
 	yield(host.get_tree().create_timer(1), "timeout")
-	#item.queue_free()

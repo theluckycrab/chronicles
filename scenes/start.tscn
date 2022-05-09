@@ -56,4 +56,3 @@ item = "Katana"
 
 [node name="WorldObject2" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48935, 4.21515, 4.69325 )
-item = "Debug Item"

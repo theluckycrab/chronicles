@@ -1,8 +1,9 @@
 extends Spatial
 
-export(String) var item
+export(String) var item = "Debug Item"
 
-func _ready():
+
+func _ready() -> void:
 	item = Data.items[item].duplicate(true)
 	$Viewport/Preview.mesh = load(item.visual.mesh_file_path).duplicate(true)
 	var a1 = $Viewport/Preview.mesh.get_aabb()

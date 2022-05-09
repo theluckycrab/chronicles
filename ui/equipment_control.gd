@@ -13,7 +13,7 @@ onready var itList = $MainList
 func _ready():
 	generate_lists()
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	controls()
 	
 func show_list(list):

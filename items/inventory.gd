@@ -9,7 +9,7 @@ func get_item() -> Item:
 	return items[iterator]
 	
 	
-func add_item(item:Item, count: int = 1) -> void:
+func add_item(item: Item, count: int = 1) -> void:
 	var stats = item.stats
 	var n_item = Item.new()
 	n_item.stats = stats.duplicate(true)

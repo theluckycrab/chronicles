@@ -33,6 +33,7 @@ func _ready() -> void:
 	inventory.items[2].add_tags(["Kinda Gay"])
 	inventory.items[1].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
 
+
 func _physics_process(delta) -> void:
 	for i in passives:
 		i.execute(self)
@@ -111,7 +112,7 @@ func face_controlled_velocity() -> void:
 	body_face(angle)
 	
 	
-func body_face(targetAngle:float, turnSpeed:float = 0.2) -> void:
+func body_face(targetAngle: float, turnSpeed: float = 0.2) -> void:
 	$Armature.rotation.y = lerp_angle($Armature.rotation.y, targetAngle, turnSpeed)
 	
 	
@@ -121,11 +122,11 @@ func grab_camera() -> void:
 		cam.set_track_target(self)
 		
 		
-func add_force(addedForceVector:Vector3) -> void:
+func add_force(addedForceVector: Vector3) -> void:
 	velocity.force += addedForceVector
 	
 	
-func set_controlled_velocity(vel:Vector3) -> void:
+func set_controlled_velocity(vel: Vector3) -> void:
 	velocity.controlled = vel
 
 
@@ -134,15 +135,15 @@ func reset_velocity() -> void:
 	velocity.force = Vector3.ZERO
 	
 	
-func animate(animation) -> void:
+func animate(animation: String) -> void:
 	anim.play(animation)
 	
 	
-func swap_state(slot:String, state_object:Node) -> void:
+func swap_state(slot: String, state_object: Node) -> void:
 	state_machine.swap_state(slot, state_object)
 	
 	
-func reset_state(slot:String) -> void:
+func reset_state(slot: String) -> void:
 	state_machine.reset_state(slot)
 
 
@@ -158,59 +159,65 @@ func update_item_display() -> void:
 		label.text = i.item_name + str(i.count)
 		
 		
-func equip(item:Item):
+func equip(item: Item) -> void:
 	unequip(equipment[item.visual.slot])
 	equip_visuals(item)
 	equip_overrides(item)
 	equip_passive(item)
-	pass
 	
-func unequip(item:Item):
+	
+func unequip(item: Item) -> void:
 	remove_visuals(item)
 	remove_overrides(item)
 	remove_passives(item)
 	
-func reset_default(slot):
+	
+func reset_default(slot: String) -> void:
 	if equipment[slot] == defaults[slot]:
 		return
 	equip(defaults[slot])
 	
-func equip_visuals(item:Item):
-	var skeleton = $Armature/Skeleton
+	
+func equip_visuals(item: Item) -> void:
 	var mount = $Armature/Skeleton.get_node_or_null(item.visual.slot)
 	if mount:
 		mount.mesh = load(item.visual.mesh_file_path).duplicate(true)
 	equipment[item.visual.slot] = item
-	pass
 	
-func equip_overrides(item):
+	
+func equip_overrides(_item: Item) -> void:
 	#states
 	#animations
 	pass
 	
-func equip_passive(item):
+	
+func equip_passive(item: Item) -> void:
 	for i in item.passive:
 		add_passive(item, i)
+	
+	
+func remove_visuals(_item: Item) -> void:
 	pass
 	
-func remove_visuals(item):
+	
+func remove_overrides(_item: Item) -> void:
 	pass
 	
-func remove_overrides(item):
-	pass
 	
-func remove_passives(item):
+func remove_passives(item: Item) -> void:
 	for i in passives:
 		if i.source == item:
 			remove_passive(i.effect_name)
 				
-func add_passive(source, effect_name):
+				
+func add_passive(source, effect_name: String) -> void:
 	var e = Data.effects[effect_name].new()
 	e.source = source
 	e.enter(self)
 	passives.append(e)
 	
-func remove_passive(effect_name):
+	
+func remove_passive(effect_name: String) -> void:
 	for i in passives:
 		if i.effect_name == effect_name:
 			i.exit(self)

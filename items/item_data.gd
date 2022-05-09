@@ -25,16 +25,20 @@ export(Dictionary) var internal = {
 				tags = []
 }
 
-func activate(host):
+
+func activate(host: Object) -> void:
 	Data.abilities[active.ability].execute(self, host)
 
-func get_tags():
+
+func get_tags() -> Array:
 	return internal.tags
 	
-func has_tag(tag):
+	
+func has_tag(tag) -> bool:
 	return internal.tags.has(tag)
 	
-func add_tags(tag):
+	
+func add_tags(tag) -> void:
 	if has_tag(tag):
 		return
 	if ! tag is Array:
@@ -43,20 +47,26 @@ func add_tags(tag):
 		for i in tag:
 			internal.tags.append(i)
 	
-func remove_tag(tag):
+	
+func remove_tag(tag: String) -> void:
 	internal.tags.remove(tag)
 	
-func set_name(n):
+	
+func set_name(n: String) -> void:
 	internal.item_name = n
 
-func set_slot(s):
+
+func set_slot(s: String) -> void:
 	visual.slot = s
 	
-func set_description(d):
+	
+func set_description(d: String) -> void:
 	visual.description = d
 
-func set_mesh_file_path(p):
+
+func set_mesh_file_path(p: String) -> void:
 	visual.mesh_file_path = p
 	
-func set_ability(a_name):
+	
+func set_ability(a_name: String) -> void:
 	active.ability = Data.abilities[a_name].duplicate()

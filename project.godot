@@ -9,12 +9,12 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Resource",
 "class": "Ability",
 "language": "GDScript",
 "path": "res://abilities/ability.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://items/inventory.gd"

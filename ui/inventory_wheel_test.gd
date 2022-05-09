@@ -8,7 +8,6 @@ func _ready():
 	var up = Vector2.UP
 	var turn = deg2rad(360/items.size())
 	up = up.rotated(-turn)
-	var count = 0
 	for i in items:
 		up = up.rotated(turn)
 		var lab = Label.new()
@@ -17,7 +16,7 @@ func _ready():
 		lab.text = i
 	$Indicator.rect_position = pos + Vector2.UP * radius - $Indicator.rect_pivot_offset
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_right"):
 		$TextureRect.set_rotation($TextureRect.get_rotation() + deg2rad(360/items.size()))
 		shift("right")
