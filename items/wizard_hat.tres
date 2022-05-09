@@ -1,18 +1,18 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://Items/item_data.gd" type="Script" id=2]
+[ext_resource path="res://items/item_data.gd" type="Script" id=1]
 
 [resource]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 visual = {
-"description": "It's a wizard hat, yo.",
-"item_name": "Wizard Hat",
+"description": "no description set",
+"item_name": "name not set",
 "mesh_file_path": "res://Blender/BaseHumanoid/wizard_hat.mesh",
 "slot": "Head"
 }
 overrides = {
 }
-passive = [ "Slow Fall" ]
+passive = [  ]
 active = {
 "ability": "High Jump"
 }

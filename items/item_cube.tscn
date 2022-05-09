@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Items/item_data.gd" type="Script" id=1]
+[ext_resource path="res://items/item_data.gd" type="Script" id=1]
 [ext_resource path="res://Blender/BaseHumanoid/BaseHumanoid_Cube015.mesh" type="ArrayMesh" id=3]
-[ext_resource path="res://Items/item_cube.gd" type="Script" id=4]
+[ext_resource path="res://items/item_cube.gd" type="Script" id=4]
 
 [sub_resource type="Resource" id=1]
 resource_local_to_scene = true

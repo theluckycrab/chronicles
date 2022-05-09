@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://UI/camera_controlled.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Mobiles/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://System/icon.png" type="Texture" id=3]
-[ext_resource path="res://Items/world_object.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Items/item_cube.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/equipment_control.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ui/camera_controlled.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mobiles/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://system/icon.png" type="Texture" id=3]
+[ext_resource path="res://items/world_object.tscn" type="PackedScene" id=4]
+[ext_resource path="res://items/item_cube.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/equipment_control.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 3 )
