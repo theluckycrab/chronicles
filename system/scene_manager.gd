@@ -1,0 +1,25 @@
+extends Spatial
+
+export(String) var start_scene = "test_room"
+var current_scene = null
+onready var mount = $SceneMount
+
+
+func _ready() -> void:
+	var _discard = Events.connect("scene_change_request", self, "on_scene_change_request")
+	Events.emit_signal("scene_change_request", start_scene)
+
+
+func change_scene(scene: String) -> void:
+	get_tree().paused = true
+	for i in mount.get_children():
+		i.queue_free()
+	var nscene = load("res://scenes/"+scene+".tscn").instance()
+	mount.add_child(nscene)
+	current_scene = nscene
+	get_tree().paused = false
+	Events.emit_signal("console_print", "Scene has changed to " + scene)
+
+
+func on_scene_change_request(scene: String) -> void:
+	change_scene(scene)

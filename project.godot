@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/item_data.gd"
 }, {
-"base": "Reference",
+"base": "Control",
 "class": "ItemDisplay",
 "language": "GDScript",
 "path": "res://ui/item_display.gd"
@@ -82,6 +82,10 @@ config/icon="res://system/icon.png"
 
 Data="*res://system/data.gd"
 Events="*res://system/events.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=false
 
 [input]
 
