@@ -47,6 +47,17 @@ func command_dispatch(text) -> void:
 			load_scene(text)
 		"equip":
 			equip(text)
+		"network_host":
+			Network.host()
+		"network_join":
+			Network.join()
+		"network_disconnect":
+			get_tree().network_peer.close_connection()
+		"network_status":
+			print(get_tree().network_peer.get_connection_status())
+			print(get_tree().get_network_unique_id())
+		"quit":
+			get_tree().quit()
 
 
 func get_command_format(text) -> PoolStringArray:
