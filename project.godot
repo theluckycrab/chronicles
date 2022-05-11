@@ -12,52 +12,52 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Ability",
 "language": "GDScript",
-"path": "res://abilities/ability.gd"
+"path": "res://data/abilities/ability.gd"
 }, {
 "base": "Spatial",
 "class": "Inventory",
 "language": "GDScript",
-"path": "res://items/inventory.gd"
+"path": "res://world/objects/mobiles/inventory.gd"
 }, {
 "base": "Resource",
 "class": "Item",
 "language": "GDScript",
-"path": "res://items/item_data.gd"
+"path": "res://data/items/item_data.gd"
 }, {
 "base": "Control",
 "class": "ItemDisplay",
 "language": "GDScript",
-"path": "res://ui/item_display.gd"
+"path": "res://world/objects/ui/item_display.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateFall",
 "language": "GDScript",
-"path": "res://mobiles/PlayerStates/player_state_fall.gd"
+"path": "res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateIdle",
 "language": "GDScript",
-"path": "res://mobiles/PlayerStates/player_state_idle.gd"
+"path": "res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateJump",
 "language": "GDScript",
-"path": "res://mobiles/PlayerStates/player_state_jump.gd"
+"path": "res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateRun",
 "language": "GDScript",
-"path": "res://mobiles/PlayerStates/player_state_run.gd"
+"path": "res://world/objects/mobiles/player/PlayerStates/player_state_run.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateWalk",
 "language": "GDScript",
-"path": "res://mobiles/PlayerStates/player_state_walk.gd"
+"path": "res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd"
 }, {
 "base": "Spatial",
 "class": "SlowFallEffect",
 "language": "GDScript",
-"path": "res://effects/effect.gd"
+"path": "res://data/effects/effect.gd"
 } ]
 _global_script_class_icons={
 "Ability": "",
@@ -75,13 +75,14 @@ _global_script_class_icons={
 [application]
 
 config/name="chronicles"
-run/main_scene="res://scenes/start.tscn"
-config/icon="res://system/icon.png"
+run/main_scene="res://world/scene_manager.tscn"
+config/icon="res://data/assets/icon.png"
 
 [autoload]
 
-Data="*res://system/data.gd"
 Events="*res://system/events.gd"
+Data="*res://data/data.gd"
+Network="*res://network/network.gd"
 
 [debug]
 
@@ -141,4 +142,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://data/assets/default_env.tres"
