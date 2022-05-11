@@ -1,16 +1,13 @@
 extends Node
 
+var peer = NetworkedMultiplayerENet.new()
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	peer.create_server(5555, 1)
+	get_tree().network_peer = peer
 
+func relay_signal(sig, args):
+	rpc("emit", sig, args)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+remotesync func emit(sig, args):
+	Events.emit_signal(sig, args)

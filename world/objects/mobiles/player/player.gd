@@ -26,6 +26,8 @@ onready var skeleton = $Armature/Skeleton
 
 
 func _ready() -> void:
+	#Events.rpc("relay", "console_print", "dickdongs")
+	Network.relay_signal("console_print", "Player has spawned")
 	for i in defaults:
 		equip(defaults[i])
 	grab_camera()
