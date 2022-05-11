@@ -2,7 +2,7 @@
 
 [ext_resource path="res://data/abilities/high_jump.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/icon.png" type="Texture" id=2]
-[ext_resource path="res://world/objects/ui/item_icon.gd" type="Script" id=3]
+[ext_resource path="res://world/ui/item_icon.gd" type="Script" id=3]
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 1 )

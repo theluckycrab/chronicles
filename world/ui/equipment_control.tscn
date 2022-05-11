@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://world/objects/ui/item_icon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://world/objects/ui/wheel_inventory_test.tscn" type="PackedScene" id=2]
-[ext_resource path="res://world/objects/ui/equipment_control.gd" type="Script" id=3]
+[ext_resource path="res://world/ui/item_icon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/ui/wheel_inventory_test.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/ui/equipment_control.gd" type="Script" id=3]
 
 [node name="EquipmentControl" type="Control"]
 anchor_right = 0.061

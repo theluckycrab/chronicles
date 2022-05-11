@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://world/objects/ui/camera_controlled.gd" type="Script" id=1]
+[ext_resource path="res://world/ui/camera_controlled.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/default_env.tres" type="Environment" id=2]
 
 [node name="ControlledCamera" type="Spatial"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://world/objects/ui/item_display.gd" type="Script" id=1]
-[ext_resource path="res://world/objects/ui/player_inventory_display_category.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/ui/item_display.gd" type="Script" id=1]
+[ext_resource path="res://world/ui/player_inventory_display_category.tscn" type="PackedScene" id=2]
 
 [node name="ItemList" type="VBoxContainer"]
 anchor_top = 0.167

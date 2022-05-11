@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ItemDisplay",
 "language": "GDScript",
-"path": "res://world/objects/ui/item_display.gd"
+"path": "res://world/ui/item_display.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerStateFall",
