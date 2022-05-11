@@ -1,4 +1,8 @@
 extends Node
+var reference = ReferenceList.new()
+
+func _ready():
+	reference.build_list("res://data/abilities")
 
 var abilities = {
 	"High Jump" : preload("res://data/abilities/high_jump.tres"),
