@@ -12,9 +12,9 @@ visual = {
 }
 overrides = {
 }
-passive = [ "Slow Fall" ]
+passive = [ "slow_fall" ]
 active = {
-"ability": "High Jump"
+"ability": "high_jump"
 }
 internal = {
 "count": 1,

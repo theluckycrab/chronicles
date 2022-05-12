@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://data/abilities/ability.gd"
 }, {
 "base": "Spatial",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://data/effects/effect.gd"
+}, {
+"base": "Spatial",
 "class": "Inventory",
 "language": "GDScript",
 "path": "res://world/objects/mobiles/inventory.gd"
@@ -59,13 +64,14 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://data/reference.gd"
 }, {
-"base": "Spatial",
+"base": "Reference",
 "class": "SlowFallEffect",
 "language": "GDScript",
-"path": "res://data/effects/effect.gd"
+"path": "res://data/effects/slow_fall.gd"
 } ]
 _global_script_class_icons={
 "Ability": "",
+"Effect": "",
 "Inventory": "",
 "Item": "",
 "ItemDisplay": "",

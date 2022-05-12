@@ -3,13 +3,16 @@ class_name ReferenceList
 
 var list = {}
 
+
 func get_data(what):
 	return list[what]
 	
-func get_instance(what):
-	return list[what].duplicate(true)
 	
-func build_list(path):
+func get_instance(what):
+	return list[what].duplicate()
+	
+	
+func build_list(path) -> void:
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
@@ -24,6 +27,6 @@ func build_list(path):
 	dir.list_dir_end()
 
 	
-func load_data(path:String, file:String):
+func load_data(path:String, file:String) -> void:
 	var object = load(path+"/"+file)
 	list[file.get_basename()] = object

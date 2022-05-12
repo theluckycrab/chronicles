@@ -13,7 +13,7 @@ var gravity = {
 var stored_delta = 0
 var speed_mult = 5
 
-var defaults = {"Head":Data.items["Bandana"].duplicate(),
+var defaults = {"Head":Data.get_reference_instance("bandana"),
 		}
 var equipment = defaults.duplicate(true)
 var passives = []
@@ -211,7 +211,7 @@ func remove_passives(item: Item) -> void:
 				
 				
 func add_passive(source, effect_name: String) -> void:
-	var e = Data.effects[effect_name].new()
+	var e = load("res://data/effects/"+effect_name+".gd").new()
 	e.source = source
 	e.enter(self)
 	passives.append(e)

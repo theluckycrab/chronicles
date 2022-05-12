@@ -2,7 +2,6 @@ extends Node
 
 var peer = NetworkedMultiplayerENet.new()
 
-
 func relay_signal(sig, args) -> void:
 	rpc("emit", sig, args)
 
@@ -11,13 +10,9 @@ remotesync func emit(sig, args) -> void:
 	Events.emit_signal(sig, args)
 	
 	
-func host(singleplayer = false) -> void:
+func host(players = 1, port = 5555) -> void:
 	peer.close_connection()
-	if singleplayer:
-		peer.create_server(5555, 0)
-		get_tree().network_peer = peer
-		return
-	peer.create_server(5555, 4)
+	peer.create_server(port, players)
 	get_tree().network_peer = peer
 	
 	

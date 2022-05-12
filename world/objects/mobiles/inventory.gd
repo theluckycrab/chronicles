@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.items["Wizard Hat"].duplicate(), Data.items["Debug Item"].duplicate(), Data.items["Katana"].duplicate()]
+var items = [Data.get_reference_instance("wizard_hat"), Data.get_reference_instance("debug_item"), Data.get_reference_instance("katana")]
 var iterator: int = 0
 
 
@@ -41,9 +41,7 @@ func remove_item(item, count: int = 1) -> void:
 			if i.stats.count < 1: 
 				items.erase(i) 
 				print(item.item_name + " deleted from inventory.")
-				break
 				return
 			else:
 				print(count, " " + item.item_name + " removed from inventory.")
-				break
 				return

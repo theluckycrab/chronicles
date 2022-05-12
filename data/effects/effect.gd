@@ -1,7 +1,7 @@
-class_name SlowFallEffect
+class_name Effect
 extends Spatial
 
-var effect_name: String = "Slow Fall"
+var effect_name: String = "effect name not set"
 var source = null
 
 
@@ -14,6 +14,4 @@ func exit(_host: Object) -> void:
 
 
 func execute(host: Object) -> void:
-	if !host.is_on_floor():
-		host.add_force(Vector3.UP * 7)
 	pass

@@ -16,7 +16,7 @@ export(Dictionary) var overrides = {
 export(Array, String) var passive = []
 
 export(Dictionary) var active = {
-				ability = "High Jump"
+				ability = "high_jump"
 }
 
 export(Dictionary) var internal = {
@@ -27,7 +27,7 @@ export(Dictionary) var internal = {
 
 
 func activate(host: Object) -> void:
-	Data.abilities[active.ability].execute(self, host)
+	Data.get_reference(active.ability).execute(self, host)
 
 
 func get_tags() -> Array:
