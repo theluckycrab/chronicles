@@ -2,7 +2,8 @@ extends Node
 var reference = ReferenceList.new()
 
 func _ready():
-	reference.build_list("res://data/abilities")
+	print("building reference database")
+	reference.build_list("res://data")
 
 var abilities = {
 	"High Jump" : preload("res://data/abilities/high_jump.tres"),

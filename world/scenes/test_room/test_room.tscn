@@ -31,11 +31,11 @@ material = SubResource( 4 )
 
 [node name="ItemCube" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.22878, 0.835524, 0 )
-item = "Katana"
+item = "katana"
 
 [node name="ItemCube2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.835524, 0 )
-item = "Test Item"
+item = "bandana"
 
 [node name="ItemCube3" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.26217, 0.835524, 0 )
@@ -53,7 +53,7 @@ inventory = NodePath("../Player")
 
 [node name="WorldObject" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.21515, 4.69325 )
-item = "Katana"
+item = "katana"
 
 [node name="WorldObject2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.48935, 4.21515, 4.69325 )

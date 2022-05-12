@@ -1,10 +1,10 @@
 extends Spatial
 
-export(String) var item = "Debug Item"
+export(String) var item = "debug_item"
 
 
 func _ready() -> void:
-	item = Data.items[item].duplicate(true)
+	item = Data.reference.get_instance(item)
 	$Viewport/Preview.mesh = load(item.visual.mesh_file_path).duplicate(true)
 	var a1 = $Viewport/Preview.mesh.get_aabb()
 	$Viewport/Camera.global_transform.origin = Vector3(0, a1.position.y + (a1.size.y/2), 1)

@@ -3,11 +3,13 @@ class_name ReferenceList
 
 var list = {}
 
-func get_data(_what):
-	pass
+func get_data(what):
+	return list[what]
+	
+func get_instance(what):
+	return list[what].duplicate(true)
 	
 func build_list(path):
-	print("building references to " + path)
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
@@ -16,11 +18,12 @@ func build_list(path):
 		if file == "":
 			break
 		if file.ends_with(".tres"):
-			store_data(file)
-		if file is Directory:
-			print(file)
+			load_data(path, file)
+		if dir.current_is_dir() and file != "." and file != "..":
+			build_list(path+"/"+file)
 	dir.list_dir_end()
 
 	
-func store_data(file):
-	print(file)
+func load_data(path:String, file:String):
+	var object = load(path+"/"+file)
+	list[file.get_basename()] = object
