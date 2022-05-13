@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/player/state_machine.tscn" type="PackedScene" id=2]
@@ -9,8 +9,11 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Material.material" type="Material" id=7]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Material_001.material" type="Material" id=8]
 [ext_resource path="res://data/assets/Blender/Material_001.material" type="Material" id=9]
+[ext_resource path="res://world/objects/mobiles/armature.gd" type="Script" id=10]
+[ext_resource path="res://world/objects/mobiles/buff_list.gd" type="Script" id=11]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Fall.anim" type="Animation" id=12]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/APose.anim" type="Animation" id=13]
+[ext_resource path="res://world/objects/mobiles/inventory.tscn" type="PackedScene" id=14]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.21859, 1, 0.236159 )
@@ -161,6 +164,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01004, 0 )
 shape = SubResource( 2 )
 
 [node name="Armature" type="Spatial" parent="."]
+script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
 
@@ -202,3 +206,8 @@ anims/Walk = ExtResource( 3 )
 [node name="MoveTarget" type="Position3D" parent="Armature/AnimationPlayer"]
 
 [node name="StateMachine" parent="." instance=ExtResource( 2 )]
+
+[node name="Inventory" parent="." instance=ExtResource( 14 )]
+
+[node name="BuffList" type="Spatial" parent="."]
+script = ExtResource( 11 )

@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://world/ui/item_display.gd"
 }, {
+"base": "Node",
+"class": "NetStats",
+"language": "GDScript",
+"path": "res://network/net_stats.gd"
+}, {
 "base": "Spatial",
 "class": "PlayerStateFall",
 "language": "GDScript",
@@ -64,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://data/reference.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "SlowFallEffect",
 "language": "GDScript",
 "path": "res://data/effects/slow_fall.gd"
@@ -75,6 +80,7 @@ _global_script_class_icons={
 "Inventory": "",
 "Item": "",
 "ItemDisplay": "",
+"NetStats": "",
 "PlayerStateFall": "",
 "PlayerStateIdle": "",
 "PlayerStateJump": "",

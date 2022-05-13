@@ -1,0 +1,22 @@
+extends Spatial
+
+onready var defaults = {"Head":Data.get_reference_instance("wizard_hat")}
+onready var equipment = defaults.duplicate(true)
+onready var host = get_parent()
+
+func _ready():
+	for i in defaults:
+		equip(defaults[i])
+
+func equip(item):
+	var mount = get_node("Skeleton/"+item.visual.slot)
+	mount.set_mesh(load(item.visual.mesh_file_path).duplicate(true))
+	for i in item.passive:
+		Events.emit_signal("effect_added", {effect=i, source=item})
+	pass
+	
+func unequip(_item):
+	pass
+	
+func set_default(_slot, _item):
+	pass

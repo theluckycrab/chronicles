@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 visual = {
 "description": "no description set",
-"item_name": "name not set",
+"item_name": "bandana",
 "mesh_file_path": "res://data/assets/Blender/BaseHumanoid/bandana.mesh",
 "slot": "Head"
 }

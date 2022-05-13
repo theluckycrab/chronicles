@@ -12,45 +12,40 @@ var gravity = {
 				}
 var stored_delta = 0
 var speed_mult = 5
-
-var defaults = {"Head":Data.get_reference_instance("bandana"),
-		}
-var equipment = defaults.duplicate(true)
-var passives = []
+var netID = 0
+var net_stats = NetStats.new("debug_item")
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
 onready var armature = $Armature
-onready var inventory = Inventory.new()
-onready var skeleton = $Armature/Skeleton
+onready var inventory = $Inventory
+onready var buff_list = $BuffList
 
 
 func _ready() -> void:
-	for i in defaults:
-		equip(defaults[i])
+	var _discard = Events.connect("item_added", self, "on_item_added")
+	var _dicksward = Events.connect("item_equipped", self, "on_item_equipped")
 	grab_camera()
-	inventory.items[2].set_name("Dickdongs")
-	inventory.items[2].add_tags(["Kinda Gay"])
-	inventory.items[1].set_mesh_file_path("res://Blender/BaseHumanoid/BaseHumanoid_Cube008.mesh")
+	
+	
+func on_item_added(args):
+	if netID != args.netID:
+		return
+	var item = Data.get_reference_instance(args.item)
+	item.internal.is_modified = args.is_modified
+	inventory.add_item(item, args.count)
+	
+func on_item_equipped(args):
+	var i = Data.get_reference_instance(args.item)
+	armature.equip(i)
+	
 
 
 func _physics_process(delta) -> void:
-	for i in passives:
-		i.execute(self)
 	stored_delta = delta
-	if Input.is_action_just_pressed("sprint"):
-		if $StateMachine.state_dict["Walk"] == run_test:
-			reset_state("Walk")
-		else:
-			swap_state("Walk", run_test)
-	if Input.is_action_just_pressed("item"):
-		#inventory.get_item().activate(self)
-		equip(inventory.items[0])
-	if Input.is_action_just_pressed("trash_item"):
-		#equip(defaults["Head"])
-		equipment["Head"].activate(self)
+	buff_list.process()
 	if Input.is_action_just_pressed("ui_cancel"):
-		reset_default("Head")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
@@ -145,81 +140,3 @@ func swap_state(slot: String, state_object: Node) -> void:
 	
 func reset_state(slot: String) -> void:
 	state_machine.reset_state(slot)
-
-
-func update_item_display() -> void:
-	var list = inventory.items
-	var display = $ItemList
-	for i in display.get_children():
-		i.queue_free()
-	for i in list:
-		i = i.stats
-		var label = Label.new()
-		display.add_child(label)
-		label.text = i.item_name + str(i.count)
-		
-		
-func equip(item: Item) -> void:
-	unequip(equipment[item.visual.slot])
-	equip_visuals(item)
-	equip_overrides(item)
-	equip_passive(item)
-	
-	
-func unequip(item: Item) -> void:
-	remove_visuals(item)
-	remove_overrides(item)
-	remove_passives(item)
-	
-	
-func reset_default(slot: String) -> void:
-	if equipment[slot] == defaults[slot]:
-		return
-	equip(defaults[slot])
-	
-	
-func equip_visuals(item: Item) -> void:
-	var mount = $Armature/Skeleton.get_node_or_null(item.visual.slot)
-	if mount:
-		mount.mesh = load(item.visual.mesh_file_path).duplicate(true)
-	equipment[item.visual.slot] = item
-	
-	
-func equip_overrides(_item: Item) -> void:
-	#states
-	#animations
-	pass
-	
-	
-func equip_passive(item: Item) -> void:
-	for i in item.passive:
-		add_passive(item, i)
-	
-	
-func remove_visuals(_item: Item) -> void:
-	pass
-	
-	
-func remove_overrides(_item: Item) -> void:
-	pass
-	
-	
-func remove_passives(item: Item) -> void:
-	for i in passives:
-		if i.source == item:
-			remove_passive(i.effect_name)
-				
-				
-func add_passive(source, effect_name: String) -> void:
-	var e = load("res://data/effects/"+effect_name+".gd").new()
-	e.source = source
-	e.enter(self)
-	passives.append(e)
-	
-	
-func remove_passive(effect_name: String) -> void:
-	for i in passives:
-		if i.effect_name == effect_name:
-			i.exit(self)
-			passives.erase(i)
-			return

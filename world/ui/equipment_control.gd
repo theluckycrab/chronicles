@@ -11,7 +11,8 @@ var iterator = 0
 onready var itList = $MainList
 
 func _ready():
-	generate_lists()
+	generate_lists(null)
+	Events.connect("item_added", self, "generate_lists")
 	
 func _physics_process(_delta):
 	controls()
@@ -36,10 +37,22 @@ func hide_list(list):
 		i.visible = false
 	list.get_child(0).visible = true
 
-func generate_lists():
+func generate_lists(_discargs):
+	for i in hat_list.get_children():
+		if i != hat_list.get_child(0):
+			i.queue_free()
+	for i in boots_list.get_children():
+		if i != boots_list.get_child(0):
+			i.queue_free()
+	for i in main_list.get_children():
+		if i != main_list.get_child(0):
+			i.queue_free()
+	for i in off_list.get_children():
+		if i != off_list.get_child(0):
+			i.queue_free()
 	for i in inventory.items:
 		var nicon = icon.instance()
-		nicon.item = i
+		nicon.call_deferred("build", i)
 		nicon.visible = false
 		match i.visual.slot:
 			"Head":

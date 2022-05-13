@@ -8,7 +8,7 @@ visual = {
 "description": "no description set",
 "item_name": "name not set",
 "mesh_file_path": "res://data/assets/Blender/BaseHumanoid/pants.mesh",
-"slot": "Chest"
+"slot": "Offhand"
 }
 overrides = {
 }

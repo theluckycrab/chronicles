@@ -1,32 +1,38 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.get_reference_instance("wizard_hat"), Data.get_reference_instance("debug_item"), Data.get_reference_instance("katana")]
-var iterator: int = 0
+var items = [Data.get_reference_instance("wizard_hat"),
+		 Data.get_reference_instance("bandana"),
+		 Data.get_reference_instance("katana")]
+		
+onready var host = get_parent()
+
+func _ready():
+	$Display.build_list(items)
 
 
-func get_item() -> Item:
-	return items[iterator]
-	
+func get_item(item_name):
+	for i in items:
+		if i.visual.item_name == item_name:
+			return i
+	pass
 	
 func add_item(item: Item, count: int = 1) -> void:
-	var stats = item.stats
-	var n_item = Item.new()
-	n_item.stats = stats.duplicate(true)
-
-	if !n_item.stats.is_modified:
+	print("adding ", count, " ", item.visual.item_name)
+	if !item.internal.is_modified:
 		for i in items:
-			if i.stats.item_name == n_item.stats.item_name:
-				i.stats.count += count
+			if i.visual.item_name == item.visual.item_name:
+				i.internal.count += count
+				print(items[0].visual.item_name, items[0].internal.count)
 				return
-		n_item.stats.count = count
-		items.append(n_item)
+		item.count = count
+		items.append(item)
 	else:
 		if count > 1:
 			for i in count:
-				add_item(n_item)
+				add_item(item)
 		else:
-			items.append(n_item)
+			items.append(item)
 	
 	
 func remove_item(item, count: int = 1) -> void:
