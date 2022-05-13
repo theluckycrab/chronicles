@@ -13,7 +13,7 @@ var gravity = {
 var stored_delta = 0
 var speed_mult = 5
 var netID = 0
-var net_stats = NetStats.new("debug_item")
+var net_stats = NetStats.new("player")
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
@@ -21,12 +21,24 @@ onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
+func _init():
+	net_stats.original_instance_id = get_instance_id()
+	Events.emit_signal("register_object", net_stats.net_sum())
+
+func equip(args):
+	var item = Network.get_net_object(args.item)
+	armature.equip(item)
 
 func _ready() -> void:
 	var _discard = Events.connect("item_added", self, "on_item_added")
 	var _dicksward = Events.connect("item_equipped", self, "on_item_equipped")
 	grab_camera()
-	
+	var command = {
+			command = "equip",
+			host = net_stats.netID,
+			item = inventory.items[0].net_stats.netID
+	}
+	Network.relay_signal("net_command", command)
 	
 func on_item_added(args):
 	if netID != args.netID:

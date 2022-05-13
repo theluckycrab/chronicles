@@ -40,6 +40,7 @@ func spawn(args) -> void:
 			object = load("res://world/objects/mobiles/"+args.index+"/"+args.index+".tscn").instance()
 	add_child(object)
 	object.global_transform.origin = args.position
-	object.netID = args.netID
-	net_objects[object.netID] = object
+	#object.netID = args.netID
+	#net_objects[object.netID] = object
+
 

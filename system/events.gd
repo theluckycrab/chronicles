@@ -13,3 +13,5 @@ signal spawn
 signal item_added
 signal item_equipped
 signal effect_added
+signal register_object
+signal net_command

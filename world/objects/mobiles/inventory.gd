@@ -1,9 +1,9 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.get_reference_instance("wizard_hat"),
-		 Data.get_reference_instance("bandana"),
-		 Data.get_reference_instance("katana")]
+var items = [Data.get_reference_instance("bandana"),
+		 Data.get_reference_instance("wizard_hat"),
+		 Data.get_reference_instance("debug_item")]
 		
 onready var host = get_parent()
 
