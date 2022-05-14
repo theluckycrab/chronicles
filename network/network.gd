@@ -18,7 +18,7 @@ func relay_signal(sig, args) -> void:
 	
 func _ready():
 	var _dicks = Events.connect("register_object", self, "on_register_object")
-	var _discard = Events.connect("net_command", self, "on_net_command")
+	var _discard = Events.connect("network_command", self, "on_net_command")
 
 
 remotesync func emit(sig, args) -> void:
@@ -48,7 +48,7 @@ func on_register_object(args):
 	pass
 
 func on_net_command(args):
-	net_objects[args.host].call(args.command, args)
+	net_objects[args.sender].call(args.command, args)
 
 func get_net_object(netID):
 	return net_objects[netID]

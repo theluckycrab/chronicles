@@ -21,3 +21,6 @@ internal = {
 "is_modified": false,
 "tags": [  ]
 }
+combat = {
+"durability": 10
+}

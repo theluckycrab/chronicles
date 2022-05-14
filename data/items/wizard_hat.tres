@@ -12,12 +12,16 @@ visual = {
 }
 overrides = {
 }
-passive = [ "slow_fall" ]
+passive = [  ]
 active = {
 "ability": "high_jump"
 }
 internal = {
 "count": 1,
+"index": "wizard_hat",
 "is_modified": false,
 "tags": [  ]
+}
+combat = {
+"durability": 10
 }

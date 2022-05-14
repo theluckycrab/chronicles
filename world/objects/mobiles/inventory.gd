@@ -25,7 +25,7 @@ func add_item(item: Item, count: int = 1) -> void:
 				i.internal.count += count
 				print(items[0].visual.item_name, items[0].internal.count)
 				return
-		item.count = count
+		item.internal.count = count
 		items.append(item)
 	else:
 		if count > 1:

@@ -12,8 +12,8 @@ var gravity = {
 				}
 var stored_delta = 0
 var speed_mult = 5
-var netID = 0
 var net_stats = NetStats.new("player")
+var netID setget set_netID, get_netID
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
@@ -23,6 +23,7 @@ onready var buff_list = $BuffList
 
 func _init():
 	net_stats.original_instance_id = get_instance_id()
+	net_stats.netID = Network.nid()
 	Events.emit_signal("register_object", net_stats.net_sum())
 
 func equip(args):
@@ -33,19 +34,16 @@ func _ready() -> void:
 	var _discard = Events.connect("item_added", self, "on_item_added")
 	var _dicksward = Events.connect("item_equipped", self, "on_item_equipped")
 	grab_camera()
-	var command = {
-			command = "equip",
-			host = net_stats.netID,
-			item = inventory.items[0].net_stats.netID
-	}
-	Network.relay_signal("net_command", command)
+	npc("equip", {item = inventory.items[0]})
 	
 func on_item_added(args):
-	if netID != args.netID:
+	if self.netID != args.netID:
 		return
 	var item = Data.get_reference_instance(args.item)
 	item.internal.is_modified = args.is_modified
 	inventory.add_item(item, args.count)
+	inventory.get_node("Display").clear_list()
+	inventory.get_node("Display").build_list(inventory.items)
 	
 func on_item_equipped(args):
 	var i = Data.get_reference_instance(args.item)
@@ -58,9 +56,16 @@ func _physics_process(delta) -> void:
 	buff_list.process()
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if Input.is_action_just_pressed("trash_item"):
+		armature.equipment["Head"].combat.durability -= 1
+		if armature.equipment["Head"].combat.durability <= 0:
+			npc("destroy", {slot = "Head"})
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
+	
+func destroy(args):
+	armature.destroy(args.slot)
 	
 	
 func get_controlled_velocity_wasd() -> void:
@@ -152,3 +157,12 @@ func swap_state(slot: String, state_object: Node) -> void:
 	
 func reset_state(slot: String) -> void:
 	state_machine.reset_state(slot)
+
+func npc(function, args):
+	net_stats.npc(function, args)
+	
+func set_netID(id):
+	net_stats.netID = id
+	
+func get_netID():
+	return net_stats.netID

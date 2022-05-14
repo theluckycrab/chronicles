@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/player/state_machine.tscn" type="PackedScene" id=2]
@@ -155,6 +155,9 @@ surfaces/1 = {
 "vertex_count": 300
 }
 
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 0.1, 0.1, 0.1 )
+
 [node name="Player" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
@@ -195,6 +198,26 @@ material/1 = null
 mesh = SubResource( 8 )
 material/0 = null
 material/1 = null
+
+[node name="Offhand" type="BoneAttachment" parent="Armature/Skeleton"]
+transform = Transform( -0.900325, 0.0765056, 0.428439, 0.428439, -0.017255, 0.903406, 0.0765086, 0.99692, -0.0172439, 0.872303, 1.29422, 0.0546245 )
+bone_name = "WeaponBone.L"
+
+[node name="Offhand" type="MeshInstance" parent="Armature/Skeleton/Offhand"]
+transform = Transform( -0.900326, 0.428439, 0.0765083, 0.0765063, -0.0172542, 0.996919, 0.428439, 0.903406, -0.0172429, 0.0282991, 0.0114903, -0.0183551 )
+mesh = SubResource( 10 )
+skeleton = NodePath("")
+material/0 = null
+
+[node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
+transform = Transform( -0.900325, -0.0765056, -0.428439, -0.428439, -0.017255, 0.903406, -0.0765086, 0.99692, -0.0172439, -0.872303, 1.29422, 0.0546245 )
+bone_name = "WeaponBone.R"
+
+[node name="Mainhand" type="MeshInstance" parent="Armature/Skeleton/Mainhand"]
+transform = Transform( -0.900326, 0.428439, 0.0765083, 0.0765063, -0.0172542, 0.996919, 0.428439, 0.903406, -0.0172429, 0.0282991, 0.0114903, -0.0183551 )
+mesh = SubResource( 10 )
+skeleton = NodePath("")
+material/0 = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Armature"]
 root_node = NodePath("../..")
