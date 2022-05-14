@@ -1,7 +1,7 @@
 class_name SlowFallEffect
-extends Spatial
+extends Resource
 
-var effect_name: String = "Slow Fall"
+export var effect_name: String = "Slow Fall"
 var source = null
 
 

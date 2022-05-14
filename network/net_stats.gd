@@ -1,4 +1,4 @@
-extends Node
+extends Reference
 class_name NetStats
 
 var netID = 0
@@ -9,7 +9,6 @@ var original_instance_id
 
 func _init(index = "debug_item"):
 	base_data_index = index
-	netID = Network.nid_gen()
 	
 func _update():
 	pass

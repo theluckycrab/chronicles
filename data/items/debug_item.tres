@@ -18,6 +18,7 @@ active = {
 }
 internal = {
 "count": 1,
+"index": "debug_item",
 "is_modified": false,
 "tags": [  ]
 }

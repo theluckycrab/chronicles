@@ -23,18 +23,28 @@ onready var buff_list = $BuffList
 
 func _init():
 	net_stats.original_instance_id = get_instance_id()
-	net_stats.netID = Network.nid()
-	Events.emit_signal("register_object", net_stats.net_sum())
 
 func equip(args):
 	var item = Network.get_net_object(args.item)
+	if armature.equipment.has(item.visual.slot) and\
+			armature.equipment[item.visual.slot] == item:
+		return
+	if armature.equipment.has(item.visual.slot):
+		buff_list.remove_passives(armature.equipment[item.visual.slot])
 	armature.equip(item)
+	buff_list.add_passives(item)
 
 func _ready() -> void:
+	Events.emit_signal("register_object", net_stats.net_sum())
+	if self.netID != Network.nid():
+		$Inventory/Display.visible = false
 	var _discard = Events.connect("item_added", self, "on_item_added")
-	var _dicksward = Events.connect("item_equipped", self, "on_item_equipped")
 	grab_camera()
-	npc("equip", {item = inventory.items[0]})
+#	for i in armature.defaults:
+#		npc("equip", {item=armature.defaults[i]})
+	
+func remove_passives(source):
+	buff_list.remove_passives(source)
 	
 func on_item_added(args):
 	if self.netID != args.netID:
@@ -44,12 +54,6 @@ func on_item_added(args):
 	inventory.add_item(item, args.count)
 	inventory.get_node("Display").clear_list()
 	inventory.get_node("Display").build_list(inventory.items)
-	
-func on_item_equipped(args):
-	var i = Data.get_reference_instance(args.item)
-	armature.equip(i)
-	
-
 
 func _physics_process(delta) -> void:
 	stored_delta = delta
@@ -57,15 +61,13 @@ func _physics_process(delta) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Input.is_action_just_pressed("trash_item"):
-		armature.equipment["Head"].combat.durability -= 1
-		if armature.equipment["Head"].combat.durability <= 0:
-			npc("destroy", {slot = "Head"})
+		npc("destroy", {slot = "Head"})
 	get_controlled_velocity_wasd()
 	$StateMachine.execute()
 	move()
 	
 func destroy(args):
-	armature.destroy(args.slot)
+	npc("equip", {item = armature.defaults[args.slot]})
 	
 	
 func get_controlled_velocity_wasd() -> void:
@@ -160,9 +162,14 @@ func reset_state(slot: String) -> void:
 
 func npc(function, args):
 	net_stats.npc(function, args)
+	print(args)
 	
 func set_netID(id):
 	net_stats.netID = id
 	
 func get_netID():
 	return net_stats.netID
+
+
+func _exit_tree():
+	run_test.queue_free()

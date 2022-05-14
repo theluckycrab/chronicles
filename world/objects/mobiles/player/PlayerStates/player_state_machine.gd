@@ -103,3 +103,4 @@ func swap_state(slot:String, state_object:Node) -> void:
 	
 func reset_state(slot:String) -> void:
 	state_dict[slot] = base_state_dict[slot]
+

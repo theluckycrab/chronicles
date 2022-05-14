@@ -37,7 +37,7 @@ var net_stats = NetStats.new(internal.index)
 func _init():
 	net_stats.original_instance_id = get_instance_id()
 	net_stats.base_data_index = internal.index
-	Events.emit_signal("register_object", net_stats.net_sum())
+	#Network.relay_signal("register_object", net_stats.net_sum())
 
 
 func activate(host: Object) -> void:

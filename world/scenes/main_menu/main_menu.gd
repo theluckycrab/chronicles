@@ -15,6 +15,8 @@ func _ready() -> void:
 	join_button.connect("button_down", self, "on_join")
 	host_button.connect("button_down", self, "on_host")
 	
+	Network.peer.connect("connection_succeeded", self, "on_test")
+	
 	
 func on_offline() -> void:
 	Network.host(1)
@@ -27,13 +29,15 @@ func on_online() -> void:
 	
 func on_join() -> void:
 	Network.join()
-	Events.emit_signal("scene_change_request", "test_room")
+	#Events.emit_signal("scene_change_request", "test_room")
+	#on_test()
 	
 	
 func on_host() -> void:
 	Network.host(4)
-	Events.emit_signal("scene_change_request", "test_room")
+	on_test()
 	
 	
 func on_test() -> void:
+	Network.set_nid()
 	Events.emit_signal("scene_change_request", "test_room")

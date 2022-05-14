@@ -6,7 +6,11 @@ onready var mount = $SceneMount
 
 
 func _ready() -> void:
+	var _datscard = Data.connect("data_ready", self, "on_data_ready")
 	var _discard = Events.connect("scene_change_request", self, "on_scene_change_request")
+	
+	
+func on_data_ready():
 	Events.emit_signal("scene_change_request", start_scene)
 
 

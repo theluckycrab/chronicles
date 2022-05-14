@@ -10,8 +10,7 @@ onready var args = {
 					netID = Network.nid_gen()
 	}
 	
-	
-func _physics_process(_delta) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		args.netID = Network.nid_gen()
-		Network.call_deferred("relay_signal", "spawn", args)
+#func _physics_process(_delta) -> void:
+	#if Input.is_action_just_pressed("ui_cancel"):
+		#args.netID = Network.nid_gen()
+		#Network.call_deferred("relay_signal", "spawn", args)

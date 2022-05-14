@@ -1,36 +1,26 @@
 extends Spatial
 
-var spawn_args = {
-			parent = self,
-			position=Vector3(0,0,0), 
-			index="debug_item", 
-			type="item", 
-			modificiations={},
-			netID = 0
-			}
-			
 var net_objects = {}
 
 
 func _ready() -> void:
 	var _discard = Events.connect("spawn", self, "on_spawn")
-	Network.call_deferred("relay_signal", "spawn", {
-			type="mobile", 
-			index="player", 
-			position=$PlayerSpawn.global_transform.origin,
-			modifiations={},
-			netID=Network.nid_gen()
-	})
-	
+	print(Network.nid())
+	var args = {
+		type = "mobile",
+		netID = Network.nid(),
+		netOwner = Network.nid(),
+		index = "player",
+		position = $PlayerSpawn.global_transform.origin
+	}
+	Network.relay_signal("spawn", args)
+	Network.rpc_id(1, "request_history")
 	
 func on_spawn(args) -> void:
-	spawn(args)
+	call_deferred("spawn", args)
 
 
 func spawn(args) -> void:
-	for i in spawn_args:
-		if !args.has(i):
-			args[i] = spawn_args[i]
 	var object
 	match args.type:
 		"item":
@@ -38,9 +28,11 @@ func spawn(args) -> void:
 			object.item = args.index
 		"mobile":
 			object = load("res://world/objects/mobiles/"+args.index+"/"+args.index+".tscn").instance()
+	if "net_stats" in object:
+		object.netID = args.netID
+		object.net_stats.netOwner = args.netOwner
 	add_child(object)
 	object.global_transform.origin = args.position
-	#object.netID = args.netID
-	#net_objects[object.netID] = object
+	net_objects[object.netID] = object
 
 

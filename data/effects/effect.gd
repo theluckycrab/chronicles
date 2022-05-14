@@ -1,5 +1,5 @@
 class_name Effect
-extends Spatial
+extends Resource
 
 var effect_name: String = "effect name not set"
 var source = null
