@@ -22,7 +22,14 @@ onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
 func equip(args):
-	var item = Network.get_net_object(args.item)
+	var item
+	match args.source:
+		"inventory":
+			item = inventory.items[args.index]
+		"defaults":
+			item = armature.defaults[args.index]
+		"external":
+			item = Data.get_reference_instance(args.index)
 	if armature.equipment.has(item.visual.slot) and\
 			armature.equipment[item.visual.slot] == item:
 		return
@@ -42,8 +49,8 @@ func _ready() -> void:
 	$Inventory/Display.visible = false
 	var _discard = Events.connect("item_added", self, "on_item_added")
 	grab_camera()
-#	for i in armature.defaults:
-#		npc("equip", {item=armature.defaults[i]})
+	#for i in armature.defaults:
+		#npc("equip", {item=armature.defaults[i]})
 	
 func remove_passives(source):
 	buff_list.remove_passives(source)
@@ -61,14 +68,16 @@ func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():
 		stored_delta = delta
 		buff_list.process()
+		if Input.is_action_just_pressed("item"):
+			npc("equip", {source="defaults", index="Head"})
 		if Input.is_action_just_pressed("trash_item"):
-			npc("destroy", {slot = "Head"})
+			npc("equip", {source="inventory", index=0})
 		get_controlled_velocity_wasd()
 		$StateMachine.execute()
 		move()
 	
 func destroy(args):
-	npc("equip", {item = armature.defaults[args.slot]})
+	equip(armature.defaults[args.slot])
 	
 	
 func get_controlled_velocity_wasd() -> void:

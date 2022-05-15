@@ -2,9 +2,11 @@ extends Spatial
 
 export(String) var item = "debug_item"
 onready var item_name = item
+var net_stats = NetStats.new("item_cube")
 
 
 func _ready() -> void:
+	net_stats.register()
 	item = Data.get_reference_instance(item)
 	$Viewport/Preview.mesh = load(item.visual.mesh_file_path).duplicate(true)
 	var a1 = $Viewport/Preview.mesh.get_aabb()
