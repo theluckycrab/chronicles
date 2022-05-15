@@ -25,6 +25,7 @@ func build_list(path) -> void:
 		if dir.current_is_dir() and file != "." and file != "..":
 			build_list(path+"/"+file)
 	dir.list_dir_end()
+	list["player"] = "res://world/objects/mobiles/player/player.tscn"
 
 	
 func load_data(path:String, file:String) -> void:

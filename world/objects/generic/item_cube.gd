@@ -1,7 +1,6 @@
 extends Spatial
 
 export(String) var item = "debug_item"
-var netID = 0
 onready var item_name = item
 
 
@@ -16,6 +15,7 @@ func _ready() -> void:
 	elif s.y >= s.x:
 		s = s.y
 	$Viewport/Camera.size = s * 1.1
+	print("Item Cube loaded")
 
 func activate(target):
 	Network.relay_signal("item_added", {netID = target.netID,

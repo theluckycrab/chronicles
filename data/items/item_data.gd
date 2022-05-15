@@ -32,7 +32,7 @@ export(Dictionary) var combat = {
 
 var netID setget set_netID, get_netID
 
-var net_stats = NetStats.new(internal.index)
+var net_stats = NetStats.new()
 
 func _init():
 	net_stats.original_instance_id = get_instance_id()

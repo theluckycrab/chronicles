@@ -2,15 +2,16 @@ extends Node
 
 var peer = NetworkedMultiplayerENet.new()
 var netID_count = 0
-var nide = 1
+var nid = 1
 
 var net_objects = {}
 
 func set_nid():
-	nide = get_tree().get_network_unique_id()
+	nid = get_tree().get_network_unique_id()
+	netID_count = nid
 	
-func nid():
-	return nide
+func get_nid():
+	return nid
 	
 func nid_gen():
 	netID_count += 1
@@ -20,9 +21,14 @@ func relay_signal(sig, args) -> void:
 	rpc("emit", sig, args)
 	
 func _ready():
-	var _dicks = Events.connect("register_object", self, "on_register_object")
 	var _discard = Events.connect("network_command", self, "on_net_command")
-	host()
+	var _disc = peer.connect("connection_succeeded", self, "on_connection_succeeded")
+	var _dicks = Events.connect("register", self, "on_register")
+	print("Network ready")
+	
+func on_connection_succeeded():
+	set_nid()
+	rpc_id(1, "request_history")
 
 
 remotesync func emit(sig, args) -> void:
@@ -33,33 +39,12 @@ func host(players = 1, port = 5555) -> void:
 	peer.close_connection()
 	peer.create_server(port, players)
 	get_tree().network_peer = peer
-	netID_count = nid()
 	
 	
 func join(ip = "127.0.0.1", port = 5555) -> void:
 	peer.close_connection()
 	peer.create_client(ip, port)
 	get_tree().network_peer = peer
-	netID_count = nid()
-
-
-remotesync func on_register_object(args):
-	print("registering ", args, " as ", args.netID)
-	if args.netOwner != Network.nid():
-		print("dup")
-		if args.base_data_index == "player":
-			for i in get_node("/root/SceneManager").current_scene.get_children():
-				if "net_stats" in i:
-					if i.netID == args.netID:
-						net_objects[args.netID] = i
-			net_objects[args.netID].netID = args.netID
-			net_objects[args.netID].net_stats.netOwner = args.netID
-			return
-		net_objects[args.netID] = Data.get_reference_instance(args.base_data_index, false)
-	else:
-		print("ref")
-		net_objects[args.netID] = instance_from_id(args.original_instance_id)
-	pass
 
 func on_net_command(args):
 	print("Network.on_net_command args : ", args)
@@ -69,12 +54,34 @@ func on_net_command(args):
 func get_net_object(netID):
 	return net_objects[netID]
 	
+func on_register(args):
+	var object
+	if net_objects.has(args.netID):
+		return
+	if args.netOwner == get_nid() and args.original_instance_id != null:
+		net_objects[args.netID] = instance_from_id(args.original_instance_id)
+		return
+	else:
+		object = Data.get_reference_instance(args.index)
+		net_objects[args.netID] = object
+		object.net_stats.netID = args.netID
+		object.net_stats.netOwner = args.netOwner
+		object.net_stats.mods = args.history.duplicate(true)
+		object.net_stats.base_data_index = args.index
+		object.net_stats.original_instance_id = args.original_instance_id
+		Events.emit_signal("spawn", object)
+		
 remotesync func request_history():
-	var history = []
+	var history = {}
 	for i in net_objects:
-		if "net_stats" in net_objects[i]:
-			history.append(net_objects[i].net_stats.net_sum())
-	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history)
+		history[i] = net_objects[i].net_stats.net_sum()
+	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history.duplicate(true))
+	pass
 	
 remotesync func receive_history(history):
-	print(history)
+	for i in history:
+		on_register(history[i])
+	pass
+	
+func process_history():
+	pass

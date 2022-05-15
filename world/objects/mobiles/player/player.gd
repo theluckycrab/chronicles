@@ -21,9 +21,6 @@ onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
-func _init():
-	net_stats.original_instance_id = get_instance_id()
-
 func equip(args):
 	var item = Network.get_net_object(args.item)
 	if armature.equipment.has(item.visual.slot) and\
@@ -33,11 +30,16 @@ func equip(args):
 		buff_list.remove_passives(armature.equipment[item.visual.slot])
 	armature.equip(item)
 	buff_list.add_passives(item)
+	
+func _init():
+	self.netID = Network.get_nid()
+	self.net_stats.netOwner = Network.get_nid()
+	net_stats.original_instance_id = get_instance_id()
 
 func _ready() -> void:
-	Events.emit_signal("register_object", net_stats.net_sum())
-	if self.netID != Network.nid():
-		$Inventory/Display.visible = false
+	net_stats.register()
+	print(net_stats.net_sum())
+	$Inventory/Display.visible = false
 	var _discard = Events.connect("item_added", self, "on_item_added")
 	grab_camera()
 #	for i in armature.defaults:
@@ -56,15 +58,14 @@ func on_item_added(args):
 	inventory.get_node("Display").build_list(inventory.items)
 
 func _physics_process(delta) -> void:
-	stored_delta = delta
-	buff_list.process()
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if Input.is_action_just_pressed("trash_item"):
-		npc("destroy", {slot = "Head"})
-	get_controlled_velocity_wasd()
-	$StateMachine.execute()
-	move()
+	if net_stats.netID == Network.get_nid():
+		stored_delta = delta
+		buff_list.process()
+		if Input.is_action_just_pressed("trash_item"):
+			npc("destroy", {slot = "Head"})
+		get_controlled_velocity_wasd()
+		$StateMachine.execute()
+		move()
 	
 func destroy(args):
 	npc("equip", {item = armature.defaults[args.slot]})
