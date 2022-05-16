@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.get_reference_instance("bandana"),
+var items = [Data.get_reference_instance("wizard_hat"),
 		 Data.get_reference_instance("wizard_hat"),
 		 Data.get_reference_instance("debug_item")]
 		
@@ -18,7 +18,7 @@ func get_item(item_name):
 	pass
 	
 func add_item(item: Item, count: int = 1) -> void:
-	print("adding ", count, " ", item.visual.item_name)
+	print("adding ", count, " ", item.visual.item_name, " to inventory")
 	if !item.internal.is_modified:
 		for i in items:
 			if i.visual.item_name == item.visual.item_name:

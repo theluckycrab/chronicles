@@ -31,8 +31,6 @@ func on_online() -> void:
 	
 func on_join() -> void:
 	Network.join()
-	#Events.emit_signal("scene_change_request", "test_room")
-	#on_test()
 	
 	
 func on_host() -> void:
@@ -41,4 +39,5 @@ func on_host() -> void:
 	
 	
 func on_next() -> void:
+	Network.set_nid()
 	Events.emit_signal("scene_change_request", next_scene)

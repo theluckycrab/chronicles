@@ -5,56 +5,21 @@ var netID_count = 0
 var nid = 1
 
 var net_objects = {}
+var command_history = {}
 
-func set_nid():
-	nid = get_tree().get_network_unique_id()
-	netID_count = nid
-	
-func get_nid():
-	return nid
-	
-func nid_gen():
-	netID_count += 1
-	return netID_count
 
-func relay_signal(sig, args) -> void:
-	rpc("emit", sig, args)
-	
 func _ready():
 	var _discard = Events.connect("network_command", self, "on_net_command")
 	var _disc = peer.connect("connection_succeeded", self, "on_connection_succeeded")
 	var _dicks = Events.connect("register", self, "on_register")
 	print("Network ready")
 	
-func on_connection_succeeded():
+	
+func on_connection_succeeded() -> void:
 	set_nid()
-	rpc_id(1, "request_history")
+	
 
-
-remotesync func emit(sig, args) -> void:
-	Events.emit_signal(sig, args)
-	
-	
-func host(players = 1, port = 5555) -> void:
-	peer.close_connection()
-	peer.create_server(port, players)
-	get_tree().network_peer = peer
-	
-	
-func join(ip = "127.0.0.1", port = 5555) -> void:
-	peer.close_connection()
-	peer.create_client(ip, port)
-	get_tree().network_peer = peer
-
-func on_net_command(args):
-	print("Network.on_net_command args : ", args)
-	if net_objects.has(args.sender):
-		net_objects[args.sender].call(args.command, args)
-
-func get_net_object(netID):
-	return net_objects[netID]
-	
-func on_register(args):
+func on_register(args) -> void:
 	var object
 	if net_objects.has(args.netID):
 		return
@@ -67,24 +32,70 @@ func on_register(args):
 		object.net_stats.netID = args.netID
 		object.net_stats.netOwner = args.netOwner
 		object.net_stats.history = args.history.duplicate(true)
-		object.net_stats.base_data_index = args.index
+		object.net_stats.index = args.index
 		object.net_stats.original_instance_id = args.original_instance_id
 		Events.emit_signal("spawn", object)
 		
-remotesync func request_history():
+		
+func on_net_command(args) -> void:
+	if get_nid() == 1:
+		if args.command != "net_sync":
+			command_history[nid_gen()] = args
+			#print("Network.Logging : ", args)
+	if net_objects.has(args.sender):
+		net_objects[args.sender].call(args.command, args)
+		
+		
+func relay_signal(sig, args) -> void:
+	rpc("emit", sig, args)
+	
+	
+remotesync func emit(sig, args) -> void:
+	Events.emit_signal(sig, args)
+	
+	
+func host(players = 1, port = 5555) -> void:
+	peer.close_connection()
+	peer.create_server(port, players)
+	get_tree().network_peer = null
+	get_tree().network_peer = peer
+	
+	
+func join(ip = "127.0.0.1", port = 5555) -> void:
+	peer.close_connection()
+	peer.create_client(ip, port)
+	get_tree().network_peer = null
+	get_tree().network_peer = peer
+
+
+func nid_gen() -> int:
+	netID_count += 1
+	return netID_count
+
+func set_nid() -> void:
+	nid = get_tree().get_network_unique_id()
+	netID_count = nid
+	
+	
+func get_nid() -> int:
+	return nid
+	
+	
+func get_net_object(netID):
+	return net_objects[netID]
+		
+		
+remotesync func request_history() -> void:
 	var history = {}
 	for i in net_objects:
 		history[i] = net_objects[i].net_stats.net_sum()
-	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history.duplicate(true))
-	pass
+	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history, command_history)
 	
-remotesync func receive_history(history):
+	
+remotesync func receive_history(history, commands) -> void:
 	for i in history:
 		on_register(history[i])
-	for i in history:
-		net_objects[i].net_stats.replay_history()
-		print("PRINTING HISTORY")
-	pass
+	for i in commands:
+		net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
 	
-func process_history():
-	pass
+	

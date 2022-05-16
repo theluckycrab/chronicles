@@ -35,7 +35,7 @@ var net_stats = NetStats.new()
 
 func _init() -> void:
 	net_stats.original_instance_id = get_instance_id()
-	net_stats.base_data_index = internal.index
+	net_stats.index = internal.index
 
 
 func activate(host: Object) -> void:

@@ -13,7 +13,7 @@ func get_instance(what):
 	
 	
 func build_list(path) -> void:
-	print("building reference database")
+	print("Data.reference reading ", path)
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
@@ -33,3 +33,4 @@ func build_list(path) -> void:
 func load_data(path:String, file:String) -> void:
 	var object = load(path+"/"+file)
 	list[file.get_basename()] = object
+	print("Data.reference storing ", file)

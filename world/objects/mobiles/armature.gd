@@ -1,7 +1,7 @@
 extends Spatial
 
-onready var defaults: Dictionary = {"Head":Data.get_reference_instance("wizard_hat")}
-onready var equipment: Dictionary = defaults.duplicate(true)
+onready var defaults: Dictionary = {"Head":Data.get_reference_instance("bandana")}
+onready var equipment: Dictionary
 onready var host = get_parent()
 
 

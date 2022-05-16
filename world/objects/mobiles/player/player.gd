@@ -21,39 +21,22 @@ onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
-func equip(args):
-	var item
-	match args.source:
-		"inventory":
-			item = inventory.items[args.index]
-		"defaults":
-			item = armature.defaults[args.index]
-		"external":
-			item = Data.get_reference_instance(args.index)
-	if armature.equipment.has(item.visual.slot) and\
-			armature.equipment[item.visual.slot] == item:
-		return
-	if armature.equipment.has(item.visual.slot):
-		buff_list.remove_passives(armature.equipment[item.visual.slot])
-	armature.equip(item)
-	buff_list.add_passives(item)
-	
-func _init():
+
+func _init() -> void:
 	self.netID = Network.get_nid()
 	self.net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
 
+
 func _ready() -> void:
 	net_stats.register()
-	print(net_stats.net_sum())
+	#print(net_stats.net_sum())
 	$Inventory/Display.visible = false
-	grab_camera()
-	#for i in armature.defaults:
-		#npc("equip", {item=armature.defaults[i]})
-	
-func remove_passives(source):
-	buff_list.remove_passives(source)
-	
+	if net_stats.netOwner == Network.get_nid():
+		grab_camera()
+		for i in armature.defaults:
+			npc("equip", {source="defaults", index=i})
+			
 
 func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():
@@ -66,9 +49,34 @@ func _physics_process(delta) -> void:
 		get_controlled_velocity_wasd()
 		$StateMachine.execute()
 		move()
+		update()
+
+
+func equip(args) -> void:
+	var item
+	match args.source:
+		"inventory":
+			item = inventory.items[args.index]
+		"defaults":
+			item = armature.defaults[args.index]
+		"external":
+			item = Data.get_reference_instance(args.index)
+	if armature.equipment.has(item.visual.slot) and\
+			armature.equipment[item.visual.slot] == item:
+		print("Player : ", args.source, " ", args.index, " already equipped")
+		return
+	if armature.equipment.has(item.visual.slot):
+		buff_list.remove_passives(armature.equipment[item.visual.slot])
+	armature.equip(item)
+	buff_list.add_passives(item)
 	
-func destroy(args):
+	
+func destroy(args) -> void:
 	equip(armature.defaults[args.slot])
+	
+	
+func remove_passives(source) -> void:
+	buff_list.remove_passives(source)
 	
 	
 func get_controlled_velocity_wasd() -> void:
@@ -161,16 +169,36 @@ func swap_state(slot: String, state_object: Node) -> void:
 func reset_state(slot: String) -> void:
 	state_machine.reset_state(slot)
 
-func npc(function, args):
+
+func npc(function, args) -> void:
 	net_stats.npc(function, args)
-	print(args)
+	#print(args)
 	
-func set_netID(id):
+	
+func set_netID(id) -> void:
 	net_stats.netID = id
 	
-func get_netID():
+	
+func get_netID() -> int:
 	return net_stats.netID
 
 
-func _exit_tree():
+func _exit_tree() -> void:
 	run_test.queue_free()
+
+
+func update() -> void:
+	var args = {
+			position = global_transform.origin,
+			rot = armature.rotation,
+			anime = self.anim.current_animation,
+	}
+	npc("net_sync", args)
+	
+
+func net_sync(args) -> void:
+	if args.netOwner != Network.get_nid():
+		global_transform.origin = args.position
+		armature.rotation = args.rot
+		if anim.current_animation != args.anime:
+			anim.play(args.anime)
