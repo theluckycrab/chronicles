@@ -13,6 +13,7 @@ func get_instance(what):
 	
 	
 func build_list(path) -> void:
+	print("building reference database")
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()

@@ -30,14 +30,12 @@ export(Dictionary) var combat = {
 				durability = 10
 }
 
-var netID setget set_netID, get_netID
-
 var net_stats = NetStats.new()
 
-func _init():
+
+func _init() -> void:
 	net_stats.original_instance_id = get_instance_id()
 	net_stats.base_data_index = internal.index
-	#Network.relay_signal("register_object", net_stats.net_sum())
 
 
 func activate(host: Object) -> void:
@@ -85,9 +83,3 @@ func set_mesh_file_path(p: String) -> void:
 func set_ability(a_name: String) -> void:
 	active.ability = Data.abilities[a_name].duplicate()
 	
-func set_netID(nid):
-	net_stats.netID = nid
-	pass
-	
-func get_netID():
-	return net_stats.netID

@@ -47,7 +47,6 @@ func _ready() -> void:
 	net_stats.register()
 	print(net_stats.net_sum())
 	$Inventory/Display.visible = false
-	var _discard = Events.connect("item_added", self, "on_item_added")
 	grab_camera()
 	#for i in armature.defaults:
 		#npc("equip", {item=armature.defaults[i]})
@@ -55,14 +54,6 @@ func _ready() -> void:
 func remove_passives(source):
 	buff_list.remove_passives(source)
 	
-func on_item_added(args):
-	if self.netID != args.netID:
-		return
-	var item = Data.get_reference_instance(args.item)
-	item.internal.is_modified = args.is_modified
-	inventory.add_item(item, args.count)
-	inventory.get_node("Display").clear_list()
-	inventory.get_node("Display").build_list(inventory.items)
 
 func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():

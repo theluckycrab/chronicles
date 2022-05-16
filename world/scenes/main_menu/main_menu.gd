@@ -1,5 +1,7 @@
 extends Control
 
+var next_scene: String = "test_room"
+
 onready var button_offline = $VBoxContainer/Offline
 onready var button_online = $VBoxContainer/Online
 onready var button_test = $VBoxContainer/Test
@@ -15,12 +17,12 @@ func _ready() -> void:
 	join_button.connect("button_down", self, "on_join")
 	host_button.connect("button_down", self, "on_host")
 	
-	Network.peer.connect("connection_succeeded", self, "on_test")
+	Network.peer.connect("connection_succeeded", self, "on_next")
 	
 	
 func on_offline() -> void:
 	Network.host(1)
-	on_test()
+	on_next()
 	
 	
 func on_online() -> void:
@@ -35,8 +37,8 @@ func on_join() -> void:
 	
 func on_host() -> void:
 	Network.host(4)
-	on_test()
+	on_next()
 	
 	
-func on_test() -> void:
-	Events.emit_signal("scene_change_request", "test_room")
+func on_next() -> void:
+	Events.emit_signal("scene_change_request", next_scene)

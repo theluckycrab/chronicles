@@ -66,7 +66,7 @@ func on_register(args):
 		net_objects[args.netID] = object
 		object.net_stats.netID = args.netID
 		object.net_stats.netOwner = args.netOwner
-		object.net_stats.mods = args.history.duplicate(true)
+		object.net_stats.history = args.history.duplicate(true)
 		object.net_stats.base_data_index = args.index
 		object.net_stats.original_instance_id = args.original_instance_id
 		Events.emit_signal("spawn", object)
@@ -81,6 +81,9 @@ remotesync func request_history():
 remotesync func receive_history(history):
 	for i in history:
 		on_register(history[i])
+	for i in history:
+		net_objects[i].net_stats.replay_history()
+		print("PRINTING HISTORY")
 	pass
 	
 func process_history():
