@@ -1,11 +1,14 @@
 extends Control
 
-onready var item = Data.get_reference_instance("katana")
+var item = "debug_item"
 
-func _ready():
+
+func _ready() -> void:
+	item = Data.get_reference(item)
 	build(item)
 
-func build(n_item):
+
+func build(n_item:Item) -> void:
 	item = n_item
 	$Viewport/Preview.mesh = load(n_item.visual.mesh_file_path).duplicate(true)
 	var a1 = $Viewport/Preview.mesh.get_aabb()
@@ -18,3 +21,7 @@ func build(n_item):
 	$Viewport/Camera.size = s * 1.1
 	
 	
+func refresh(i) -> void:
+	item = i
+	_ready()
+	pass

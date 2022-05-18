@@ -18,6 +18,7 @@ active = {
 }
 internal = {
 "count": 1,
+"index": "bandana",
 "is_modified": false,
 "tags": [  ]
 }

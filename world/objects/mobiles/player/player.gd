@@ -61,12 +61,19 @@ func equip(args) -> void:
 			item = armature.defaults[args.index]
 		"external":
 			item = Data.get_reference_instance(args.index)
+			
 	if armature.equipment.has(item.visual.slot) and\
 			armature.equipment[item.visual.slot] == item:
 		print("Player : ", args.source, " ", args.index, " already equipped")
 		return
+		
 	if armature.equipment.has(item.visual.slot):
 		buff_list.remove_passives(armature.equipment[item.visual.slot])
+		
+	var icon = $EquipmentDisplay.get_node_or_null(item.visual.slot+"Icon")
+	if icon:
+		icon.refresh(item.internal.index)
+		
 	armature.equip(item)
 	buff_list.add_passives(item)
 	
