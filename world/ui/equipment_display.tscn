@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/ui/item_icon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/assets/destroy_icon.png" type="Texture" id=2]
+[ext_resource path="res://data/assets/activate_icon.png" type="Texture" id=3]
+[ext_resource path="res://world/ui/equipment_display.gd" type="Script" id=4]
 
 [node name="EquipmentDisplay" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 4 )
 
 [node name="HeadIcon" parent="." instance=ExtResource( 1 )]
 margin_left = 70.0
@@ -29,3 +33,69 @@ margin_left = 3.0
 margin_top = 72.0
 margin_right = 67.0
 margin_bottom = 136.0
+
+[node name="DestroyOverlay" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="DestroyOverlay"]
+margin_left = 70.0
+margin_top = 6.0
+margin_right = 134.0
+margin_bottom = 71.0
+texture = ExtResource( 2 )
+
+[node name="TextureRect2" type="TextureRect" parent="DestroyOverlay"]
+margin_left = 136.0
+margin_top = 74.0
+margin_right = 200.0
+margin_bottom = 139.0
+texture = ExtResource( 2 )
+
+[node name="TextureRect3" type="TextureRect" parent="DestroyOverlay"]
+margin_left = 69.0
+margin_top = 140.0
+margin_right = 133.0
+margin_bottom = 205.0
+texture = ExtResource( 2 )
+
+[node name="TextureRect4" type="TextureRect" parent="DestroyOverlay"]
+margin_left = 2.0
+margin_top = 71.0
+margin_right = 66.0
+margin_bottom = 136.0
+texture = ExtResource( 2 )
+
+[node name="ActivateOverlay" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="ActivateOverlay"]
+margin_left = 70.0
+margin_top = 6.0
+margin_right = 134.0
+margin_bottom = 71.0
+texture = ExtResource( 3 )
+
+[node name="TextureRect2" type="TextureRect" parent="ActivateOverlay"]
+margin_left = 136.0
+margin_top = 74.0
+margin_right = 200.0
+margin_bottom = 139.0
+texture = ExtResource( 3 )
+
+[node name="TextureRect3" type="TextureRect" parent="ActivateOverlay"]
+margin_left = 69.0
+margin_top = 140.0
+margin_right = 133.0
+margin_bottom = 205.0
+texture = ExtResource( 3 )
+
+[node name="TextureRect4" type="TextureRect" parent="ActivateOverlay"]
+margin_left = 2.0
+margin_top = 71.0
+margin_right = 66.0
+margin_bottom = 136.0
+texture = ExtResource( 3 )

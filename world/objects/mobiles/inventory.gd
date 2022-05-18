@@ -7,15 +7,16 @@ var items = [Data.get_reference_instance("wizard_hat"),
 		
 onready var host = get_parent()
 
-func _ready():
+func _ready() -> void:
 	$Display.build_list(items)
 
 
-func get_item(item_name):
+func get_item(item_name) -> Item:
 	for i in items:
 		if i.visual.item_name == item_name:
 			return i
-	pass
+	return null
+	
 	
 func add_item(item: Item, count: int = 1) -> void:
 	print("adding ", count, " ", item.visual.item_name, " to inventory")

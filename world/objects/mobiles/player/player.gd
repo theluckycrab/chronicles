@@ -31,11 +31,12 @@ func _init() -> void:
 func _ready() -> void:
 	net_stats.register()
 	#print(net_stats.net_sum())
-	$Inventory/Display.visible = false
 	if net_stats.netOwner == Network.get_nid():
 		grab_camera()
 		for i in armature.defaults:
 			npc("equip", {source="defaults", index=i})
+	else:
+		$UI.visible = false
 			
 
 func _physics_process(delta) -> void:
@@ -46,6 +47,10 @@ func _physics_process(delta) -> void:
 			npc("equip", {source="defaults", index="Head"})
 		if Input.is_action_just_pressed("trash_item"):
 			npc("equip", {source="inventory", index=0})
+		if Input.is_action_just_pressed("sprint"):
+			$UI/EquipmentDisplay.show_activate()
+		if Input.is_action_just_released("sprint"):
+			$UI/EquipmentDisplay.show_normal()
 		get_controlled_velocity_wasd()
 		$StateMachine.execute()
 		move()
@@ -70,9 +75,7 @@ func equip(args) -> void:
 	if armature.equipment.has(item.visual.slot):
 		buff_list.remove_passives(armature.equipment[item.visual.slot])
 		
-	var icon = $EquipmentDisplay.get_node_or_null(item.visual.slot+"Icon")
-	if icon:
-		icon.refresh(item.internal.index)
+	$UI/EquipmentDisplay.call_deferred("refresh")
 		
 	armature.equip(item)
 	buff_list.add_passives(item)
