@@ -1,106 +1,104 @@
 extends Node
 
-var state = {
-				current = null,
-				next = null,
-				last = null,
-				string = ""
-			}
+var current_state = null
+var next_state = null 
+var last_state = null 
+			
 			
 var base_state_dict = {
-					"Idle" : PlayerStateIdle.new(),
-					"Fall" : PlayerStateFall.new(),
-					"Walk" : PlayerStateWalk.new(),
-					"Jump" : PlayerStateJump.new()
+					"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
+					"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
+					"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
+					"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new()
 				}
 				
-var state_dict = base_state_dict.duplicate(true)
+var override_dict = {}
 
 onready var host = get_parent()
 				
 				
 func _ready() -> void:
-	create_fallback_children()
+	instance_states()
 	
-	
-func _physics_process(_delta) -> void:
-	controls()
-	update_state_display()
-			
-			
 func execute() -> void:
-	if state.current:
-		state.current.execute()
-		if state.current.can_exit():
-			state.current.exit()
-			state.current = null
-	if !state.current:
-		fallback()
-	if state.next:
-		set_state(state.next)
+	cycle()
 	pass
 	
-	
-func fallback() -> void:
-	if state.next:
+func set_state(index):
+	if get_state(index) == null:
 		return
-	for i in state_dict:
-		if state_dict[i].can_enter():
-			state.next = state_dict[i]
-			return
-	state.next = null
-	
-	
-func set_state(new_state) -> void:
-	new_state.host = host
-	if !new_state or !new_state.can_enter():
-		return
-	if state.current:
-		if new_state.priority < state.current.priority:
-			return
-		state.current.exit()
-	state.current = new_state
-	state.current.enter()
-	if state.current.animation:
-		host.animate(state.current.animation)
-	state.next = null
-	state.string = new_state.slot
-	pass
-
-
-func reset() -> void:
-	state.next = null
-	fallback()
-	pass
-	
-	
-func create_fallback_children() -> void:
-	for i in state_dict:
-		add_child(state_dict[i])
-		state_dict[i].host = host
 		
+	var cprior
+	var nprior = get_state(index).priority
+	if current_state == null:
+		cprior = 0
+	else:
+		cprior = get_state(current_state).priority
+	
+	if nprior > cprior:
+		next_state = get_state(index)
+	
+	
+func cycle() -> void:
+	if current_state == null:
+		current_state = calc_fallback_state()
+		current_state.enter()
+		host.anim.play(current_state.animation)
+	current_state.execute()
+	
+	if current_state.can_exit():
+		current_state.exit()
+		current_state = null
+	
+	if next_state == null or next_state.can_enter() == false:
+		next_state = null
+		return
+	
+	if current_state:
+		current_state.exit()
+	next_state.enter()
+	current_state = next_state
+	next_state = null
+	return
+	
+func instance_states() -> void:
+	for i in base_state_dict:
+		add_child(base_state_dict[i])
+		base_state_dict[i].host = host
+		
+
+func calc_fallback_state():
+	if current_state != null:
+		return
+	if ! host.is_on_floor():
+		return get_state("fall")
+	if host.is_on_floor() and host.velocity.controlled == Vector3.ZERO:
+		return get_state("idle")
+	if host.is_on_floor():
+		return get_state("walk")
+		
+		
+func get_state(index=null):
+	if index is String:
+		if override_dict.has(index):
+			return override_dict[index]
+		elif base_state_dict.has(index):
+			return base_state_dict[index]
+		else:
+			return null
+	elif index is State:
+		return index
+	else:
+		return current_state
+				
+	
 		
 func update_state_display() -> void:
-	if state.current:
-		$StateDisplay/VBoxContainer/HBoxContainer/CurrentLabel.text = str(state.current.slot)
+	if current_state:
+		$StateDisplay/VBoxContainer/HBoxContainer/CurrentLabel.text = str(current_state.index)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer/CurrentLabel.text = "null"
-	if state.next:
-		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = str(state.next.slot)
+	if next_state:
+		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = str(next_state.index)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = "null"
-
-
-func controls() -> void:
-	if Input.is_action_just_pressed("jump"):
-		set_state(state_dict["Jump"])
-
-
-func swap_state(slot:String, state_object:Node) -> void:
-	state_object.host = host
-	state_dict[slot] = state_object
-	
-	
-func reset_state(slot:String) -> void:
-	state_dict[slot] = base_state_dict[slot]
-

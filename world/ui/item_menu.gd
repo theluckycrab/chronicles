@@ -22,18 +22,23 @@ func _ready() -> void:
 	]
 	item_layout(categories)
 	
-	
-func _physics_process(_delta) -> void:
-	if Input.is_action_just_pressed("ui_right"):
+func _unhandled_input(event):
+	if event.is_action_pressed("d"):
 		shift("right")
-	elif Input.is_action_just_pressed("ui_left"):
+		get_tree().set_input_as_handled()
+	if event.is_action_pressed("a"):
 		shift("left")
-	elif Input.is_action_just_pressed("ui_accept"):
+		get_tree().set_input_as_handled()
+	if event.is_action_pressed("jump"):
 		if current_category == "Equipment":
 			print(items[0])
 			host.npc("equip", {source = "external", index = items[0].internal.index})
 		for i in get_children():
 			i.queue_free()
+		if current_category != null:
+			get_tree().set_input_as_handled()
+		if is_in_group("menus"):
+			remove_from_group("menus")
 		_ready()
 		
 		
@@ -42,7 +47,7 @@ func item_layout(list:Array) -> void:
 		return
 	var pos = get_rect().size / 2
 	var up = Vector2.UP
-	var turn = deg2rad(360/list.size())
+	var turn = deg2rad(360.0/list.size())
 	up = up.rotated(-turn)
 	for i in list:
 		up = up.rotated(turn)
@@ -99,3 +104,5 @@ func on_category_select(category) -> void:
 			new_list.append(i)
 			
 	item_layout(new_list)
+	
+	add_to_group("menus")

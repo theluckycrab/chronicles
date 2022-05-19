@@ -1,14 +1,18 @@
-extends Spatial
-class_name PlayerStateFall
-
-var animation: String = "Fall"
-var priority: int = 0
-var host = null
-var slot: String = "Fall"
+extends PlayerMoveState
 
 
-func controls() -> void:
-	pass
+func _init() -> void:
+	index = "Fall"
+	animation = "Fall"
+	priority = -1
+	host = null
+
+
+func controls() -> String:
+	if host.is_on_floor():
+		return "Idle"
+	else:
+		return index
 	
 	
 func enter() -> void:

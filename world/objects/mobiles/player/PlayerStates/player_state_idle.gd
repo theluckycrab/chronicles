@@ -1,13 +1,13 @@
-extends Spatial
-class_name PlayerStateIdle
-
-var animation: String = "Idle"
-var priority: int = 0
-var host = null
-var slot: String = "Idle"
+extends PlayerMoveState
 
 
-func controls() -> void:
+func _init() -> void:
+	index = "Idle"
+	animation = "Idle"
+	priority = -1
+	host = null
+
+func _controls() -> void:
 	pass
 	
 	

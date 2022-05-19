@@ -1,15 +1,16 @@
-extends Spatial
-class_name PlayerStateWalk
+extends PlayerMoveState
 
-var animation: String = "Walk"
-var priority: int = 0
-var host = null
-var slot: String = "Walk"
+
+func _init() -> void:
+	index = "Walk"
+	animation = "Walk"
+	priority = -1
+	host = null
 
 var sprinting: bool = false
 
 
-func controls() -> void:
+func _controls() -> void:
 	pass
 	
 	

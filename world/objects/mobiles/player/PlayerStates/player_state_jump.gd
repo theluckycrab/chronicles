@@ -1,10 +1,11 @@
-extends Spatial
-class_name PlayerStateJump
+extends PlayerActionState
 
-var animation: String = "Fall"
-var priority: int = 1
-var host = null
-var slot: String = "Jump"
+
+func _init() -> void:
+	index = "Jump"
+	animation = "Jump"
+	priority = 1
+	host = null
 
 var duration: float = 0.25
 var height: float = 3 / duration
@@ -19,10 +20,6 @@ func _ready() -> void:
 	jump_timer.autostart = false
 	jump_timer.one_shot = true
 	jump_timer.connect("timeout", self, "on_jump_timer")
-
-
-func controls() -> void:
-	pass
 	
 	
 func enter() -> void:

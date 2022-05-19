@@ -1,6 +1,5 @@
 extends KinematicBody
 
-var run_test = PlayerStateRun.new()
 var velocity = {
 				controlled = Vector3.ZERO,
 				force = Vector3.ZERO
@@ -10,6 +9,14 @@ var gravity = {
 				active = true,
 				base = -9
 				}
+				
+var flags = {
+	can_act = true,
+	can_move = true,
+	in_menu = false,
+	at_war = false,
+}
+
 var stored_delta = 0
 var speed_mult = 5
 var net_stats = NetStats.new("player")
@@ -21,6 +28,8 @@ onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
+func _unhandled_input(event):
+	controls(event)
 
 func _init() -> void:
 	self.netID = Network.get_nid()
@@ -35,26 +44,47 @@ func _ready() -> void:
 		grab_camera()
 		for i in armature.defaults:
 			npc("equip", {source="defaults", index=i})
+			npc("equip", {source="inventory", index=0})
 	else:
 		$UI.visible = false
 			
 
 func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():
+		if get_tree().get_nodes_in_group("menus").size() <= 0:
+			get_controlled_velocity_wasd()
 		stored_delta = delta
 		buff_list.process()
-		if Input.is_action_just_pressed("item"):
-			npc("equip", {source="defaults", index="Head"})
-		if Input.is_action_just_pressed("trash_item"):
-			npc("equip", {source="inventory", index=0})
-		if Input.is_action_just_pressed("sprint"):
-			$UI/EquipmentDisplay.show_activate()
-		if Input.is_action_just_released("sprint"):
-			$UI/EquipmentDisplay.show_normal()
-		get_controlled_velocity_wasd()
 		$StateMachine.execute()
 		move()
 		update()
+		
+
+func controls(event:InputEvent):
+	if get_tree().get_nodes_in_group("menus").size() < 1:
+		for i in state_machine.base_state_dict:
+			if InputMap.has_action(i):
+				if event.is_action_pressed(i):
+					set_state(i)
+					return
+	if event.is_action_pressed("destroy_head"):
+		npc("destroy", {index="Head"})
+	if !state_machine.get_state() is ActionState:
+		if Input.is_action_pressed("destroy_mod"):
+			$UI/EquipmentDisplay.show_destroy()
+		elif Input.is_action_just_released("destroy_mod"):
+			$UI/EquipmentDisplay.show_normal()
+		if Input.is_action_pressed("ability_mod"):
+			$UI/EquipmentDisplay.show_activate()
+		elif Input.is_action_just_released("ability_mod"):
+			$Inventory/Display.show_normal()
+	else:
+		$UI/EquipmentDisplay.show_normal()
+		
+			
+func set_state(state):
+	state_machine.set_state(state)
+			
 
 
 func equip(args) -> void:
@@ -82,7 +112,7 @@ func equip(args) -> void:
 	
 	
 func destroy(args) -> void:
-	equip(armature.defaults[args.slot])
+	equip({source="defaults", index = args.index})
 	
 	
 func remove_passives(source) -> void:
@@ -191,11 +221,7 @@ func set_netID(id) -> void:
 	
 func get_netID() -> int:
 	return net_stats.netID
-
-
-func _exit_tree() -> void:
-	run_test.queue_free()
-
+	
 
 func update() -> void:
 	var args = {
@@ -212,3 +238,4 @@ func net_sync(args) -> void:
 		armature.rotation = args.rot
 		if anim.current_animation != args.anime:
 			anim.play(args.anime)
+			

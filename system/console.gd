@@ -15,7 +15,9 @@ func _input(event) -> void:
 		if !visible:
 			entry.grab_focus()
 			entry.text = ""
-		visible = !visible
+			show()
+		else:
+			hide()
 		get_tree().set_input_as_handled()
 	
 	
@@ -77,7 +79,7 @@ func load_scene(text) -> void:
 	text.remove(0)
 	text = text.join(" ")
 	Events.emit_signal("scene_change_request", text)
-	visible = false
+	hide()
 	
 	
 func equip(text) -> void:
@@ -85,4 +87,12 @@ func equip(text) -> void:
 	text = text.join(" ")
 	var item = Data.items[text].duplicate()
 	get_node("/root/SceneManager/SceneMount/Start/Player").equip(item)
+	hide()
+
+func show():
+	visible = true
+	add_to_group("menus")
+	
+func hide():
 	visible = false
+	remove_from_group("menus")
