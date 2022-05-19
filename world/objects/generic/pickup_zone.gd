@@ -2,14 +2,11 @@ extends Area
 
 var host = null
 
-func _input(event):
-	if event.as_text() == "Enter":
-		if ! event.is_echo():
-			if event.is_pressed():
-				if host:
-					get_parent().activate(host)
-					get_tree().set_input_as_handled()
-					print("dongers")
+func _unhandled_input(event):
+	if event.is_action_pressed("interact"):
+		if host:
+			get_parent().activate(host)
+			get_tree().set_input_as_handled()
 
 func _ready():
 	var _discard = connect("body_entered", self, "on_body_entered")

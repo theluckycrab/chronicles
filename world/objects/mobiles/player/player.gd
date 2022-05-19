@@ -78,6 +78,13 @@ func controls(event:InputEvent):
 			$UI/EquipmentDisplay.show_activate()
 		elif Input.is_action_just_released("ability_mod"):
 			$Inventory/Display.show_normal()
+		if Input.is_action_pressed("item_mod"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		elif Input.is_action_just_released("item_mod"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			$UI/ItemMenu.reset()
+		if Input.is_action_just_pressed("item_mod"):
+			Input.warp_mouse_position($UI/EquipmentDisplay.rect_global_position)
 	else:
 		$UI/EquipmentDisplay.show_normal()
 		

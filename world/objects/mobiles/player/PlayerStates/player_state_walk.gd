@@ -31,10 +31,10 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-#	sprinting = Input.is_action_pressed("sprint")
-#	if sprinting:
-#		host.velocity.controlled *= 2
-#		host.Animate("Idle")
+	sprinting = Input.is_action_pressed("sprint")
+	if sprinting:
+		host.velocity.controlled *= 2
+		host.anim.play("Idle")
 	pass
 	
 	

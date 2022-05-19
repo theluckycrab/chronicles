@@ -14,7 +14,7 @@ onready var v = get_parent()
 
 
 func _input(event) -> void:
-	if active:
+	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			mouse_motion_vector = event.relative
 		else:
@@ -22,12 +22,7 @@ func _input(event) -> void:
 			right_stick_vector.x = Input.get_joy_axis(1, JOY_AXIS_2)
 			right_stick_vector.y = Input.get_joy_axis(1, JOY_AXIS_3)
 		apply_rotation(mouse_motion_vector, Vector2(0.2, 0.2))
-	if event.as_text() == "Escape" and event.is_pressed() and !event.is_echo():
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		active = !active
+	
 
 
 func _ready() -> void:

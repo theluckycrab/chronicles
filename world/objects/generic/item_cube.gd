@@ -18,3 +18,5 @@ func _ready() -> void:
 		s = s.y
 	$Viewport/Camera.size = s * 1.1
 	
+func activate(host):
+	print("no activate function set on item cube")

@@ -22,24 +22,20 @@ func _ready() -> void:
 	]
 	item_layout(categories)
 	
-func _unhandled_input(event):
-	if event.is_action_pressed("d"):
+func _input(event):
+	if event.is_action_pressed("item_scroll_left"):
 		shift("right")
 		get_tree().set_input_as_handled()
-	if event.is_action_pressed("a"):
+	if event.is_action_pressed("item_scroll_right"):
 		shift("left")
 		get_tree().set_input_as_handled()
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("item_select"):
 		if current_category == "Equipment":
 			print(items[0])
 			host.npc("equip", {source = "external", index = items[0].internal.index})
-		for i in get_children():
-			i.queue_free()
 		if current_category != null:
 			get_tree().set_input_as_handled()
-		if is_in_group("menus"):
-			remove_from_group("menus")
-		_ready()
+		reset()
 		
 		
 func item_layout(list:Array) -> void:
@@ -104,5 +100,8 @@ func on_category_select(category) -> void:
 			new_list.append(i)
 			
 	item_layout(new_list)
-	
-	add_to_group("menus")
+
+func reset():
+	for i in get_children():
+			i.queue_free()
+	_ready()

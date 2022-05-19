@@ -92,7 +92,9 @@ func equip(text) -> void:
 func show():
 	visible = true
 	add_to_group("menus")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 func hide():
 	visible = false
 	remove_from_group("menus")
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
