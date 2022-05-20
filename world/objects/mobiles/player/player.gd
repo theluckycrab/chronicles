@@ -67,22 +67,41 @@ func controls(event:InputEvent):
 				if event.is_action_pressed(i):
 					set_state(i)
 					return
-	if event.is_action_pressed("destroy_head"):
-		npc("destroy", {index="Head"})
 	if !state_machine.get_state() is ActionState:
+		
 		if Input.is_action_pressed("destroy_mod"):
 			$UI/EquipmentDisplay.show_destroy()
+			for i in ["head", "mainhand", "offhand", "boots"]:
+				if Input.is_action_just_released(i):
+					$UI/EquipmentDisplay.show_normal()
+					npc("destroy", {index=i.capitalize()})
 		elif Input.is_action_just_released("destroy_mod"):
 			$UI/EquipmentDisplay.show_normal()
+			
 		if Input.is_action_pressed("ability_mod"):
 			$UI/EquipmentDisplay.show_activate()
+			for i in ["head", "mainhand", "offhand", "boots"]:
+				if Input.is_action_just_released(i):
+					$UI/EquipmentDisplay.show_normal()
+					npc("activate_item", {source="equipment", index=i.capitalize()})
 		elif Input.is_action_just_released("ability_mod"):
-			$Inventory/Display.show_normal()
+			$UI/EquipmentDisplay.show_normal()
+			
+		for i in ["head", "mainhand", "offhand", "boots"]:
+				if Input.is_action_just_released(i):
+					if (!Input.is_action_pressed("destroy_mod")\
+						and !Input.is_action_pressed("item_mod"))\
+						and (Input.is_action_pressed("ability_mod")\
+						or Input.is_action_just_released("ability_mod")):
+							npc("activate_item", {source="equipment", index=i.capitalize()})
+							return
+			
 		if Input.is_action_pressed("item_mod"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		elif Input.is_action_just_released("item_mod"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			$UI/ItemMenu.reset()
+			
 		if Input.is_action_just_pressed("item_mod"):
 			Input.warp_mouse_position($UI/EquipmentDisplay.rect_global_position)
 	else:
@@ -121,6 +140,14 @@ func equip(args) -> void:
 func destroy(args) -> void:
 	equip({source="defaults", index = args.index})
 	
+	
+func activate_item(args) -> void:
+	match args.source:
+		"equipment":
+			armature.activate_item(args)
+		"inventory":
+			inventory.activate_item(args)
+			
 	
 func remove_passives(source) -> void:
 	buff_list.remove_passives(source)

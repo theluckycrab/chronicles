@@ -14,3 +14,9 @@ func equip(item:Item) -> void:
 	equipment[item.visual.slot] = item
 	
 	
+func activate_item(args) -> void:
+	match args.source:
+		"equipment":
+			if !equipment.has(args.index):
+				return
+			equipment[args.index].activate(host)
