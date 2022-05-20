@@ -62,13 +62,14 @@ func _physics_process(delta) -> void:
 
 func controls(event:InputEvent):
 	if get_tree().get_nodes_in_group("menus").size() < 1:
-		for i in state_machine.base_state_dict:
+		for i in state_machine.state_dict:
 			if InputMap.has_action(i):
 				if event.is_action_pressed(i):
 					set_state(i)
 					return
+					
 	if !state_machine.get_state() is ActionState:
-		
+		##==UI Controls==##
 		if Input.is_action_pressed("destroy_mod"):
 			$UI/EquipmentDisplay.show_destroy()
 			for i in ["head", "mainhand", "offhand", "boots"]:
@@ -106,8 +107,7 @@ func controls(event:InputEvent):
 			Input.warp_mouse_position($UI/EquipmentDisplay.rect_global_position)
 	else:
 		$UI/EquipmentDisplay.show_normal()
-		
-			
+		##==End UI Controls==##
 func set_state(state):
 	state_machine.set_state(state)
 			
@@ -119,6 +119,8 @@ func equip(args) -> void:
 		"inventory":
 			item = inventory.items[args.index]
 		"defaults":
+			if !armature.defaults.has(args.index):
+				return
 			item = armature.defaults[args.index]
 		"external":
 			item = Data.get_reference_instance(args.index)
@@ -273,3 +275,11 @@ func net_sync(args) -> void:
 		if anim.current_animation != args.anime:
 			anim.play(args.anime)
 			
+			
+func set_war() -> void:
+	flags.at_war = true
+	state_machine.set_war()
+	
+func set_peace() -> void:
+	flags.at_war = false
+	state_machine.set_peace()

@@ -5,12 +5,26 @@ var next_state = null
 var last_state = null 
 			
 			
-var base_state_dict = {
-					"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
-					"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
-					"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
-					"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new()
+var state_dict = {
 				}
+				
+var war_state_dict = {
+		"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
+		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
+		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
+		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
+		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new()
+		
+}
+
+var peace_state_dict = {
+		"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
+		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
+		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
+		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
+		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new()
+	
+}
 				
 var override_dict = {}
 
@@ -18,9 +32,11 @@ onready var host = get_parent()
 				
 				
 func _ready() -> void:
+	state_dict = peace_state_dict
 	instance_states()
 	
 func execute() -> void:
+	update_state_display()
 	cycle()
 	pass
 	
@@ -62,9 +78,12 @@ func cycle() -> void:
 	return
 	
 func instance_states() -> void:
-	for i in base_state_dict:
-		add_child(base_state_dict[i])
-		base_state_dict[i].host = host
+	for i in peace_state_dict:
+		add_child(peace_state_dict[i])
+		peace_state_dict[i].host = host
+	for i in war_state_dict:
+		add_child(war_state_dict[i])
+		war_state_dict[i].host = host
 		
 
 func calc_fallback_state():
@@ -82,8 +101,8 @@ func get_state(index=null):
 	if index is String:
 		if override_dict.has(index):
 			return override_dict[index]
-		elif base_state_dict.has(index):
-			return base_state_dict[index]
+		elif state_dict.has(index):
+			return state_dict[index]
 		else:
 			return null
 	elif index is State:
@@ -102,3 +121,15 @@ func update_state_display() -> void:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = str(next_state.index)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = "null"
+	if host.flags.at_war:
+		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
+	else:
+		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
+
+
+func set_peace() -> void:
+	state_dict = peace_state_dict
+	
+	
+func set_war() -> void:
+	state_dict = war_state_dict
