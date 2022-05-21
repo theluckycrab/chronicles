@@ -14,5 +14,5 @@ func exit(_host: Object) -> void:
 	pass
 
 
-func execute(host: Object) -> void:
+func execute(_host: Object) -> void:
 	pass

@@ -203,7 +203,7 @@ material/0 = null
 material/1 = null
 
 [node name="Offhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.900325, 0.0765056, 0.428439, 0.428439, -0.0172551, 0.903406, 0.0765087, 0.99692, -0.0172439, 0.872303, 1.29422, 0.0546245 )
+transform = Transform( -0.900325, 0.0765056, 0.428439, 0.428439, -0.017255, 0.903406, 0.0765086, 0.99692, -0.0172439, 0.872303, 1.29422, 0.0546245 )
 bone_name = "WeaponBone.L"
 
 [node name="Offhand" type="MeshInstance" parent="Armature/Skeleton/Offhand"]
@@ -213,7 +213,7 @@ skeleton = NodePath("")
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.900325, -0.0765056, -0.428439, -0.428439, -0.0172551, 0.903406, -0.0765087, 0.99692, -0.0172439, -0.872303, 1.29422, 0.0546246 )
+transform = Transform( -0.900325, -0.0765056, -0.428439, -0.428439, -0.017255, 0.903406, -0.0765086, 0.99692, -0.0172439, -0.872303, 1.29422, 0.0546245 )
 bone_name = "WeaponBone.R"
 
 [node name="Mainhand" type="MeshInstance" parent="Armature/Skeleton/Mainhand"]

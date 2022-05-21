@@ -1,16 +1,18 @@
 extends Control
 
 export var items = []
-export var categories = ["Consumables", "Equipment", "Emote", "Chat"]
+export var categories = ["consumables", "equipment", "emote", "chat"]
 export var radius = 150
 
-var current_category = null
+var current_category = null setget set_category
+signal category_changed
 
 onready var host = get_parent().get_parent()
 
 
 func _ready() -> void:
 	current_category = null
+	var _discard = connect("category_changed", self, "on_category_changed")
 	items = [
 		Data.get_reference_instance("bandana"),
 		Data.get_reference_instance("katana"),
@@ -20,23 +22,6 @@ func _ready() -> void:
 		Data.get_reference_instance("wizard_hat"),
 		Data.get_reference_instance("wizard_hat")
 	]
-	item_layout(categories)
-	
-func _input(event):
-	if event.is_action_pressed("item_scroll_left"):
-		shift("right")
-		get_tree().set_input_as_handled()
-	if event.is_action_pressed("item_scroll_right"):
-		shift("left")
-		get_tree().set_input_as_handled()
-	if event.is_action_pressed("item_select"):
-		if current_category == "Equipment":
-			print(items[0])
-			host.npc("equip", {source = "external", index = items[0].internal.index})
-		if current_category != null:
-			get_tree().set_input_as_handled()
-		reset()
-		
 		
 func item_layout(list:Array) -> void:
 	if list.size() <= 0:
@@ -64,7 +49,7 @@ func item_layout(list:Array) -> void:
 		
 		
 func shift(dir:String) -> void:
-	if !current_category:
+	if current_category == null:
 		return
 	if dir == "right":
 		var n = items.front()
@@ -77,10 +62,10 @@ func shift(dir:String) -> void:
 	for i in get_children():
 		if i is Label:
 			i.queue_free()
-	on_category_select(current_category)
+	refresh_category()
 			
 
-func on_category_select(category) -> void:
+func on_category_changed(category) -> void:
 	current_category = category
 	var new_list = []
 	var filter = []
@@ -89,7 +74,10 @@ func on_category_select(category) -> void:
 		i.queue_free()
 	
 	match category:
-		"Equipment":
+		"categories":
+			item_layout(categories)
+			return
+		"equipment":
 			filter.append("Head")
 			filter.append("Mainhand")
 			filter.append("Offhand")
@@ -104,4 +92,12 @@ func on_category_select(category) -> void:
 func reset():
 	for i in get_children():
 			i.queue_free()
-	_ready()
+	current_category = null
+
+func set_category(category):
+	if category != current_category:
+		current_category = category
+		emit_signal("category_changed", category)
+
+func refresh_category():
+	on_category_changed(current_category)
