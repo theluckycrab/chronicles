@@ -3,6 +3,7 @@ extends Resource
 
 var effect_name: String = "effect name not set"
 var source = null
+var index = "effect"
 
 
 func enter(_host: Object) -> void:

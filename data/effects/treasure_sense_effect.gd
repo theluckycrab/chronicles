@@ -1,7 +1,9 @@
-extends Node
+extends Effect
 
-var effect_name : String = "Treasure Sense"
-var source
+
+func _init() -> void:
+	effect_name = "Treasure Sense"
+	index = "treasure_sense_effect"
 
 
 func enter(host: Object) -> void:

@@ -8,7 +8,21 @@ onready var host = get_parent()
 func process() -> void:
 	for i in list:
 		i.execute(host)
-
+		
+		
+func add_effect(source, index) -> void:
+	var e = Data.get_reference_instance(index)
+	e.source = source
+	e.enter(host)
+	list.append(e)
+	
+	
+func remove_effect(index) -> void:
+	for i in list:
+		if i.index == index:
+			i.exit(host)
+			list.erase(i)
+	
 
 func add_passives(source) -> void:
 	for i in source.passive:

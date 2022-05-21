@@ -14,7 +14,7 @@ overrides = {
 }
 passive = [  ]
 active = {
-"ability": "high_jump"
+"ability": "treasure_sense"
 }
 internal = {
 "count": 1,

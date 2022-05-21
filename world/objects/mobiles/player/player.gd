@@ -150,6 +150,14 @@ func activate_item(args) -> void:
 		"inventory":
 			inventory.activate_item(args)
 			
+			
+func add_effect(source, index) -> void:
+	buff_list.add_effect(source, index)
+	
+	
+func remove_effect(index) -> void:
+	buff_list.remove_effect(index)
+			
 	
 func remove_passives(source) -> void:
 	buff_list.remove_passives(source)
