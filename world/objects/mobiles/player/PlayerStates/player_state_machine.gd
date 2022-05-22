@@ -125,6 +125,10 @@ func update_state_display() -> void:
 		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
+	if host.lock_target:
+		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = host.lock_target.name
+	else:
+		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = "null"
 
 
 func set_peace() -> void:

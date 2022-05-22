@@ -21,6 +21,7 @@ var stored_delta = 0
 var speed_mult = 5
 var net_stats = NetStats.new("player")
 var netID setget set_netID, get_netID
+var lock_target = null
 
 onready var anim: AnimationPlayer = $Armature/AnimationPlayer
 onready var state_machine = $StateMachine
@@ -44,6 +45,7 @@ func _ready() -> void:
 			npc("equip", {source="inventory", index=0})
 	else:
 		$UI.visible = false
+		$StateMachine/StateDisplay.visible = false
 			
 
 func _physics_process(delta) -> void:
@@ -62,7 +64,9 @@ func controls():
 	if !destroy_controls(): #must come first to avoid conflicts with keyboard activate
 		if !item_menu_controls():
 			if !ability_controls():
-				state_controls()
+				if !state_machine.get_state() is ActionState:
+					lock_on_controls()
+					state_controls()
 	
 	
 func set_state(state):
@@ -177,6 +181,8 @@ func face_controlled_velocity() -> void:
 	
 	
 func body_face(targetAngle: float, turnSpeed: float = 0.2) -> void:
+	if flags.at_war and lock_target:
+		return
 	$Armature.rotation.y = lerp_angle($Armature.rotation.y, targetAngle, turnSpeed)
 	
 	
@@ -248,6 +254,7 @@ func set_war() -> void:
 func set_peace() -> void:
 	flags.at_war = false
 	state_machine.set_peace()
+	lock_target = null
 
 
 func item_menu_controls() -> bool:
@@ -319,3 +326,26 @@ func state_controls() -> bool:
 				set_state(i)
 				return true
 	return false
+	
+	
+func acquire_lock_target() -> void:
+	var cam = get_viewport().get_camera()
+	if cam.has_method("acquire_lock_target"):
+		lock_target = cam.acquire_lock_target()
+	
+	
+func lock_on() -> void:
+	if lock_target:
+		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
+		var angle = atan2(dir.x, dir.z)
+		var cam = get_viewport().get_camera()
+		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 1))
+		armature.rotation.y = angle
+	
+
+func lock_on_controls() -> void:
+	if flags.at_war == false:
+		return
+	if lock_target == null:
+		acquire_lock_target()
+	lock_on()

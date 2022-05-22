@@ -91,3 +91,13 @@ func track_target() -> void:
 	
 func set_track_target(who) -> void:
 	transform_target = who
+	
+
+func acquire_lock_target():
+	return $LockOnArea.get_lock_target()
+
+func set_h_rotation(angle):
+	h.rotation.y = angle
+	
+func set_v_rotation(angle):
+	v.rotation.x = angle

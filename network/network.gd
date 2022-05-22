@@ -45,6 +45,16 @@ func on_net_command(args) -> void:
 	if net_objects.has(args.sender):
 		net_objects[args.sender].call(args.command, args)
 		
+
+func on_peer_disconnected(who) -> void:
+	rpc("remove_peer", who)
+	
+	
+remotesync func remove_peer(who) -> void:
+	if net_objects.has(who):
+		net_objects[who].queue_free()
+		net_objects.erase(who)
+		
 		
 func relay_signal(sig, args) -> void:
 	rpc("emit", sig, args)
@@ -59,6 +69,7 @@ func host(players = 1, port = 5555) -> void:
 	peer.create_server(port, players)
 	get_tree().network_peer = null
 	get_tree().network_peer = peer
+	peer.connect("peer_disconnected", self, "on_peer_disconnected")
 	
 	
 func join(ip = "127.0.0.1", port = 5555) -> void:
