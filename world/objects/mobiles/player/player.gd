@@ -28,8 +28,6 @@ onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
 
-#func _unhandled_input(event):
-	#controls(event)
 
 func _init() -> void:
 	self.netID = Network.get_nid()
@@ -39,7 +37,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	net_stats.register()
-	#print(net_stats.net_sum())
 	if net_stats.netOwner == Network.get_nid():
 		grab_camera()
 		for i in armature.defaults:
@@ -51,7 +48,7 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():
-		item_menu_controls()
+		controls()
 		if get_tree().get_nodes_in_group("menus").size() <= 0:
 			get_controlled_velocity_wasd()
 		stored_delta = delta
@@ -61,46 +58,12 @@ func _physics_process(delta) -> void:
 		update()
 		
 
-func controls(event:InputEvent):
-#	if get_tree().get_nodes_in_group("menus").size() < 1:
-#		for i in state_machine.state_dict:
-#			if InputMap.has_action(i):
-#				if event.is_action_pressed(i):
-#					set_state(i)
-#					return
-#
-#	if !state_machine.get_state() is ActionState:
-#		##==UI Controls==##
-#		if Input.is_action_pressed("destroy_mod"):
-#			$UI/EquipmentDisplay.show_destroy()
-#			for i in ["head", "mainhand", "offhand", "boots"]:
-#				if Input.is_action_just_released(i):
-#					$UI/EquipmentDisplay.show_normal()
-#					npc("destroy", {index=i.capitalize()})
-#		elif Input.is_action_just_released("destroy_mod"):
-#			$UI/EquipmentDisplay.show_normal()
-#
-#		if Input.is_action_pressed("ability_mod"):
-#			$UI/EquipmentDisplay.show_activate()
-#			for i in ["head", "mainhand", "offhand", "boots"]:
-#				if Input.is_action_just_released(i):
-#					$UI/EquipmentDisplay.show_normal()
-#					npc("activate_item", {source="equipment", index=i.capitalize()})
-#		elif Input.is_action_just_released("ability_mod"):
-#			$UI/EquipmentDisplay.show_normal()
-#
-#		for i in ["head", "mainhand", "offhand", "boots"]:
-#				if Input.is_action_just_released(i):
-#					if (!Input.is_action_pressed("destroy_mod")\
-#						and !Input.is_action_pressed("item_mod"))\
-#						and (Input.is_action_pressed("ability_mod")\
-#						or Input.is_action_just_released("ability_mod")):
-#							npc("activate_item", {source="equipment", index=i.capitalize()})
-#							return
-#	else:
-#		$UI/EquipmentDisplay.show_normal()
-#		##==End UI Controls==##
-	pass
+func controls():
+	if !destroy_controls(): #must come first to avoid conflicts with keyboard activate
+		if !item_menu_controls():
+			if !ability_controls():
+				state_controls()
+	
 	
 func set_state(state):
 	state_machine.set_state(state)
@@ -287,8 +250,13 @@ func set_peace() -> void:
 	state_machine.set_peace()
 
 
-func item_menu_controls():
+func item_menu_controls() -> bool:
 	var menu = $UI/ItemMenu
+	if !Input.is_action_pressed("item_mod"):
+		if Input.is_action_just_released("item_mod"):
+			menu.set_category(null)
+		return false
+		
 	if Input.is_action_just_pressed("item_mod")\
 			and !Input.is_action_pressed("item_category_1")\
 			and !Input.is_action_pressed("item_category_2")\
@@ -300,13 +268,9 @@ func item_menu_controls():
 	elif Input.is_action_just_pressed("item_category_2"):
 		menu.set_category("equipment")
 		
-	if Input.is_action_just_released("item_mod"):
-		menu.set_category(null)
-		
 	if menu.current_category == "categories":
 		if Input.is_action_just_released("item_scroll_right"):
 			menu.set_category(menu.categories[1])
-			print("dongers")
 
 	elif menu.current_category == "equipment":
 		if Input.is_action_just_released("item_scroll_right"):
@@ -315,3 +279,43 @@ func item_menu_controls():
 			menu.shift("left")
 		elif Input.is_action_just_released("item_scroll_confirm"):
 			npc("equip", {source="external", index=menu.items[0].internal.index})
+	return true
+
+
+func ability_controls() -> bool:
+	if !Input.is_action_pressed("ability_mod"):
+		if Input.is_action_just_released("ability_mod"):
+			$UI/EquipmentDisplay.show_normal()
+		return false
+	if Input.is_action_pressed("ability_mod"):
+		$UI/EquipmentDisplay.show_activate()
+		for i in ["head", "mainhand", "offhand", "boots"]:
+			if Input.is_action_just_pressed(i):
+				if armature.equipment.has(i.capitalize()):
+					armature.equipment[i.capitalize()].activate(self)
+					$UI/EquipmentDisplay.show_normal()
+					return true
+	return true
+
+func destroy_controls() -> bool:
+	if !Input.is_action_pressed("destroy_mod"):
+		if Input.is_action_just_released("destroy_mod"):
+			$UI/EquipmentDisplay.show_normal()
+		return false
+	if Input.is_action_pressed("destroy_mod"):
+		$UI/EquipmentDisplay.show_destroy()
+		for i in ["head", "mainhand", "offhand", "boots"]:
+			if Input.is_action_just_pressed(i):
+				npc("destroy", {index=i.capitalize()})
+				$UI/EquipmentDisplay.show_normal()
+				return true
+	return true
+
+
+func state_controls() -> bool:
+	for i in state_machine.state_dict:
+		if InputMap.has_action(i):
+			if Input.is_action_just_pressed(i):
+				set_state(i)
+				return true
+	return false
