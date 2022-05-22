@@ -289,20 +289,29 @@ func set_peace() -> void:
 
 func item_menu_controls():
 	var menu = $UI/ItemMenu
-	if Input.is_action_just_pressed("item_mod"):
+	if Input.is_action_just_pressed("item_mod")\
+			and !Input.is_action_pressed("item_category_1")\
+			and !Input.is_action_pressed("item_category_2")\
+			and !Input.is_action_pressed("item_category_3")\
+			and !Input.is_action_pressed("item_category_4"):
 		menu.set_category("categories")
+	elif Input.is_action_just_pressed("item_category_1"):
+		menu.set_category("consumables")
+	elif Input.is_action_just_pressed("item_category_2"):
+		menu.set_category("equipment")
+		
 	if Input.is_action_just_released("item_mod"):
 		menu.set_category(null)
 		
 	if menu.current_category == "categories":
-		if Input.is_action_just_released("mainhand"):
+		if Input.is_action_just_released("item_scroll_right"):
 			menu.set_category(menu.categories[1])
 			print("dongers")
 
 	elif menu.current_category == "equipment":
-		if Input.is_action_just_released("mainhand"):
+		if Input.is_action_just_released("item_scroll_right"):
 			menu.shift("right")
-		elif Input.is_action_just_released("offhand"):
+		elif Input.is_action_just_released("item_scroll_left"):
 			menu.shift("left")
-		elif Input.is_action_just_released("boots"):
+		elif Input.is_action_just_released("item_scroll_confirm"):
 			npc("equip", {source="external", index=menu.items[0].internal.index})
