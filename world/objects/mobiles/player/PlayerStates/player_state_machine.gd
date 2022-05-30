@@ -13,7 +13,10 @@ var war_state_dict = {
 		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
 		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
 		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
-		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new()
+		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
+		"light_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_light_attack.gd").new(),
+		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
+		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new()
 		
 }
 
@@ -22,8 +25,7 @@ var peace_state_dict = {
 		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
 		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
 		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
-		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new()
-	
+		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
 }
 				
 var override_dict = {}
@@ -73,6 +75,7 @@ func cycle() -> void:
 	if current_state:
 		current_state.exit()
 	next_state.enter()
+	host.anim.play(next_state.animation)
 	current_state = next_state
 	next_state = null
 	return
@@ -137,3 +140,11 @@ func set_peace() -> void:
 	
 func set_war() -> void:
 	state_dict = war_state_dict
+
+
+func quit_state() -> void:
+	if current_state:
+		current_state.exit()
+	current_state = null
+	next_state = null
+	current_state = calc_fallback_state()

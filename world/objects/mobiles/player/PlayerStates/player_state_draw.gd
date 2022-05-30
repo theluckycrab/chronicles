@@ -3,7 +3,7 @@ extends PlayerActionState
 
 func _init() -> void:
 	index = "Draw"
-	animation = "APose"
+	animation = "Draw"
 	priority = 1
 	host = null
 
@@ -25,6 +25,7 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
+	print(host.anim.current_animation)
 	return host.anim.current_animation != animation
 	
 	

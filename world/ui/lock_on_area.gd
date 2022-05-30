@@ -33,5 +33,4 @@ func get_lock_target():
 	get_list()
 	filter_list_to_lockable_targets()
 	filter_list_by_distance()
-	print(lock_target)
 	return lock_target

@@ -46,12 +46,13 @@ func _ready() -> void:
 	else:
 		$UI.visible = false
 		$StateMachine/StateDisplay.visible = false
+	$Armature/Skeleton/Mainhand/Mainhand/Hitbox.set_owner(self)
 			
 
 func _physics_process(delta) -> void:
 	if net_stats.netID == Network.get_nid():
 		controls()
-		if get_tree().get_nodes_in_group("menus").size() <= 0:
+		if state_machine.get_state() is MoveState or state_machine.get_state() == null:
 			get_controlled_velocity_wasd()
 		stored_delta = delta
 		buff_list.process()
@@ -67,6 +68,10 @@ func controls():
 				if !state_machine.get_state() is ActionState:
 					lock_on_controls()
 					state_controls()
+	######TEsting
+	if Input.is_action_just_pressed("light_attack"):
+		print("ATTACKING")
+		state_machine.set_state("Light Attack")
 	
 	
 func set_state(state):
@@ -250,11 +255,13 @@ func net_sync(args) -> void:
 func set_war() -> void:
 	flags.at_war = true
 	state_machine.set_war()
+	speed_mult = 3
 	
 func set_peace() -> void:
 	flags.at_war = false
 	state_machine.set_peace()
 	lock_target = null
+	speed_mult = 5
 
 
 func item_menu_controls() -> bool:
@@ -349,3 +356,9 @@ func lock_on_controls() -> void:
 	if lock_target == null:
 		acquire_lock_target()
 	lock_on()
+
+func guard(dir):
+	$Armature/Guardbox.guard(dir)
+	
+func guard_reset():
+	$Armature/Guardbox.reset()

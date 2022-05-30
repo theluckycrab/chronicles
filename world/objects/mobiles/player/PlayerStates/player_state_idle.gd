@@ -28,4 +28,8 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
+	if host.flags.at_war:
+		host.anim.play("Combat_Idle")
+	else:
+		host.anim.play("Idle")
 	pass

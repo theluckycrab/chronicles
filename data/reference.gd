@@ -28,6 +28,7 @@ func build_list(path) -> void:
 	dir.list_dir_end()
 	list["player"] = "res://world/objects/mobiles/player/player.tscn"
 	list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
+	list["target_dummy"] = "res://world/objects/mobiles/target_dummy/target_dummy.tscn"
 
 	
 func load_data(path:String, file:String) -> void:

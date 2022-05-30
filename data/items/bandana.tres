@@ -7,7 +7,7 @@ script = ExtResource( 1 )
 visual = {
 "description": "no description set",
 "item_name": "Bandana",
-"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/bandana.mesh",
+"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Bandana.tres",
 "slot": "Head"
 }
 overrides = {
