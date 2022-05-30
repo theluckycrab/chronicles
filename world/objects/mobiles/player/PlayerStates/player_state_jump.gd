@@ -7,10 +7,11 @@ func _init() -> void:
 	priority = 1
 	host = null
 
-var duration: float = 0.4#0.25
-var height: float = 3 / duration
+var duration: float = 0.25#0.25
+var height: float = 1.5 / duration
 var distance: float = 1.5 / duration
 var done: bool = false
+var dir = Vector3.ZERO
 
 onready var jump_timer = Timer.new()
 
@@ -24,12 +25,11 @@ func _ready() -> void:
 	
 func enter() -> void:
 	jump_timer.start(duration)
-	host.gravity.active = false
+	dir = host.get_wasd_cam()
 	pass
 	
 	
 func exit() -> void:
-	host.gravity.active = true
 	done = false
 	pass
 	
@@ -43,8 +43,7 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	if host.anim.current_animation == "":
-		host.add_force((Vector3.UP * height) + (host.get_node("Armature").global_transform.basis.z * distance))
+	host.add_force((Vector3.UP + dir) * height)
 	
 	
 func on_jump_timer() -> void:

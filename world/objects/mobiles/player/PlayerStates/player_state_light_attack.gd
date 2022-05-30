@@ -22,7 +22,7 @@ func exit() -> void:
 	
 func can_exit() -> bool:
 	#print(host.anim.current_animation)
-	return host.anim.current_animation != animation
+	return host.get_animation() != animation
 	
 	
 func can_enter() -> bool:

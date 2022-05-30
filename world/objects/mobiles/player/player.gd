@@ -1,112 +1,79 @@
 extends KinematicBody
 
-var velocity = {
-				controlled = Vector3.ZERO,
-				force = Vector3.ZERO
-				}
-				
-var gravity = {
-				active = true,
-				base = -9
-				}
-				
-var flags = {
-	can_act = true,
-	can_move = true,
-	in_menu = false,
-	at_war = false,
-}
-
-var stored_delta = 0
-var speed_mult = 5
 var net_stats = NetStats.new("player")
-var netID setget set_netID, get_netID
+
 var lock_target = null
 
-onready var anim: AnimationPlayer = $Armature/AnimationPlayer
+var can_act = true setget , can_act
+var in_combat = false setget set_in_combat, get_in_combat
+var at_war = false setget set_war
+
 onready var state_machine = $StateMachine
 onready var armature = $Armature
 onready var inventory = $Inventory
 onready var buff_list = $BuffList
+onready var move = $Movement
+onready var stats = $Stats
+onready var controls = $Controls
 
 
 func _init() -> void:
-	self.netID = Network.get_nid()
-	self.net_stats.netOwner = Network.get_nid()
+	net_stats.netID = Network.get_nid()
+	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
 
 
 func _ready() -> void:
 	net_stats.register()
-	if net_stats.netOwner == Network.get_nid():
+	var defaults = get_defaults_dict()
+	if net_stats.is_master:
 		grab_camera()
-		for i in armature.defaults:
-			npc("equip", {source="defaults", index=i})
-			npc("equip", {source="inventory", index=0})
-	else:
-		$UI.visible = false
-		$StateMachine/StateDisplay.visible = false
-	$Armature/Skeleton/Mainhand/Mainhand/Hitbox.set_owner(self)
-			
+		for i in defaults:
+			equip(defaults[i])
+	
 
 func _physics_process(delta) -> void:
-	if net_stats.netID == Network.get_nid():
-		controls()
-		if state_machine.get_state() is MoveState or state_machine.get_state() == null:
-			get_controlled_velocity_wasd()
-		stored_delta = delta
-		buff_list.process()
-		$StateMachine.execute()
+	if net_stats.is_master:
+		if can_act:
+			state_machine.execute()
+		if at_war:
+			if lock_target == null:
+				acquire_lock_target()
+			lock_on()
 		move()
-		update()
+	update()
 		
+		
+func add_force(force):
+	move.add_force(force)
 
-func controls():
-	if !destroy_controls(): #must come first to avoid conflicts with keyboard activate
-		if !item_menu_controls():
-			if !ability_controls():
-				if !state_machine.get_state() is ActionState:
-					lock_on_controls()
-					state_controls()
-	######TEsting
-	if Input.is_action_just_pressed("light_attack"):
-		print("ATTACKING")
-		state_machine.set_state("Light Attack")
-	
-	
+
+func can_act():
+	return !state_machine.get_state() is ActionState\
+			and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+
+
 func set_state(state):
 	state_machine.set_state(state)
 			
 
 
-func equip(args) -> void:
-	var item
-	match args.source:
-		"inventory":
-			item = inventory.items[args.index]
-		"defaults":
-			if !armature.defaults.has(args.index):
-				return
-			item = armature.defaults[args.index]
-		"external":
-			item = Data.get_reference_instance(args.index)
-			
-	if armature.equipment.has(item.visual.slot) and\
-			armature.equipment[item.visual.slot] == item:
-		print("Player : ", args.source, " ", args.index, " already equipped")
+func equip(item) -> void:
+	npc("vis_equip", {index=item.internal.index})
+	inventory.equip(item)
+	for i in item.passive:
+		add_effect(item, "slow_fall")
+	pass
+	
+func vis_equip(args) -> void:
+	armature.equip(args)
+	
+	
+func destroy(slot) -> void:
+	var item = get_default(slot)
+	if item == null:
 		return
-		
-	if armature.equipment.has(item.visual.slot):
-		buff_list.remove_passives(armature.equipment[item.visual.slot])
-		
-	$UI/EquipmentDisplay.call_deferred("refresh")
-		
-	armature.equip(item)
-	buff_list.add_passives(item)
-	
-	
-func destroy(args) -> void:
-	equip({source="defaults", index = args.index})
+	equip(item)
 	
 	
 func activate_item(args) -> void:
@@ -129,89 +96,27 @@ func remove_passives(source) -> void:
 	buff_list.remove_passives(source)
 	
 	
-func get_controlled_velocity_wasd() -> void:
-	var x = Input.get_action_strength("d") - Input.get_action_strength("a")
-	var y = Input.get_action_strength("s") - Input.get_action_strength("w")
-	velocity.controlled = Vector3(x, 0, y).normalized() * speed_mult
+func get_wasd():
+	return controls.get_wasd()
 	
+func get_wasd_cam():
+	return controls.get_wasd_cam()
 	
-func get_controlled_velocity() -> void:
-	var left_stick_dead_zone = 0.25
-	var x = Input.get_joy_axis(1, JOY_AXIS_0)
-	var y = Input.get_joy_axis(1, JOY_AXIS_1)
-	
-	if abs(x) < left_stick_dead_zone and abs(y) < left_stick_dead_zone:
-		velocity.controlled = Vector3.ZERO
-		return
-		
-	velocity.controlled = Vector3(x, 0, y).normalized() * speed_mult
-
+func body_face(dir):
+	armature.face(dir)
 
 func move() -> void:
-	cam_rotate_controlled_velocity()
-	apply_gravity()
-	apply_movement()
-	face_controlled_velocity()
-	reset_velocity()
-	
-	
-func cam_rotate_controlled_velocity() -> void:
-	var cam = get_viewport().get_camera()
-	var cam_rot = Vector3.ZERO
-	if cam.has_method("get_h_rotation"):
-		cam_rot = cam.get_h_rotation()
-	else:
-		cam_rot = cam.rotation.y
-	velocity.controlled = velocity.controlled.rotated(Vector3.UP, cam_rot)
-		
-		
-func apply_movement() -> void:
-	var movement = velocity.controlled + velocity.force
-	if velocity.force.y <= 0:
-		var _discard = move_and_slide_with_snap(movement, Vector3.DOWN, Vector3.UP, true)
-	else:
-		var _discard = move_and_slide(movement, Vector3.UP, false)
-
-
-func apply_gravity() -> void:
-	if gravity.active and !is_on_floor():
-		velocity.force += Vector3(0,gravity.base, 0)
-
-
-func face_controlled_velocity() -> void:
-	if velocity.controlled == Vector3.ZERO:
-		return
-	var angle = atan2(velocity.controlled.x, velocity.controlled.z)
-	body_face(angle)
-	
-	
-func body_face(targetAngle: float, turnSpeed: float = 0.2) -> void:
-	if flags.at_war and lock_target:
-		return
-	$Armature.rotation.y = lerp_angle($Armature.rotation.y, targetAngle, turnSpeed)
+	move.commit_move()
 	
 	
 func grab_camera() -> void:
 	var cam = get_viewport().get_camera()
 	if cam.has_method("set_track_target"):
 		cam.set_track_target(self)
-		
-		
-func add_force(addedForceVector: Vector3) -> void:
-	velocity.force += addedForceVector
 	
 	
-func set_controlled_velocity(vel: Vector3) -> void:
-	velocity.controlled = vel
-
-
-func reset_velocity() -> void:
-	velocity.controlled = Vector3.ZERO
-	velocity.force = Vector3.ZERO
-	
-	
-func animate(animation: String) -> void:
-	anim.play(animation)
+func play(animation: String, motion=false) -> void:
+	armature.anim.play(animation, motion)
 	
 	
 func swap_state(slot: String, state_object: Node) -> void:
@@ -239,30 +144,29 @@ func update() -> void:
 	var args = {
 			position = global_transform.origin,
 			rot = armature.rotation,
-			anime = self.anim.current_animation,
+			anime = get_animation(),
 	}
 	npc("net_sync", args)
 	
 
 func net_sync(args) -> void:
-	if args.netOwner != Network.get_nid():
+	if net_stats.is_dummy:
 		global_transform.origin = args.position
 		armature.rotation = args.rot
-		if anim.current_animation != args.anime:
-			anim.play(args.anime)
+		if get_animation() != args.anime:
+			play(args.anime)
+			
+func get_animation():
+	return armature.get_animation()
 			
 			
-func set_war() -> void:
-	flags.at_war = true
-	state_machine.set_war()
-	speed_mult = 3
-	
-func set_peace() -> void:
-	flags.at_war = false
-	state_machine.set_peace()
-	lock_target = null
-	speed_mult = 5
-
+func set_war(t) -> void:
+	at_war = t
+	if !at_war:
+		lock_target = null
+		state_machine.set_mode("peace")
+	else:
+		state_machine.set_mode("combat")
 
 func item_menu_controls() -> bool:
 	var menu = $UI/ItemMenu
@@ -339,6 +243,9 @@ func acquire_lock_target() -> void:
 	var cam = get_viewport().get_camera()
 	if cam.has_method("acquire_lock_target"):
 		lock_target = cam.acquire_lock_target()
+	if lock_target:
+		self.in_combat = true
+		state_machine.set_mode("combat")
 	
 	
 func lock_on() -> void:
@@ -351,10 +258,7 @@ func lock_on() -> void:
 	
 
 func lock_on_controls() -> void:
-	if flags.at_war == false:
-		return
-	if lock_target == null:
-		acquire_lock_target()
+	acquire_lock_target()
 	lock_on()
 
 func guard(dir):
@@ -362,3 +266,19 @@ func guard(dir):
 	
 func guard_reset():
 	$Armature/Guardbox.reset()
+
+func get_defaults_dict():
+	return inventory.get_defaults_dict()
+	
+	
+func get_default(slot):
+	return inventory.get_default(slot)
+	
+func get_in_combat():
+	return lock_target != null
+	
+func set_in_combat(t):
+	if t == true:
+		in_combat = true
+	elif t == false:
+		lock_target = null

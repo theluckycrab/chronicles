@@ -38,6 +38,7 @@ func _ready() -> void:
 	instance_states()
 	
 func execute() -> void:
+	state_controls()
 	update_state_display()
 	cycle()
 	pass
@@ -61,7 +62,7 @@ func cycle() -> void:
 	if current_state == null:
 		current_state = calc_fallback_state()
 		current_state.enter()
-		host.anim.play(current_state.animation)
+		host.play(current_state.animation)
 	current_state.execute()
 	
 	if current_state.can_exit():
@@ -75,7 +76,7 @@ func cycle() -> void:
 	if current_state:
 		current_state.exit()
 	next_state.enter()
-	host.anim.play(next_state.animation)
+	host.play(next_state.animation)
 	current_state = next_state
 	next_state = null
 	return
@@ -94,7 +95,7 @@ func calc_fallback_state():
 		return
 	if ! host.is_on_floor():
 		return get_state("fall")
-	if host.is_on_floor() and host.velocity.controlled == Vector3.ZERO:
+	if host.is_on_floor() and host.get_wasd() == Vector3.ZERO:
 		return get_state("idle")
 	if host.is_on_floor():
 		return get_state("walk")
@@ -124,22 +125,22 @@ func update_state_display() -> void:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = str(next_state.index)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = "null"
-	if host.flags.at_war:
-		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
-	else:
-		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
+#	if host.flags.at_war:
+#		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
+#	else:
+#		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
 	if host.lock_target:
 		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = host.lock_target.name
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = "null"
 
 
-func set_peace() -> void:
-	state_dict = peace_state_dict
-	
-	
-func set_war() -> void:
-	state_dict = war_state_dict
+func set_mode(mode) -> void:
+	match mode:
+		"peace":
+			state_dict = peace_state_dict
+		"combat":
+			state_dict = war_state_dict
 
 
 func quit_state() -> void:
@@ -148,3 +149,14 @@ func quit_state() -> void:
 	current_state = null
 	next_state = null
 	current_state = calc_fallback_state()
+
+
+func state_controls() -> bool:
+	if !host.can_act():
+		return false
+	for i in state_dict:
+		if InputMap.has_action(i):
+			if Input.is_action_just_pressed(i):
+				set_state(i)
+				return true
+	return false

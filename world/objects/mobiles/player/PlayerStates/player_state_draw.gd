@@ -17,16 +17,12 @@ func enter() -> void:
 	
 	
 func exit() -> void:
-	if host.flags.at_war:
-		host.set_peace()
-	elif !host.flags.at_war:
-		host.set_war()
+	host.at_war = !host.at_war
 	pass
 	
 	
 func can_exit() -> bool:
-	print(host.anim.current_animation)
-	return host.anim.current_animation != animation
+	return host.get_animation() == ""
 	
 	
 func can_enter() -> bool:

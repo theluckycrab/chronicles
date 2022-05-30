@@ -19,17 +19,19 @@ func controls() -> String:
 	
 func enter() -> void:
 	controls()
+	host.speed_mult = 1
 	host.guard(get_dir())
 	pass
 	
 	
 func exit() -> void:
+	host.set_war()
 	host.guard_reset()
 	pass
 	
 	
 func can_exit() -> bool:
-	return host.get_animation() != animation
+	return host.anim.current_animation != animation
 	
 	
 func can_enter() -> bool:

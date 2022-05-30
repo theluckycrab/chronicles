@@ -26,12 +26,10 @@ func _ready() -> void:
 func enter() -> void:
 	direction = get_dir()
 	dodge_timer.start(duration)
-	host.gravity.active = false
 	pass
 	
 	
 func exit() -> void:
-	host.gravity.active = true
 	done = false
 	pass
 	
@@ -45,7 +43,7 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	host.anim.play(animation)
+	host.play(animation)
 	host.add_force(direction.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
 	
 	
@@ -53,19 +51,20 @@ func on_dodge_timer() -> void:
 	done = true
 	
 func get_dir():
-	match host.velocity.controlled.abs().max_axis():
+	var dir = host.get_wasd()
+	match dir.abs().max_axis():
 		Vector3.AXIS_X:
-			if host.velocity.controlled.x < 0:
+			if dir.x < 0:
 				animation = "Dodge_Left"
 				return Vector3(1,0,0) * 1
-			elif host.velocity.controlled.x > 0:
+			elif dir.x > 0:
 				animation = "Dodge_Right"
 				return Vector3(1,0,0) * -1
 		Vector3.AXIS_Z:
-			if host.velocity.controlled.z < 0:
+			if dir.z < 0:
 				animation = "Dash"
 				return Vector3(0,0,1) * 1.25
-			if host.velocity.controlled.z > 0:
+			if dir.z > 0:
 				animation = "Fall"
 				return Vector3(0,0,1) * -0.75
 	return Vector3.ZERO

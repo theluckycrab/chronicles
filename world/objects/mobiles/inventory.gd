@@ -5,6 +5,9 @@ var items = [Data.get_reference_instance("wizard_hat"),
 		 Data.get_reference_instance("wizard_hat"),
 		 Data.get_reference_instance("debug_item")]
 		
+var defaults_dict = {"Head":Data.get_reference_instance("wizard_hat")}
+onready var equipment_dict = defaults_dict.duplicate(true)
+		
 onready var host = get_parent()
 
 func _ready() -> void:
@@ -52,3 +55,17 @@ func remove_item(item, count: int = 1) -> void:
 			else:
 				print(count, " " + item.item_name + " removed from inventory.")
 				return
+
+func get_defaults_dict():
+	return defaults_dict.duplicate(true)
+
+func equip(item):
+	if ! defaults_dict.has(item):
+		print("I would reduce the count of ", item.visual.item_name,"s if there was one!")
+
+
+func get_default(slot):
+	if defaults_dict.has(slot):
+		return defaults_dict[slot]
+	else:
+		return null

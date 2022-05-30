@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/player/state_machine.tscn" type="PackedScene" id=2]
@@ -43,6 +43,8 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dodge_Right.anim" type="Animation" id=41]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dodge_Left.anim" type="Animation" id=42]
 [ext_resource path="res://world/objects/mobiles/player/player_movement.gd" type="Script" id=43]
+[ext_resource path="res://world/objects/mobiles/player/player_stats.gd" type="Script" id=44]
+[ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=45]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.21859, 1, 0.236159 )
@@ -140,7 +142,7 @@ material/0 = null
 material/1 = null
 
 [node name="Offhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.903021, 0.053133, 0.426298, 0.428207, 0.0315962, 0.903128, 0.0345171, 0.998087, -0.0512843, 0.836815, 1.30322, 0.0590055 )
+transform = Transform( -0.10847, 0.0387897, 0.993343, 0.943384, -0.311069, 0.115162, 0.313465, 0.949595, -0.00285253, 0.245689, 1.05372, -0.137897 )
 bone_name = "WeaponBone.L"
 
 [node name="Offhand" type="MeshInstance" parent="Armature/Skeleton/Offhand"]
@@ -150,7 +152,7 @@ skeleton = NodePath("")
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.903021, -0.053133, -0.426298, -0.428207, 0.0315962, 0.903128, -0.0345171, 0.998087, -0.0512843, -0.836815, 1.30322, 0.0590055 )
+transform = Transform( -0.173297, -0.0146999, -0.984761, -0.981079, 0.09022, 0.171301, 0.0863264, 0.995813, -0.0300568, -0.279366, 1.0255, 0.235795 )
 bone_name = "WeaponBone.R"
 
 [node name="Mainhand" type="MeshInstance" parent="Armature/Skeleton/Mainhand"]
@@ -193,6 +195,7 @@ anims/Strafe_Left = ExtResource( 34 )
 anims/Strafe_Right = ExtResource( 35 )
 anims/Test_LAttack1 = ExtResource( 37 )
 anims/Walk = ExtResource( 7 )
+script = ExtResource( 45 )
 
 [node name="Guardbox" parent="Armature" instance=ExtResource( 39 )]
 
@@ -239,5 +242,8 @@ script = ExtResource( 17 )
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource( 43 )
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 44 )
 
 [editable path="Armature/Skeleton/Mainhand/Mainhand/Hitbox"]

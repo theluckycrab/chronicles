@@ -79,6 +79,11 @@ func get_v_rotation() -> float:
 	
 func get_rotation() -> Vector3:
 	return Vector3(h.rotation.y, v.rotation.x, 0)
+	
+	
+func _get(property):
+	if property == "rotation":
+		return Vector3(h.rotation.y, v.rotation.x, 0)
 
 
 func track_target() -> void:
@@ -96,8 +101,10 @@ func set_track_target(who) -> void:
 func acquire_lock_target():
 	return $LockOnArea.get_lock_target()
 
+
 func set_h_rotation(angle):
 	h.rotation.y = angle
+	
 	
 func set_v_rotation(angle):
 	v.rotation.x = angle

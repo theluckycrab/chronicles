@@ -24,12 +24,8 @@ func can_exit() -> bool:
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor() and host.velocity.controlled == Vector3.ZERO
+	return host.is_on_floor() and host.get_wasd() == Vector3.ZERO
 	
 	
 func execute() -> void:
-	if host.flags.at_war:
-		host.anim.play("Combat_Idle")
-	else:
-		host.anim.play("Idle")
 	pass

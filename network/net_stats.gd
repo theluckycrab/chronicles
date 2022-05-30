@@ -7,9 +7,20 @@ var index: String
 var history = {}
 var original_instance_id: int = 0
 
+onready var is_dummy = false setget , is_dummy
+onready var is_master = false setget , is_master
+
 
 func _init(base_index = "debug_item") -> void:
 	index = base_index
+	
+
+func is_dummy() -> bool:
+	return !is_master()	
+	
+	
+func is_master() -> bool:
+	return netOwner == Network.get_nid()
 	
 
 func net_sum() -> Dictionary:
@@ -42,3 +53,5 @@ func replay_history() -> void:
 	for i in history:
 		Network.net_objects[netID].call(history[i].command, history[i])
 		
+
+

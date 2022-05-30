@@ -1,14 +1,44 @@
 extends Node
 
-func execute() -> void:
+var input_buffer = []
+
+#func controls():
+#	if !destroy_controls(): #must come first to avoid conflicts with keyboard activate
+#		if !item_menu_controls():
+#			if !ability_controls():
+#				if !state_machine.get_state() is ActionState:
+#					lock_on_controls()
+#					state_controls()
+#	######TEsting
+#	if Input.is_action_just_pressed("light_attack"):
+#		print("ATTACKING")
+#		state_machine.set_state("Light Attack")
+
+
+func _input(event) -> void:
+	input_buffer.append(event)
+	if input_buffer.size() > 50:
+		input_buffer.pop_front()
+		
+
+func get_wasd() -> Vector3:
+	var x = Input.get_action_strength("d") - Input.get_action_strength("a")
+	var y = Input.get_action_strength("s") - Input.get_action_strength("w")
+	return Vector3(x, 0, y)
 	
-	pass
 	
-func war():
-	pass
+func get_wasd_cam() -> Vector3:
+	var cam = get_viewport().get_camera()
+	var wasd = get_wasd()
+	var cam_rot = 0
 	
-func peace():
-	pass
+	if cam == null:
+		return Vector3.ZERO
+		
+	elif cam.has_method("get_h_rotation"):
+		cam_rot = cam.get_h_rotation()
+	else:
+		cam_rot = cam.rotation.y
 	
-func pause():
-	pass
+	wasd = wasd.rotated(Vector3.UP, cam_rot)
+	return wasd
