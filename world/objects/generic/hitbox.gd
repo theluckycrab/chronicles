@@ -1,37 +1,45 @@
 class_name Hitbox
 extends Area
 
+export var state = "Idle"
 signal hitbox_entered
 
-export var state = "Idle"
 
-func _ready():
-	connect("area_entered", self, "on_area_entered")
+func _ready() -> void:
+	var _discard = connect("area_entered", self, "on_area_entered")
 	
-func on_area_entered(who):
+	
+func on_area_entered(who) -> void:
 	if state != "Ghost":
 		if who.has_method("am_hitbox") and who.get_owner() != get_owner():
 			emit_signal("hitbox_entered", self, who)
 			
-func idle():
+			
+func idle() -> void:
 	state = "Idle"
 	
-func ghost():
+	
+func ghost() -> void:
 	state = "Ghost"
 	
-func reset():
+	
+func reset() -> void:
 	state = "Ghost"
 	
-func strike():
+	
+func strike() -> void:
 	state = "Strike"
-		
-func guard():
+	
+	
+func guard() -> void:
 	state = "Guard"
-		
-func am_hitbox():
+	
+	
+func am_hitbox() -> bool:
 	return true
-
-func get_dir(other):
+	
+	
+func get_dir(other) -> String:
 	var pos = global_transform.origin
 	var opos = other.global_transform.origin
 	var dir = pos.direction_to(opos)

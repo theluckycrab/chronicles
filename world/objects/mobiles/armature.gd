@@ -6,7 +6,7 @@ onready var host = get_parent()
 onready var anim = $AnimationPlayer
 
 
-func equip(args) -> void:
+func equip(args:Dictionary) -> void:
 	var item = Data.get_reference_instance(args.index)
 	var mount = get_node_or_null("Skeleton/"+item.visual.slot)
 	if item.visual.slot == "Offhand" or item.visual.slot == "Mainhand":
@@ -15,7 +15,7 @@ func equip(args) -> void:
 		mount.set_mesh(load(item.visual.mesh_file_path).duplicate(true))
 	
 	
-func activate_item(args) -> void:
+func activate_item(args:Dictionary) -> void:
 	match args.source:
 		"equipment":
 			if !equipment.has(args.index):
@@ -31,9 +31,17 @@ func face(dir:Vector3) -> void:
 	rotation.y = lerp_angle(rotation.y, angle, 0.2)
 
 
-func play(animation, motion=false):
+func play(animation, _motion: bool = false) -> void:
 	$AnimationPlayer.play(animation)
 	
 	
-func get_animation():
+func get_animation() -> String:
 	return anim.current_animation
+	
+	
+func guard(dir:String) -> void:
+	$Guardbox.guard(dir)
+	
+	
+func guard_reset() -> void:
+	$Guardbox.reset()

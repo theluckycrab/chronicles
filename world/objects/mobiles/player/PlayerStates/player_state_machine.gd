@@ -31,19 +31,20 @@ var peace_state_dict = {
 var override_dict = {}
 
 onready var host = get_parent()
-				
-				
+	
+	
 func _ready() -> void:
 	state_dict = peace_state_dict
 	instance_states()
+	
 	
 func execute() -> void:
 	state_controls()
 	update_state_display()
 	cycle()
-	pass
 	
-func set_state(index):
+	
+func set_state(index:String) -> void:
 	if get_state(index) == null:
 		return
 		
@@ -81,6 +82,7 @@ func cycle() -> void:
 	next_state = null
 	return
 	
+	
 func instance_states() -> void:
 	for i in peace_state_dict:
 		add_child(peace_state_dict[i])
@@ -100,9 +102,9 @@ func calc_fallback_state():
 	if host.is_on_floor() and host.get_wasd() != Vector3.ZERO:
 		return get_state("walk")
 	return get_state("idle")
-		
-		
-func get_state(index=null):
+	
+	
+func get_state(index=null):#string or node
 	if index is String:
 		if override_dict.has(index):
 			return override_dict[index]
@@ -114,9 +116,8 @@ func get_state(index=null):
 		return index
 	else:
 		return current_state
-				
 	
-		
+	
 func update_state_display() -> void:
 	if current_state:
 		$StateDisplay/VBoxContainer/HBoxContainer/CurrentLabel.text = str(current_state.index)
@@ -136,7 +137,7 @@ func update_state_display() -> void:
 		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = "null"
 
 
-func set_mode(mode) -> void:
+func set_mode(mode:String) -> void:
 	match mode:
 		"peace":
 			state_dict = peace_state_dict
@@ -152,12 +153,11 @@ func quit_state() -> void:
 	current_state = calc_fallback_state()
 
 
-func state_controls() -> bool:
+func state_controls():
 	if !host.can_act or host.ui_active():
-		return false
+		return
 	for i in state_dict:
 		if InputMap.has_action(i):
 			if Input.is_action_just_pressed(i):
 				set_state(i)
-				return true
-	return false
+				return

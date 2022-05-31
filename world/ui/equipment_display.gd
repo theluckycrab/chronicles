@@ -1,12 +1,14 @@
 extends Control
 
 export(NodePath) onready var host = get_node(host)
-var active = false setget , get_active
+var active: bool = false setget , get_active
 
-func _physics_process(delta):
+
+func _physics_process(_delta) -> void:
 	controls()
 
-func controls():
+
+func controls() -> void:
 	if !self.active:
 		if Input.is_action_just_pressed("ability_mod"):
 			show_activate()
@@ -29,19 +31,23 @@ func controls():
 			show_normal()
 			return
 
-func show_destroy():
+
+func show_destroy() -> void:
 	$ActivateOverlay.visible = false
 	$DestroyOverlay.visible = true
 	
-func show_activate():
+	
+func show_activate() -> void:
 	$DestroyOverlay.visible = false
 	$ActivateOverlay.visible = true
 	
-func show_normal():
+	
+func show_normal() -> void:
 	$ActivateOverlay.visible = false
 	$DestroyOverlay.visible = false
 	
-func refresh():
+	
+func refresh() -> void:
 	for i in host.armature.equipment:
 		var icon = null
 		match host.armature.equipment[i].visual.slot:
@@ -56,5 +62,6 @@ func refresh():
 		if icon:
 			icon.refresh(host.armature.equipment[i].internal.index)
 
-func get_active():
+
+func get_active() -> bool:
 	return $DestroyOverlay.visible or $ActivateOverlay.visible

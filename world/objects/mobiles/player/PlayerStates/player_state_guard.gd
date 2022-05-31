@@ -9,12 +9,9 @@ func _init() -> void:
 	host = null
 
 
-func controls() -> String:
+func controls():
 	dir = get_dir()
-	print(dir)
 	animation = "Guard_"+dir
-	return "guard"
-	
 	
 	
 func enter() -> void:
@@ -41,11 +38,10 @@ func execute() -> void:
 		get_parent().quit_state()
 	pass
 
-func get_dir():
+func get_dir() -> String:
 	var vel = Vector3.ZERO
 	vel.x = Input.get_action_strength("d") - Input.get_action_strength("a")
 	vel.y = Input.get_action_strength("s") - Input.get_action_strength("w")
-	print(vel)
 	match vel.abs().max_axis():
 		Vector3.AXIS_Y:
 			if vel.y > 0:

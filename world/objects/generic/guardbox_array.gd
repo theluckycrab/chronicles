@@ -1,25 +1,28 @@
 extends Spatial
 
-var delay_timer = Timer.new()
-var delay = 1
-var incoming = {}
+var delay_timer: = Timer.new()
+var delay: float = 1
+var incoming: Dictionary = {}
+
 onready var indicator = $Indicator
 
-func _ready():
+
+func _ready() -> void:
 	delay_timer.one_shot = true
 	delay_timer.autostart = false
 	add_child(delay_timer)
-	delay_timer.connect("timeout", self, "on_delay_timer")
+	var _discard = delay_timer.connect("timeout", self, "on_delay_timer")
 	hook_up_children()
 	indicator.visible = false
 
-func guard(dir):
+
+func guard(dir:String) -> void:
 	get_node(dir).guard()
 	indicator.visible = true
 	indicator.global_transform.origin = get_node(dir).get_child(0).global_transform.origin
-	pass
 	
-func reset(dir = "all"):
+	
+func reset(dir: String = "all") -> void:
 	if dir == "all":
 		for i in get_children():
 			if i is Hitbox:
@@ -27,23 +30,23 @@ func reset(dir = "all"):
 	else:
 		get_node(dir).ghost()
 	indicator.visible = false
-	pass
 	
-func hook_up_children():
+	
+func hook_up_children() -> void:
 	for i in get_children():
 		if i is Hitbox:
 			i.connect("hitbox_entered", self, "on_hitbox_entered")
 			i.ghost()
 			i.set_owner(get_parent().get_parent())
-		
-func on_hitbox_entered(mybox, theirbox):
+	
+	
+func on_hitbox_entered(mybox, theirbox) -> void:
 	if !incoming.has(theirbox):
 		incoming[theirbox] = mybox
 		delay_timer.start(delay)
 	print(mybox, " hit by ", theirbox)
-	pass
 	
-func on_delay_timer():
-	print(incoming)
+	
+func on_delay_timer() -> void:
 	incoming.clear()
 	

@@ -10,21 +10,21 @@ func process() -> void:
 		i.execute(host)
 		
 		
-func add_effect(source, index) -> void:
+func add_effect(source, index:String) -> void:#source can be anything
 	var e = Data.get_reference_instance(index)
 	e.source = source
 	e.enter(host)
 	list.append(e)
 	
 	
-func remove_effect(index) -> void:
+func remove_effect(index:String) -> void:
 	for i in list:
 		if i.index == index:
 			i.exit(host)
 			list.erase(i)
 	
 
-func add_passives(source) -> void:
+func add_passives(source) -> void:#source can be anything
 	for i in source.passive:
 		var e = Data.get_reference_instance(i)
 		e.enter(host)
@@ -36,7 +36,7 @@ func add_passives(source) -> void:
 			print("add effect : ", e.effect_name)
 	
 	
-func remove_passives(source) -> void:
+func remove_passives(source) -> void:#source can be anything
 	for i in list:
 		if i.source == source:
 			if "net_stats" in source:

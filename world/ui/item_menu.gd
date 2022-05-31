@@ -1,17 +1,18 @@
 extends Control
 
-export var items = []
-export var categories = ["consumables", "equipment", "emote", "chat"]
-export var radius = 150
+export var items: Array = []
+export var categories: Array = ["consumables", "equipment", "emote", "chat"]
+export var radius: int = 150
 
-var active = false setget , get_active
-var current_category = null setget set_category
 signal category_changed
+
+var active: bool = false setget , get_active
+var current_category = null setget set_category
 
 onready var host = get_parent().get_parent()
 
 
-func controls():
+func controls() -> void:
 	if !Input.is_action_pressed("item_mod"):
 		if Input.is_action_just_released("item_mod"):
 			set_category(null)
@@ -39,7 +40,6 @@ func controls():
 			shift("left")
 		elif Input.is_action_just_released("item_scroll_confirm"):
 			host.equip(items[0])
-	return 
 
 
 func _ready() -> void:
@@ -54,13 +54,14 @@ func _ready() -> void:
 		Data.get_reference_instance("wizard_hat")
 	]
 	
-func _physics_process(delta):
+	
+func _physics_process(_delta) -> void:
 	controls()
-		
+	
+	
 func item_layout(list:Array) -> void:
 	if list.size() <= 0:
 		return
-	print(list)
 	var pos = get_rect().size / 2
 	var up = Vector2.UP
 	var turn = deg2rad(360.0/list.size())
@@ -95,17 +96,19 @@ func shift(dir:String) -> void:
 	refresh_category()
 	
 
-func reset():
+func reset() -> void:
 	for i in get_children():
 			i.queue_free()
 	current_category = null
 
-func set_category(category):
+
+func set_category(category) -> void:#string or null
 	if category != current_category:
 		current_category = category
 		refresh_category()
 
-func refresh_category():
+
+func refresh_category() -> void:
 	var new_list = []
 	var filter = []
 	
@@ -128,20 +131,5 @@ func refresh_category():
 	item_layout(new_list)
 
 
-func get_active():
+func get_active() -> bool:
 	return current_category != null
-
-func show_category(input):
-	var cat = null
-	match input:
-		"item_mod":
-			cat = "categories"
-		"item_category_1":
-			cat = "consumables"
-		"item_category_2":
-			cat = "equipment"
-		"item_category_3":
-			cat = "emote"
-		"item_category_4":
-			cat = "chat"
-	set_category(cat)

@@ -6,15 +6,17 @@ var items = [Data.get_reference_instance("wizard_hat"),
 		 Data.get_reference_instance("debug_item")]
 		
 var defaults_dict = {"Head":Data.get_reference_instance("wizard_hat")}
+
 onready var equipment_dict = defaults_dict.duplicate(true)
 		
 onready var host = get_parent()
+
 
 func _ready() -> void:
 	$Display.build_list(items)
 
 
-func get_item(item_name) -> Item:
+func get_item(item_name:String) -> Item:
 	for i in items:
 		if i.visual.item_name == item_name:
 			return i
@@ -56,21 +58,21 @@ func remove_item(item, count: int = 1) -> void:
 				print(count, " " + item.item_name + " removed from inventory.")
 				return
 
-func get_defaults_dict():
+func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)
 
-func equip(item):
+func equip(item:Item) -> void:
 	if ! defaults_dict.has(item):
 		print("I would reduce the count of ", item.visual.item_name,"s if there was one!")
 	equipment_dict[item.visual.slot] = item
 
-func get_default(slot):
+func get_default(slot:String):
 	if defaults_dict.has(slot):
 		return defaults_dict[slot]
 	else:
 		return null
 
-func get_equipped(slot):
+func get_equipped(slot:String):
 	if equipment_dict.has(slot):
 		return equipment_dict[slot]
 	else:

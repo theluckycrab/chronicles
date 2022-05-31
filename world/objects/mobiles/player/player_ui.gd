@@ -7,5 +7,5 @@ onready var equipment_display = $EquipmentDisplay
 onready var host = get_parent()
 
 	
-func get_active():
+func get_active() -> bool:
 	return item_menu.active or equipment_display.active

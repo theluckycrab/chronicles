@@ -1,11 +1,10 @@
 extends KinematicBody
 
 var net_stats = NetStats.new("player")
-var count = 0
 
 var lock_target = null
 
-var can_act = true setget , can_act
+var can_act = true setget , get_can_act
 var in_combat = false setget set_in_combat, get_in_combat
 var at_war = false setget set_war
 
@@ -18,6 +17,7 @@ onready var stats = $Stats
 onready var controls = $Controls
 
 
+#builtin
 func _init() -> void:
 	net_stats.netID = Network.get_nid()
 	net_stats.netOwner = Network.get_nid()
@@ -35,7 +35,7 @@ func _ready() -> void:
 		$UI.queue_free()
 	
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	if net_stats.is_master:
 		if can_act:
 			state_machine.execute()
@@ -43,85 +43,43 @@ func _physics_process(delta) -> void:
 			if lock_target == null:
 				acquire_lock_target()
 			lock_on()
-		move()
+		commit_move()
 	update()
 		
 		
-func add_force(force):
-	move.add_force(force)
-
-
-func can_act():
+#setget
+func get_can_act() -> bool:
 	return !state_machine.get_state() is ActionState\
 			and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
-
-
-func set_state(state):
-	state_machine.set_state(state)
-			
-
-
-func equip(item) -> void:
-	npc("vis_equip", {index=item.internal.index})
-	inventory.equip(item)
-	for i in item.passive:
-		add_effect(item, "slow_fall")
-	pass
-	
-func vis_equip(args) -> void:
-	armature.equip(args)
-	
-	
-func destroy(slot) -> void:
-	var item = get_default(slot)
-	if item == null:
-		return
-	equip(item)
-	
-	
-func activate_item_slot(slot) -> void:
-	count += 1
-	print(count)
-	var item = get_equipped(slot)
-	if item == null:
-		return
-	item.activate(self)
-	print(item)
 			
 			
-func add_effect(source, index) -> void:
-	buff_list.add_effect(source, index)
+func get_in_combat() -> bool:
+	return lock_target != null
 	
 	
-func remove_effect(index) -> void:
-	buff_list.remove_effect(index)
+func set_in_combat(t:bool) -> void:
+	if t == true:
+		in_combat = true
+	elif t == false:
+		lock_target = null
+		
+		
+func ui_active() -> bool:
+	return $UI.active
 			
+			
+#move interface
+func add_force(force:Vector3) -> void:
+	move.add_force(force)
 	
-func remove_passives(source) -> void:
-	buff_list.remove_passives(source)
-	
-	
-func get_wasd():
-	return controls.get_wasd()
-	
-func get_wasd_cam():
-	return controls.get_wasd_cam()
-	
-func body_face(dir):
-	armature.face(dir)
 
-func move() -> void:
+func commit_move() -> void:
 	move.commit_move()
-	
-	
-func grab_camera() -> void:
-	var cam = get_viewport().get_camera()
-	if cam.has_method("set_track_target"):
-		cam.set_track_target(self)
-	
-	
-func play(animation: String, motion=false) -> void:
-	armature.anim.play(animation, motion)
+
+
+#state interface
+func set_state(state) -> void:#takes strings or nodes
+	state_machine.set_state(state)
 	
 	
 func swap_state(slot: String, state_object: Node) -> void:
@@ -130,21 +88,73 @@ func swap_state(slot: String, state_object: Node) -> void:
 	
 func reset_state(slot: String) -> void:
 	state_machine.reset_state(slot)
-
-
-func npc(function, args) -> void:
+	
+	
+#armature interface
+func body_face(dir:Vector3) -> void:
+	armature.face(dir)
+	
+	
+func play(animation: String, motion: bool =false) -> void:
+	armature.anim.play(animation, motion)
+	
+	
+func vis_equip(args:Dictionary) -> void:
+	armature.equip(args)
+	
+	
+func get_animation() -> String:
+	return armature.get_animation()
+	
+	
+func guard(dir:String) -> void:
+	armature.guard(dir)
+	
+func guard_reset() -> void:
+	armature.guard_reset()
+	
+	
+#inventory interface
+func get_defaults_dict() -> Dictionary:
+	return inventory.get_defaults_dict()
+	
+	
+func get_default(slot:String) -> Item:
+	return inventory.get_default(slot)
+	
+	
+func get_equipped(slot:String) -> Item:
+	return inventory.get_equipped(slot)
+	
+	
+#bufflist interface
+func add_effect(source, index:String) -> void:#source can be anything
+	buff_list.add_effect(source, index)
+	
+	
+func remove_effect(index:String) -> void:
+	buff_list.remove_effect(index)
+	
+	
+func remove_passives(source) -> void:#source can be anything
+	buff_list.remove_passives(source)
+	
+	
+#controls interface
+func get_wasd() -> Vector3:
+	return controls.get_wasd()
+	
+	
+func get_wasd_cam() -> Vector3:
+	return controls.get_wasd_cam()
+	
+	
+#network interface
+func npc(function:String, args:Dictionary) -> void:
 	net_stats.npc(function, args)
 	#print(args)
 	
 	
-func set_netID(id) -> void:
-	net_stats.netID = id
-	
-	
-func get_netID() -> int:
-	return net_stats.netID
-	
-
 func update() -> void:
 	var args = {
 			position = global_transform.origin,
@@ -153,95 +163,52 @@ func update() -> void:
 	}
 	npc("net_sync", args)
 	
-
-func net_sync(args) -> void:
+	
+func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy:
 		global_transform.origin = args.position
 		armature.rotation = args.rot
 		if get_animation() != args.anime:
 			play(args.anime)
-			
-func get_animation():
-	return armature.get_animation()
-			
-			
-func set_war(t) -> void:
+	
+	
+##commands
+func equip(item:Item) -> void:
+	npc("vis_equip", {index=item.internal.index})
+	inventory.equip(item)
+	for i in item.passive:
+		add_effect(item, "slow_fall")
+	pass
+	
+	
+func destroy(slot:String) -> void:
+	var item = get_default(slot)
+	if item == null:
+		return
+	equip(item)
+	
+	
+func activate_item_slot(slot:String) -> void:
+	var item = get_equipped(slot)
+	if item == null:
+		return
+	item.activate(self)
+	print(item)
+	
+	
+func grab_camera() -> void:
+	var cam = get_viewport().get_camera()
+	if cam.has_method("set_track_target"):
+		cam.set_track_target(self)
+	
+	
+func set_war(t:bool) -> void:
 	at_war = t
 	if !at_war:
 		lock_target = null
 		state_machine.set_mode("peace")
 	else:
 		state_machine.set_mode("combat")
-
-func item_menu_controls() -> bool:
-	var menu = $UI/ItemMenu
-	if !Input.is_action_pressed("item_mod"):
-		if Input.is_action_just_released("item_mod"):
-			menu.set_category(null)
-		return false
-		
-	if Input.is_action_just_pressed("item_mod")\
-			and !Input.is_action_pressed("item_category_1")\
-			and !Input.is_action_pressed("item_category_2")\
-			and !Input.is_action_pressed("item_category_3")\
-			and !Input.is_action_pressed("item_category_4"):
-		menu.set_category("categories")
-	elif Input.is_action_just_pressed("item_category_1"):
-		menu.set_category("consumables")
-	elif Input.is_action_just_pressed("item_category_2"):
-		menu.set_category("equipment")
-		
-	if menu.current_category == "categories":
-		if Input.is_action_just_released("item_scroll_right"):
-			menu.set_category(menu.categories[1])
-
-	elif menu.current_category == "equipment":
-		if Input.is_action_just_released("item_scroll_right"):
-			menu.shift("right")
-		elif Input.is_action_just_released("item_scroll_left"):
-			menu.shift("left")
-		elif Input.is_action_just_released("item_scroll_confirm"):
-			npc("equip", {source="external", index=menu.items[0].internal.index})
-	return true
-
-
-func ability_controls() -> bool:
-	if !Input.is_action_pressed("ability_mod"):
-		if Input.is_action_just_released("ability_mod"):
-			$UI/EquipmentDisplay.show_normal()
-		return false
-	if Input.is_action_pressed("ability_mod"):
-		$UI/EquipmentDisplay.show_activate()
-		for i in ["head", "mainhand", "offhand", "boots"]:
-			if Input.is_action_just_pressed(i):
-				if armature.equipment.has(i.capitalize()):
-					armature.equipment[i.capitalize()].activate(self)
-					$UI/EquipmentDisplay.show_normal()
-					return true
-	return true
-
-func destroy_controls() -> bool:
-	if !Input.is_action_pressed("destroy_mod"):
-		if Input.is_action_just_released("destroy_mod"):
-			$UI/EquipmentDisplay.show_normal()
-		return false
-	if Input.is_action_pressed("destroy_mod"):
-		$UI/EquipmentDisplay.show_destroy()
-		for i in ["head", "mainhand", "offhand", "boots"]:
-			if Input.is_action_just_pressed(i):
-				npc("destroy", {index=i.capitalize()})
-				$UI/EquipmentDisplay.show_normal()
-				return true
-	return true
-
-
-func state_controls() -> bool:
-	for i in state_machine.state_dict:
-		if InputMap.has_action(i):
-			if Input.is_action_just_pressed(i):
-				set_state(i)
-				return true
-	return false
 	
 	
 func acquire_lock_target() -> void:
@@ -261,36 +228,3 @@ func lock_on() -> void:
 		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 1))
 		armature.rotation.y = angle
 	
-
-func lock_on_controls() -> void:
-	acquire_lock_target()
-	lock_on()
-
-func guard(dir):
-	$Armature/Guardbox.guard(dir)
-	
-func guard_reset():
-	$Armature/Guardbox.reset()
-
-func get_defaults_dict():
-	return inventory.get_defaults_dict()
-	
-	
-func get_default(slot):
-	return inventory.get_default(slot)
-	
-func get_equipped(slot):
-	return inventory.get_equipped(slot)
-	
-func get_in_combat():
-	return lock_target != null
-	
-func set_in_combat(t):
-	if t == true:
-		in_combat = true
-	elif t == false:
-		lock_target = null
-		
-		
-func ui_active():
-	return $UI.active

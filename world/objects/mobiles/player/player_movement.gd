@@ -1,7 +1,7 @@
 extends Node
 
-var velocity = Vector3.ZERO
-var gravity = 9
+var velocity: Vector3 = Vector3.ZERO
+var gravity: float = 9
 
 onready var host : KinematicBody = get_parent()
 
@@ -20,9 +20,8 @@ func commit_move() -> void:
 	var commit_vel = velocity
 	velocity = Vector3.ZERO
 	if host.is_on_floor() and commit_vel.y == 0:
-		host.move_and_slide_with_snap(commit_vel, Vector3.DOWN, Vector3.UP, true)
+		var _discard = host.move_and_slide_with_snap(commit_vel, Vector3.DOWN, Vector3.UP, true)
 		return
 	if commit_vel.y == 0:
 		apply_gravity()
-	host.move_and_slide(commit_vel, Vector3.UP, false)
-	pass
+	var _discard = host.move_and_slide(commit_vel, Vector3.UP, false)
