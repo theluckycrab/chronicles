@@ -4,24 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-visual = {
-"description": "no description set",
-"item_name": "Bandana",
-"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Bandana.tres",
-"slot": "Head"
-}
-overrides = {
-}
-passive = [  ]
-active = {
-"ability": "treasure_sense"
-}
-internal = {
+stats = {
 "count": 1,
+"description": "It's a bandana.",
 "index": "bandana",
 "is_modified": false,
+"item_name": "Bandana",
+"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/bandana.mesh",
+"slot": "Head",
 "tags": [  ]
 }
-combat = {
-"durability": 10
+attacks = {
+"dash": "Sit_Floor",
+"falling": "Combat_Idle",
+"strong": "Test_LAttack1"
+}
+abilities = {
+"active": "treasure_sense",
+"passive": [  ]
 }

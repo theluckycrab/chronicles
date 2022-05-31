@@ -8,11 +8,12 @@ onready var anim = $AnimationPlayer
 
 func equip(args:Dictionary) -> void:
 	var item = Data.get_reference_instance(args.index)
-	var mount = get_node_or_null("Skeleton/"+item.visual.slot)
-	if item.visual.slot == "Offhand" or item.visual.slot == "Mainhand":
-		mount = get_node_or_null("Skeleton/"+item.visual.slot+"/"+item.visual.slot)
+	var mount = get_node_or_null("Skeleton/"+item.get_slot())
+	var slot = item.get_slot()
+	if slot == "Offhand" or slot == "Mainhand":
+		mount = get_node_or_null("Skeleton/"+slot+"/"+slot)
 	if mount:
-		mount.set_mesh(load(item.visual.mesh_file_path).duplicate(true))
+		mount.set_mesh(load(item.get_mesh_file()).duplicate(true))
 	
 	
 func activate_item(args:Dictionary) -> void:

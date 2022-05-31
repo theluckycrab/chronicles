@@ -1,13 +1,5 @@
 extends Node
 
-var input_buffer = []
-
-
-func _input(event) -> void:
-	input_buffer.append(event)
-	if input_buffer.size() > 50:
-		input_buffer.pop_front()
-		
 
 func get_wasd() -> Vector3:
 	var x = Input.get_action_strength("d") - Input.get_action_strength("a")

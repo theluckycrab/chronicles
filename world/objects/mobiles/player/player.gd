@@ -174,9 +174,9 @@ func net_sync(args:Dictionary) -> void:
 	
 ##commands
 func equip(item:Item) -> void:
-	npc("vis_equip", {index=item.internal.index})
+	npc("vis_equip", {index=item.get_index()})
 	inventory.equip(item)
-	for i in item.passive:
+	for i in item.get_list_of_passives():
 		add_effect(item, "slow_fall")
 	pass
 	

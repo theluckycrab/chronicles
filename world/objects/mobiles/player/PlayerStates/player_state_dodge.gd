@@ -30,6 +30,7 @@ func enter() -> void:
 	
 	
 func exit() -> void:
+	dodge_timer.stop()
 	done = false
 	pass
 	
@@ -45,10 +46,13 @@ func can_enter() -> bool:
 func execute() -> void:
 	host.play(animation)
 	host.add_force(direction.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
+	if Input.is_action_just_pressed("light_attack"):
+		host.set_state("dodge_attack")
 	
 	
 func on_dodge_timer() -> void:
 	done = true
+	
 	
 func get_dir():
 	var dir = host.get_wasd()

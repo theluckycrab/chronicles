@@ -1,14 +1,19 @@
-extends PlayerMoveState
+extends PlayerActionState
 
 
 func _init() -> void:
-	index = "Fall"
+	index = "Falling Attack"
 	animation = "Fall"
-	priority = -1
+	priority = 1
 	host = null
 
 
 func enter() -> void:
+	var weapon = host.get_equipped("Mainhand")
+	if weapon == null:
+		return
+	else:
+		animation = weapon.get_falling_attack()
 	pass
 	
 	
@@ -17,7 +22,7 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
-	return host.is_on_floor()
+	return host.get_animation() == ""
 	
 	
 func can_enter() -> bool:
@@ -25,8 +30,6 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	if Input.is_action_just_pressed("light_attack"):
-		host.set_state("falling_attack")
 	host.add_force(host.get_wasd_cam() * 5)
 	host.body_face(host.get_wasd_cam())
 	host.add_force(Vector3.DOWN * 5)

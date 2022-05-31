@@ -8,7 +8,7 @@ var net_stats = NetStats.new("item_cube")
 func _ready() -> void:
 	net_stats.register()
 	item = Data.get_reference_instance(item)
-	$Viewport/Preview.mesh = load(item.visual.mesh_file_path).duplicate(true)
+	$Viewport/Preview.mesh = load(item.get_mesh_file()).duplicate(true)
 	var a1 = $Viewport/Preview.mesh.get_aabb()
 	$Viewport/Camera.global_transform.origin = Vector3(0, a1.position.y + (a1.size.y/2), 1)
 	var s = a1.size

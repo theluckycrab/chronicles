@@ -9,7 +9,7 @@ func build_list(items):
 		var button = Button.new()
 		add_child(button)
 		button.connect("button_down", self, "on_button", [i])
-		button.text = i.visual.item_name
+		button.text = i.get_name()
 		
 func on_button(item):
 #	item = item.replace(" ", "_")

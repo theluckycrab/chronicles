@@ -15,9 +15,11 @@ var war_state_dict = {
 		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
 		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
 		"light_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_light_attack.gd").new(),
+		"strong_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_strong_attack.gd").new(),
 		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
-		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new()
-		
+		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new(),
+		"falling_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_falling_attack.gd").new(),
+		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new()
 }
 
 var peace_state_dict = {
@@ -127,10 +129,10 @@ func update_state_display() -> void:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = str(next_state.index)
 	else:
 		$StateDisplay/VBoxContainer/HBoxContainer2/NextLabel.text = "null"
-#	if host.flags.at_war:
-#		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
-#	else:
-#		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
+	if host.in_combat:
+		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "WAR"
+	else:
+		$StateDisplay/VBoxContainer/HBoxContainer3/WarLabel.text = "PEACE"
 	if host.lock_target:
 		$StateDisplay/VBoxContainer/HBoxContainer4/TargetLabel.text = host.lock_target.name
 	else:

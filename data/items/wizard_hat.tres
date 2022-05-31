@@ -4,24 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-visual = {
-"description": "no description set",
-"item_name": "Wizard Hat",
-"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/BaseHumanoid_WizardHat.tres",
-"slot": "Head"
-}
-overrides = {
-}
-passive = [ "slow_fall" ]
-active = {
-"ability": "high_jump"
-}
-internal = {
+stats = {
 "count": 1,
+"description": "It's a wizard's hat.",
 "index": "wizard_hat",
 "is_modified": false,
+"item_name": "Wizard Hat",
+"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/wizard_hat.mesh",
+"slot": "Head",
 "tags": [  ]
 }
-combat = {
-"durability": 10
+attacks = {
+"dash": "Sit_Floor",
+"falling": "Combat_Idle",
+"strong": "Test_LAttack1"
+}
+abilities = {
+"active": "high_jump",
+"passive": [  ]
 }

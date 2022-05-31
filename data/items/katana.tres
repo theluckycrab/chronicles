@@ -4,24 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-visual = {
-"description": "no description set",
+stats = {
+"count": 1,
+"description": "Weebo",
+"index": "katana",
+"is_modified": false,
 "item_name": "Katana",
 "mesh_file_path": "res://data/assets/Blender/BaseHumanoid/placeholder_sword.tres",
-"slot": "Mainhand"
-}
-overrides = {
-}
-passive = [  ]
-active = {
-"ability": "high_jump"
-}
-internal = {
-"count": 1,
-"index": "katana",
-"is_modified": true,
+"slot": "Mainhand",
 "tags": [  ]
 }
-combat = {
-"durability": 10
+attacks = {
+"dash": "Sit_Floor",
+"falling": "Combat_Idle",
+"strong": "Test_LAttack1"
+}
+abilities = {
+"active": "high_jump",
+"passive": [  ]
 }

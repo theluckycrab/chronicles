@@ -2,17 +2,18 @@ extends PlayerActionState
 
 
 func _init() -> void:
-	index = "Light Attack"
-	animation = "Test_LAttack1"
-	priority = 1
+	index = "Dodge Attack"
+	animation = "Fall"
+	priority = 2
 	host = null
 
 
-func controls() -> String:
-	return "Light Attack"
-	
-	
 func enter() -> void:
+	var weapon = host.get_equipped("Mainhand")
+	if weapon == null:
+		return
+	else:
+		animation = weapon.get_dash_attack()
 	pass
 	
 	
@@ -21,7 +22,6 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
-	#print(host.anim.current_animation)
 	return host.get_animation() != animation
 	
 	
@@ -30,4 +30,6 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	pass
+	host.add_force(host.get_wasd_cam() * 5)
+	host.body_face(host.get_wasd_cam())
+	

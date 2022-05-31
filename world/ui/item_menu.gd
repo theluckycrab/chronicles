@@ -70,7 +70,7 @@ func item_layout(list:Array) -> void:
 		up = up.rotated(turn)
 		if i is Item:
 			var icon = load("res://world/ui/item_icon.tscn").instance()
-			icon.item = i.internal.index
+			icon.item = i.get_index()
 			add_child(icon)
 			icon.rect_position = pos + up * radius
 			icon.rect_scale *= 0.5
@@ -126,7 +126,7 @@ func refresh_category() -> void:
 			filter.append("Boots")
 			
 	for i in items:
-		if filter.has(i.visual.slot):
+		if filter.has(i.get_slot()):
 			new_list.append(i)
 	item_layout(new_list)
 
