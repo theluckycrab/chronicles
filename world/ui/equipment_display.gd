@@ -1,5 +1,31 @@
 extends Control
+
 export(NodePath) onready var host = get_node(host)
+var active = false setget , get_active
+
+func _input(event):
+	if !host.can_act:
+		return
+	if !self.active:
+		if Input.is_action_just_pressed("ability_mod"):
+			show_activate()
+			return
+		elif Input.is_action_just_pressed("destroy_mod"):
+			show_destroy()
+			return
+	else:
+		for i in ["head", "mainhand", "offhand", "boots"]:
+			if Input.is_action_pressed(i):
+				if $DestroyOverlay.visible:
+					host.destroy(i.capitalize())
+				elif $ActivateOverlay.visible:
+					host.activate_item(i.capitalize())
+				show_normal()
+				return
+	for i in ["ability_mod", "destroy_mod"]:
+		if Input.is_action_just_released(i):
+			show_normal()
+			return
 
 func show_destroy():
 	$ActivateOverlay.visible = false
@@ -27,3 +53,6 @@ func refresh():
 				icon = $BootsIcon
 		if icon:
 			icon.refresh(host.armature.equipment[i].internal.index)
+
+func get_active():
+	return $DestroyOverlay.visible or $ActivateOverlay.visible

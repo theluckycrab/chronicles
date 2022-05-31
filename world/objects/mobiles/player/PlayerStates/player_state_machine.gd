@@ -97,8 +97,9 @@ func calc_fallback_state():
 		return get_state("fall")
 	if host.is_on_floor() and host.get_wasd() == Vector3.ZERO:
 		return get_state("idle")
-	if host.is_on_floor():
+	if host.is_on_floor() and host.can_act:
 		return get_state("walk")
+	return get_state("idle")
 		
 		
 func get_state(index=null):

@@ -4,10 +4,31 @@ export var items = []
 export var categories = ["consumables", "equipment", "emote", "chat"]
 export var radius = 150
 
+var active = false setget set_active
 var current_category = null setget set_category
 signal category_changed
 
 onready var host = get_parent().get_parent()
+
+
+func _input(event):
+	if host.can_act:
+		for i in ["item_mod", "item_category_1", "item_category_2", "item_category_3", "item_category_4"]:
+			if Input.is_action_just_pressed(i):
+				show_category(i)
+				active = true
+				return
+			elif Input.is_action_just_released(i):
+				show_category(null)
+				active = false
+				return
+	if active:
+		if Input.is_action_just_pressed("item_scroll_left"):
+			shift("left")
+		elif Input.is_action_just_pressed("item_scroll_right"):
+			shift("right")
+		elif Input.is_action_just_pressed("item_scroll_confirm"):
+			host.equip(items[0])
 
 
 func _ready() -> void:
@@ -101,3 +122,26 @@ func set_category(category):
 
 func refresh_category():
 	on_category_changed(current_category)
+
+
+func set_active(a):
+	active = a
+	if active:
+		set_category("categories")
+	else:
+		set_category(null)
+
+func show_category(input):
+	var cat = null
+	match input:
+		"item_mod":
+			cat = "categories"
+		"item_category_1":
+			cat = "consumables"
+		"item_category_2":
+			cat = "equipment"
+		"item_category_3":
+			cat = "emote"
+		"item_category_4":
+			cat = "chat"
+	set_category(cat)

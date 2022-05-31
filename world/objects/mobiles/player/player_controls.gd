@@ -2,18 +2,6 @@ extends Node
 
 var input_buffer = []
 
-#func controls():
-#	if !destroy_controls(): #must come first to avoid conflicts with keyboard activate
-#		if !item_menu_controls():
-#			if !ability_controls():
-#				if !state_machine.get_state() is ActionState:
-#					lock_on_controls()
-#					state_controls()
-#	######TEsting
-#	if Input.is_action_just_pressed("light_attack"):
-#		print("ATTACKING")
-#		state_machine.set_state("Light Attack")
-
 
 func _input(event) -> void:
 	input_buffer.append(event)
@@ -42,3 +30,4 @@ func get_wasd_cam() -> Vector3:
 	
 	wasd = wasd.rotated(Vector3.UP, cam_rot)
 	return wasd
+	

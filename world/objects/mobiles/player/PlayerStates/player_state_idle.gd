@@ -12,6 +12,10 @@ func _controls() -> void:
 	
 	
 func enter() -> void:
+	if host.in_combat:
+		animation = "Combat_Idle"
+	else:
+		animation = "Idle"
 	pass
 	
 	

@@ -1,6 +1,7 @@
 extends PlayerMoveState
 
 var speed = 5
+var dir = Vector3.ZERO
 
 
 func _init() -> void:
@@ -25,31 +26,39 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
-	return true# or host.velocity.controlled == Vector3.ZERO
+	return true
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor()# and !host.velocity.controlled == Vector3.ZERO
+	return host.is_on_floor()
 	
 	
 func execute() -> void:
-	if host.can_act():
-		var dir = host.get_wasd_cam()
+	dir = Vector3.ZERO
+	if !host.can_act():
+		return
+		
+	dir = host.get_wasd_cam()
+	if host.in_combat:
+		animation = get_strafe_dir()
+		host.add_force(dir * speed / 2)
+	else:
+		animation = "Walk"
 		host.add_force(dir * speed)
 		host.body_face(dir)
 	pass
 	
 	
 func get_strafe_dir():
-#	match host.velocity.controlled.max_axis():
-#		Vector3.AXIS_X:
-#			if host.velocity.controlled.x > 0:
-#				return "Strafe_Right"
-#			elif host.velocity.controlled.x < 0:
-#				return "Strafe_Left"
-#		Vector3.AXIS_Y:
-#			if host.velocity.controlled.z > 0:
-#				return "Strafe_Forward"
-#			elif host.velocity.controlled.z < 0:
-#				return "Strafe_Backwards"
+	match dir.abs().max_axis():
+		Vector3.AXIS_X:
+			if dir.x > 0:
+				return "Strafe_Right"
+			elif dir.x < 0:
+				return "Strafe_Left"
+		Vector3.AXIS_Y:
+			if dir.z > 0:
+				return "Strafe_Forward"
+			elif dir.z < 0:
+				return "Strafe_Backwards"
 	return "Strafe_Forward"
