@@ -4,36 +4,46 @@ export var items = []
 export var categories = ["consumables", "equipment", "emote", "chat"]
 export var radius = 150
 
-var active = false setget set_active
+var active = false setget , get_active
 var current_category = null setget set_category
 signal category_changed
 
 onready var host = get_parent().get_parent()
 
 
-func _input(event):
-	if host.can_act:
-		for i in ["item_mod", "item_category_1", "item_category_2", "item_category_3", "item_category_4"]:
-			if Input.is_action_just_pressed(i):
-				show_category(i)
-				active = true
-				return
-			elif Input.is_action_just_released(i):
-				show_category(null)
-				active = false
-				return
-	if active:
-		if Input.is_action_just_pressed("item_scroll_left"):
-			shift("left")
-		elif Input.is_action_just_pressed("item_scroll_right"):
+func controls():
+	if !Input.is_action_pressed("item_mod"):
+		if Input.is_action_just_released("item_mod"):
+			set_category(null)
+			return
+		
+	if Input.is_action_just_pressed("item_mod")\
+			and !Input.is_action_pressed("item_category_1")\
+			and !Input.is_action_pressed("item_category_2")\
+			and !Input.is_action_pressed("item_category_3")\
+			and !Input.is_action_pressed("item_category_4"):
+		set_category("categories")
+	elif Input.is_action_just_pressed("item_category_1"):
+		set_category("consumables")
+	elif Input.is_action_just_pressed("item_category_2"):
+		set_category("equipment")
+		
+	if current_category == "categories":
+		if Input.is_action_just_released("item_scroll_right"):
+			set_category(categories[1])
+
+	elif current_category == "equipment":
+		if Input.is_action_just_released("item_scroll_right"):
 			shift("right")
-		elif Input.is_action_just_pressed("item_scroll_confirm"):
+		elif Input.is_action_just_released("item_scroll_left"):
+			shift("left")
+		elif Input.is_action_just_released("item_scroll_confirm"):
 			host.equip(items[0])
+	return 
 
 
 func _ready() -> void:
 	current_category = null
-	var _discard = connect("category_changed", self, "on_category_changed")
 	items = [
 		Data.get_reference_instance("bandana"),
 		Data.get_reference_instance("katana"),
@@ -43,10 +53,14 @@ func _ready() -> void:
 		Data.get_reference_instance("wizard_hat"),
 		Data.get_reference_instance("wizard_hat")
 	]
+	
+func _physics_process(delta):
+	controls()
 		
 func item_layout(list:Array) -> void:
 	if list.size() <= 0:
 		return
+	print(list)
 	var pos = get_rect().size / 2
 	var up = Vector2.UP
 	var turn = deg2rad(360.0/list.size())
@@ -65,8 +79,6 @@ func item_layout(list:Array) -> void:
 			lab.text = i
 			lab.rect_position = pos + up * radius
 			lab.rect_position.x -= i.length() * 2.5
-			lab.mouse_filter = Control.MOUSE_FILTER_PASS
-			lab.connect("mouse_entered", self, "on_category_select", [lab.text])
 		
 		
 func shift(dir:String) -> void:
@@ -80,21 +92,27 @@ func shift(dir:String) -> void:
 		var n = items.back()
 		items.pop_back()
 		items.insert(0, n)
-	for i in get_children():
-		if i is Label:
-			i.queue_free()
 	refresh_category()
-			
+	
 
-func on_category_changed(category) -> void:
-	current_category = category
+func reset():
+	for i in get_children():
+			i.queue_free()
+	current_category = null
+
+func set_category(category):
+	if category != current_category:
+		current_category = category
+		refresh_category()
+
+func refresh_category():
 	var new_list = []
 	var filter = []
 	
 	for i in get_children():
 		i.queue_free()
 	
-	match category:
+	match current_category:
 		"categories":
 			item_layout(categories)
 			return
@@ -107,29 +125,11 @@ func on_category_changed(category) -> void:
 	for i in items:
 		if filter.has(i.visual.slot):
 			new_list.append(i)
-			
 	item_layout(new_list)
 
-func reset():
-	for i in get_children():
-			i.queue_free()
-	current_category = null
 
-func set_category(category):
-	if category != current_category:
-		current_category = category
-		emit_signal("category_changed", category)
-
-func refresh_category():
-	on_category_changed(current_category)
-
-
-func set_active(a):
-	active = a
-	if active:
-		set_category("categories")
-	else:
-		set_category(null)
+func get_active():
+	return current_category != null
 
 func show_category(input):
 	var cat = null

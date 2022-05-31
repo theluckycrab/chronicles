@@ -21,6 +21,7 @@ func _input(event) -> void:
 			mouse_motion_vector = Vector2.ZERO
 			right_stick_vector.x = Input.get_joy_axis(1, JOY_AXIS_2)
 			right_stick_vector.y = Input.get_joy_axis(1, JOY_AXIS_3)
+		apply_mouse_look_limit()
 		apply_rotation(mouse_motion_vector, Vector2(0.2, 0.2))
 	
 
@@ -54,6 +55,13 @@ func apply_look_limit() -> void:
 		right_stick_vector.y = 0
 	elif y < -v_look_limit_degrees and sign(right_stick_vector.y) == 1:
 		right_stick_vector.y = 0
+		
+func apply_mouse_look_limit() -> void:
+	var y = rad2deg(v.rotation.x) + mouse_motion_vector.y
+	if y > v_look_limit_degrees * .25 and sign(mouse_motion_vector.y) == -1:
+		mouse_motion_vector.y = 0
+	elif y < -v_look_limit_degrees and sign(mouse_motion_vector.y) == 1:
+		mouse_motion_vector.y = 0
 		
 		
 func apply_rotation(direction_vector:Vector2, speed_vector:Vector2) -> void:

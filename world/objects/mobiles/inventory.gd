@@ -62,10 +62,16 @@ func get_defaults_dict():
 func equip(item):
 	if ! defaults_dict.has(item):
 		print("I would reduce the count of ", item.visual.item_name,"s if there was one!")
-
+	equipment_dict[item.visual.slot] = item
 
 func get_default(slot):
 	if defaults_dict.has(slot):
 		return defaults_dict[slot]
+	else:
+		return null
+
+func get_equipped(slot):
+	if equipment_dict.has(slot):
+		return equipment_dict[slot]
 	else:
 		return null

@@ -1,6 +1,7 @@
 extends KinematicBody
 
 var net_stats = NetStats.new("player")
+var count = 0
 
 var lock_target = null
 
@@ -30,6 +31,8 @@ func _ready() -> void:
 		grab_camera()
 		for i in defaults:
 			equip(defaults[i])
+	else:
+		$UI.queue_free()
 	
 
 func _physics_process(delta) -> void:
@@ -76,12 +79,14 @@ func destroy(slot) -> void:
 	equip(item)
 	
 	
-func activate_item(args) -> void:
-	match args.source:
-		"equipment":
-			armature.activate_item(args)
-		"inventory":
-			inventory.activate_item(args)
+func activate_item_slot(slot) -> void:
+	count += 1
+	print(count)
+	var item = get_equipped(slot)
+	if item == null:
+		return
+	item.activate(self)
+	print(item)
 			
 			
 func add_effect(source, index) -> void:
@@ -274,6 +279,9 @@ func get_defaults_dict():
 func get_default(slot):
 	return inventory.get_default(slot)
 	
+func get_equipped(slot):
+	return inventory.get_equipped(slot)
+	
 func get_in_combat():
 	return lock_target != null
 	
@@ -282,3 +290,7 @@ func set_in_combat(t):
 		in_combat = true
 	elif t == false:
 		lock_target = null
+		
+		
+func ui_active():
+	return $UI.active

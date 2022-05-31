@@ -56,15 +56,15 @@ func get_dir():
 		Vector3.AXIS_X:
 			if dir.x < 0:
 				animation = "Dodge_Left"
-				return Vector3(1,0,0) * 1
+				return Vector3(1,0,0) * 2
 			elif dir.x > 0:
 				animation = "Dodge_Right"
-				return Vector3(1,0,0) * -1
+				return Vector3(1,0,0) * -2
 		Vector3.AXIS_Z:
 			if dir.z < 0:
 				animation = "Dash"
-				return Vector3(0,0,1) * 1.25
+				return Vector3(0,0,1) * 3.25
 			if dir.z > 0:
 				animation = "Fall"
-				return Vector3(0,0,1) * -0.75
+				return Vector3(0,0,1) * -1.75
 	return Vector3.ZERO

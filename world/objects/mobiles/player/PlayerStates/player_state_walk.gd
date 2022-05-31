@@ -1,6 +1,6 @@
 extends PlayerMoveState
 
-var speed = 5
+var speed = 7
 var dir = Vector3.ZERO
 
 
@@ -35,7 +35,7 @@ func can_enter() -> bool:
 	
 func execute() -> void:
 	dir = Vector3.ZERO
-	if !host.can_act():
+	if !host.can_act:
 		return
 		
 	dir = host.get_wasd_cam()

@@ -3,6 +3,7 @@ extends Resource
 
 export var effect_name: String = "Slow Fall"
 var source = null
+var index = "slow_fall"
 
 
 func enter(_host: Object) -> void:
