@@ -4,17 +4,17 @@
 [ext_resource path="res://world/objects/generic/hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/assets/destroy_icon.png" type="Texture" id=3]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.10067, 0.79187, 0.364488 )
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.146898, 0.509514, 0.30693 )
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.133704, 0.795293, 0.400801 )
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 0.146898, 0.509514, 0.30693 )
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.465819, 0.0675608, 0.267316 )
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.25476, 0.254646, 0.250182 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.421892, 0.615859, 0.103503 )
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 0.235598, 0.670797, 0.496737 )
 
 [sub_resource type="SpatialMaterial" id=5]
 albedo_texture = ExtResource( 3 )
@@ -25,37 +25,40 @@ material = SubResource( 5 )
 [node name="Guardbox" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="Left" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0641538, 0, 0 )
-
-[node name="CollisionShape" parent="Left" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.648006, 1.27468, 0.0513709 )
-shape = SubResource( 1 )
-
 [node name="Right" parent="." instance=ExtResource( 2 )]
+state = "Ghost"
 
-[node name="CollisionShape" parent="Right" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.583212, 1.23145, 0.0729594 )
-shape = SubResource( 2 )
+[node name="CollisionShape" type="CollisionShape" parent="Right"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.300679, 1.27386, 0.280817 )
+shape = SubResource( 7 )
+
+[node name="Left" parent="." instance=ExtResource( 2 )]
+state = "Ghost"
+
+[node name="CollisionShape" type="CollisionShape" parent="Left"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.350504, 1.27386, 0.280817 )
+shape = SubResource( 8 )
 
 [node name="Above" parent="." instance=ExtResource( 2 )]
+state = "Ghost"
 
-[node name="CollisionShape" parent="Above" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14691, 0.284842 )
-shape = SubResource( 3 )
+[node name="CollisionShape" type="CollisionShape" parent="Above"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.0113748, 2.03903, 0.277443 )
+shape = SubResource( 9 )
 
 [node name="Forward" parent="." instance=ExtResource( 2 )]
+state = "Ghost"
 
-[node name="CollisionShape" parent="Forward" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40713, 0.607624 )
-shape = SubResource( 4 )
+[node name="CollisionShape" type="CollisionShape" parent="Forward"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0173109, 1.40967, 0.570287 )
+shape = SubResource( 10 )
 
 [node name="Indicator" type="MeshInstance" parent="."]
 transform = Transform( 0.131572, 0, 0, 0, 0.131572, 0, 0, 0, 0.131572, 0, 0, 0 )
 mesh = SubResource( 6 )
 material/0 = null
 
-[editable path="Left"]
 [editable path="Right"]
+[editable path="Left"]
 [editable path="Above"]
 [editable path="Forward"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
+[ext_resource path="res://data/assets/projectiles/fading_horizon/fading_horizon.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.0938795, 0.0920308, 0.0609831 )
+
+[sub_resource type="SphereMesh" id=5]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Execute"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hitbox:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 2.108, 1.23, 2.134 ), Vector3( -2.205, 1.23, 2.134 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Hitbox:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -2.20531, 1.22992, -2.13401 ) ]
+}
+
+[node name="FadingHorizon" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Hitbox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.20531, 1.22992, -2.13401 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Hitbox"]
+transform = Transform( 0.123692, 0, 0, 0, 0.123692, 0, 0, 0, 0.123692, 0, 0, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Execute"
+anims/Execute = SubResource( 3 )
+anims/RESET = SubResource( 4 )

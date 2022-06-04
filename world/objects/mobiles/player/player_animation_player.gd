@@ -1,5 +1,7 @@
 extends AnimationPlayer
 
+signal keyframe
+
 var override_list = {
 }
 
@@ -11,3 +13,7 @@ func _ready() -> void:
 func on_animation_started(anim:String) -> void:
 	if anim in override_list:
 		play(override_list[anim])
+	
+
+func keyframe() -> void:
+	emit_signal("keyframe")

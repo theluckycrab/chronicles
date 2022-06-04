@@ -17,8 +17,8 @@ albedo_texture = ExtResource( 1 )
 metallic = 1.0
 metallic_specular = 1.0
 
-[sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.325273, 0.983404, 0.28933 )
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.28662, 1.05755, 0.253581 )
 
 [sub_resource type="CapsuleShape" id=3]
 radius = 0.518143
@@ -44,8 +44,9 @@ anims/Guard_Left = ExtResource( 6 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 8 )]
 
-[node name="CollisionShape" parent="Hitbox" index="0"]
-shape = SubResource( 6 )
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03549, 0 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.958371, 0 )

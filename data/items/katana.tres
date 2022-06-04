@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://data/items/item_data.gd" type="Script" id=1]
+[ext_resource path="res://data/items/weapon.gd" type="Script" id=1]
+[ext_resource path="res://data/attacks/fading_horizon.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -23,3 +24,4 @@ abilities = {
 "active": "high_jump",
 "passive": [  ]
 }
+attack = ExtResource( 2 )
