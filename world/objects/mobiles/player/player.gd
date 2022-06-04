@@ -8,6 +8,8 @@ var can_act = true setget , get_can_act
 var in_combat = false setget set_in_combat, get_in_combat
 var at_war = false setget set_war
 
+var stored_delta = 0
+
 onready var state_machine = $StateMachine
 onready var armature = $Armature
 onready var inventory = $Inventory
@@ -35,7 +37,8 @@ func _ready() -> void:
 		$UI.queue_free()
 	
 
-func _physics_process(_delta) -> void:
+func _physics_process(delta) -> void:
+	stored_delta = delta
 	if net_stats.is_master:
 		if can_act:
 			state_machine.execute()
@@ -96,7 +99,7 @@ func body_face(dir:Vector3) -> void:
 	
 	
 func play(animation: String, motion: bool =false) -> void:
-	armature.anim.play(animation, motion)
+	armature.play(animation, motion)
 	
 	
 func vis_equip(args:Dictionary) -> void:
@@ -117,6 +120,10 @@ func guard_reset() -> void:
 	
 func get_hit_origin():
 	return armature.get_hit_origin()
+	
+	
+func get_root_motion():
+	return armature.get_root_motion()
 	
 	
 #inventory interface

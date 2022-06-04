@@ -37,12 +37,29 @@ func face(dir:Vector3) -> void:
 	rotation.y = lerp_angle(rotation.y, angle, 0.2)
 
 
-func play(animation, _motion: bool = false) -> void:
-	$AnimationPlayer.play(animation)
+func play(animation, motion: bool = false) -> void:
+	if motion:
+		#anim.stop()
+		anim.play_with_root_motion(animation)
+		print("playing motion for ", animation)
+	else:
+		anim.tree.active = false
+		anim.play(animation)
+	
+
+func get_root_motion():
+	return anim.get_root_motion()
 	
 	
 func get_animation() -> String:
-	return anim.current_animation
+	if anim.is_playing():
+		return anim.current_animation
+	elif anim.tree.active:
+		if !anim.tree.get("parameters/OneShot/active"):
+			return ""
+		return anim.tree.get_tree_root().get_node("Action").animation
+	else:
+		return ""
 	
 	
 func guard(dir:String) -> void:

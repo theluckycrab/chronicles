@@ -79,7 +79,10 @@ func cycle() -> void:
 	if current_state:
 		current_state.exit()
 	next_state.enter()
-	host.play(next_state.animation)
+	if next_state is ActionState:
+		host.play(next_state.animation, true)
+	else:
+		host.play(next_state.animation)
 	current_state = next_state
 	next_state = null
 	return

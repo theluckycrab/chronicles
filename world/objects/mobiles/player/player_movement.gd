@@ -18,6 +18,8 @@ func apply_gravity() -> void:
 
 func commit_move() -> void:
 	var commit_vel = velocity
+	if host.armature.anim.tree.active:
+		commit_vel += (get_root_motion().origin / host.stored_delta).rotated(Vector3.UP, host.armature.rotation.y)
 	velocity = Vector3.ZERO
 	if host.is_on_floor() and commit_vel.y == 0:
 		var _discard = host.move_and_slide_with_snap(commit_vel, Vector3.DOWN, Vector3.UP, true)
@@ -25,3 +27,7 @@ func commit_move() -> void:
 	if commit_vel.y == 0:
 		apply_gravity()
 	var _discard = host.move_and_slide(commit_vel, Vector3.UP, false)
+
+
+func get_root_motion():
+	return host.get_root_motion()
