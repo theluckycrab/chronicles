@@ -1,10 +1,10 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://data/assets/projectiles/fading_horizon/fading_horizon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://data/projectiles/fading_horizon/fading_horizon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/attacks/attack.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 2 )
 attack_name = "Fading Horizon"
 anim = "Draw"
-projectile = ExtResource( 1 )
+projectiles = [ ExtResource( 1 ) ]

@@ -1,8 +1,8 @@
 extends PlayerActionState
 
-var tick = 0
+var keyframe = 0
 var weapon = null
-var effects = []
+var hits = []
 
 
 func _init() -> void:
@@ -10,14 +10,14 @@ func _init() -> void:
 	animation = "Test_LAttack1"
 	priority = 1
 	host = null
-	effects.append(funcref(self, "dicks"))
-
+	
 	
 func enter() -> void:
 	host.armature.anim.connect("keyframe", self, "on_keyframe")
-	tick = 0
+	keyframe = 0
 	weapon = host.get_equipped("Mainhand")
 	animation = weapon.attack.anim
+	hits = weapon.attack.projectiles
 	pass
 	
 	
@@ -39,12 +39,12 @@ func execute() -> void:
 	
 	
 func on_keyframe() -> void:
-	if tick < effects.size():
-		effects[tick].call_func()
-	tick += 1
+	if keyframe < hits.size():
+		instance_hit_effect(hits[keyframe])
+	keyframe += 1
 	
 	
-func dicks() -> void:
-	print(weapon.attack)
-	var proj = weapon.attack.projectile.instance()
+func instance_hit_effect(hit:PackedScene) -> void:
+	var proj = hit.instance()
 	host.armature.add_child(proj)
+	proj.global_transform.origin = host.get_hit_origin()

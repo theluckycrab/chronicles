@@ -60,3 +60,7 @@ func size_weapon() -> void:
 	mesh.transform.origin = mesh.transform.origin + length / 2
 	mesh.transform.origin = mesh.transform.origin * 0.75
 	box.get_shape().set_extents(length / 2)
+
+
+func get_hit_origin() -> Vector3:
+	return $HitOrigin.global_transform.origin

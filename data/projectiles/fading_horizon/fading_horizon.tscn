@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
-[ext_resource path="res://data/assets/projectiles/fading_horizon/fading_horizon.gd" type="Script" id=2]
+[ext_resource path="res://data/projectiles/fading_horizon/fading_horizon.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 

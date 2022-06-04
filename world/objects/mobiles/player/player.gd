@@ -110,8 +110,13 @@ func get_animation() -> String:
 func guard(dir:String) -> void:
 	armature.guard(dir)
 	
+	
 func guard_reset() -> void:
 	armature.guard_reset()
+	
+	
+func get_hit_origin():
+	return armature.get_hit_origin()
 	
 	
 #inventory interface
