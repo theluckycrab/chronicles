@@ -5,7 +5,7 @@ var items = []
 		
 var defaults_dict = {
 	"Head":Data.get_item("naked_head"),
-	"Mainhand":Data.get_item("naked_mainhand"),
+	"Mainhand":Data.get_item("katana"),
 	"Offhand":Data.get_item("naked_offhand"),
 	"Boots":Data.get_item("naked_feet"),
 		}

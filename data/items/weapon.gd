@@ -2,7 +2,7 @@ class_name Weapon
 extends Item
 
 export var attack = "fading_horizon" setget , get_attack
-var state = Hitbox.GHOST
+var state = Hitbox.states.GHOST
 
 
 func get_attack():

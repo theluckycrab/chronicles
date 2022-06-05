@@ -28,6 +28,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	net_stats.register()
+	armature.connect("blocked", self, "on_armature_blocked")
 	var defaults = get_defaults_dict()
 	if net_stats.is_master:
 		grab_camera()
@@ -48,7 +49,12 @@ func _physics_process(delta) -> void:
 			lock_on()
 		commit_move()
 	update()
-		
+	
+	
+#signal_response
+func on_armature_blocked():
+	print(net_stats.netID, " blocked!")
+
 		
 #setget
 func get_can_act() -> bool:
@@ -132,6 +138,10 @@ func weaponbox_strike() -> void:
 	
 func weaponbox_ghost() -> void:
 	armature.weaponbox_ghost()
+	
+	
+func link_hitbox(box) -> void:
+	box.connect("hitbox_entered", self, "on_hitbox_entered")
 	
 	
 #inventory interface

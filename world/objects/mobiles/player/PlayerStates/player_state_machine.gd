@@ -19,6 +19,7 @@ var war_state_dict = {
 		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
 		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new(),
 		"falling_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_falling_attack.gd").new(),
+		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
 		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new()
 }
 
@@ -49,17 +50,16 @@ func execute() -> void:
 func set_state(index:String) -> void:
 	if get_state(index) == null:
 		return
-		
 	var cprior
 	var nprior = get_state(index).priority
 	if current_state == null:
 		cprior = 0
 	else:
 		cprior = get_state(current_state).priority
-	
+		
 	if nprior > cprior:
 		next_state = get_state(index)
-	
+		
 	
 func cycle() -> void:
 	if current_state == null:
@@ -75,7 +75,7 @@ func cycle() -> void:
 	if next_state == null or next_state.can_enter() == false:
 		next_state = null
 		return
-	
+
 	if current_state:
 		current_state.exit()
 	next_state.enter()

@@ -1,9 +1,16 @@
 extends Spatial
 
+signal blocked
+
 onready var equipment: Dictionary
 onready var host = get_parent()
 onready var anim = $AnimationPlayer
 onready var weaponbox = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox
+
+
+func _ready():
+	$Guardbox.connect("blocked", self, "on_guardbox_blocked")
+	weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
 
 
 func equip(args:Dictionary) -> void:
@@ -90,3 +97,18 @@ func weaponbox_ghost() -> void:
 
 func is_using_root_motion() -> bool:
 	return anim.is_using_root_motion()
+
+
+func on_guardbox_blocked(incoming):
+	emit_signal("blocked")
+
+func on_weaponbox_entered(mybox, theirbox):
+	match Hitbox.get_collision_type(mybox, theirbox):
+		Hitbox.collision_type.GOT_BLOCKED:
+			weaponbox.ghost()
+			host.set_state("stagger")
+			print("armature calls stagger")
+		Hitbox.collision_type.HIT:
+			weaponbox.ghost()
+			print("i struck ", theirbox.name)
+	return

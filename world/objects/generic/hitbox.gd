@@ -1,43 +1,54 @@
 class_name Hitbox
 extends Area
 
-const GHOST = 0
-const IDLE = 1
-const STRIKE = 2
-const GUARD = 3
+enum states {GHOST, IDLE, STRIKE, GUARD, PARRY}
 
-var state = GHOST
+enum collision_type {NULL, HIT, GOT_HIT, BLOCKED, GOT_BLOCKED, PARRIED, GOT_PARRIED, CLASH_WON, CLASH_LOST}
+
+var state = states.GHOST setget set_state
 signal hitbox_entered
 
+var collisions = []
 
 func _ready() -> void:
 	var _discard = connect("area_entered", self, "on_area_entered")
 	
 	
 func on_area_entered(who) -> void:
-	if state != GHOST:
-		if who.has_method("am_hitbox") and who.get_owner() != get_owner():
-			emit_signal("hitbox_entered", self, who)
+	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
+		if state != states.GHOST and who.state != states.GHOST:
+			collisions.append(who)
+			#emit_signal("hitbox_entered", self, who)
+			
+func _physics_process(delta):
+	if collisions.empty():
+		return
+	emit_signal("hitbox_entered", self, collisions.front())
+	collisions.clear()
 			
 			
 func idle() -> void:
-	state = IDLE
+	self.state = states.IDLE
 	
 	
 func ghost() -> void:
-	state = GHOST
+	self.state = states.GHOST
 	
 	
 func reset() -> void:
-	state = GHOST
+	self.state = states.GHOST
 	
 	
 func strike() -> void:
-	state = STRIKE
+	self.state = states.STRIKE
 	
 	
 func guard() -> void:
-	state = GUARD
+	self.state = states.GUARD
+	
+	
+func parry() -> void:
+	self.state = states.PARRY
 	
 	
 func am_hitbox() -> bool:
@@ -66,3 +77,29 @@ func get_dir(other) -> String:
 				return "behind"
 	print(self, " unable to determine direction of ", other)
 	return "front"
+
+static func get_collision_type(mybox, theirbox):
+	match mybox.state:
+		states.IDLE:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.GOT_HIT
+		states.STRIKE:
+			match theirbox.state:
+				states.IDLE:
+					return collision_type.HIT
+				states.STRIKE:
+					return collision_type.CLASH_LOST
+				states.GUARD:
+					return collision_type.GOT_BLOCKED
+		states.GUARD:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.BLOCKED
+	return collision_type.NULL
+
+func set_state(s):
+	state = s
+	for i in get_overlapping_areas():
+		if i.has_method("am_hitbox"):
+			on_area_entered(i)

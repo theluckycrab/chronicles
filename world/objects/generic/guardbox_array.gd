@@ -1,5 +1,7 @@
 extends Spatial
 
+signal blocked
+
 var delay_timer: = Timer.new()
 var delay: float = 1
 var incoming: Dictionary = {}
@@ -41,12 +43,14 @@ func hook_up_children() -> void:
 	
 	
 func on_hitbox_entered(mybox, theirbox) -> void:
-	if !incoming.has(theirbox):
+	if !incoming.has(theirbox) and theirbox.state == Hitbox.states.STRIKE:
 		incoming[theirbox] = mybox
+		print(theirbox.name, " struck ", mybox.name)
 		delay_timer.start(delay)
-	print(mybox, " hit by ", theirbox)
 	
 	
 func on_delay_timer() -> void:
+	if !incoming.empty():
+		emit_signal("blocked")
 	incoming.clear()
 	
