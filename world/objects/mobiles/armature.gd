@@ -3,10 +3,11 @@ extends Spatial
 onready var equipment: Dictionary
 onready var host = get_parent()
 onready var anim = $AnimationPlayer
+onready var weaponbox = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox
 
 
 func equip(args:Dictionary) -> void:
-	var item = Data.get_reference_instance(args.index)
+	var item = Data.get_item(args.index)
 	var mount = get_node_or_null("Skeleton/"+item.get_slot())
 	var slot = item.get_slot()
 	if slot == "Mainhand":
@@ -14,7 +15,6 @@ func equip(args:Dictionary) -> void:
 	if mount:
 		mount.set_mesh(item.get_mesh())
 		if item.get_slot() == "Mainhand":
-			print("sizeable")
 			size_weapon()
 	
 	
@@ -78,3 +78,15 @@ func size_weapon() -> void:
 
 func get_hit_origin() -> Vector3:
 	return $HitOrigin.global_transform.origin
+
+
+func weaponbox_strike() -> void:
+	weaponbox.strike()
+	
+	
+func weaponbox_ghost() -> void:
+	weaponbox.ghost()
+
+
+func is_using_root_motion() -> bool:
+	return anim.is_using_root_motion()

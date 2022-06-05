@@ -74,7 +74,7 @@ func item_layout(list:Array) -> void:
 		
 		
 func shift(dir:String) -> void:
-	if current_category == null:
+	if current_category == null or items.empty():
 		return
 	if dir == "right":
 		var n = items.front()

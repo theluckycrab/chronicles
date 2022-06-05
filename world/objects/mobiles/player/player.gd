@@ -118,12 +118,20 @@ func guard_reset() -> void:
 	armature.guard_reset()
 	
 	
-func get_hit_origin():
+func get_hit_origin() -> Vector3:
 	return armature.get_hit_origin()
 	
 	
-func get_root_motion():
+func get_root_motion() -> Transform:
 	return armature.get_root_motion()
+	
+	
+func weaponbox_strike() -> void:
+	armature.weaponbox_strike()
+	
+	
+func weaponbox_ghost() -> void:
+	armature.weaponbox_ghost()
 	
 	
 #inventory interface
@@ -175,7 +183,9 @@ func update() -> void:
 	var args = {
 			position = global_transform.origin,
 			rot = armature.rotation,
-			anime = get_animation(),
+			anim = get_animation(),
+			anim_motion = armature.is_using_root_motion()
+			
 	}
 	npc("net_sync", args)
 	
@@ -184,8 +194,8 @@ func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy:
 		global_transform.origin = args.position
 		armature.rotation = args.rot
-		if get_animation() != args.anime:
-			play(args.anime)
+		if get_animation() != args.anim:
+			play(args.anim, args.anim_motion)
 	
 	
 ##commands

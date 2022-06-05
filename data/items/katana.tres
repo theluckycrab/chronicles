@@ -14,7 +14,7 @@ tags = [  ]
 attacks = {
 "dash": "Sit_Floor",
 "falling": "Combat_Idle",
-"strong": "Test_LAttack1"
+"strong": "Katana_Combo_1"
 }
 abilities = {
 "active": "high_jump",

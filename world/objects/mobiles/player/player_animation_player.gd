@@ -21,12 +21,17 @@ func keyframe() -> void:
 	emit_signal("keyframe")
 
 
-func play_with_root_motion(anim):
+func play_with_root_motion(anim:String) -> void:
 	stop()
 	var anim_node = tree.get_tree_root().get_node("Action")
 	anim_node.animation = anim
 	tree.active = true
 	tree.set("parameters/OneShot/active", true)
 	
-func get_root_motion():
+	
+func get_root_motion() -> Transform:
 	return tree.get_root_motion_transform()
+
+
+func is_using_root_motion() -> bool:
+	return tree.get("parameters/OneShot/active")

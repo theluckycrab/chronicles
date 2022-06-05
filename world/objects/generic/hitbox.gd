@@ -1,7 +1,12 @@
 class_name Hitbox
 extends Area
 
-export var state = "Idle"
+const GHOST = 0
+const IDLE = 1
+const STRIKE = 2
+const GUARD = 3
+
+var state = GHOST
 signal hitbox_entered
 
 
@@ -10,29 +15,29 @@ func _ready() -> void:
 	
 	
 func on_area_entered(who) -> void:
-	if state != "Ghost":
+	if state != GHOST:
 		if who.has_method("am_hitbox") and who.get_owner() != get_owner():
 			emit_signal("hitbox_entered", self, who)
 			
 			
 func idle() -> void:
-	state = "Idle"
+	state = IDLE
 	
 	
 func ghost() -> void:
-	state = "Ghost"
+	state = GHOST
 	
 	
 func reset() -> void:
-	state = "Ghost"
+	state = GHOST
 	
 	
 func strike() -> void:
-	state = "Strike"
+	state = STRIKE
 	
 	
 func guard() -> void:
-	state = "Guard"
+	state = GUARD
 	
 	
 func am_hitbox() -> bool:
