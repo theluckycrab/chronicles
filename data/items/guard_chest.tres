@@ -1,13 +1,13 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://data/items/weapon.gd" type="Script" id=1]
+[ext_resource path="res://data/items/item_data.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
-item_name = "Katana"
-slot = "Mainhand"
-mesh = "katana"
-description = "Weebo Weebo"
+item_name = "Guard Chest"
+slot = "Chest"
+mesh = "guard_chest"
+description = "Team spirit eminates from your vivid coloration."
 is_modified = false
 count = 1
 tags = [  ]
@@ -17,7 +17,6 @@ attacks = {
 "strong": "Test_LAttack1"
 }
 abilities = {
-"active": "high_jump",
+"active": "treasure_sense",
 "passive": [  ]
 }
-attack = "Fading Horizon"

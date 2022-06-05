@@ -98,6 +98,7 @@ func set_category(category) -> void:#string or null
 		fetch_items()
 		current_category = category
 		refresh_category()
+		shift("right")
 
 
 func refresh_category() -> void:

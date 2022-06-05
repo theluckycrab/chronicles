@@ -85,9 +85,8 @@ func get_name() -> String:
 	
 func get_mesh() -> ArrayMesh:
 	if mesh is String:
-		return Data.get_mesh(mesh)
-	else:
-		return mesh
+		mesh = Data.get_mesh(mesh)
+	return mesh
 	
 	
 func get_slot() -> String:

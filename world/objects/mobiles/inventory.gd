@@ -1,10 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.get_item("wizard_hat"),
-		 Data.get_item("katana"),
-		 Data.get_item("bandana"),
-		Data.get_item("debug_item")]
+var items = []
 		
 var defaults_dict = {
 	"Head":Data.get_item("naked_head"),
@@ -32,22 +29,8 @@ func get_item(item_name:String) -> Item:
 func get_item_list() -> Array:
 	return items
 	
-func add_item(item: Item, count: int = 1) -> void:
-	print("adding ", count, " ", item.visual.item_name, " to inventory")
-	if !item.internal.is_modified:
-		for i in items:
-			if i.visual.item_name == item.visual.item_name:
-				i.internal.count += count
-				print(items[0].visual.item_name, items[0].internal.count)
-				return
-		item.internal.count = count
-		items.append(item)
-	else:
-		if count > 1:
-			for i in count:
-				add_item(item)
-		else:
-			items.append(item)
+func add_item(item:Item) -> void:
+	items.append(item)
 	
 	
 func remove_item(item, count: int = 1) -> void:

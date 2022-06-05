@@ -139,6 +139,10 @@ func get_equipped(slot:String) -> Item:
 	return inventory.get_equipped(slot)
 	
 	
+func add_item(item:Item) -> void:
+	inventory.add_item(item)
+	
+	
 #bufflist interface
 func add_effect(source, index:String) -> void:#source can be anything
 	buff_list.add_effect(source, index)

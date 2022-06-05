@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-item_name = "Katana"
+item_name = "Club"
 slot = "Mainhand"
-mesh = "katana"
-description = "Weebo Weebo"
+mesh = "club"
+description = "Ooh Ooh"
 is_modified = false
 count = 1
 tags = [  ]

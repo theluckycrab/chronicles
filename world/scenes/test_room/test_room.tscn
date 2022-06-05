@@ -52,8 +52,30 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.02821, -5.09751 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3851, 0 )
 
-[node name="ItemCube" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60702, 0.938064, 0 )
-
 [node name="TargetDummy" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.33167 )
+
+[node name="Items" type="Spatial" parent="."]
+
+[node name="ItemCubeDebug" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, -7.25402 )
+
+[node name="ItemCubeBandana" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, -5.13091 )
+item = "bandana"
+
+[node name="ItemCubeWizardHat" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, 4.71791 )
+item = "wizard_hat"
+
+[node name="ItemCubeClub" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, -0.605287 )
+item = "guard_chest"
+
+[node name="ItemCubeKatana" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, 1.29481 )
+item = "katana"
+
+[node name="ItemCubeScimitar" parent="Items" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.80523, 0.938064, 2.96322 )
+item = "scimitar"
