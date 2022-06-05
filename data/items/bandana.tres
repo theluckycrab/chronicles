@@ -4,16 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-stats = {
-"count": 1,
-"description": "It's a bandana.",
-"index": "bandana",
-"is_modified": false,
-"item_name": "Bandana",
-"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/bandana.mesh",
-"slot": "Head",
-"tags": [  ]
-}
+item_name = "Bandana"
+slot = "Head"
+mesh = "bandana"
+description = "Team spirit eminates from your vivid coloration."
+is_modified = false
+count = 1
+tags = [  ]
 attacks = {
 "dash": "Sit_Floor",
 "falling": "Combat_Idle",

@@ -4,16 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-stats = {
-"count": 1,
-"description": "no description set",
-"index": "debug_item",
-"is_modified": false,
-"item_name": "name not set",
-"mesh_file_path": "res://data/assets/Blender/BaseHumanoid/wizard_hat.mesh",
-"slot": "slot not set",
-"tags": [  ]
-}
+item_name = "Debug Item"
+slot = "Offhand"
+mesh = "fairy_band"
+description = "no description set"
+is_modified = false
+count = 1
+tags = [  ]
 attacks = {
 "dash": "Sit_Floor",
 "falling": "Combat_Idle",

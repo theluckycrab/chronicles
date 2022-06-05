@@ -16,7 +16,7 @@ func enter() -> void:
 	host.armature.anim.connect("keyframe", self, "on_keyframe")
 	keyframe = 0
 	weapon = host.get_equipped("Mainhand")
-	if !weapon:
+	if !weapon is Weapon or weapon.attack == null:
 		return
 	animation = weapon.attack.anim
 	hits = weapon.attack.projectiles

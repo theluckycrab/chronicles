@@ -8,7 +8,7 @@ var net_stats = NetStats.new("item_cube")
 func _ready() -> void:
 	net_stats.register()
 	item = Data.get_reference_instance(item)
-	$Viewport/Preview.mesh = load(item.get_mesh_file()).duplicate(true)
+	$Viewport/Preview.mesh = item.get_mesh()
 	var a1 = $Viewport/Preview.mesh.get_aabb()
 	$Viewport/Camera.global_transform.origin = Vector3(0, a1.position.y + (a1.size.y/2), 1)
 	var s = a1.size
@@ -16,7 +16,8 @@ func _ready() -> void:
 		s = s.x
 	elif s.y >= s.x:
 		s = s.y
-	$Viewport/Camera.size = s * 1.1
+	if s > 0:
+		$Viewport/Camera.size = s * 1.1
 	
 func activate(_host):
 	print("no activate function set on item cube")

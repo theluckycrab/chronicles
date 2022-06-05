@@ -44,15 +44,6 @@ func controls() -> void:
 
 func _ready() -> void:
 	current_category = null
-	items = [
-		Data.get_reference_instance("bandana"),
-		Data.get_reference_instance("katana"),
-		Data.get_reference_instance("wizard_hat"),
-		Data.get_reference_instance("wizard_hat"),
-		Data.get_reference_instance("wizard_hat"),
-		Data.get_reference_instance("wizard_hat"),
-		Data.get_reference_instance("wizard_hat")
-	]
 	
 	
 func _physics_process(_delta) -> void:
@@ -104,6 +95,7 @@ func reset() -> void:
 
 func set_category(category) -> void:#string or null
 	if category != current_category:
+		fetch_items()
 		current_category = category
 		refresh_category()
 
@@ -133,3 +125,8 @@ func refresh_category() -> void:
 
 func get_active() -> bool:
 	return current_category != null
+	
+	
+func fetch_items():
+	items = host.inventory.get_item_list()
+	print("fetched ", items)

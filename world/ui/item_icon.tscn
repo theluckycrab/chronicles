@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://data/assets/meshes/equipment/wizard_hat.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://world/ui/item_icon.gd" type="Script" id=2]
 [ext_resource path="res://data/assets/icon.png" type="Texture" id=6]
 
@@ -17,6 +18,9 @@ transparent_bg = true
 render_target_v_flip = true
 
 [node name="Preview" type="MeshInstance" parent="Viewport"]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
 
 [node name="Camera" type="Camera" parent="Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 0.3 )

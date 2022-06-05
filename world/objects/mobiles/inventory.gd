@@ -1,11 +1,17 @@
 class_name Inventory
 extends Spatial
 
-var items = [Data.get_reference_instance("wizard_hat"),
-		 Data.get_reference_instance("wizard_hat"),
-		 Data.get_reference_instance("debug_item")]
+var items = [Data.get_item("wizard_hat"),
+		 Data.get_item("katana"),
+		 Data.get_item("bandana"),
+		Data.get_item("debug_item")]
 		
-var defaults_dict = {"Head":Data.get_reference_instance("wizard_hat")}
+var defaults_dict = {
+	"Head":Data.get_item("naked_head"),
+#	"Mainhand":Data.get_item("naked_mainhand"),
+	"Offhand":Data.get_item("naked_offhand"),
+	"Boots":Data.get_item("naked_feet"),
+		}
 
 onready var equipment_dict = defaults_dict.duplicate(true)
 		
@@ -22,6 +28,9 @@ func get_item(item_name:String) -> Item:
 			return i
 	return null
 	
+	
+func get_item_list() -> Array:
+	return items
 	
 func add_item(item: Item, count: int = 1) -> void:
 	print("adding ", count, " ", item.visual.item_name, " to inventory")

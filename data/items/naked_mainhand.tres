@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://data/items/weapon.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+item_name = "Naked Mainhand"
+slot = "Mainhand"
+mesh = "naked"
+description = "A manslayer is a manslayer until the day he dies."
+is_modified = false
+count = 1
+tags = [  ]
+attacks = {
+"dash": "Sit_Floor",
+"falling": "Combat_Idle",
+"strong": "Test_LAttack1"
+}
+abilities = {
+"active": "high_jump",
+"passive": [  ]
+}
+attack = ""
