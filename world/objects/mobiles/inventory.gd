@@ -8,7 +8,7 @@ var items = [Data.get_item("wizard_hat"),
 		
 var defaults_dict = {
 	"Head":Data.get_item("naked_head"),
-#	"Mainhand":Data.get_item("naked_mainhand"),
+	"Mainhand":Data.get_item("naked_mainhand"),
 	"Offhand":Data.get_item("naked_offhand"),
 	"Boots":Data.get_item("naked_feet"),
 		}
