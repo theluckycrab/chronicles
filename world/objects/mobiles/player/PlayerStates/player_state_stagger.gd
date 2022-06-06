@@ -41,7 +41,6 @@ func can_exit() -> bool:
 	
 	
 func can_enter() -> bool:
-	print("stagger can enter")
 	return host.is_on_floor()
 	
 	

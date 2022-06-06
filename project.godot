@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://data/attacks/attack.gd"
 }, {
 "base": "Resource",
+"class": "Damage",
+"language": "GDScript",
+"path": "res://data/attacks/damage.gd"
+}, {
+"base": "Resource",
 "class": "Effect",
 "language": "GDScript",
 "path": "res://data/effects/effect.gd"
@@ -98,6 +103,7 @@ _global_script_class_icons={
 "Ability": "",
 "ActionState": "",
 "Attack": "",
+"Damage": "",
 "Effect": "",
 "Hitbox": "",
 "Inventory": "",

@@ -45,7 +45,6 @@ func play(animation, motion: bool = false) -> void:
 	if motion:
 		#anim.stop()
 		anim.play_with_root_motion(animation)
-		print("playing motion for ", animation)
 	else:
 		anim.tree.active = false
 		anim.play(animation)
@@ -105,10 +104,8 @@ func on_guardbox_blocked(incoming):
 func on_weaponbox_entered(mybox, theirbox):
 	match Hitbox.get_collision_type(mybox, theirbox):
 		Hitbox.collision_type.GOT_BLOCKED:
-			weaponbox.ghost()
 			host.set_state("stagger")
 			print("armature calls stagger")
 		Hitbox.collision_type.HIT:
-			weaponbox.ghost()
 			print("i struck ", theirbox.name)
 	return

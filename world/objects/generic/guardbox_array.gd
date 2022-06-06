@@ -54,3 +54,7 @@ func on_delay_timer() -> void:
 		emit_signal("blocked")
 	incoming.clear()
 	
+	
+func get_collisions():
+	return incoming
+	

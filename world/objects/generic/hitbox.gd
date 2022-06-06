@@ -5,12 +5,15 @@ enum states {GHOST, IDLE, STRIKE, GUARD, PARRY}
 
 enum collision_type {NULL, HIT, GOT_HIT, BLOCKED, GOT_BLOCKED, PARRIED, GOT_PARRIED, CLASH_WON, CLASH_LOST}
 
-var state = states.GHOST setget set_state
+var state = states.GHOST
 signal hitbox_entered
 
 var collisions = []
+var damage = Damage.new()
 
 func _ready() -> void:
+	damage.damage = 5
+	damage.tags = ["Physical"]
 	var _discard = connect("area_entered", self, "on_area_entered")
 	
 	
@@ -18,13 +21,18 @@ func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
 		if state != states.GHOST and who.state != states.GHOST:
 			collisions.append(who)
-			#emit_signal("hitbox_entered", self, who)
+	
 			
 func _physics_process(delta):
+	if state != states.STRIKE:
+		return
 	if collisions.empty():
 		return
+	print(collisions)
 	emit_signal("hitbox_entered", self, collisions.front())
+	collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
 	collisions.clear()
+	ghost()
 			
 			
 func idle() -> void:
@@ -97,9 +105,3 @@ static func get_collision_type(mybox, theirbox):
 				states.STRIKE:
 					return collision_type.BLOCKED
 	return collision_type.NULL
-
-func set_state(s):
-	state = s
-	for i in get_overlapping_areas():
-		if i.has_method("am_hitbox"):
-			on_area_entered(i)
