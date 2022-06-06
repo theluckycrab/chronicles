@@ -26,11 +26,11 @@ func _physics_process(delta) -> void:
 	stored_delta = delta
 	if net_stats.is_master:
 		if can_act:
+			lock_on()
 			state_machine.execute()
 		if at_war:
 			if lock_target == null:
 				acquire_lock_target()
-			lock_on()
 		commit_move()
 	update()
 	

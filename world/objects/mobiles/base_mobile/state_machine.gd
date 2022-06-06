@@ -10,6 +10,8 @@ var state_dict = {
 				}
 				
 var war_state_dict = {
+	"idle" : preload("res://world/objects/mobiles/base_mobile/states/base_idle.gd").new(),
+	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new()
 		
 }
 

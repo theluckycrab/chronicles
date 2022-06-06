@@ -39,12 +39,12 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	stored_delta = delta
 	if net_stats.is_master:
-		if can_act:
-			state_machine.execute()
+		state_machine.execute()
+		if self.can_act:
+			lock_on()
 		if at_war:
 			if lock_target == null:
 				acquire_lock_target()
-			lock_on()
 		commit_move()
 	update()
 	
@@ -158,6 +158,10 @@ func add_item(item:Item) -> void:
 	inventory.add_item(item)
 	
 	
+func set_default(slot:String, index:String) -> void:
+	inventory.set_default(slot, index)
+	
+	
 #bufflist interface
 func add_effect(source, index:String) -> void:#source can be anything
 	buff_list.add_effect(source, index)
@@ -245,9 +249,7 @@ func set_war(t:bool) -> void:
 	
 	
 func acquire_lock_target() -> void:
-	var cam = get_viewport().get_camera()
-	if cam.has_method("acquire_lock_target"):
-		lock_target = cam.acquire_lock_target()
+	lock_target = $Armature/LockOnArea.get_lock_target([self])
 	if lock_target:
 		self.in_combat = true
 		state_machine.set_mode("combat")
@@ -257,7 +259,5 @@ func lock_on() -> void:
 	if lock_target:
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
-		var cam = get_viewport().get_camera()
-		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 1))
 		armature.rotation.y = angle
 	

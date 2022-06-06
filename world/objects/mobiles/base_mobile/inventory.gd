@@ -61,3 +61,8 @@ func get_equipped(slot:String):
 		return equipment_dict[slot]
 	else:
 		return null
+		
+		
+func set_default(slot:String, index:String):
+	var item = Data.get_item(index)
+	defaults_dict[slot] = item
