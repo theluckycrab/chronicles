@@ -21,6 +21,7 @@ func on_connection_succeeded() -> void:
 
 func on_register(args) -> void:
 	var object
+	#print(args)
 	if net_objects.has(args.netID):
 		return
 	if args.netOwner == get_nid() and args.original_instance_id != null:
@@ -100,14 +101,14 @@ remotesync func request_history() -> void:
 	var history = {}
 	for i in net_objects:
 		history[i] = net_objects[i].net_stats.net_sum()
+		#print("sent : ", history[i])
 	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history, command_history)
-	
 	
 remotesync func receive_history(history, commands) -> void:
 	for i in history:
 		on_register(history[i])
+		#print("got : ", history[i])
 	for i in commands:
 		if net_objects.has(commands[i].sender):
 			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
-	
 	

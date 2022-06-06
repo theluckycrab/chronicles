@@ -2,7 +2,7 @@ class_name BaseMobile
 extends KinematicBody
 
 var net_stats
-var index = "base_mobile"
+var base_defaults = {}
 
 var lock_target = null
 
@@ -22,20 +22,11 @@ onready var controls := $Controls
 
 
 #builtin
-func _init() -> void:
-	net_stats = NetStats.new(index)
-	net_stats.netID = Network.nid_gen()
-	net_stats.netOwner = Network.get_nid()
-	net_stats.original_instance_id = get_instance_id()
-
-
 func _ready() -> void:
-	var defaults = get_defaults_dict()
 	if net_stats.is_master:
-		for i in defaults:
-			equip(defaults[i])
+		call_deferred("init_defaults")#to wait for net registration
 	
-
+	
 func _physics_process(delta) -> void:
 	stored_delta = delta
 	if net_stats.is_master:
@@ -187,7 +178,13 @@ func get_wasd_cam() -> Vector3:
 #network interface
 func npc(function:String, args:Dictionary) -> void:
 	net_stats.npc(function, args)
-	#print(args)
+	
+	
+func net_init(index:String) -> void:
+	net_stats = NetStats.new(index)
+	net_stats.netID = Network.nid_gen()
+	net_stats.netOwner = Network.get_nid()
+	net_stats.original_instance_id = get_instance_id()
 	
 	
 func update() -> void:
@@ -205,7 +202,7 @@ func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy:
 		global_transform.origin = args.position
 		armature.rotation = args.rot
-		if get_animation() != args.anim:
+		if get_animation() != args.anim and args.anim != "":
 			play(args.anim, args.anim_motion)
 	
 	
@@ -261,3 +258,9 @@ func lock_on() -> void:
 		var angle = atan2(dir.x, dir.z)
 		armature.rotation.y = angle
 	
+	
+func init_defaults() -> void:
+	for i in base_defaults:
+		set_default(i, base_defaults[i])
+		var item = Data.get_item(base_defaults[i])
+		equip(item)

@@ -7,7 +7,7 @@ var net_stats = NetStats.new("item_cube")
 
 
 func _ready() -> void:
-	net_stats.register()
+	#net_stats.register()
 	item = Data.get_item(item)
 	$Viewport/Preview.mesh = item.get_mesh()
 	var a1 = $Viewport/Preview.mesh.get_aabb()

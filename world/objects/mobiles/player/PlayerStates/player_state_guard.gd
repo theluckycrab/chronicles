@@ -44,7 +44,7 @@ func get_dir() -> String:
 	vel.y = Input.get_action_strength("s") - Input.get_action_strength("w")
 	match vel.abs().max_axis():
 		Vector3.AXIS_Y:
-			if vel.y > 0:
+			if vel.y < 0:
 				return "Above"
 		Vector3.AXIS_X:
 			if vel.x > 0:

@@ -4,7 +4,11 @@ var stagger = preload("res://world/objects/mobiles/player/PlayerStates/player_st
 var attack = preload("res://world/objects/mobiles/target_dummy/light_attack.gd").new()
 
 func _init() -> void:
-	index = "target_dummy"
+	net_init("target_dummy")
+	base_defaults = {
+			Head = "wizard_hat",
+			Mainhand = "scimitar"
+	}
 
 func _ready():
 	net_stats.register()
@@ -17,11 +21,7 @@ func _ready():
 	$Hitbox.idle()
 	$Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	at_war = true
-	set_default("Head", "wizard_hat")
-	set_default("Mainhand", "scimitar")
-	var defaults = get_defaults_dict()
-	for i in defaults:
-		equip(defaults[i])
+	
 	
 	
 func _physics_process(delta):
@@ -32,8 +32,10 @@ func _physics_process(delta):
 func on_blocked():
 	set_state(stagger)
 
+
 func on_got_hit(mybox, theirbox):
 	print(theirbox.damage.tags)
+	
 	
 func action():
 	set_state(attack)

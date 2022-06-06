@@ -10,7 +10,8 @@ func _ready() -> void:
 	var _discard = Events.connect("scene_change_request", self, "on_scene_change_request")
 	print("Scene Manager ready")
 	
-func on_data_ready():
+	
+func on_data_ready() -> void:
 	Events.emit_signal("scene_change_request", start_scene)
 
 

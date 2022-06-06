@@ -1,7 +1,7 @@
 extends Reference
 class_name NetStats
 
-var netID: int = Network.get_nid()
+var netID: int = Network.nid_gen()
 var netOwner: int = Network.get_nid()
 var index: String
 var history = {}
