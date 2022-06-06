@@ -1,6 +1,6 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=54 format=2]
 
-[ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
+[ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Idle.anim" type="Animation" id=3]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/APose.anim" type="Animation" id=4]
@@ -13,10 +13,10 @@
 [ext_resource path="res://world/objects/mobiles/base_mobile/buff_list.gd" type="Script" id=11]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Fall.anim" type="Animation" id=12]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Cube023.tres" type="ArrayMesh" id=13]
-[ext_resource path="res://world/objects/mobiles/player/PlayerStates/player_state_machine.gd" type="Script" id=14]
-[ext_resource path="res://world/ui/equipment_display.tscn" type="PackedScene" id=15]
-[ext_resource path="res://world/ui/item_menu.tscn" type="PackedScene" id=16]
-[ext_resource path="res://world/objects/mobiles/player/player_controls.gd" type="Script" id=17]
+[ext_resource path="res://world/objects/mobiles/base_mobile/state_machine.gd" type="Script" id=14]
+[ext_resource path="res://world/objects/mobiles/base_mobile/base_ai.gd" type="Script" id=15]
+[ext_resource path="res://world/objects/mobiles/base_mobile/movement.gd" type="Script" id=16]
+[ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile_stats.gd" type="Script" id=17]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Run.anim" type="Animation" id=18]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Cube068.tres" type="ArrayMesh" id=19]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Jump.anim" type="Animation" id=20]
@@ -42,10 +42,7 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dash.anim" type="Animation" id=40]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dodge_Right.anim" type="Animation" id=41]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dodge_Left.anim" type="Animation" id=42]
-[ext_resource path="res://world/objects/mobiles/player/player_movement.gd" type="Script" id=43]
-[ext_resource path="res://world/objects/mobiles/player/player_stats.gd" type="Script" id=44]
-[ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=45]
-[ext_resource path="res://world/objects/mobiles/player/player_ui.gd" type="Script" id=46]
+[ext_resource path="res://world/objects/mobiles/base_mobile/mobile_animation_player.gd" type="Script" id=45]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Test_LAttack1.anim" type="Animation" id=47]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Katana_Combo_1.anim" type="Animation" id=48]
 
@@ -94,8 +91,7 @@ surfaces/1 = {
 "vertex_count": 640
 }
 
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.0502419, 0.731242, 0.0465176 )
+[sub_resource type="BoxShape" id=17]
 
 [sub_resource type="AnimationNodeAnimation" id=13]
 animation = "Test_LAttack1"
@@ -118,7 +114,7 @@ nodes/OneShot/position = Vector2( 460, 40 )
 nodes/output/position = Vector2( 640, 120 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation", "OneShot", 1, "Action" ]
 
-[node name="Player" type="KinematicBody"]
+[node name="Mobile" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
 
@@ -130,6 +126,7 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -179,7 +176,7 @@ skeleton = NodePath("../..")
 script = ExtResource( 38 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Armature/Skeleton/Mainhand/Weapon/MeshInstance/Hitbox"]
-shape = SubResource( 11 )
+shape = SubResource( 17 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Armature"]
 root_node = NodePath("../..")
@@ -225,49 +222,20 @@ parameters/OneShot/active = false
 [node name="BuffList" type="Spatial" parent="."]
 script = ExtResource( 11 )
 
+[node name="Controls" type="Node" parent="."]
+script = ExtResource( 15 )
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource( 16 )
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 17 )
+
 [node name="StateMachine" type="Spatial" parent="."]
 script = ExtResource( 14 )
 
 [node name="Inventory" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
-[node name="UI" type="Control" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -102.0
-margin_top = -88.0
-margin_right = -62.0
-margin_bottom = -48.0
-script = ExtResource( 46 )
-
-[node name="EquipmentDisplay" parent="UI" instance=ExtResource( 15 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -241.0
-margin_top = -234.0
-margin_right = -201.0
-margin_bottom = -194.0
-host = NodePath("../..")
-
-[node name="ItemMenu" parent="UI" instance=ExtResource( 16 )]
-anchor_left = -5.02
-anchor_top = -4.455
-anchor_right = -5.02
-anchor_bottom = -4.455
-margin_left = 59.8
-margin_top = 39.2
-margin_right = 99.8
-margin_bottom = 79.2
-
-[node name="Controls" type="Node" parent="."]
-script = ExtResource( 17 )
-
-[node name="Movement" type="Node" parent="."]
-script = ExtResource( 43 )
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource( 44 )
+[node name="Hitbox" type="Area" parent="."]
+script = ExtResource( 38 )

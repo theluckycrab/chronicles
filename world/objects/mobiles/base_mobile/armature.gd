@@ -1,3 +1,4 @@
+class_name Armature
 extends Spatial
 
 signal blocked
@@ -75,9 +76,11 @@ func guard_reset() -> void:
 	
 func size_weapon() -> void:
 	var mesh = $Skeleton/Mainhand/Weapon/MeshInstance
-	var box = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox/CollisionShape
+	var box = get_node_or_null("Skeleton/Mainhand/Weapon/MeshInstance/Hitbox/CollisionShape")
 	var length = mesh.get_aabb().size
 	var pos = mesh.get_aabb().position
+	if box == null:
+		return
 	box.transform.origin = pos + length / 2
 	box.get_shape().set_extents(length / 2)
 

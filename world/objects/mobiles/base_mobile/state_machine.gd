@@ -5,30 +5,18 @@ var next_state = null
 var last_state = null 
 			
 			
-var state_dict = {
+var state_dict = { 
+		
 				}
 				
 var war_state_dict = {
-		"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
-		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
-		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
-		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
-		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
-		"light_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_light_attack.gd").new(),
-		"strong_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_strong_attack.gd").new(),
-		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
-		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new(),
-		"falling_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_falling_attack.gd").new(),
-		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
-		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new()
+		
 }
 
 var peace_state_dict = {
-		"idle" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_idle.gd").new(),
-		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
-		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
-		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
-		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
+	"idle" : preload("res://world/objects/mobiles/base_mobile/states/base_idle.gd").new(),
+	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new()
+		
 }
 				
 var override_dict = {}
@@ -46,7 +34,7 @@ func execute() -> void:
 	cycle()
 	
 	
-func set_state(index:String) -> void:
+func set_state(index) -> void: #must take string or node
 	if get_state(index) == null:
 		return
 	var cprior
@@ -141,8 +129,3 @@ func quit_state() -> void:
 func state_controls():
 	if !host.can_act or host.ui_active():
 		return
-	for i in state_dict:
-		if InputMap.has_action(i):
-			if Input.is_action_just_pressed(i):
-				set_state(i)
-				return

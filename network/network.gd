@@ -107,6 +107,7 @@ remotesync func receive_history(history, commands) -> void:
 	for i in history:
 		on_register(history[i])
 	for i in commands:
-		net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
+		if net_objects.has(commands[i].sender):
+			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
 	
 	

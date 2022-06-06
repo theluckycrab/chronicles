@@ -1,25 +1,39 @@
-class_name Player
-extends BaseMobile
+class_name BaseMobile
+extends KinematicBody
+
+var net_stats
+var index = "base_mobile"
+
+var lock_target = null
+
+var can_act = true setget , get_can_act
+var in_combat = false setget set_in_combat, get_in_combat
+var at_war = false setget set_war
+
+var stored_delta = 0
+
+onready var state_machine := $StateMachine
+onready var armature := $Armature
+onready var inventory := $Inventory
+onready var buff_list := $BuffList
+onready var move := $Movement
+onready var stats := $Stats
+onready var controls := $Controls
 
 
 #builtin
 func _init() -> void:
-	net_stats = NetStats.new("player")
-	net_stats.netID = Network.get_nid()
+	net_stats = NetStats.new(index)
+	net_stats.netID = Network.nid_gen()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
 
 
 func _ready() -> void:
-	net_stats.register()
-	armature.connect("blocked", self, "on_armature_blocked")
 	var defaults = get_defaults_dict()
 	if net_stats.is_master:
-		grab_camera()
 		for i in defaults:
 			equip(defaults[i])
-	else:
-		$UI.queue_free()
 	
 
 func _physics_process(delta) -> void:
@@ -42,8 +56,7 @@ func on_armature_blocked():
 		
 #setget
 func get_can_act() -> bool:
-	return !state_machine.get_state() is ActionState\
-			and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
+	return !state_machine.get_state() is ActionState
 			
 			
 func get_in_combat() -> bool:
@@ -58,7 +71,7 @@ func set_in_combat(t:bool) -> void:
 		
 		
 func ui_active() -> bool:
-	return $UI.active
+	return false
 			
 			
 #move interface

@@ -15,19 +15,9 @@ onready var equipment_dict = defaults_dict.duplicate(true)
 onready var host = get_parent()
 
 
-func _ready() -> void:
-	$Display.build_list(items)
-
-
-func get_item(item_name:String) -> Item:
-	for i in items:
-		if i.visual.item_name == item_name:
-			return i
-	return null
-	
-	
 func get_item_list() -> Array:
 	return items
+	
 	
 func add_item(item:Item) -> void:
 	items.append(item)
@@ -50,12 +40,12 @@ func remove_item(item, count: int = 1) -> void:
 				print(count, " " + item.item_name + " removed from inventory.")
 				return
 
+
 func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)
 
+
 func equip(item:Item) -> void:
-	if ! defaults_dict.has(item):
-		print("I would reduce the count of ", item.get_name(),"s if there was one!")
 	equipment_dict[item.get_slot()] = item
 	
 

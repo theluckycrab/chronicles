@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=1]
+
+[node name="Inventory" type="Spatial"]
+script = ExtResource( 1 )

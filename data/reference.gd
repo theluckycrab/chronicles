@@ -21,6 +21,7 @@ func setup() -> void:
 	build_list("res://data/assets/meshes", ".mesh", mesh_list)
 	build_list("res://data/attacks", ".tres", attack_list)
 	ref_list["player"] = "res://world/objects/mobiles/player/player.tscn"
+	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
 	ref_list["target_dummy"] = "res://world/objects/mobiles/target_dummy/target_dummy.tscn"
 	

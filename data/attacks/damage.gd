@@ -1,6 +1,6 @@
 class_name Damage
 extends Resource
 
-var damage
-var tags
+var damage = 1
+var tags = ["Physical"]
 

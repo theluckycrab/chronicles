@@ -14,8 +14,6 @@ var damage = Damage.new()
 #Only Strike hitboxes do logic, so everything is from attacker's perspective
 
 func _ready() -> void:
-	damage.damage = 5
-	damage.tags = ["Physical", "Unblockable"]
 	var _discard = connect("area_entered", self, "on_area_entered")
 	
 	

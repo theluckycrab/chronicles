@@ -1,30 +1,21 @@
-extends KinematicBody
+extends BaseMobile
 
-var net_stats = NetStats.new("target_dummy")
-var damagers = []
-var hp = 100
+var stagger = preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new()
+
+func _init() -> void:
+	index = "target_dummy"
 
 func _ready():
-	$Guardbox.guard("Above")
-	net_stats.netID = Network.nid_gen()
-	var _discard = $Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
+	armature.connect("blocked", self, "on_blocked")
+	armature.guard("Left")
+	stagger.host = self
+	add_child(stagger)
 	$Hitbox.idle()
+	$Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	
-func _physics_process(_delta):
-	process_damagers()
-	
-func on_hitbox_entered(mybox, theirbox):
-	if theirbox.state == Hitbox.states.STRIKE:
-		if !damagers.has(theirbox):
-			damagers.append(theirbox)
 
-func lock_on() -> void:
-	pass
+func on_blocked():
+	set_state(stagger)
 
-func process_damagers():
-	for i in damagers:
-		hp -= i.damage.damage
-		print(name, " took ", i.damage.damage, " damage from ", i)
-		print(hp, " hp remains")
-	damagers.clear()
-	
+func on_got_hit(mybox, theirbox):
+	print(theirbox.damage.tags)

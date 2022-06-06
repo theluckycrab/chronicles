@@ -3,7 +3,7 @@ extends Spatial
 signal blocked
 
 var delay_timer: = Timer.new()
-var delay: float = 1
+var delay: float = 0.15
 var incoming: Dictionary = {}
 
 onready var indicator = $Indicator
@@ -51,7 +51,7 @@ func on_hitbox_entered(mybox, theirbox) -> void:
 	
 func on_delay_timer() -> void:
 	if !incoming.empty():
-		emit_signal("blocked")
+		emit_signal("blocked", incoming)
 	incoming.clear()
 	
 	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://world/objects/generic/guardbox_array.gd" type="Script" id=1]
+[ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/generic/hitbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/assets/destroy_icon.png" type="Texture" id=3]
 
