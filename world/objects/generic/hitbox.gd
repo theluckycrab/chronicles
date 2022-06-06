@@ -11,15 +11,20 @@ signal hitbox_entered
 var collisions = []
 var damage = Damage.new()
 
+#Only Strike hitboxes do logic, so everything is from attacker's perspective
+
 func _ready() -> void:
 	damage.damage = 5
-	damage.tags = ["Physical"]
+	damage.tags = ["Physical", "Unblockable"]
 	var _discard = connect("area_entered", self, "on_area_entered")
 	
 	
 func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
 		if state != states.GHOST and who.state != states.GHOST:
+			if damage.tags.has("Unblockable"):
+				if who.state == states.GUARD:
+					return
 			collisions.append(who)
 	
 			
