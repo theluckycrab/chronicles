@@ -25,6 +25,7 @@ onready var controls := $Controls
 func _ready() -> void:
 	if net_stats.is_master:
 		call_deferred("init_defaults")#to wait for net registration
+		connect_weapon_signals()
 	
 	
 func _physics_process(delta) -> void:
@@ -41,8 +42,30 @@ func _physics_process(delta) -> void:
 	
 	
 #signal_response
-func on_armature_blocked():
-	print(net_stats.netID, " blocked!")
+func on_blocked(_mybox, _theirbox):
+	return
+	
+func on_hit(_mybox, _theirbox):
+	return
+	
+func on_parried(_mybox, _theirbox):
+	return
+	
+func on_got_parried(_mybox, _theirbox):
+	return
+	
+func on_got_hit(_mybox, _theirbox):
+	return
+	
+func on_got_blocked(_mybox, _theirbox):
+	return
+	
+func connect_weapon_signals():
+	armature.connect("hit", self, "on_hit")
+	armature.connect("blocked", self, "on_blocked")
+	armature.connect("parried", self, "on_parried")
+	armature.connect("got_parried", self, "on_got_parried")
+	armature.connect("got_blocked", self, "on_got_blocked")
 
 		
 #setget
@@ -106,6 +129,10 @@ func get_animation() -> String:
 	
 func guard(dir:String) -> void:
 	armature.guard(dir)
+	
+	
+func parry(dir:String) -> void:
+	armature.parry(dir)
 	
 	
 func guard_reset() -> void:

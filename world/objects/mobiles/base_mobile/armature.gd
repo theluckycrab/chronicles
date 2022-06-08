@@ -2,6 +2,10 @@ class_name Armature
 extends Spatial
 
 signal blocked
+signal hit
+signal got_parried
+signal parried
+signal got_blocked
 
 onready var equipment: Dictionary
 onready var host = get_parent()
@@ -70,6 +74,10 @@ func guard(dir:String) -> void:
 	$Guardbox.guard(dir)
 	
 	
+func parry(dir:String) -> void:
+	$Guardbox.parry(dir)
+	
+	
 func guard_reset() -> void:
 	$Guardbox.reset()
 	
@@ -101,14 +109,19 @@ func is_using_root_motion() -> bool:
 	return anim.is_using_root_motion()
 
 
-func on_guardbox_blocked(incoming):
-	emit_signal("blocked")
+func on_guardbox_blocked(mybox, theirbox):
+	emit_signal("blocked", mybox, theirbox)
 
 func on_weaponbox_entered(mybox, theirbox):
 	match Hitbox.get_collision_type(mybox, theirbox):
 		Hitbox.collision_type.GOT_BLOCKED:
-			host.set_state("stagger")
-			print("armature calls stagger")
+			emit_signal("got_blocked", mybox, theirbox)
+		Hitbox.collision_type.BLOCKED:
+			emit_signal("blocked", mybox, theirbox)
 		Hitbox.collision_type.HIT:
-			print("i struck ", theirbox.name)
+			emit_signal("hit", mybox, theirbox)
+		Hitbox.collision_type.GOT_PARRIED:
+			emit_signal("got_parried", mybox, theirbox)
+		Hitbox.collision_type.PARRIED:
+			emit_signal("parried", mybox, theirbox)
 	return

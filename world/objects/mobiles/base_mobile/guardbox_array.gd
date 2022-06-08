@@ -1,6 +1,7 @@
 extends Spatial
 
 signal blocked
+signal parried
 
 var delay_timer: = Timer.new()
 var delay: float = 0.15
@@ -20,6 +21,12 @@ func _ready() -> void:
 
 func guard(dir:String) -> void:
 	get_node(dir).guard()
+	indicator.visible = true
+	indicator.global_transform.origin = get_node(dir).get_child(0).global_transform.origin
+	
+	
+func parry(dir:String) -> void:
+	get_node(dir).parry()
 	indicator.visible = true
 	indicator.global_transform.origin = get_node(dir).get_child(0).global_transform.origin
 	
@@ -51,7 +58,10 @@ func on_hitbox_entered(mybox, theirbox) -> void:
 	
 func on_delay_timer() -> void:
 	if !incoming.empty():
-		emit_signal("blocked", incoming)
+		if incoming.values().front().state == Hitbox.states.GUARD:
+			emit_signal("blocked", incoming.values().front(), incoming.keys().front())
+		elif incoming.values().front().state == Hitbox.states.PARRY:
+			emit_signal("parried", incoming.values().front(), incoming.keys().front())
 	incoming.clear()
 	
 	

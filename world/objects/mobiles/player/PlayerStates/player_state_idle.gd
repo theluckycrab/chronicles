@@ -32,4 +32,5 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
+	host.lock_on()
 	pass

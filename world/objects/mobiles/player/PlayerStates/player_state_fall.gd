@@ -28,7 +28,8 @@ func execute() -> void:
 	if Input.is_action_just_pressed("light_attack"):
 		host.set_state("falling_attack")
 	host.add_force(host.get_wasd_cam() * 5)
-	host.body_face(host.get_wasd_cam())
+	#host.body_face(host.get_wasd_cam())
 	host.add_force(Vector3.DOWN * 5)
+	host.lock_on()
 	
 	pass

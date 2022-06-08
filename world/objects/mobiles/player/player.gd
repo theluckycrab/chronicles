@@ -16,11 +16,13 @@ func _ready() -> void:
 		grab_camera()
 	else:
 		$UI.queue_free()
+	armature.weaponbox.damage.tags.append("Player")
 		
 		
 func _physics_process(delta):
 	if self.can_act:
-		lock_on()
+		if state_machine.get_state() != null and state_machine.get_state().index != "Idle":
+			lock_on()
 	
 	
 func get_can_act() -> bool:
@@ -42,12 +44,14 @@ func acquire_lock_target() -> void:
 	
 	
 func lock_on() -> void:
-	if lock_target:
+	if is_instance_valid(lock_target):
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
 		var cam = get_viewport().get_camera()
 		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.2))
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
+	else:
+		acquire_lock_target()
 	
 
 func net_init(index):

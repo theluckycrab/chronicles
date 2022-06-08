@@ -103,8 +103,14 @@ static func get_collision_type(mybox, theirbox):
 					return collision_type.CLASH_LOST
 				states.GUARD:
 					return collision_type.GOT_BLOCKED
+				states.PARRY:
+					return collision_type.GOT_PARRIED
 		states.GUARD:
 			match theirbox.state:
 				states.STRIKE:
 					return collision_type.BLOCKED
+		states.PARRY:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.PARRIED
 	return collision_type.NULL

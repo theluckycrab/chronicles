@@ -9,7 +9,7 @@ onready var shape = $KinematicBody/CollisionShape.get_shape()
 
 func _ready() -> void:
 	item = Data.get_reference_instance(item)
-	mesh.mesh = load(item.get_mesh_file())
+	mesh.mesh = item.get_mesh()
 	var mpos = mesh.mesh.get_aabb()
 	mpos = mpos.position + (mpos.size / 2)
 	$KinematicBody/CollisionShape.transform.origin = mpos

@@ -1,6 +1,6 @@
 extends PlayerMoveState
 
-var dir = "Front"
+var dir = "Forward"
 
 func _init() -> void:
 	index = "Guard"
@@ -10,17 +10,17 @@ func _init() -> void:
 
 
 func controls():
-	dir = get_dir()
 	animation = "Guard_"+dir
 	
 	
 func enter() -> void:
 	controls()
-	host.guard(get_dir())
+	host.guard(dir)
 	pass
 	
 	
 func exit() -> void:
+	dir = "Forward"
 	host.guard_reset()
 	pass
 	
@@ -36,6 +36,13 @@ func can_enter() -> bool:
 func execute() -> void:
 	if Input.is_action_just_released("guard"):
 		get_parent().quit_state()
+	for i in ["w", "a", "s", "d"]:
+		if Input.is_action_just_pressed(i):
+			animation = "Guard_"+get_dir()
+			host.play("Guard_"+get_dir())
+			host.guard_reset()
+			host.parry(get_dir())
+			return
 	pass
 
 func get_dir() -> String:

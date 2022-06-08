@@ -21,4 +21,4 @@ script = ExtResource( 3 )
 [node name="CollisionPolygon" type="CollisionPolygon" parent="H/V/ClippedCamera/LockOnArea"]
 transform = Transform( -5.84369e-05, 0.999883, -0.0152884, -0.00382183, -0.0152885, -0.999876, -0.999993, 0, 0.00382227, -0.478966, 14.4233, -10.1414 )
 depth = 30.0
-polygon = PoolVector2Array( -9.46456, 0.768105, -3.34529, 6.58241, 60.4114, 65.4757, 123.78, 1.41287, 58.7463, -62.7467, -4.26318, -5.35154 )
+polygon = PoolVector2Array( -9.46456, 0.768105, -3.34529, 6.58241, 6.70603, 12.8054, 13.6554, 1.30054, 9.63149, -11.7275, -4.26318, -5.35154 )

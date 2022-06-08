@@ -42,6 +42,7 @@ func execute() -> void:
 	if host.in_combat:
 		animation = get_strafe_dir()
 		host.add_force(dir * speed / 2)
+		host.lock_on()
 	else:
 		animation = "Walk"
 		host.add_force(dir * speed)
