@@ -55,6 +55,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3851, 0 )
 [node name="TargetDummy" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.33167 )
 
+[node name="TargetDummy2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42315, 0, -9.33167 )
+
+[node name="TargetDummy3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.37107, 0, -9.33167 )
+
 [node name="Items" type="Spatial" parent="."]
 
 [node name="ItemCubeDebug" parent="Items" instance=ExtResource( 3 )]

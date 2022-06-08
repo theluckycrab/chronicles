@@ -34,7 +34,7 @@ func can_exit() -> bool:
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor()
+	return true
 	
 	
 func execute() -> void:

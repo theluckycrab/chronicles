@@ -2,7 +2,7 @@ extends BaseMobile
 
 var long = ["pursue"]
 var mid = ["pursue", "circle"]
-var close = ["attack", "defend"]
+var close = ["attack", "defend", "circle"]
 var any = ["reposition", "warcry", "delay"]
 var action_list = []
 
@@ -73,11 +73,14 @@ func build_action_list(dist):
 	action_list.append_array(any)
 	match dist:
 		CLOSE:
+			action_list.clear()
 			action_list.append_array(close)
 		MID:
 			action_list.append_array(mid)
 		LONG:
 			action_list.append_array(long)
+#	action_list.clear()
+#	action_list.append("circle")
 			
 			
 func choose_random_action():

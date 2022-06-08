@@ -61,7 +61,7 @@ func set_state(index) -> void: #must take string or node
 		cprior = 0
 	else:
 		cprior = get_state(current_state).priority
-	if nprior >= cprior:
+	if nprior > cprior:
 		next_state = get_state(index)
 		
 	
