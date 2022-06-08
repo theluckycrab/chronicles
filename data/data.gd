@@ -6,6 +6,7 @@ var reference = ReferenceList.new()
 
 
 func _ready() -> void:
+	randomize()
 	reference.setup()
 	call_deferred("emit_signal", "data_ready")
 	print("Data ready")

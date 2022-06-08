@@ -1,15 +1,11 @@
-extends MoveState
-
+extends ActionState
 
 func _init() -> void:
 	index = "Idle"
 	animation = "Idle"
-	priority = -1
+	priority = 1
 	host = null
 
-func _controls() -> void:
-	pass
-	
 	
 func enter() -> void:
 	pass

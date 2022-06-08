@@ -11,14 +11,30 @@ var state_dict = {
 				
 var war_state_dict = {
 	"idle" : preload("res://world/objects/mobiles/base_mobile/states/base_idle.gd").new(),
-	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new()
-		
+	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new(),
+	"patrol" : preload("res://world/objects/mobiles/base_mobile/states/base_patrol.gd").new(),
+	"pursue" : preload("res://world/objects/mobiles/base_mobile/states/base_pursue.gd").new(),
+	"reposition" : preload("res://world/objects/mobiles/base_mobile/states/base_reposition.gd").new(),
+	"warcry" : preload("res://world/objects/mobiles/base_mobile/states/base_warcry.gd").new(),
+	"defend" : preload("res://world/objects/mobiles/base_mobile/states/base_defend_state.gd").new(),
+	"circle" : preload("res://world/objects/mobiles/base_mobile/states/base_circle.gd").new(),
+	"attack" : preload("res://world/objects/mobiles/base_mobile/states/base_attack_state.gd").new(),
+	"delay" : preload("res://world/objects/mobiles/base_mobile/states/base_delay.gd").new(),
+	"stagger" : preload("res://world/objects/mobiles/base_mobile/states/base_stagger_state.gd").new()
 }
 
 var peace_state_dict = {
 	"idle" : preload("res://world/objects/mobiles/base_mobile/states/base_idle.gd").new(),
-	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new()
-		
+	"fall" : preload("res://world/objects/mobiles/base_mobile/states/base_fall.gd").new(),
+	"patrol" : preload("res://world/objects/mobiles/base_mobile/states/base_patrol.gd").new(),
+	"pursue" : preload("res://world/objects/mobiles/base_mobile/states/base_pursue.gd").new(),
+	"reposition" : preload("res://world/objects/mobiles/base_mobile/states/base_reposition.gd").new(),
+	"warcry" : preload("res://world/objects/mobiles/base_mobile/states/base_warcry.gd").new(),
+	"defend" : preload("res://world/objects/mobiles/base_mobile/states/base_defend_state.gd").new(),
+	"circle" : preload("res://world/objects/mobiles/base_mobile/states/base_circle.gd").new(),
+	"attack" : preload("res://world/objects/mobiles/base_mobile/states/base_attack_state.gd").new(),
+	"delay" : preload("res://world/objects/mobiles/base_mobile/states/base_delay.gd").new(),
+	"stagger" : preload("res://world/objects/mobiles/base_mobile/states/base_stagger_state.gd").new()
 }
 				
 var override_dict = {}
@@ -32,7 +48,7 @@ func _ready() -> void:
 	
 	
 func execute() -> void:
-	state_controls()
+	#state_controls()
 	cycle()
 	
 	
@@ -45,8 +61,7 @@ func set_state(index) -> void: #must take string or node
 		cprior = 0
 	else:
 		cprior = get_state(current_state).priority
-		
-	if nprior > cprior:
+	if nprior >= cprior:
 		next_state = get_state(index)
 		
 	
@@ -118,6 +133,19 @@ func set_mode(mode:String) -> void:
 			state_dict = peace_state_dict
 		"combat":
 			state_dict = war_state_dict
+			
+			
+func set_mode_dict(mode:String, dict:Dictionary) -> void:
+	match mode:
+		"peace":
+			peace_state_dict = dict.duplicate(true)
+		"combat":
+			war_state_dict = dict.duplicate(true)
+			
+			
+func override_state(index:String, state:State):
+	override_dict[index] = state
+	state.host = host
 
 
 func quit_state() -> void:

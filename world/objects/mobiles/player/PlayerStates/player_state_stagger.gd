@@ -7,7 +7,7 @@ func _init() -> void:
 	priority = 5
 	host = null
 
-var duration: float = 0.15#0.25
+var duration: float = 0.5#0.25
 var height: float = 1 / duration
 var distance: float = 1.75 / duration
 var done: bool = false

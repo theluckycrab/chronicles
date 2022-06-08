@@ -31,8 +31,8 @@ func _physics_process(delta) -> void:
 	stored_delta = delta
 	if net_stats.is_master:
 		state_machine.execute()
-		if self.can_act:
-			lock_on()
+		#if self.can_act:
+			#lock_on()
 		if at_war:
 			if lock_target == null:
 				acquire_lock_target()
@@ -76,7 +76,7 @@ func commit_move() -> void:
 
 #state interface
 func set_state(state) -> void:#takes strings or nodes
-	state_machine.set_state(state)
+	state_machine.call_deferred("set_state", state)
 	
 	
 func swap_state(slot: String, state_object: Node) -> void:
@@ -256,7 +256,7 @@ func lock_on() -> void:
 	if lock_target:
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
-		armature.rotation.y = angle
+		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.8)
 	
 	
 func init_defaults() -> void:

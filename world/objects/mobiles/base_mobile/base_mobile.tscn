@@ -47,8 +47,9 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Test_LAttack1.anim" type="Animation" id=47]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Katana_Combo_1.anim" type="Animation" id=48]
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.21859, 1, 0.236159 )
+[sub_resource type="CapsuleShape" id=18]
+radius = 0.456994
+height = 1.10608
 
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "BaseHumanoid_Cube070"
@@ -116,12 +117,11 @@ nodes/output/position = Vector2( 640, 120 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation", "OneShot", 1, "Action" ]
 
 [node name="Mobile" type="KinematicBody"]
-collision_layer = 0
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01004, 0 )
-shape = SubResource( 2 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.01004, 0 )
+shape = SubResource( 18 )
 
 [node name="Armature" type="Spatial" parent="."]
 script = ExtResource( 10 )
@@ -163,7 +163,7 @@ mesh = ExtResource( 37 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.0264671, 0.0440108, -0.998688, -0.70463, 0.707814, 0.0498732, 0.709077, 0.705018, 0.0122693, -0.0207059, 1.24072, 0.595254 )
+transform = Transform( -0.903021, -0.0531332, -0.426298, -0.428207, 0.0315961, 0.903128, -0.0345173, 0.998087, -0.0512843, -0.836815, 1.30322, 0.0590057 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]

@@ -39,7 +39,7 @@ func face(dir:Vector3) -> void:
 		return
 		
 	var angle = atan2(dir.x, dir.z)
-	rotation.y = lerp_angle(rotation.y, angle, 0.2)
+	rotation.y = lerp_angle(rotation.y, angle, 1)
 
 
 func play(animation, motion: bool = false) -> void:

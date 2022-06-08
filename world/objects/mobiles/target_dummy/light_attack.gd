@@ -20,6 +20,7 @@ func enter() -> void:
 		return
 	animation = weapon.attack.anim
 	hits = weapon.attack.projectiles
+	host.lock_on()
 	pass
 	
 	
