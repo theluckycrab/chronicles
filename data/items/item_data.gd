@@ -7,6 +7,7 @@ export var mesh = "naked" setget ,get_mesh
 export var description = "no description set" 
 export var is_modified = false
 export var count = 1
+export var durability = 3
 export var tags = []
 				
 
@@ -38,6 +39,9 @@ func activate(host: Object) -> void:
 
 
 #set
+func add_tag(tag):
+	add_tags(tag)
+
 func add_tags(tag) -> void:
 	if has_tag(tag):
 		return

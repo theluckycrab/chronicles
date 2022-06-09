@@ -52,7 +52,7 @@ func hook_up_children() -> void:
 func on_hitbox_entered(mybox, theirbox) -> void:
 	if !incoming.has(theirbox) and theirbox.state == Hitbox.states.STRIKE:
 		incoming[theirbox] = mybox
-		print(theirbox.name, " struck ", mybox.name)
+		#print(theirbox.name, " struck ", mybox.name)
 		delay_timer.start(delay)
 	
 	

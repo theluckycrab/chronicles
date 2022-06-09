@@ -1,7 +1,7 @@
 class_name Inventory
 extends Spatial
 
-var items = []
+var items = [Data.get_item("wizard_hat")]
 		
 var defaults_dict = {
 	"Head":Data.get_item("naked_head"),
@@ -63,6 +63,7 @@ func get_equipped(slot:String):
 		return null
 		
 		
-func set_default(slot:String, index:String):
-	var item = Data.get_item(index)
+func set_default(slot:String, item:Item):
+	#var item = Data.get_item(index)
 	defaults_dict[slot] = item
+	defaults_dict[slot].add_tag("Default")

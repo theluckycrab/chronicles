@@ -1,12 +1,20 @@
 class_name Player
 extends BaseMobile
 
+var hp = 10
+var armor = {
+		"Head":3,
+		"Offhand":3,
+		"Mainhand":3,
+		"Boots":3
+}
 
 func _init() -> void:
 	net_init("player")
 	base_defaults = {
 		"Head":"bandana",
-		"Mainhand":"scimitar"
+		"Mainhand":"katana",
+		"Offhand":"naked_offhand"
 	}
 
 
@@ -18,12 +26,46 @@ func _ready() -> void:
 		$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")
 	armature.weaponbox.damage.tags.append("Sher")
-		
-		
-func _physics_process(delta):
-	if self.can_act:
-		if state_machine.get_state() != null and state_machine.get_state().index != "Idle":
-			lock_on()
+	$Hitbox.connect("hitbox_entered", self, "on_got_hit")
+	$Hitbox.idle()
+	
+	
+func on_got_hit(mybox, theirbox):
+	var dir = get_hit_dir(mybox, theirbox)
+	var zone = get_hit_zone(dir)
+	var item = get_equipped(zone)
+	if item and !item.has_tag("Default") and item.durability > 0:
+		item.durability -= 1
+		if item.durability < 1:
+			destroy(zone)
+		print(item.index, " was struck", item.durability)
+	else:
+		print("player was struck", hp)
+		hp -= 1
+		set_state("stagger")
+	
+func get_hit_dir(mybox, theirbox):
+	var mypos = mybox.global_transform.origin
+	var tpos = theirbox.global_transform.origin
+	var dir = mypos.direction_to(tpos)
+	dir = dir.rotated(Vector3.UP, armature.rotation.y)
+	return dir
+	
+	
+func get_hit_zone(dir:Vector3):
+	match dir.abs().max_axis():
+		Vector3.AXIS_X:
+			if dir.x > 0:
+				return "Mainhand"
+			elif dir.x < 0:
+				return "Offhand"
+		Vector3.AXIS_Y:
+			if dir.y > 0:
+				return "Head"
+			else:
+				return "Boots"
+		Vector3.AXIS_Z:
+			return "HP"
 	
 	
 func get_can_act() -> bool:
@@ -49,7 +91,7 @@ func lock_on() -> void:
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
 		var cam = get_viewport().get_camera()
-		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.2))
+		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.08))
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
 	else:
 		acquire_lock_target()

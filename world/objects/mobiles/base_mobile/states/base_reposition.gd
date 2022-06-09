@@ -14,7 +14,7 @@ func _init() -> void:
 func enter() -> void:
 	mypos = host.global_transform.origin
 	choose_next_patrol_point()
-	print("repo : ", tpos, mypos.distance_to(tpos))
+	#print("repo : ", tpos, mypos.distance_to(tpos))
 	pass
 	
 	

@@ -52,12 +52,9 @@ func execute() -> void:
 		host.add_force(dir * distance * 3)#.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
 		host.add_force(Vector3.UP * 0.5)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
-	if Input.is_action_just_pressed("light_attack"):
-		host.set_state("dodge_attack")
-	elif Input.is_action_just_pressed("guard"):
+	if Input.is_action_just_pressed("guard"):
 		if host.get_wasd().z < 0:
 			host.set_state("dash")
-			print("Dash set")
 	host.lock_on()
 	
 	

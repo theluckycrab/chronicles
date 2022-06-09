@@ -104,6 +104,7 @@ func track_target() -> void:
 	
 func set_track_target(who) -> void:
 	transform_target = who
+	add_exception(who)
 	
 
 func acquire_lock_target():

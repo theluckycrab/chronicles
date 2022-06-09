@@ -176,8 +176,8 @@ func add_item(item:Item) -> void:
 	inventory.add_item(item)
 	
 	
-func set_default(slot:String, index:String) -> void:
-	inventory.set_default(slot, index)
+func set_default(slot:String, item:Item) -> void:
+	inventory.set_default(slot, item)
 	
 	
 #bufflist interface
@@ -288,6 +288,6 @@ func lock_on() -> void:
 	
 func init_defaults() -> void:
 	for i in base_defaults:
-		set_default(i, base_defaults[i])
-		var item = Data.get_item(base_defaults[i])
+		var item = Data.get_item(base_defaults[i]).duplicate()
+		set_default(i, item)
 		equip(item)

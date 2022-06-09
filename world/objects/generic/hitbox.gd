@@ -31,7 +31,7 @@ func _physics_process(delta):
 		return
 	if collisions.empty():
 		return
-	print(collisions)
+	#print(collisions)
 	emit_signal("hitbox_entered", self, collisions.front())
 	collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
 	collisions.clear()

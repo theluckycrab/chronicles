@@ -24,7 +24,6 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	print("stagger")
 	direction = get_dir()
 	dodge_timer.start(duration)
 	pass

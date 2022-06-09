@@ -2,8 +2,8 @@ extends BaseMobile
 
 var long = ["pursue"]
 var mid = ["pursue", "circle"]
-var close = ["attack", "defend", "circle"]
-var any = ["reposition", "warcry", "delay"]
+var close = ["attack"]
+var any = ["warcry", "circle", "delay"]
 var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
@@ -75,7 +75,7 @@ func get_target_distance():
 	if lock_target == null:
 		return NONE
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
-	if dist < 4:
+	if dist < 4 and dist > 2:
 		return CLOSE
 	elif dist > 3 and dist < 6:
 		return MID
@@ -91,13 +91,14 @@ func build_action_list(dist):
 		CLOSE:
 			action_list.clear()
 			action_list.append_array(close)
+			return
 		MID:
 			action_list.append_array(mid)
+			return
 		LONG:
 			action_list.append_array(long)
-	action_list.erase("defend")
-#	action_list.clear()
-#	action_list.append("circle")
+			return
+	action_list = ["reposition"]
 			
 			
 func choose_random_action():

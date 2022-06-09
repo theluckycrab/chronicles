@@ -13,6 +13,7 @@ func enter() -> void:
 	
 	
 func exit() -> void:
+	print("exit fall")
 	pass
 	
 	
@@ -30,6 +31,6 @@ func execute() -> void:
 	host.add_force(host.get_wasd_cam() * 5)
 	#host.body_face(host.get_wasd_cam())
 	host.add_force(Vector3.DOWN * 5)
-	host.lock_on()
+	#host.lock_on()
 	
 	pass

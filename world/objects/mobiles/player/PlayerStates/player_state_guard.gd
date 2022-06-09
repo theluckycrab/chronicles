@@ -26,7 +26,7 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
-	return host.get_animation() != animation
+	return Input.is_action_just_released("guard")#host.get_animation() != animation
 	
 	
 func can_enter() -> bool:
@@ -36,13 +36,14 @@ func can_enter() -> bool:
 func execute() -> void:
 	if Input.is_action_just_released("guard"):
 		get_parent().quit_state()
-	for i in ["w", "a", "s", "d"]:
+	for i in ["w", "a", "d"]:
 		if Input.is_action_just_pressed(i):
 			animation = "Guard_"+get_dir()
 			host.play("Guard_"+get_dir())
 			host.guard_reset()
 			host.parry(get_dir())
 			return
+	host.lock_on()
 	pass
 
 func get_dir() -> String:

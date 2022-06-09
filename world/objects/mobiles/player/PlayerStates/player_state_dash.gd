@@ -24,7 +24,6 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	print("Dash enter")
 	#direction = get_dir()
 	direction = host.get_wasd().normalized()
 	dodge_timer.start(duration)
@@ -53,7 +52,7 @@ func execute() -> void:
 		host.add_force(Vector3.UP * 0.5)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
 	if Input.is_action_just_pressed("light_attack"):
-		host.set_state("dodge_attack")
+		host.set_state("light_attack")
 	host.lock_on()
 	
 	
