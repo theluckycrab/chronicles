@@ -2,9 +2,9 @@ extends PlayerActionState
 
 
 func _init() -> void:
-	index = "Dodge"
-	animation = "Combat_Idle"
-	priority = 1
+	index = "Dash"
+	animation = "Dash"
+	priority = 2
 	host = null
 
 var duration: float = 0.25#0.25
@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	animation = "Combat_Idle"
+	print("Dash enter")
 	#direction = get_dir()
 	direction = host.get_wasd().normalized()
 	dodge_timer.start(duration)
@@ -42,7 +42,7 @@ func can_exit() -> bool:
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor()
+	return true
 	
 	
 func execute() -> void:
@@ -54,10 +54,6 @@ func execute() -> void:
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
 	if Input.is_action_just_pressed("light_attack"):
 		host.set_state("dodge_attack")
-	elif Input.is_action_just_pressed("guard"):
-		if host.get_wasd().z < 0:
-			host.set_state("dash")
-			print("Dash set")
 	host.lock_on()
 	
 	

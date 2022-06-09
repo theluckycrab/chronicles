@@ -41,7 +41,7 @@ func execute() -> void:
 	dir = host.get_wasd_cam()
 	if host.in_combat:
 		animation = get_strafe_dir()
-		host.add_force(dir * speed / 2)
+		host.add_force(dir * speed / 3)
 		host.lock_on()
 	else:
 		animation = "Walk"

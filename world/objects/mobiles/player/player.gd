@@ -17,6 +17,7 @@ func _ready() -> void:
 	else:
 		$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")
+	armature.weaponbox.damage.tags.append("Sher")
 		
 		
 func _physics_process(delta):

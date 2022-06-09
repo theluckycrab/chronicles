@@ -48,10 +48,11 @@ func on_got_hit(mybox, theirbox):
 			hp -= theirbox.damage.damage
 			set_state("stagger")
 			if hp <= 0:
-				var sword = preload("res://world/objects/generic/world_object.tscn").instance()
-				sword.item = "scimitar"
-				get_viewport().add_child(sword)
-				sword.global_transform.origin = global_transform.origin + Vector3(0,3,0)
+				if theirbox.damage.tags.has("Sher"):
+					var sword = preload("res://world/objects/generic/world_object.tscn").instance()
+					sword.item = "scimitar"
+					get_viewport().add_child(sword)
+					sword.global_transform.origin = global_transform.origin + Vector3(0,3,0)
 				queue_free()
 	
 	

@@ -18,6 +18,7 @@ var war_state_dict = {
 		"strong_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_strong_attack.gd").new(),
 		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
 		"dodge" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge.gd").new(),
+		"dash" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dash.gd").new(),
 		"falling_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_falling_attack.gd").new(),
 		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
 		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new()
