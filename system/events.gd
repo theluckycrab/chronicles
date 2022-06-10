@@ -10,6 +10,7 @@ signal menu_closed
 signal console_print
 signal effect_added
 signal register
+signal unregister
 signal spawn
 signal network_command
 

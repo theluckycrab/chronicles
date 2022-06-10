@@ -13,8 +13,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	net_stats.register()
 	if net_stats.is_master:
+		net_stats.register()
 		grab_camera()
 	else:
 		$UI.queue_free()

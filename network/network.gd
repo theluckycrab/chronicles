@@ -12,6 +12,7 @@ func _ready():
 	var _discard = Events.connect("network_command", self, "on_net_command")
 	var _disc = peer.connect("connection_succeeded", self, "on_connection_succeeded")
 	var _dicks = Events.connect("register", self, "on_register")
+	var _dongs = Events.connect("unregister", self, "on_unregister")
 	print("Network ready")
 	
 	
@@ -20,9 +21,11 @@ func on_connection_succeeded() -> void:
 	
 
 func on_register(args) -> void:
+	print("register : ", args)
 	var object
 	#print(args)
 	if net_objects.has(args.netID):
+		print("skipping")
 		return
 	if args.netOwner == get_nid() and args.original_instance_id != null:
 		net_objects[args.netID] = instance_from_id(args.original_instance_id)
@@ -38,13 +41,22 @@ func on_register(args) -> void:
 		Events.emit_signal("spawn", object)
 		
 		
+func on_unregister(args) -> void:
+	print("unregister : ", args)
+	if net_objects.has(args.netID):
+		var object = net_objects[args.netID]
+		net_objects.erase(object)
+		object.queue_free()
+		
+		
 func on_net_command(args) -> void:
 	if get_nid() == 1:
 		if args.command != "net_sync":
 			command_history[nid_gen()] = args
 			#print("Network.Logging : ", args)
 	if net_objects.has(args.sender):
-		net_objects[args.sender].call(args.command, args)
+		if is_instance_valid(net_objects[args.sender]):
+			net_objects[args.sender].call(args.command, args)
 		
 
 func on_peer_disconnected(who) -> void:
@@ -100,14 +112,15 @@ func get_net_object(netID):
 remotesync func request_history() -> void:
 	var history = {}
 	for i in net_objects:
-		history[i] = net_objects[i].net_stats.net_sum()
-		#print("sent : ", history[i])
+		if is_instance_valid(net_objects[i]):
+			history[i] = net_objects[i].net_stats.net_sum()
+	print("sent history")#, history[i])
 	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history, command_history)
 	
 remotesync func receive_history(history, commands) -> void:
 	for i in history:
 		on_register(history[i])
-		#print("got : ", history[i])
+	print("got history")#, history[i])
 	for i in commands:
 		if net_objects.has(commands[i].sender):
 			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])

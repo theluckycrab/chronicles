@@ -91,6 +91,8 @@ func get_dir(other:Hitbox) -> String:
 
 
 static func get_collision_type(mybox, theirbox) -> int:
+	if !is_instance_valid(mybox) or !is_instance_valid(theirbox):
+		return collision_type.NULL
 	match mybox.state:
 		states.IDLE:
 			match theirbox.state:

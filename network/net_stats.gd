@@ -47,6 +47,11 @@ func npc(function:String, args: Dictionary = {}) -> void:
 func register() -> void:
 	var args: = net_sum()
 	Network.relay_signal("register", args)
+	
+	
+func unregister() -> void:
+	var args = net_sum()
+	Network.relay_signal("unregister", args)
 
 
 func replay_history() -> void:

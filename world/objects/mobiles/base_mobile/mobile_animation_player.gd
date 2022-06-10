@@ -25,8 +25,11 @@ func play_with_root_motion(anim:String) -> void:
 	stop()
 	var anim_node = tree.get_tree_root().get_node("Action")
 	anim_node.animation = anim
+	tree.active = false
 	tree.active = true
+	tree.set("parameters/OneShot/active", false)
 	tree.set("parameters/OneShot/active", true)
+	
 	
 	
 func get_root_motion() -> Transform:

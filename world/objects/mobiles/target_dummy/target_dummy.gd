@@ -20,18 +20,20 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	net_stats.register()
+	if net_stats.is_master:
+		net_stats.register()
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")
 	
 	
 func _physics_process(_delta) -> void:
-	if lock_target == null:
-		set_state("patrol")
-	elif lock_target:
-		build_action_list(get_target_range())
-		choose_random_action()
+	if net_stats.is_master:
+		if lock_target == null:
+			set_state("patrol")
+		elif lock_target:
+			build_action_list(get_target_range())
+			choose_random_action()
 
 
 func on_got_parried(_mybox, _theirbox) -> void:
@@ -51,7 +53,8 @@ func on_got_hit(mybox, theirbox) -> void:
 				sword.item = "scimitar"
 				get_viewport().add_child(sword)
 				sword.global_transform.origin = global_transform.origin + Vector3(0,3,0)
-				queue_free()
+				if net_stats.is_master:
+					net_stats.unregister()
 	
 	
 func action() -> void:

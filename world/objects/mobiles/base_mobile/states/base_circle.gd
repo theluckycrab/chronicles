@@ -45,7 +45,7 @@ func can_enter() -> bool:
 	
 func execute() -> void:
 	host.lock_on()
-	host.play(animation)
+	#host.play(animation)
 	host.add_force(host.face_vector_body(direction) * distance)
 	
 	

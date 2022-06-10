@@ -38,7 +38,7 @@ func _physics_process(delta) -> void:
 			if lock_target == null:
 				acquire_lock_target()
 		commit_move()
-	update()
+		update()
 	
 	
 #signal_response
@@ -219,6 +219,8 @@ func net_init(index:String) -> void:
 	
 	
 func update() -> void:
+	if !net_stats.is_master:
+		print("Betrayer :", Network.get_nid())
 	var args = {
 			position = global_transform.origin,
 			rot = armature.rotation,
@@ -231,12 +233,13 @@ func update() -> void:
 	
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy:
-		global_transform.origin = args.position
-		armature.rotation = args.rot
-		if get_animation() != args.anim and args.anim != "":
+		if get_animation() != args.anim and args.anim != "" and !armature.anim.is_using_root_motion():
 			play(args.anim, args.anim_motion)
-	
-	
+			#print(args.anim, args.anim_motion, net_stats.netOwner)
+		else:
+			global_transform.origin = args.position
+			armature.rotation = args.rot
+			
 ##commands
 func equip(item:Item) -> void:
 	npc("vis_equip", {index=item.get_index()})
