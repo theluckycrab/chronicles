@@ -20,6 +20,11 @@ func _ready() -> void:
 	Network.peer.connect("connection_succeeded", self, "on_next")
 	
 	
+func _input(event) -> void:
+	if event.as_text() == "QuoteLeft":
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	
 func on_offline() -> void:
 	Network.host(1)
 	on_next()

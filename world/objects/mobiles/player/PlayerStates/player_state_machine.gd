@@ -145,6 +145,8 @@ func state_controls():
 	if Input.is_action_just_pressed("switch_target"):
 		host.acquire_lock_target(host.lock_target)
 		return
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
 	for i in state_dict:
 		if InputMap.has_action(i):
 			if Input.is_action_just_pressed(i):
