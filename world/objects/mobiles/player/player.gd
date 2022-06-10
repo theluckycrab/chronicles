@@ -96,3 +96,11 @@ func net_init(index):
 	net_stats.netID = Network.get_nid()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
+
+
+func hide_weapon():
+	armature.hide_weapon()
+	
+	
+func show_weapon():
+	armature.show_weapon()

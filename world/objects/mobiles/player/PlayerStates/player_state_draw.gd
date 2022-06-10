@@ -19,6 +19,10 @@ func enter() -> void:
 	
 func exit() -> void:
 	host.at_war = !host.at_war
+	if host.at_war:
+		host.show_weapon()
+	else:
+		host.hide_weapon()
 	pass
 	
 	

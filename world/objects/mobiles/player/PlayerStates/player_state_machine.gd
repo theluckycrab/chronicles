@@ -142,7 +142,7 @@ func quit_state() -> void:
 func state_controls():
 	if !host.can_act or host.ui_active():
 		return
-	if Input.is_action_just_pressed("switch_target"):
+	if is_instance_valid(host.lock_target) and Input.is_action_just_pressed("switch_target"):
 		host.acquire_lock_target(host.lock_target)
 		return
 	if Input.is_action_just_pressed("fullscreen"):

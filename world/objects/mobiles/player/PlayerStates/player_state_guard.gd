@@ -36,13 +36,19 @@ func can_enter() -> bool:
 func execute() -> void:
 	if Input.is_action_just_released("guard"):
 		get_parent().quit_state()
+		return
 	for i in ["w", "a", "d"]:
 		if Input.is_action_just_pressed(i):
 			animation = "Guard_"+get_dir()
 			host.play("Guard_"+get_dir())
 			host.guard_reset()
 			host.parry(get_dir())
+			yield(get_tree().create_timer(0.35), "timeout")
+			exit()
+			get_parent().quit_state()
 			return
+#	var dir = host.get_wasd_cam()
+#	host.add_force(dir * 3)
 	host.lock_on()
 	pass
 
@@ -59,4 +65,4 @@ func get_dir() -> String:
 				return "Right"
 			if vel.x < 0:
 				return "Left"
-	return "Forward"
+	return "Above"

@@ -13,7 +13,6 @@ func enter() -> void:
 	
 	
 func exit() -> void:
-	print("exit fall")
 	pass
 	
 	

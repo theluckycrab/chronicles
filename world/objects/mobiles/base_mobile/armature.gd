@@ -127,3 +127,11 @@ func on_weaponbox_entered(mybox, theirbox) -> void:
 		Hitbox.collision_type.PARRIED:
 			emit_signal("parried", mybox, theirbox)
 	return
+
+func hide_weapon():
+	$Skeleton/Mainhand/Weapon.visible = false
+	pass
+	
+func show_weapon():
+	$Skeleton/Mainhand/Weapon.visible = true
+	pass

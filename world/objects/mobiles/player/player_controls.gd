@@ -20,6 +20,6 @@ func get_wasd_cam() -> Vector3:
 	else:
 		cam_rot = cam.rotation.y
 	
-	wasd = wasd.rotated(Vector3.UP, cam_rot)
+	wasd = wasd.normalized().rotated(Vector3.UP, cam_rot)
 	return wasd
 	

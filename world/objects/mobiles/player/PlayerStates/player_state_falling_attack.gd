@@ -32,7 +32,6 @@ func can_enter() -> bool:
 func execute() -> void:
 	host.add_force(host.get_wasd_cam() * 5)
 	host.body_face(host.get_wasd_cam())
-	host.add_force(Vector3.DOWN * 5)
-	print(host.armature.weaponbox.state == Hitbox.states.STRIKE)
+	host.add_force(Vector3.DOWN * 10)
 	
 	pass
