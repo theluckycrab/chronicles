@@ -10,11 +10,12 @@ mesh = "katana"
 description = "Weebo Weebo"
 is_modified = false
 count = 1
+durability = 3
 tags = [  ]
 attacks = {
-"dash": "Sit_Floor",
-"falling": "Combat_Idle",
-"strong": "Katana_Combo_1"
+"dash": "Dash_Attack",
+"falling": "Falling_Attack",
+"strong": "Katana_Combo_2"
 }
 abilities = {
 "active": "high_jump",

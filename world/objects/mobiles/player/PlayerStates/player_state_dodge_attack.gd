@@ -2,34 +2,40 @@ extends PlayerActionState
 
 
 func _init() -> void:
-	index = "Dodge Attack"
-	animation = "Fall"
-	priority = 2
+	index = "Dash Attack"
+	animation = "Dash_Attack"
+	priority = 3
 	host = null
 
 
 func enter() -> void:
-	var weapon = host.get_equipped("Mainhand")
-	if weapon == null:
-		return
-	else:
-		animation = weapon.get_dash_attack()
+	print("dash attacking")
 	pass
-	
+#	print("dash attack")
+#	var weapon = host.get_equipped("Mainhand")
+#	if weapon == null:
+#		return
+#	else:
+#		animation = weapon.get_dash_attack()
+	#host.weaponbox_strike()
 	
 func exit() -> void:
+	#host.weaponbox_ghost()
 	pass
 	
 	
 func can_exit() -> bool:
+	print(host.get_animation())
 	return host.get_animation() != animation
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor()
+	return true
 	
 	
 func execute() -> void:
-	host.add_force(host.get_wasd_cam() * 5)
-	host.body_face(host.get_wasd_cam())
+	var dir = Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 5
+	host.add_force(dir)
+	host.body_face(dir)
+	print(host.armature.weaponbox.state)
 	

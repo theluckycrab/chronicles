@@ -16,6 +16,7 @@ onready var weaponbox = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox
 func _ready():
 	$Guardbox.connect("blocked", self, "on_guardbox_blocked")
 	weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
+	
 
 
 func equip(args:Dictionary) -> void:
@@ -48,7 +49,7 @@ func face(dir:Vector3) -> void:
 
 func play(animation, motion: bool = false) -> void:
 	if motion:
-		#anim.stop()
+		anim.stop()
 		anim.play_with_root_motion(animation)
 	else:
 		anim.tree.active = false

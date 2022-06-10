@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -48,6 +48,10 @@
 [ext_resource path="res://world/objects/mobiles/player/player_ui.gd" type="Script" id=46]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Test_LAttack1.anim" type="Animation" id=47]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Katana_Combo_1.anim" type="Animation" id=48]
+[ext_resource path="res://data/assets/Blender/BaseHumanoid/Katana_Combo_2.anim" type="Animation" id=49]
+[ext_resource path="res://data/assets/Blender/BaseHumanoid/Falling_Attack.anim" type="Animation" id=50]
+[ext_resource path="res://data/assets/Blender/BaseHumanoid/Dash_Attack.anim" type="Animation" id=51]
+[ext_resource path="res://data/assets/Blender/BaseHumanoid/Dash_Attack2.anim" type="Animation" id=52]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.21859, 0.451894, 0.236159 )
@@ -98,7 +102,7 @@ surfaces/1 = {
 extents = Vector3( 0.0502419, 0.731242, 0.0465176 )
 
 [sub_resource type="AnimationNodeAnimation" id=13]
-animation = "Test_LAttack1"
+animation = "Dash_Attack"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
 animation = "Walk"
@@ -108,9 +112,9 @@ fadein_time = 0.0
 fadeout_time = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id=14]
-graph_offset = Vector2( 30, -64.5 )
+graph_offset = Vector2( 0, 36 )
 nodes/Action/node = SubResource( 13 )
-nodes/Action/position = Vector2( 300, 200 )
+nodes/Action/position = Vector2( 220, 200 )
 nodes/Animation/node = SubResource( 15 )
 nodes/Animation/position = Vector2( 220, 80 )
 nodes/OneShot/node = SubResource( 16 )
@@ -133,6 +137,7 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -168,7 +173,7 @@ mesh = ExtResource( 37 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.903021, -0.0531332, -0.426298, -0.428207, 0.0315961, 0.903128, -0.0345173, 0.998087, -0.0512843, -0.836815, 1.30322, 0.0590057 )
+transform = Transform( -0.168777, -0.0197701, -0.985459, -0.984451, 0.0526646, 0.167561, 0.0485854, 0.998416, -0.0283534, -0.275881, 1.02697, 0.203282 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -189,11 +194,14 @@ root_node = NodePath("../..")
 anims/APose = ExtResource( 4 )
 anims/Combat_Idle = ExtResource( 27 )
 anims/Dash = ExtResource( 40 )
+anims/Dash_Attack = ExtResource( 51 )
+anims/Dash_Attack2 = ExtResource( 52 )
 anims/Dodge_Left = ExtResource( 42 )
 anims/Dodge_Right = ExtResource( 41 )
 anims/Draw = ExtResource( 22 )
 anims/Equip = ExtResource( 23 )
 anims/Fall = ExtResource( 12 )
+anims/Falling_Attack = ExtResource( 50 )
 anims/Guard_Above = ExtResource( 36 )
 anims/Guard_Forward = ExtResource( 30 )
 anims/Guard_Left = ExtResource( 29 )
@@ -203,6 +211,7 @@ anims/Interact = ExtResource( 25 )
 anims/Item = ExtResource( 24 )
 anims/Jump = ExtResource( 20 )
 anims/Katana_Combo_1 = ExtResource( 48 )
+anims/Katana_Combo_2 = ExtResource( 49 )
 anims/Run = ExtResource( 18 )
 anims/Sit_Floor = ExtResource( 32 )
 anims/Stagger = ExtResource( 26 )
@@ -217,6 +226,7 @@ script = ExtResource( 45 )
 [node name="AnimationTree" type="AnimationTree" parent="Armature/AnimationPlayer"]
 tree_root = SubResource( 14 )
 anim_player = NodePath("..")
+active = true
 process_mode = 0
 root_motion_track = NodePath("Armature/Skeleton:Root")
 parameters/OneShot/active = false

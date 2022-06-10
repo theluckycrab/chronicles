@@ -45,6 +45,13 @@ func _ready() -> void:
 func execute() -> void:
 	state_controls()
 	cycle()
+	var i = null
+	var t = null
+	if current_state:
+		i = current_state.index
+	if next_state:
+		t = next_state.index
+	print(i,t)
 	
 	
 func set_state(index:String) -> void:

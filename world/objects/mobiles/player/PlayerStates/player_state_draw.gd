@@ -13,6 +13,7 @@ func controls() -> String:
 	
 	
 func enter() -> void:
+	host.lock_target = null
 	pass
 	
 	

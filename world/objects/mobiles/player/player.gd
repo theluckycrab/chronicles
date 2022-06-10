@@ -28,6 +28,11 @@ func _ready() -> void:
 	armature.weaponbox.damage.tags.append("Sher")
 	$Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	$Hitbox.idle()
+	$Hitbox.owner = self
+	
+	
+func pr():
+	print("dicks")
 	
 	
 func on_got_hit(mybox, theirbox):
@@ -93,7 +98,7 @@ func lock_on() -> void:
 		var cam = get_viewport().get_camera()
 		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.08))
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
-	else:
+	elif self.at_war:
 		acquire_lock_target()
 	
 
