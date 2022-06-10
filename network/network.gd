@@ -21,11 +21,11 @@ func on_connection_succeeded() -> void:
 	
 
 func on_register(args) -> void:
-	print("register : ", args)
+	#print("register : ", args)
 	var object
 	#print(args)
 	if net_objects.has(args.netID):
-		print("skipping")
+		#print("skipping")
 		return
 	if args.netOwner == get_nid() and args.original_instance_id != null:
 		net_objects[args.netID] = instance_from_id(args.original_instance_id)
@@ -42,7 +42,7 @@ func on_register(args) -> void:
 		
 		
 func on_unregister(args) -> void:
-	print("unregister : ", args)
+	#print("unregister : ", args)
 	if net_objects.has(args.netID):
 		var object = net_objects[args.netID]
 		net_objects.erase(object)
@@ -118,10 +118,12 @@ remotesync func request_history() -> void:
 	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history, command_history)
 	
 remotesync func receive_history(history, commands) -> void:
+	print("got history")
 	for i in history:
 		on_register(history[i])
-	print("got history")#, history[i])
+		print("history: ", history[i])
 	for i in commands:
+		print("command: ", commands[i])
 		if net_objects.has(commands[i].sender):
 			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
 	
