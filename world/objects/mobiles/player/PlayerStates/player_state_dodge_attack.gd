@@ -9,23 +9,13 @@ func _init() -> void:
 
 
 func enter() -> void:
-	print("dash attacking")
 	pass
-#	print("dash attack")
-#	var weapon = host.get_equipped("Mainhand")
-#	if weapon == null:
-#		return
-#	else:
-#		animation = weapon.get_dash_attack()
-	#host.weaponbox_strike()
 	
 func exit() -> void:
-	#host.weaponbox_ghost()
 	pass
 	
 	
 func can_exit() -> bool:
-	print(host.get_animation())
 	return host.get_animation() != animation
 	
 	
@@ -38,5 +28,4 @@ func execute() -> void:
 	host.add_force(dir)
 	host.body_face(dir)
 	host.lock_on()
-	print(host.armature.weaponbox.state)
 	

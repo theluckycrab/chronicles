@@ -45,13 +45,6 @@ func _ready() -> void:
 func execute() -> void:
 	state_controls()
 	cycle()
-	var i = null
-	var t = null
-	if current_state:
-		i = current_state.index
-	if next_state:
-		t = next_state.index
-	print(i,t)
 	
 	
 func set_state(index:String) -> void:
@@ -149,8 +142,12 @@ func quit_state() -> void:
 func state_controls():
 	if !host.can_act or host.ui_active():
 		return
+	if Input.is_action_just_pressed("switch_target"):
+		host.acquire_lock_target(host.lock_target)
+		return
 	for i in state_dict:
 		if InputMap.has_action(i):
 			if Input.is_action_just_pressed(i):
 				set_state(i)
 				return
+				

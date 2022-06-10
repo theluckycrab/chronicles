@@ -71,10 +71,10 @@ func ui_active() -> bool:
 	return $UI.active
 	
 	
-func acquire_lock_target() -> void:
+func acquire_lock_target(filter=[]) -> void:
 	var cam = get_viewport().get_camera()
 	if cam.has_method("acquire_lock_target"):
-		lock_target = cam.acquire_lock_target()
+		lock_target = cam.acquire_lock_target(filter)
 	if lock_target:
 		self.in_combat = true
 		state_machine.set_mode("combat")
@@ -89,7 +89,7 @@ func lock_on() -> void:
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
 	elif self.at_war:
 		acquire_lock_target()
-	
+		
 
 func net_init(index):
 	net_stats = NetStats.new(index)

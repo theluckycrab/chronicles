@@ -276,7 +276,7 @@ func set_war(t:bool) -> void:
 		state_machine.set_mode("combat")
 	
 	
-func acquire_lock_target() -> void:
+func acquire_lock_target(_filter=[]) -> void:
 	lock_target = $Armature/LockOnArea.get_lock_target([self])
 	if lock_target:
 		self.in_combat = true

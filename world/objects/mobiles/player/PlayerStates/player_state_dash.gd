@@ -24,7 +24,6 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	#direction = get_dir()
 	direction = host.get_wasd().normalized()
 	dodge_timer.start(duration)
 	pass
@@ -33,7 +32,6 @@ func enter() -> void:
 func exit() -> void:
 	dodge_timer.stop()
 	done = false
-	print("exit dash")
 	pass
 	
 	
@@ -46,12 +44,11 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	#host.play("Combat_Idle")
 	if Input.is_action_just_pressed("light_attack"):
 		host.set_state("dodge_attack")
 	var dir = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 	if dodge_timer.time_left > 0.02 and dodge_timer.time_left < duration - 0.02:
-		host.add_force(dir * distance * 3)#.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
+		host.add_force(dir * distance * 3)
 		host.add_force(Vector3.UP * 0.5)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
 	

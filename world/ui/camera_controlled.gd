@@ -107,8 +107,18 @@ func set_track_target(who) -> void:
 	add_exception(who)
 	
 
-func acquire_lock_target():
-	return $LockOnArea.get_lock_target([transform_target])
+func acquire_lock_target(ignores):
+	var filter := []
+	if !ignores is Array:
+		filter.append(ignores)
+	else:
+		filter.append_array(ignores)
+	filter.append(transform_target)
+	return $LockOnArea.get_lock_target(filter)
+	
+	
+func get_r_stick():
+	return right_stick_vector
 
 
 func set_h_rotation(angle):
