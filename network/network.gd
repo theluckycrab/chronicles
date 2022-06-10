@@ -6,6 +6,7 @@ var nid = 1
 
 var net_objects = {}
 var command_history = {}
+		
 
 
 func _ready():
@@ -21,7 +22,6 @@ func on_connection_succeeded() -> void:
 	
 
 func on_register(args) -> void:
-	#print("register : ", args)
 	var object
 	#print(args)
 	if net_objects.has(args.netID):
@@ -117,11 +117,13 @@ remotesync func request_history() -> void:
 	print("sent history")#, history[i])
 	rpc_id(get_tree().get_rpc_sender_id(), "receive_history", history, command_history)
 	
+	
 remotesync func receive_history(history, commands) -> void:
 	print("got history")
 	for i in history:
 		on_register(history[i])
 		print("history: ", history[i])
+		
 	for i in commands:
 		print("command: ", commands[i])
 		if net_objects.has(commands[i].sender):

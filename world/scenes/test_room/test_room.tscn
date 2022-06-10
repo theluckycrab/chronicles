@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://world/objects/mobiles/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world/objects/generic/spawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/objects/generic/item_cube.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/ui/camera_controlled.tscn" type="PackedScene" id=4]
-[ext_resource path="res://world/objects/mobiles/target_dummy/target_dummy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/assets/icon.png" type="Texture" id=6]
 [ext_resource path="res://world/scenes/test_room/test_room.gd" type="Script" id=7]
 
@@ -48,12 +46,6 @@ shape = SubResource( 5 )
 
 [node name="PlayerSpawn" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.02821, -5.09751 )
-
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3851, 0 )
-
-[node name="TargetDummy" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.33167 )
 
 [node name="Items" type="Spatial" parent="."]
 

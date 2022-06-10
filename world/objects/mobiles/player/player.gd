@@ -2,6 +2,7 @@ class_name Player
 extends BaseMobile
 
 var hp = 10
+var registered = false
 
 func _init() -> void:
 	net_init("player")
@@ -14,7 +15,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	if net_stats.is_master:
-		net_stats.register()
+		#net_stats.register()
 		grab_camera()
 	else:
 		$UI.queue_free()
@@ -96,6 +97,7 @@ func net_init(index):
 	net_stats.netID = Network.get_nid()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
+	net_stats.register()
 
 
 func hide_weapon():

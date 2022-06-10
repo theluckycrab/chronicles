@@ -20,8 +20,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	if net_stats.is_master:
-		net_stats.register()
+	#if net_stats.is_master:
+		#net_stats.register()
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")
@@ -73,6 +73,8 @@ func in_view() -> bool:
 
 
 func get_target_range() -> int:
+	if !is_instance_valid(lock_target):
+		return NONE
 	if lock_target == null:
 		return NONE
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)

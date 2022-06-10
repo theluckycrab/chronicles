@@ -12266,7 +12266,6 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )

@@ -216,6 +216,8 @@ func net_init(index:String) -> void:
 	net_stats.netID = Network.nid_gen()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
+	if Network.get_nid() == 1:
+		net_stats.register()
 	
 	
 func update() -> void:
@@ -287,7 +289,7 @@ func acquire_lock_target(_filter=[]) -> void:
 	
 	
 func lock_on() -> void:
-	if lock_target:
+	if is_instance_valid(lock_target):
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.8)
