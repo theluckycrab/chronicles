@@ -5,7 +5,8 @@ var active: bool = false setget , get_active
 
 
 func _physics_process(_delta) -> void:
-	controls()
+	if host.can_act:
+		controls()
 
 
 func controls() -> void:

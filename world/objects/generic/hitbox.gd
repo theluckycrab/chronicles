@@ -26,7 +26,7 @@ func on_area_entered(who) -> void:
 			collisions.append(who)
 	
 			
-func _physics_process(delta):
+func _physics_process(_delta):
 	if state != states.STRIKE:
 		return
 	if collisions.empty():
@@ -66,7 +66,7 @@ func am_hitbox() -> bool:
 	return true
 	
 	
-func get_dir(other) -> String:
+func get_dir(other:Hitbox) -> String:
 	var pos = global_transform.origin
 	var opos = other.global_transform.origin
 	var dir = pos.direction_to(opos)
@@ -89,7 +89,8 @@ func get_dir(other) -> String:
 	print(self, " unable to determine direction of ", other)
 	return "front"
 
-static func get_collision_type(mybox, theirbox):
+
+static func get_collision_type(mybox, theirbox) -> int:
 	match mybox.state:
 		states.IDLE:
 			match theirbox.state:

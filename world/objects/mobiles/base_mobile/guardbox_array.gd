@@ -65,6 +65,6 @@ func on_delay_timer() -> void:
 	incoming.clear()
 	
 	
-func get_collisions():
+func get_collisions() -> Dictionary:
 	return incoming
 	

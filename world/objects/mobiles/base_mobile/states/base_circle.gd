@@ -46,7 +46,7 @@ func can_enter() -> bool:
 func execute() -> void:
 	host.lock_on()
 	host.play(animation)
-	host.add_force(direction.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
+	host.add_force(host.face_vector_body(direction) * distance)
 	
 	
 func on_dodge_timer() -> void:

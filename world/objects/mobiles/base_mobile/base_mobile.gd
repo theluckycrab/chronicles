@@ -61,11 +61,11 @@ func on_got_blocked(_mybox, _theirbox):
 	return
 	
 func connect_weapon_signals():
-	armature.connect("hit", self, "on_hit")
-	armature.connect("blocked", self, "on_blocked")
-	armature.connect("parried", self, "on_parried")
-	armature.connect("got_parried", self, "on_got_parried")
-	armature.connect("got_blocked", self, "on_got_blocked")
+	var _discard = armature.connect("hit", self, "on_hit")
+	var _discard1 = armature.connect("blocked", self, "on_blocked")
+	var _discard2 = armature.connect("parried", self, "on_parried")
+	var _discard3 = armature.connect("got_parried", self, "on_got_parried")
+	var _discard4 = armature.connect("got_blocked", self, "on_got_blocked")
 
 		
 #setget
@@ -153,6 +153,10 @@ func weaponbox_strike() -> void:
 	
 func weaponbox_ghost() -> void:
 	armature.weaponbox_ghost()
+	
+	
+func get_weaponbox() -> Hitbox:
+	return armature.weaponbox
 	
 	
 func link_hitbox(box) -> void:
@@ -291,3 +295,47 @@ func init_defaults() -> void:
 		var item = Data.get_item(base_defaults[i]).duplicate()
 		set_default(i, item)
 		equip(item)
+
+
+func get_target():
+	return lock_target
+	
+
+func get_target_distance() -> float:
+	if is_instance_valid(get_target()):
+		return 0.0
+	var mypos = global_transform.origin
+	var tpos = get_target().global_transform.origin
+	var dist = mypos.distance_to(tpos)
+	return dist
+	
+	
+func get_target_direction() -> Vector3:
+	if is_instance_valid(get_target()):
+		return Vector3.ZERO
+	var mypos = global_transform.origin
+	var tpos = get_target().global_transform.origin
+	var dir = mypos.direction_to(tpos)
+	return dir
+	
+	
+func face_vector_body(vec:Vector3) -> Vector3:
+	return vec.rotated(Vector3.UP, armature.rotation.y)
+	
+
+func face_vector_cam(vec:Vector3) -> Vector3:
+	var cam = get_viewport().get_camera()
+	if !is_instance_valid(cam):
+		return Vector3.ZERO
+	return vec.rotated(Vector3.UP, cam.rotation.y)
+	
+	
+func direction_to(loc) -> Vector3:
+	if loc is Spatial:
+		loc = loc.global_transform.origin
+	return global_transform.origin.direction_to(loc)
+	
+func distance_to(loc) -> float:
+	if loc is Spatial:
+		loc = loc.global_transform.origin
+	return global_transform.origin.distance_to(loc)

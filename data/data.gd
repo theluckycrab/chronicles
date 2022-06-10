@@ -36,6 +36,6 @@ func get_attack(index):
 	return reference.attack_list[index]
 
 
-func snake_case(string):
+func snake_case(string) -> String:
 	string = string.to_lower().replace(" ", "_")
 	return string

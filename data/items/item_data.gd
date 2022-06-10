@@ -35,14 +35,12 @@ func _init() -> void:
 func activate(host: Object) -> void:
 	Data.get_reference(get_active()).execute(self, host)
 	
-
-
-
 #set
-func add_tag(tag):
+func add_tag(tag:String) -> void:
 	add_tags(tag)
 
-func add_tags(tag) -> void:
+
+func add_tags(tag) -> void: #single or many
 	if has_tag(tag):
 		return
 	if ! tag is Array:
@@ -58,6 +56,7 @@ func remove_tag(tag: String) -> void:
 	
 func set_name(n: String) -> void:
 	item_name = n
+	
 	
 func set_slot(s: String) -> void:
 	slot = s
@@ -113,5 +112,5 @@ func get_falling_attack() -> String:
 	return attacks.falling
 
 #query
-func has_tag(tag) -> bool:
+func has_tag(tag:String) -> bool:
 	return tags.has(tag)

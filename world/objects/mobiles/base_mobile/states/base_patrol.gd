@@ -33,8 +33,7 @@ func execute() -> void:
 		
 	host.play("Walk")
 		
-	mypos = host.global_transform.origin
-	var dist = mypos.distance_to(tpos)
+	var dist = host.distance_to(tpos)
 	
 	if tpos == Vector3.ZERO or dist < 1:
 		choose_next_patrol_point()
@@ -55,5 +54,5 @@ func choose_next_patrol_point():
 
 
 func pursue_next_patrol_point():
-	host.add_force(mypos.direction_to(tpos) * Vector3(1,0,1))
-	host.armature.face(mypos.direction_to(tpos))
+	host.add_force(host.direction_to(tpos) * Vector3(1,0,1))
+	host.armature.face(host.direction_to(tpos))

@@ -7,7 +7,7 @@ var hits = []
 
 func _init() -> void:
 	index = "Attack"
-	animation = "Test_LAttack1"
+	animation = "Sit_Floor"
 	priority = 1
 	host = null
 	

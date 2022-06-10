@@ -2,12 +2,6 @@ class_name Player
 extends BaseMobile
 
 var hp = 10
-var armor = {
-		"Head":3,
-		"Offhand":3,
-		"Mainhand":3,
-		"Boots":3
-}
 
 func _init() -> void:
 	net_init("player")
@@ -25,14 +19,9 @@ func _ready() -> void:
 	else:
 		$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")
-	armature.weaponbox.damage.tags.append("Sher")
-	$Hitbox.connect("hitbox_entered", self, "on_got_hit")
+	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	$Hitbox.idle()
 	$Hitbox.owner = self
-	
-	
-func pr():
-	print("dicks")
 	
 	
 func on_got_hit(mybox, theirbox):

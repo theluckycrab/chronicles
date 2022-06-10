@@ -17,7 +17,7 @@ _global_script_classes=[ {
 "base": "State",
 "class": "ActionState",
 "language": "GDScript",
-"path": "res://world/objects/mobiles/base_mobile/states/actions/action_state.gd"
+"path": "res://world/objects/mobiles/base_mobile/states/action_state.gd"
 }, {
 "base": "Spatial",
 "class": "Armature",
@@ -67,7 +67,7 @@ _global_script_classes=[ {
 "base": "State",
 "class": "MoveState",
 "language": "GDScript",
-"path": "res://world/objects/mobiles/base_mobile/states/movements/move_state.gd"
+"path": "res://world/objects/mobiles/base_mobile/states/move_state.gd"
 }, {
 "base": "Reference",
 "class": "NetStats",

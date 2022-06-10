@@ -40,6 +40,7 @@ func controls() -> void:
 			shift("left")
 		elif Input.is_action_just_released("item_scroll_confirm"):
 			host.equip(items[0])
+			set_category(null)
 
 
 func _ready() -> void:

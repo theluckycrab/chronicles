@@ -47,6 +47,9 @@ func get_defaults_dict() -> Dictionary:
 
 func equip(item:Item) -> void:
 	equipment_dict[item.get_slot()] = item
+	if !item.has_tag("Default"):
+		if items.has(item):
+			items.erase(item)
 	
 
 func get_default(slot:String):
@@ -63,7 +66,6 @@ func get_equipped(slot:String):
 		return null
 		
 		
-func set_default(slot:String, item:Item):
-	#var item = Data.get_item(index)
+func set_default(slot:String, item:Item) -> void:
 	defaults_dict[slot] = item
 	defaults_dict[slot].add_tag("Default")

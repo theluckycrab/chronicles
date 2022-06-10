@@ -48,7 +48,6 @@ func _ready() -> void:
 	
 	
 func execute() -> void:
-	#state_controls()
 	cycle()
 	
 	
@@ -154,8 +153,3 @@ func quit_state() -> void:
 	current_state = null
 	next_state = null
 	current_state = calc_fallback_state()
-
-
-func state_controls():
-	if !host.can_act or host.ui_active():
-		return

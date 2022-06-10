@@ -6,5 +6,5 @@
 [resource]
 script = ExtResource( 2 )
 attack_name = "Fading Horizon"
-anim = "Test_LAttack1"
+anim = "Dash_Attack"
 projectiles = [ ExtResource( 1 ) ]
