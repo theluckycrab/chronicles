@@ -7,8 +7,8 @@ func _init() -> void:
 	priority = 1
 	host = null
 
-var duration: float = 0.25#0.25
-var height: float = 0.05 / duration
+var duration: float = 0.35#0.25
+var height: float = 0#.015 / duration
 var distance: float = 3#0.75 / duration#1.75 / duration
 var done: bool = false
 var direction = Vector3.ZERO
@@ -50,7 +50,7 @@ func execute() -> void:
 	var dir = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 	if dodge_timer.time_left > 0.02 and dodge_timer.time_left < duration - 0.02:
 		host.add_force(dir * distance * 3)#.rotated(Vector3.UP, host.get_node("Armature").rotation.y) * distance)
-		host.add_force(Vector3.UP * 0.5)
+		#host.add_force(Vector3.UP * 0.5)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
 	if Input.is_action_just_pressed("guard"):
 		if host.get_wasd().z < 0:

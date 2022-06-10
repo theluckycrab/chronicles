@@ -9,7 +9,7 @@ func _init() -> void:
 
 var duration: float = 0.25#0.25
 var height: float = 0.05 / duration
-var distance: float = 3#0.75 / duration#1.75 / duration
+var distance: float = 5#0.75 / duration#1.75 / duration
 var done: bool = false
 var direction = Vector3.ZERO
 

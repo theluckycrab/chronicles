@@ -37,5 +37,6 @@ func execute() -> void:
 	var dir = Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 5
 	host.add_force(dir)
 	host.body_face(dir)
+	host.lock_on()
 	print(host.armature.weaponbox.state)
 	

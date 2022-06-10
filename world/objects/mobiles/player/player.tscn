@@ -226,7 +226,6 @@ script = ExtResource( 45 )
 [node name="AnimationTree" type="AnimationTree" parent="Armature/AnimationPlayer"]
 tree_root = SubResource( 14 )
 anim_player = NodePath("..")
-active = true
 process_mode = 0
 root_motion_track = NodePath("Armature/Skeleton:Root")
 parameters/OneShot/active = false
