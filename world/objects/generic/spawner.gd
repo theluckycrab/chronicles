@@ -10,7 +10,7 @@ onready var args = {
 					netID = Network.nid_gen()
 	}
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Network.get_nid() != 1:
 		return
 	if Input.is_action_just_pressed("debug"):

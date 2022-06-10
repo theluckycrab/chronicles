@@ -100,9 +100,9 @@ func net_init(index):
 	net_stats.register()
 
 
-func hide_weapon():
+func hide_weapon(_args={}):
 	armature.hide_weapon()
 	
 	
-func show_weapon():
+func show_weapon(_args={}):
 	armature.show_weapon()
