@@ -241,7 +241,17 @@ func net_sync(args:Dictionary) -> void:
 		else:
 			global_transform.origin = args.position
 			armature.rotation = args.rot
-			
+	
+	
+#stats interface
+func set_faction(faction:String) -> void:
+	stats.set_faction(faction)
+	
+	
+func get_faction():
+	return stats.get_faction()
+	
+	
 ##commands
 func equip(item:Item) -> void:
 	npc("vis_equip", {index=item.get_index()})
@@ -282,7 +292,7 @@ func set_war(t:bool) -> void:
 	
 	
 func acquire_lock_target(_filter=[]) -> void:
-	lock_target = $Armature/LockOnArea.get_lock_target([self])
+	lock_target = $Armature/LockOnArea.get_lock_target([self], get_faction())
 	if lock_target:
 		self.in_combat = true
 		state_machine.set_mode("combat")

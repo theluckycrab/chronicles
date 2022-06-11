@@ -9,10 +9,10 @@ func get_list():
 	lock_list.clear()
 	lock_list = get_overlapping_bodies()
 	
-func filter_list_to_lockable_targets(filter):
+func filter_list_to_lockable_targets(filter, faction_filter):
 	var new_list = []
 	for i in lock_list:
-		if i.has_method("lock_on") and !filter.has(i):
+		if i.has_method("lock_on") and !filter.has(i) and i.get_faction() != faction_filter:
 			new_list.append(i)
 	lock_list = new_list
 	
@@ -26,8 +26,8 @@ func filter_list_by_distance():
 			lock_target = i
 			closest = dist
 	
-func get_lock_target(filter=[]):
+func get_lock_target(filter=[], faction_filter="System"):
 	get_list()
-	filter_list_to_lockable_targets(filter)
+	filter_list_to_lockable_targets(filter, faction_filter)
 	filter_list_by_distance()
 	return lock_target
