@@ -20,8 +20,6 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	#if net_stats.is_master:
-		#net_stats.register()
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")

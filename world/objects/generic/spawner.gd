@@ -11,7 +11,7 @@ onready var args = {
 	}
 	
 func _physics_process(_delta):
-	if Network.get_nid() != 1:
+	if !Network.map_masters.has(Network.map) or Network.get_nid() != Network.map_masters[Network.map]:
 		return
 	if Input.is_action_just_pressed("debug"):
 		var obj = Data.get_reference_instance("target_dummy")

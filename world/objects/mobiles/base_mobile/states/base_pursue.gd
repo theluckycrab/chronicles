@@ -28,8 +28,9 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	tpos = host.lock_target.global_transform.origin
-	var dir = host.global_transform.origin.direction_to(tpos)
-	host.add_force(dir * speed)
-	host.armature.face(dir)
+	if is_instance_valid(host.lock_target):
+		tpos = host.lock_target.global_transform.origin
+		var dir = host.global_transform.origin.direction_to(tpos)
+		host.add_force(dir * speed)
+		host.armature.face(dir)
 	pass

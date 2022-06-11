@@ -62,7 +62,9 @@ func on_unregister(args) -> void:
 		
 		
 func on_net_command(args) -> void:
-	if get_nid() == 1:
+	if !map_masters.has(map):
+		return
+	if get_nid() == map_masters[map]:
 		if args.command != "net_sync":
 			command_history[nid_gen()] = args
 			#print("Network.Logging : ", args)
@@ -146,9 +148,6 @@ remotesync func receive_history(history, commands, masters) -> void:
 		on_register(history[i])
 		
 	for i in commands:
-		#print("command: ", commands[i])
-		if commands[i].map != map:
-			pass
 		if net_objects.has(commands[i].sender):
 			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
 

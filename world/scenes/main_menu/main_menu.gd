@@ -1,6 +1,6 @@
 extends Control
 
-var next_scene: String = "test_room2"
+var next_scene: String = "test_room"
 
 onready var button_offline = $VBoxContainer/Offline
 onready var button_online = $VBoxContainer/Online

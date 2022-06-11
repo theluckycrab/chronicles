@@ -6,7 +6,7 @@ var netOwner: int = Network.get_nid()
 var index: String
 var history = {}
 var original_instance_id: int = 0
-var map = "test_roo"
+var map = ""
 
 onready var is_dummy = false setget , get_is_dummy
 onready var is_master = false setget , get_is_master
@@ -31,7 +31,7 @@ func net_sum() -> Dictionary:
 			index = index,
 			history = history.duplicate(true),
 			original_instance_id = original_instance_id,
-			map = map
+			map = Network.map
 	}
 	return dic
 
