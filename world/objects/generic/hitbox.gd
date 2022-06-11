@@ -33,7 +33,8 @@ func _physics_process(_delta):
 		return
 	#print(collisions)
 	emit_signal("hitbox_entered", self, collisions.front())
-	collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
+	if is_instance_valid(collisions.front()):
+		collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
 	collisions.clear()
 	ghost()
 			

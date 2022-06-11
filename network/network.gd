@@ -58,16 +58,17 @@ func on_unregister(args) -> void:
 	if net_objects.has(args.netID):
 		var object = net_objects[args.netID]
 		net_objects.erase(object)
-		object.queue_free()
+		if is_instance_valid(object):
+			object.queue_free()
 		
 		
 func on_net_command(args) -> void:
-	if !map_masters.has(map):
-		return
-	if get_nid() == map_masters[map]:
+#	if !map_masters.has(map):
+#		print(map, "no map", args)
+#		return
+	if map_masters.has(map) and get_nid() == map_masters[map]:
 		if args.command != "net_sync":
 			command_history[nid_gen()] = args
-			#print("Network.Logging : ", args)
 	if net_objects.has(args.sender):
 		if is_instance_valid(net_objects[args.sender]):
 			net_objects[args.sender].call(args.command, args)
@@ -94,7 +95,7 @@ remotesync func remove_peer(who) -> void:
 			
 	if alternate:
 		for i in net_objects:
-			if i != who and net_objects[i].net_stats.netOwner == who:
+			if is_instance_valid(net_objects[i]):
 				net_objects[i].net_stats.netOwner = alternate
 		
 	map_masters[swap_map] = alternate
@@ -152,11 +153,6 @@ remotesync func send_history(who, masters):
 	for i in net_objects:
 		if is_instance_valid(net_objects[i]):
 			history[i] = net_objects[i].net_stats.net_sum()
-	print("sent history")#, history[i])
-	print("to: ", who)
-	#print(history)
-	#print(command_history)
-	#print(masters)
 	rpc_id(who, "receive_history", history, command_history, masters)
 	
 	
