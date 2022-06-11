@@ -1,6 +1,6 @@
 extends Control
 
-var next_scene: String = "test_room"
+var next_scene: String = "test_room2"
 
 onready var button_offline = $VBoxContainer/Offline
 onready var button_online = $VBoxContainer/Online
@@ -45,4 +45,5 @@ func on_host() -> void:
 	
 func on_next() -> void:
 	Network.set_nid()
+	Events.emit_signal("console_print", str(Network.get_nid()))
 	Events.emit_signal("scene_change_request", next_scene)

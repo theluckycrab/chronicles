@@ -23,6 +23,7 @@ onready var controls := $Controls
 
 #builtin
 func _ready() -> void:
+	net_stats.register()
 	if net_stats.is_master:
 		call_deferred("init_defaults")#to wait for net registration
 		connect_weapon_signals()
@@ -216,8 +217,7 @@ func net_init(index:String) -> void:
 	net_stats.netID = Network.nid_gen()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
-	if Network.get_nid() == 1:
-		net_stats.register()
+	#net_stats.register()
 	
 	
 func update() -> void:

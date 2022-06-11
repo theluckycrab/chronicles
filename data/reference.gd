@@ -27,7 +27,7 @@ func setup() -> void:
 	
 	
 func build_list(path, ending = ".tres", list = ref_list) -> void:
-	print("Data.reference reading ", path, " for ", ending)
+	#print("Data.reference reading ", path, " for ", ending)
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
@@ -45,7 +45,7 @@ func build_list(path, ending = ".tres", list = ref_list) -> void:
 func load_data(path:String, file:String, list:Dictionary) -> void:
 	var object = load(path+"/"+file)
 	list[file.get_basename()] = object
-	print("Data.reference storing ", file)
+#	print("Data.reference storing ", file)
 
 
 func convert_paths_to_objects(list) -> void:
