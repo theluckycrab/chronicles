@@ -51,8 +51,7 @@ func on_got_hit(mybox, theirbox) -> void:
 				sword.item = "scimitar"
 				get_viewport().add_child(sword)
 				sword.global_transform.origin = global_transform.origin + Vector3(0,3,0)
-				if net_stats.is_master:
-					net_stats.unregister()
+				net_stats.unregister()
 	
 	
 func action() -> void:

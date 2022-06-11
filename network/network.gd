@@ -88,16 +88,17 @@ remotesync func remove_peer(who) -> void:
 	
 	var alternate = null
 	for i in net_objects:
-		if net_objects[i] is Player:
+		if i != who and net_objects[i] is Player:
 			alternate = net_objects[i].net_stats.netOwner
 			break
 			
 	if alternate:
 		for i in net_objects:
-			if net_objects[i].net_stats.netOwner == who:
+			if i != who and net_objects[i].net_stats.netOwner == who:
 				net_objects[i].net_stats.netOwner = alternate
 		
 	map_masters[swap_map] = alternate
+	rpc_id(1, "set_map_master", swap_map, alternate)
 	print(who, " alternate ", alternate)
 		
 func relay_signal(sig, args) -> void:
@@ -161,6 +162,7 @@ remotesync func send_history(who, masters):
 	
 remotesync func receive_history(history, commands, masters) -> void:
 	map_masters = masters.duplicate(true)
+	command_history = commands.duplicate(true)
 	for i in history:
 		on_register(history[i])
 		
@@ -179,3 +181,6 @@ func get_map_master(tmap, who):
 		return who
 	return map_masters[tmap]
 	
+
+remotesync func set_map_master(tmap, who):
+	map_masters[tmap] = who
