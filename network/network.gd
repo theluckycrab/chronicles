@@ -78,10 +78,27 @@ func on_peer_disconnected(who) -> void:
 	
 	
 remotesync func remove_peer(who) -> void:
+	var swap_map = null
 	if net_objects.has(who):
+		swap_map = net_objects[who].net_stats.map
 		net_objects[who].queue_free()
 		net_objects.erase(who)
+	if swap_map != map:
+		return
+	
+	var alternate = null
+	for i in net_objects:
+		if net_objects[i] is Player:
+			alternate = net_objects[i].net_stats.netOwner
+			break
+			
+	if alternate:
+		for i in net_objects:
+			if net_objects[i].net_stats.netOwner == who:
+				net_objects[i].net_stats.netOwner = alternate
 		
+	map_masters[swap_map] = alternate
+	print(who, " alternate ", alternate)
 		
 func relay_signal(sig, args) -> void:
 	args.map = map
