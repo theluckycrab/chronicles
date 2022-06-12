@@ -8,6 +8,7 @@ signal menu_opened
 signal menu_closed
 #function calls in disguise
 signal console_print
+signal net_print
 signal effect_added
 signal register
 signal unregister

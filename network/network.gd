@@ -4,6 +4,7 @@ var peer = NetworkedMultiplayerENet.new()
 var netID_count = 0
 var nid = 1
 var map = ""
+var alias = "Player"
 
 var net_objects = {}
 var command_history = {}

@@ -8,7 +8,7 @@ func _ready() -> void:
 	var _discard = entry.connect("text_entered", self, "on_entry")
 	var _dicksard = history.connect("text_changed", self, "on_history")
 	var _dicksword = Events.connect("console_print", self, "on_console_print")
-	
+	var _deez = Events.connect("net_print", self, "on_net_print")
 	
 func _input(event) -> void:
 	if event.as_text() == "QuoteLeft" and event.is_pressed() and !event.is_echo():
@@ -22,7 +22,7 @@ func _input(event) -> void:
 	
 	
 func on_entry(text) -> void:
-	Events.emit_signal("console_print", text)
+	net_send(text)
 	entry.text = ""
 	
 	
@@ -33,11 +33,23 @@ func on_history() -> void:
 func on_console_print(text: String) -> void:
 	text = text.dedent()
 	if text != "":
-		if "." in text:
+		if "/" in text:
 			command_dispatch(text)
 			return
 		history.text += text + "\n"
 		history.emit_signal("text_changed")
+		
+func on_net_print(args):
+	Events.emit_signal("console_print", args.text)
+		
+	
+func net_send(text):
+	if "/" in text:
+		on_console_print(text)
+		return
+	text = text.lstrip("/")
+	text = Network.alias + ": "+ text
+	Network.relay_signal("net_print",{text = text})
 		
 		
 func command_dispatch(text) -> void:
@@ -60,10 +72,12 @@ func command_dispatch(text) -> void:
 			print(get_tree().get_network_unique_id())
 		"quit":
 			get_tree().quit()
+		"set_alias":
+			set_alias(text)
 
 
 func get_command_format(text) -> PoolStringArray:
-	text = text.lstrip(".")
+	text = text.lstrip("/")
 	text = text.split(" ")
 	return text
 
@@ -98,3 +112,8 @@ func hide():
 	visible = false
 	remove_from_group("menus")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func set_alias(a):
+	a = a.join(" ")
+	a = a.lstrip("/set_alias")
+	Network.alias = a
