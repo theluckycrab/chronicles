@@ -66,8 +66,7 @@ func on_unregister(args) -> void:
 func on_net_command(args) -> void:
 	if args.map != map:
 		return
-	if map_masters.has(map) and get_nid() == map_masters[map]:
-		if args.command != "net_sync":
+	if args.command != "net_sync":
 			command_history[nid_gen()] = args
 	if net_objects.has(args.sender):
 		if is_instance_valid(net_objects[args.sender]):
@@ -210,7 +209,7 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	print("history received from ", get_tree().get_rpc_sender_id(), "\n")
 	
 	
-remotesync func set_map_master(tmap: String, who: int) -> void:
+remotesync func set_map_master(tmap: String, who) -> void:
 	if who == null:
 		map_masters.erase(tmap)
 	else:
