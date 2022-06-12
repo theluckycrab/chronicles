@@ -40,7 +40,7 @@ func execute() -> void:
 	for i in ["w", "a", "d"]:
 		if Input.is_action_just_pressed(i):
 			animation = "Guard_"+get_dir()
-			host.play("Guard_"+get_dir())
+			host.play({animation="Guard_"+get_dir(), motion = false})
 			host.guard_reset()
 			host.parry(get_dir())
 			yield(get_tree().create_timer(0.35), "timeout")

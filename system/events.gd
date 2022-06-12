@@ -6,6 +6,7 @@ signal scene_change_request
 signal menu_opened
 #completed
 signal menu_closed
+signal save_data_loaded
 #function calls in disguise
 signal console_print
 signal net_print

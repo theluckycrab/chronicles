@@ -4,7 +4,7 @@ var peer = NetworkedMultiplayerENet.new()
 var netID_count = 0
 var nid = 1
 var map = ""
-var alias = "Player"
+var alias = "Player" setget , get_alias
 
 var net_objects = {}
 var command_history = {}
@@ -16,6 +16,7 @@ func _ready():
 	var _disc = peer.connect("connection_succeeded", self, "on_connection_succeeded")
 	var _dicks = Events.connect("register", self, "on_register")
 	var _dongs = Events.connect("unregister", self, "on_unregister")
+	var _ding = Events.connect("save_data_loaded", self, "on_save_data_loaded")
 	print("Network ready")
 	
 	
@@ -146,6 +147,9 @@ func get_map_master(tmap: String, who: int) -> int:
 		return who
 	return map_masters[tmap]
 
+
+func get_alias() -> String:
+	return Data.get_saved_value("alias")
 
 #remote functions
 remotesync func sub_host_migration(who: int) -> void:
