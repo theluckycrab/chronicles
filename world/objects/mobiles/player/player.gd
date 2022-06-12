@@ -17,8 +17,8 @@ func _ready() -> void:
 	if net_stats.is_master:
 		#net_stats.register()
 		grab_camera()
-	else:
-		$UI.queue_free()
+	#else:
+		#$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	$Hitbox.idle()
@@ -97,7 +97,7 @@ func net_init(index):
 	net_stats.netID = Network.get_nid()
 	net_stats.netOwner = Network.get_nid()
 	net_stats.original_instance_id = get_instance_id()
-	net_stats.register()
+	#net_stats.register()
 
 
 func hide_weapon(_args={}):

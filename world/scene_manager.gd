@@ -19,6 +19,11 @@ func change_scene(scene: String) -> void:
 	get_tree().paused = true
 	for i in mount.get_children():
 		i.queue_free()
+	yield(get_tree(), "idle_frame")
+	Network.command_history.clear()
+	Network.net_objects.clear()
+	Network.transition(scene)
+	yield(get_tree(), "idle_frame")
 	var nscene = load("res://world/scenes/"+scene+"/"+scene+".tscn").instance()
 	mount.add_child(nscene)
 	current_scene = nscene

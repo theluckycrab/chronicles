@@ -27,9 +27,15 @@ func on_connection_succeeded() -> void:
 	set_nid()
 	
 	
+func transition(scene):
+	if get_tree().network_peer:
+		map = scene 
+		rpc("sub_host_migration", get_nid()) 
+		rpc_id(1, "request_history", scene)
+	pass
+	
 func on_scene_change_request(scene):
-	map = scene
-
+	pass
 
 func on_register(args) -> void:
 	if map == args.map:
@@ -39,10 +45,13 @@ func on_register(args) -> void:
 	
 func spawn(args):
 	var object
-	if args.netOwner == get_nid() and args.original_instance_id != null:
-		net_objects[args.netID] = instance_from_id(args.original_instance_id)
+	if args.netOwner == get_nid():
+		if is_instance_valid(instance_from_id(args.original_instance_id)):
+			print("spawning already exists ", args.netID)
+			net_objects[args.netID] = instance_from_id(args.original_instance_id)
 		return
 	else:
+		print("spawning new", args)
 		object = Data.get_reference_instance(args.index)
 		net_objects[args.netID] = object
 		object.net_stats.netID = args.netID
@@ -55,54 +64,64 @@ func spawn(args):
 		
 		
 func on_unregister(args) -> void:
-	#print("unregister : ", args)
-	if net_objects.has(args.netID):
+	if net_objects.has(args.netID) and args.map == map:
 		var object = net_objects[args.netID]
-		net_objects.erase(object)
+		net_objects.erase(args.netID)
 		if is_instance_valid(object):
+			print("unregister ", args.netID)
 			object.queue_free()
 		
 		
 func on_net_command(args) -> void:
-#	if !map_masters.has(map):
-#		print(map, "no map", args)
-#		return
+	if args.map != map:
+		return
 	if map_masters.has(map) and get_nid() == map_masters[map]:
 		if args.command != "net_sync":
 			command_history[nid_gen()] = args
 	if net_objects.has(args.sender):
 		if is_instance_valid(net_objects[args.sender]):
-			net_objects[args.sender].call(args.command, args)
+			net_objects[args.sender].call_deferred(args.command, args)
+		else:
+			print(args.sender, " not valid")
 		
 
 func on_peer_disconnected(who) -> void:
-	rpc("remove_peer", who)
-	
-	
-remotesync func remove_peer(who) -> void:
-	var swap_map = null
-	if net_objects.has(who):
-		swap_map = net_objects[who].net_stats.map
-		net_objects[who].queue_free()
-		net_objects.erase(who)
-	if swap_map != map:
+	for i in map_masters:
+		if map_masters[i] == who:
+			map_masters.erase(who)
+			rpc("sub_host_migration", who)
+	relay_signal("unregister", {netID=who})
+		
+		
+func get_map_from_netID(who):
+	if is_instance_valid(get_net_object(who)):
+		return net_objects[who].net_stats.map
+	else:
+		return null
+
+remotesync func sub_host_migration(who):
+	var tmap = "not set"
+	if get_net_object(who):
+		tmap = get_map_from_netID(who)
+		on_unregister({netID=who, map=tmap})
+	else:
 		return
-	
+	if !map_masters.has(tmap) or map_masters[tmap] != who:
+		return
 	var alternate = null
 	for i in net_objects:
 		if i != who and net_objects[i] is Player:
-			alternate = net_objects[i].net_stats.netOwner
+			alternate = i
 			break
-			
 	if alternate:
 		for i in net_objects:
 			if is_instance_valid(net_objects[i]):
 				net_objects[i].net_stats.netOwner = alternate
-		
-	map_masters[swap_map] = alternate
-	rpc_id(1, "set_map_master", swap_map, alternate)
-	print(who, " alternate ", alternate)
-		
+		rpc("set_map_master", tmap, alternate)
+	else:
+		rpc("set_map_master", tmap, null)
+	
+	
 func relay_signal(sig, args) -> void:
 	args.map = map
 	rpc("emit", sig, args)
@@ -141,43 +160,55 @@ func get_nid() -> int:
 	
 	
 func get_net_object(netID):
-	return net_objects[netID]
+	if net_objects.has(netID):
+		return net_objects[netID]
+	else:
+		return null
 		
 		
 remotesync func request_history(tmap) -> void:
 	var who = get_tree().get_rpc_sender_id()
 	var host = get_map_master(tmap, who)
-	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters)
+	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters, tmap)
+	print(host, " sending history to ", get_tree().get_rpc_sender_id(), " for ", tmap)
 	
-remotesync func send_history(who, masters):
+remotesync func send_history(who, masters, tmap):
 	var history = {}
 	for i in net_objects:
 		if is_instance_valid(net_objects[i]):
 			history[i] = net_objects[i].net_stats.net_sum()
-	rpc_id(who, "receive_history", history, command_history, masters)
+	rpc_id(who, "receive_history", history, command_history, masters, tmap)
+	print(get_nid(), " sent history to ", who, " for ", tmap)
 	
 	
-remotesync func receive_history(history, commands, masters) -> void:
+remotesync func receive_history(history, commands, masters, tmap) -> void:
 	map_masters = masters.duplicate(true)
 	command_history = commands.duplicate(true)
+	net_objects.clear()
+	map = tmap
 	for i in history:
 		on_register(history[i])
+		print(i)
 		
 	for i in commands:
 		if net_objects.has(commands[i].sender):
-			net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
-
-
-remotesync func remove_map_master(tmap):
-	map_masters[tmap] = null
-
+			if is_instance_valid(net_objects[commands[i].sender]):
+				net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
+				print(commands[i])
+	print("history received from ", get_tree().get_rpc_sender_id(), "\n")
+	
 
 func get_map_master(tmap, who):
-	if !map_masters.has(tmap) or !map_masters[tmap] is int:
+	if !map_masters.has(tmap):
 		map_masters[tmap] = who
+		print(who, " now owns ", tmap)
 		return who
 	return map_masters[tmap]
 	
 
 remotesync func set_map_master(tmap, who):
-	map_masters[tmap] = who
+	if who == null:
+		map_masters.erase(tmap)
+	else:
+		map_masters[tmap] = who
+		print(who, " now owns ", tmap)

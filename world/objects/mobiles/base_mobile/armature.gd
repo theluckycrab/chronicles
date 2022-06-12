@@ -20,7 +20,6 @@ func _ready():
 
 
 func equip(args:Dictionary) -> void:
-	print(args)
 	var item = Data.get_item(args.index)
 	var mount = get_node_or_null("Skeleton/"+item.get_slot())
 	var slot = item.get_slot()
