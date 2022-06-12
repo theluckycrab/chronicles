@@ -45,6 +45,7 @@ func on_host() -> void:
 	
 func on_next() -> void:
 	Data.load_save($LineEdit.text)
+	next_scene = Data.get_saved_value("map")
 	Network.set_nid()
 	Events.emit_signal("console_print", str(Network.get_nid()))
 	Events.emit_signal("scene_change_request", next_scene)

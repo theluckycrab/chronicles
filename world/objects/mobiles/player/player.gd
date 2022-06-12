@@ -6,17 +6,13 @@ var registered = false
 
 func _init() -> void:
 	net_init("player")
-	base_defaults = {
-		"Head":"bandana",
-		"Mainhand":"katana",
-		"Offhand":"naked_offhand"
-	}
+	base_defaults = Data.get_saved_value("defaults")
 
 
 func _ready() -> void:
 	if net_stats.is_master:
-		#net_stats.register()
 		grab_camera()
+		#init_defaults()
 	else:
 		$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")

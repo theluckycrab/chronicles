@@ -67,13 +67,13 @@ func on_unregister(args) -> void:
 func on_net_command(args) -> void:
 	if args.map != map:
 		return
-	if args.command != "net_sync":
+	if args.command != "net_sync" and !args.has("animation"):
 			command_history[nid_gen()] = args
 	if net_objects.has(args.sender):
 		if is_instance_valid(net_objects[args.sender]):
 			net_objects[args.sender].call_deferred(args.command, args)
-		else:
-			print(args.sender, " not valid")
+		#else:
+			#print(args.sender, " not valid")
 	
 	
 #directly called
@@ -201,6 +201,7 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	command_history = commands.duplicate(true)
 	net_objects.clear()
 	map = tmap
+	Data.save_value("map", map)
 	for i in history:
 		on_register(history[i])
 		print(i)
