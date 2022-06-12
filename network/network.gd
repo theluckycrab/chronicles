@@ -165,7 +165,7 @@ remotesync func sub_host_migration(who: int) -> void:
 			break
 	if alternate:
 		for i in net_objects:
-			if is_instance_valid(net_objects[i]):
+			if is_instance_valid(net_objects[i]) and !net_objects[i] is Player:
 				net_objects[i].net_stats.netOwner = alternate
 		rpc("set_map_master", tmap, alternate)
 	else:

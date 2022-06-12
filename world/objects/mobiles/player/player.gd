@@ -17,8 +17,8 @@ func _ready() -> void:
 	if net_stats.is_master:
 		#net_stats.register()
 		grab_camera()
-	#else:
-		#$UI.queue_free()
+	else:
+		$UI.queue_free()
 	armature.weaponbox.damage.tags.append("Player")
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	$Hitbox.idle()
