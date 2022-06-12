@@ -117,8 +117,8 @@ func body_face(dir:Vector3) -> void:
 	armature.face(dir)
 	
 	
-func play(animation: String, motion: bool =false) -> void:
-	armature.play(animation, motion)
+func play(args):#play(animation: String, motion: bool =false) -> void:
+	armature.play(args.animation, args.motion)
 	
 	
 func vis_equip(args:Dictionary) -> void:
@@ -228,8 +228,8 @@ func update() -> void:
 	var args = {
 			position = global_transform.origin,
 			rot = armature.rotation,
-			anim = get_animation(),
-			anim_motion = armature.is_using_root_motion(),
+			animation = get_animation(),
+			motion = armature.is_using_root_motion(),
 			update_number = update_count
 	}
 	npc("net_sync", args)
@@ -238,8 +238,7 @@ func update() -> void:
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy and args.update_number > update_count:
 		if get_animation() != args.anim and args.anim != "" and !armature.anim.is_using_root_motion():
-			play(args.anim, args.anim_motion)
-			#print(args.anim, args.anim_motion, net_stats.netOwner)
+			play(args)#, args.anim_motion)
 		else:
 			global_transform.origin = args.position
 			armature.rotation = args.rot

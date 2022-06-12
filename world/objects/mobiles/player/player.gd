@@ -106,3 +106,7 @@ func hide_weapon(_args={}):
 	
 func show_weapon(_args={}):
 	armature.show_weapon()
+
+
+func play(args) -> void:
+	armature.play(args.animation, args.motion)

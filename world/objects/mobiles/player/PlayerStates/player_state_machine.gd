@@ -65,7 +65,7 @@ func cycle() -> void:
 	if current_state == null:
 		current_state = calc_fallback_state()
 		current_state.enter()
-		host.play(current_state.animation)
+		host.npc("play", {animation=current_state.animation, motion=false})
 	current_state.execute()
 	
 	if current_state.can_exit():
@@ -80,9 +80,11 @@ func cycle() -> void:
 		current_state.exit()
 	next_state.enter()
 	if next_state is ActionState:
-		host.play(next_state.animation, true)
+		host.npc("play", {animation=next_state.animation, motion=true})
+		#host.play(next_state.animation, true)
 	else:
-		host.play(next_state.animation)
+		host.npc("play", {animation=next_state.animation, motion=false})
+		#host.play(next_state.animation)
 	current_state = next_state
 	next_state = null
 	return
