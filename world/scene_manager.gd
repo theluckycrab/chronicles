@@ -22,13 +22,13 @@ func change_scene(scene: String) -> void:
 	yield(get_tree(), "idle_frame")
 	Network.command_history.clear()
 	Network.net_objects.clear()
-	Network.transition(scene)
 	yield(get_tree(), "idle_frame")
 	var nscene = load("res://world/scenes/"+scene+"/"+scene+".tscn").instance()
 	mount.add_child(nscene)
 	current_scene = nscene
 	get_tree().paused = false
 	Events.emit_signal("console_print", "Scene has changed to " + scene)
+	Network.transition(scene)
 
 
 func on_scene_change_request(scene: String) -> void:
