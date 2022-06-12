@@ -11,6 +11,7 @@ var in_combat = false setget set_in_combat, get_in_combat
 var at_war = false setget set_war
 
 var stored_delta = 0
+var update_count = 0
 
 onready var state_machine := $StateMachine
 onready var armature := $Armature
@@ -223,18 +224,19 @@ func net_init(index:String) -> void:
 func update() -> void:
 	if !net_stats.is_master:
 		print("Betrayer :", Network.get_nid())
+	update_count += 1
 	var args = {
 			position = global_transform.origin,
 			rot = armature.rotation,
 			anim = get_animation(),
-			anim_motion = armature.is_using_root_motion()
-			
+			anim_motion = armature.is_using_root_motion(),
+			update_number = update_count
 	}
 	npc("net_sync", args)
 	
 	
 func net_sync(args:Dictionary) -> void:
-	if net_stats.is_dummy:
+	if net_stats.is_dummy and args.update_number > update_count:
 		if get_animation() != args.anim and args.anim != "" and !armature.anim.is_using_root_motion():
 			play(args.anim, args.anim_motion)
 			#print(args.anim, args.anim_motion, net_stats.netOwner)

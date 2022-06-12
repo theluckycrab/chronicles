@@ -37,7 +37,7 @@ func execute() -> void:
 		
 
 func choose_next_patrol_point():
-	var rand3 = Vector3(randi() % 5, 0, randi() % 5)
+	var rand3 = Vector3(randi() % 5, mypos.y, randi() % 5)
 	var invert = randi() % 2
 	
 	if invert == 0:

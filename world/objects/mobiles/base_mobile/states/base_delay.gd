@@ -1,7 +1,7 @@
 extends ActionState
 
 var idle_timer = Timer.new()
-var idle_duration = 1
+var idle_duration = 5
 var done = false
 
 func _ready():

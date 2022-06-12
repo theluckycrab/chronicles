@@ -33,6 +33,8 @@ func _physics_process(_delta) -> void:
 		elif lock_target:
 			build_action_list(get_target_range())
 			choose_random_action()
+	#else:
+		#print(net_stats.netOwner)
 
 
 func on_got_parried(_mybox, _theirbox) -> void:
