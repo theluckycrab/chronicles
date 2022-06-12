@@ -31,7 +31,7 @@ func can_enter() -> bool:
 
 	
 func execute() -> void:
-	host.play("Walk")
+	host.play({animation="Walk", motion=false})
 	mypos = host.global_transform.origin
 	pursue_next_patrol_point()
 		

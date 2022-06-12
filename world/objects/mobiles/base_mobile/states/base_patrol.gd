@@ -31,7 +31,7 @@ func execute() -> void:
 	if host.lock_target != null:
 		return
 		
-	host.play("Walk")
+	host.play({animation="Walk", motion=false})
 		
 	var dist = host.distance_to(tpos)
 	

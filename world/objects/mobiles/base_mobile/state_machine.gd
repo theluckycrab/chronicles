@@ -85,9 +85,9 @@ func cycle() -> void:
 	next_state.enter()
 	if next_state is ActionState:
 		#host.play(next_state.animation, true)
-		host.npc("play", {animation=current_state.animation, motion=true})
+		host.npc("play", {animation=next_state.animation, motion=true})
 	else:
-		host.npc("play", {animation=current_state.animation, motion=false})
+		host.npc("play", {animation=next_state.animation, motion=false})
 	current_state = next_state
 	next_state = null
 	return
