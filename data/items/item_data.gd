@@ -11,12 +11,6 @@ export var durability = 3
 export var tags = []
 				
 
-export(Dictionary) var attacks = {
-		falling = "Combat_Idle",
-		dash = "Sit_Floor",
-		strong = "Test_LAttack1"
-}
-
 export(Dictionary) var abilities = {
 		passive = [],
 		active = "high_jump"
@@ -98,18 +92,6 @@ func get_slot() -> String:
 	
 func get_list_of_passives() -> Array:
 	return abilities.passive
-	
-	
-func get_strong_attack() -> String:
-	return attacks.strong
-	
-	
-func get_dash_attack() -> String:
-	return attacks.dash
-	
-	
-func get_falling_attack() -> String:
-	return attacks.falling
 
 #query
 func has_tag(tag:String) -> bool:

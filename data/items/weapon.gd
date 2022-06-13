@@ -1,15 +1,10 @@
 class_name Weapon
 extends Item
 
-export var attack = "fading_horizon" setget , get_attack
+export(PoolStringArray) var combo
+export(String) var strong
+
 var state = Hitbox.states.GHOST
-
-
-func get_attack():
-	if attack is String:
-		return Data.get_attack(attack)
-	else:
-		return attack
 
 
 func strike():
@@ -18,3 +13,7 @@ func strike():
 	
 func ghost() -> void:
 	state = Hitbox.GHOST
+
+
+func get_combo():
+	return combo

@@ -7,6 +7,9 @@ var registered = false
 func _init() -> void:
 	net_init("player")
 	base_defaults = Data.get_saved_char_value("defaults")
+	base_defaults = {
+		"Mainhand":"debug_item"
+	}
 
 
 func _ready() -> void:

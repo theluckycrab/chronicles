@@ -16,10 +16,10 @@ func enter() -> void:
 	host.armature.anim.connect("keyframe", self, "on_keyframe")
 	keyframe = 0
 	weapon = host.get_equipped("Mainhand")
-	if !weapon is Weapon or weapon.attack == null:
+	if !weapon is Weapon:
 		return
-	animation = weapon.attack.anim
-	hits = weapon.attack.projectiles
+	animation = weapon.combo[0]
+	host.armature.anim.add_animation(animation, load("res://data/assets/Blender/BaseHumanoid/"+animation+".anim"))
 	host.lock_on()
 	pass
 	

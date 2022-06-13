@@ -7,7 +7,6 @@ var override_list = {
 
 onready var tree = $AnimationTree
 
-
 func _ready() -> void:
 	var _discard = connect("animation_started", self, "on_animation_started")
 	

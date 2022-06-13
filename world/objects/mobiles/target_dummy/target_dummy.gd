@@ -15,7 +15,7 @@ func _init() -> void:
 	net_init("target_dummy")
 	base_defaults = {
 			Head = "wizard_hat",
-			Mainhand = "scimitar"
+			Mainhand = "katana"
 	}
 
 

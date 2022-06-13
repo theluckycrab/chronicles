@@ -12,13 +12,9 @@ is_modified = false
 count = 1
 durability = 3
 tags = [  ]
-attacks = {
-"dash": "Dash_Attack",
-"falling": "Falling_Attack",
-"strong": "Katana_Combo_2"
-}
 abilities = {
 "active": "high_jump",
 "passive": [  ]
 }
-attack = "Katana Combo 1"
+combo = PoolStringArray( "Katana_Combo_1", "Katana_Combo_2", "Katana_Strong" )
+strong = "Katana_Strong"

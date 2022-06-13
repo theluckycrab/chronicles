@@ -10,14 +10,11 @@ mesh = "club"
 description = "Ooh Ooh"
 is_modified = false
 count = 1
+durability = 3
 tags = [  ]
-attacks = {
-"dash": "Sit_Floor",
-"falling": "Combat_Idle",
-"strong": "Test_LAttack1"
-}
 abilities = {
 "active": "high_jump",
 "passive": [  ]
 }
-attack = "Fading Horizon"
+combo = PoolStringArray( "Club_Combo_1", "Club_Combo_2", "Club_Strong" )
+strong = "Club_Strong"

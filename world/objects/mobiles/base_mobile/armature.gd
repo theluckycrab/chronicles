@@ -69,6 +69,23 @@ func get_animation() -> String:
 		return anim.tree.get_tree_root().get_node("Action").animation
 	else:
 		return ""
+		
+#func get_animation_progress():
+#	var duration = 1
+#	var position = 1
+#	if anim.is_playing():
+#		duration = anim.current_animation_length
+#		position = anim.current_animation_position
+#	else:
+#		var a = anim.tree
+#		print(a.get_parameter_list())
+#		#duration = a.length
+#		#position = a.step
+#	if duration == 0 or position == 0:
+#		return 1
+#	else:
+#		print(duration/position)
+#		return duration / position
 	
 	
 func guard(dir:String) -> void:

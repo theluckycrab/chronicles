@@ -12,11 +12,13 @@ func enter() -> void:
 	if weapon == null:
 		return
 	else:
-		animation = weapon.get_strong_attack()
+		animation = weapon.strong
+	host.weaponbox_strike()
 	pass
 	
 	
 func exit() -> void:
+	host.weaponbox_ghost()
 	pass
 	
 	
