@@ -39,6 +39,7 @@ func _physics_process(_delta) -> void:
 
 func on_got_parried(_mybox, _theirbox) -> void:
 	npc("stagger", {}, true)
+	print("parried")
 	
 func stagger(args):
 	set_state("stagger")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
+[ext_resource path="res://data/assets/Blender/BaseHumanoid/Taunt.anim" type="Animation" id=3]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Material_003.material" type="Material" id=6]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Material_001.material" type="Material" id=8]
@@ -12305,7 +12306,7 @@ mesh = ExtResource( 37 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.519715, 0.848718, 0.0978378, -0.286714, 0.065391, 0.955782, 0.804792, -0.524785, 0.277326, -0.161807, 0.351475, 0.216827 )
+transform = Transform( -0.903021, -0.0531332, -0.426298, -0.428207, 0.0315961, 0.903128, -0.0345172, 0.998087, -0.0512843, -0.836815, 1.30322, 0.0590056 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -12347,6 +12348,7 @@ anims/Strafe_Backwards = SubResource( 40 )
 anims/Strafe_Forward = SubResource( 41 )
 anims/Strafe_Left = SubResource( 42 )
 anims/Strafe_Right = SubResource( 43 )
+anims/Taunt = ExtResource( 3 )
 anims/Test_LAttack1 = SubResource( 44 )
 anims/Walk = SubResource( 45 )
 script = ExtResource( 45 )
