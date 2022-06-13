@@ -45,6 +45,7 @@ func on_host() -> void:
 	
 	
 func on_next() -> void:
+	Data.set_char_value("alias", $LineEdit.text)
 	Data.load_char_save($LineEdit.text)
 	Data.save_config_value("last_character", $LineEdit.text)
 	next_scene = Data.get_saved_char_value("map")

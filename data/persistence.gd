@@ -42,7 +42,7 @@ func commit_to_char_file():
 	pass
 
 
-func save_char_value(key, value):
+func set_char_value(key, value):
 	match key:
 		"default":
 			char_data["defaults"][value.slot] = value.index
@@ -50,12 +50,17 @@ func save_char_value(key, value):
 		_:
 			char_data[key] = value
 			#print("all")
+
+
+func save_char_value(key, value):
+	set_char_value(key, value)
 	commit_to_char_file()
 	pass
 	
 	
 func get_saved_char_value(key):
 	return char_data[key]
+	
 	
 #Config File Interface
 func load_config_from_file():

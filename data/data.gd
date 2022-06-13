@@ -46,6 +46,9 @@ func snake_case(string) -> String:
 #persistence interface
 func get_saved_char_value(key):
 	return persistence.get_saved_char_value(key)
+	
+func set_char_value(key, value):
+	return persistence.set_char_value(key, value)
 
 func save_char_value(key, value) -> void:
 	persistence.save_char_value(key, value)

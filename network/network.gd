@@ -201,7 +201,6 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	command_history = commands.duplicate(true)
 	net_objects.clear()
 	map = tmap
-	Data.save_char_value("map", map)
 	for i in history:
 		on_register(history[i])
 		print(i)
@@ -212,7 +211,8 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 				net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
 				print(commands[i])
 	print("history received from ", get_tree().get_rpc_sender_id(), "\n")
-	
+	Data.save_char_value("map", map)
+	Data.full_save()
 	
 remotesync func set_map_master(tmap: String, who) -> void:
 	if who == null:
