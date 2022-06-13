@@ -8,11 +8,12 @@ var persistence = Persistence.new()
 
 func _ready() -> void:
 	randomize()
+	persistence.setup()
 	reference.setup()
 	call_deferred("emit_signal", "data_ready")
 	print("Data ready")
 
-
+#Reference interface
 func get_reference(index):
 	return reference.ref_list[index]
 	
@@ -41,16 +42,26 @@ func snake_case(string) -> String:
 	string = string.to_lower().replace(" ", "_")
 	return string
 
+
 #persistence interface
+func get_saved_char_value(key):
+	return persistence.get_saved_char_value(key)
 
-func get_saved_value(key):
-	return persistence.get_saved_value(key)
-
-func save_value(key, value) -> void:
-	persistence.save_value(key, value)
+func save_char_value(key, value) -> void:
+	persistence.save_char_value(key, value)
 	
 func full_save() -> void:
-	persistence.commit_to_file(get_saved_value("alias"))
+	persistence.commit_to_char_file()
+	persistence.commit_to_config_file()
 	
-func load_save(character_name) -> void:
-	persistence.load_from_file(character_name)
+func load_char_save(character_name) -> void:
+	persistence.load_char_from_file(character_name)
+	
+func save_config_value(key, value) -> void:
+	persistence.save_config(key, value)
+	
+func get_config_value(key):
+	return persistence.get_config(key)
+
+func load_config():
+	persistence.load_config()

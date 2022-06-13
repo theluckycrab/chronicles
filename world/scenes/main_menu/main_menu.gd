@@ -18,6 +18,7 @@ func _ready() -> void:
 	host_button.connect("button_down", self, "on_host")
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
+	$LineEdit.text = Data.get_config_value("last_character")
 	
 	
 func _input(event) -> void:
@@ -44,8 +45,9 @@ func on_host() -> void:
 	
 	
 func on_next() -> void:
-	Data.load_save($LineEdit.text)
-	next_scene = Data.get_saved_value("map")
+	Data.load_char_save($LineEdit.text)
+	Data.save_config_value("last_character", $LineEdit.text)
+	next_scene = Data.get_saved_char_value("map")
 	Network.set_nid()
 	Events.emit_signal("console_print", str(Network.get_nid()))
 	Events.emit_signal("scene_change_request", next_scene)

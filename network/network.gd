@@ -149,7 +149,7 @@ func get_map_master(tmap: String, who: int) -> int:
 
 
 func get_alias() -> String:
-	return Data.get_saved_value("alias")
+	return Data.get_saved_char_value("alias")
 
 #remote functions
 remotesync func sub_host_migration(who: int) -> void:
@@ -201,7 +201,7 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	command_history = commands.duplicate(true)
 	net_objects.clear()
 	map = tmap
-	Data.save_value("map", map)
+	Data.save_char_value("map", map)
 	for i in history:
 		on_register(history[i])
 		print(i)

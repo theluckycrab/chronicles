@@ -3,44 +3,22 @@ extends Node
 
 const save_path = "user://saves/"
 
-var file_data = {
+var char_data = {
 	alias = "Player",
 	map = "test_room",
 	defaults = {}
 }
 
-func _init():
-	pass
-	
-func _ready():
-	pass
-	
-func save_value(key, value):
-	match key:
-		"default":
-			file_data["defaults"][value.slot] = value.index
-			#print("defaults")
-		_:
-			file_data[key] = value
-			#print("all")
-	commit_to_file(file_data.alias)
-	pass
-	
-func get_saved_value(key):
-	return file_data[key]
-	
-func get_full_saved_data():
-	pass
+var config = {
+	last_character = "New Character"
+}
 
-func commit_to_file(file_name):
-	file_name = Data.snake_case(file_name)
-	var file = File.new()
-	file.open(save_path+file_name+".chron", File.WRITE)
-	file.store_string(to_json(file_data))
-	file.close()
-	pass
+func setup():
+	load_config_from_file()
 	
-func load_from_file(file_name):
+	
+#Character Save File Interface
+func load_char_from_file(file_name):
 	file_name = Data.snake_case(file_name)
 	var file = File.new()
 	if file.file_exists(save_path+file_name+".chron"):
@@ -48,9 +26,66 @@ func load_from_file(file_name):
 		var data = parse_json(file.get_as_text())
 		file.close()
 		if data is Dictionary:
-			file_data = data.duplicate(true)
+			char_data = data.duplicate(true)
 		else:
 			print("data corrupted")
 	else:
 		print("/////\n Attempt to load ", save_path+file_name+".chron", " has failed!", "//////\n")
 
+
+func commit_to_char_file():
+	var file_name = Data.snake_case(char_data.alias)
+	var file = File.new()
+	file.open(save_path+file_name+".chron", File.WRITE)
+	file.store_string(to_json(char_data))
+	file.close()
+	pass
+
+
+func save_char_value(key, value):
+	match key:
+		"default":
+			char_data["defaults"][value.slot] = value.index
+			#print("defaults")
+		_:
+			char_data[key] = value
+			#print("all")
+	commit_to_char_file()
+	pass
+	
+	
+func get_saved_char_value(key):
+	return char_data[key]
+	
+#Config File Interface
+func load_config_from_file():
+	var file_name = "config"
+	var file = File.new()
+	if file.file_exists(save_path+file_name):
+		file.open(save_path+file_name, File.READ)
+		var data = parse_json(file.get_as_text())
+		file.close()
+		if data is Dictionary:
+			config = data.duplicate(true)
+		else:
+			print("data corrupted")
+	else:
+		print("/////\n Attempt to load ", save_path+file_name, " has failed!", "//////\n")
+
+
+func commit_to_config_file():
+	var file_name = Data.snake_case("config")
+	var file = File.new()
+	file.open(save_path+file_name, File.WRITE)
+	file.store_string(to_json(config))
+	file.close()
+	pass
+
+
+func get_config(key):
+	return config[key]
+	
+	
+func save_config(key, value):
+	config[key] = value
+	commit_to_config_file()
