@@ -36,14 +36,14 @@ func net_sum() -> Dictionary:
 	return dic
 
 
-func npc(function:String, args: Dictionary = {}) -> void:
+func npc(function:String, args: Dictionary = {}, owner_only = false) -> void:
 	args["command"] = function
 	args["sender"] = netID
 	args["netOwner"] = netOwner
 	for i in args:
 		if i is Object and "net_stats" in args[i]:
 			args[i] = args[i].net_stats.net
-	Network.relay_signal("network_command", args.duplicate(true))
+	Network.relay_signal("network_command", args.duplicate(true), owner_only)
 
 
 func register() -> void:

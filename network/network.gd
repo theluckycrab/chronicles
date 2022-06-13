@@ -104,9 +104,12 @@ func spawn(args:Dictionary) -> void:
 		Events.emit_signal("spawn", object)
 		
 
-func relay_signal(sig, args) -> void:
+func relay_signal(sig, args, owner_only=false) -> void:
 	args.map = map
-	rpc("emit", sig, args)
+	if owner_only:
+		rpc_id(args.netOwner, "emit", sig, args)
+	else:
+		rpc("emit", sig, args)
 	
 	
 func nid_gen() -> int:

@@ -3,7 +3,7 @@ extends ActionState
 
 func _init() -> void:
 	index = "Warcry"
-	animation = "Draw"
+	animation = "Sit_Floor"
 	priority = 1
 	host = null
 	

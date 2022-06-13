@@ -38,8 +38,10 @@ func _physics_process(_delta) -> void:
 
 
 func on_got_parried(_mybox, _theirbox) -> void:
+	npc("stagger", {}, true)
+	
+func stagger(args):
 	set_state("stagger")
-
 
 func on_got_hit(mybox, theirbox) -> void:
 	if !theirbox.damage.tags.has("Player"):

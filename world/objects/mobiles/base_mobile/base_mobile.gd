@@ -27,7 +27,7 @@ func _ready() -> void:
 	net_stats.register()
 	if net_stats.is_master:
 		call_deferred("init_defaults")#to wait for net registration
-		connect_weapon_signals()
+	connect_weapon_signals()
 	
 	
 func _physics_process(delta) -> void:
@@ -210,8 +210,8 @@ func get_wasd_cam() -> Vector3:
 	
 	
 #network interface
-func npc(function:String, args:Dictionary) -> void:
-	net_stats.npc(function, args)
+func npc(function:String, args:Dictionary, owner_only = false) -> void:
+	net_stats.npc(function, args, owner_only)
 	
 	
 func net_init(index:String) -> void:
@@ -239,6 +239,7 @@ func update() -> void:
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy and args.update_number > update_count:
 		if get_animation() != args.animation and args.animation != "" and !armature.anim.is_using_root_motion():
+			args.motion = false
 			play(args)#, args.anim_motion)
 		else:
 			global_transform.origin = args.position

@@ -12,13 +12,13 @@ func _init() -> void:
 func _ready() -> void:
 	if net_stats.is_master:
 		grab_camera()
-		#init_defaults()
+		$Hitbox.idle()
+		$Hitbox.owner = self
+		armature.weaponbox.damage.tags.append("Player")
+		var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	else:
 		$UI.queue_free()
-	armature.weaponbox.damage.tags.append("Player")
-	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
-	$Hitbox.idle()
-	$Hitbox.owner = self
+	
 	
 	
 func on_got_hit(mybox, theirbox):
