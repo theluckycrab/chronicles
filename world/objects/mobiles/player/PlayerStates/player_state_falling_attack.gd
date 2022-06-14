@@ -13,7 +13,7 @@ func enter() -> void:
 	if weapon == null:
 		return
 	else:
-		animation = weapon.get_falling_attack()
+		animation = weapon.strong
 	pass
 	
 	

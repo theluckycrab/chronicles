@@ -17,4 +17,4 @@ abilities = {
 "passive": [  ]
 }
 combo = PoolStringArray( "Katana_Combo_1", "Katana_Combo_2", "Katana_Strong" )
-strong = "Katana_Strong"
+strong = "Dash_Punch"

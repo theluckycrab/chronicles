@@ -51,7 +51,6 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	print(combo_timer.time_left)
 	if combo_counter > combo.size():
 		done = true
 	if host.get_animation() != animation:
@@ -66,13 +65,11 @@ func execute() -> void:
 	
 	
 func cycle():
-	print(combo_counter)
 	if combo_counter < combo.size():
 		host.weaponbox_strike()
 		animation = combo[combo_counter]
 		host.play({"animation":animation, "motion":true})
 		combo_timer.stop()
-		print("start timer")
 	combo_counter += 1
 	
 func on_keyframe() -> void:
@@ -87,5 +84,4 @@ func instance_hit_effect(hit:PackedScene) -> void:
 	proj.global_transform.origin = host.get_hit_origin()
 	
 func on_combo_timer():
-	print("combo timeout")
 	done = true

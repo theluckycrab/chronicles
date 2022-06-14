@@ -1,4 +1,4 @@
-extends PlayerActionState
+extends PlayerMoveState
 
 
 func _init() -> void:
@@ -43,6 +43,7 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
+	host.add_force(Vector3.UP * host.move.gravity)
 	host.add_force((Vector3.UP + dir) * height)
 	
 	

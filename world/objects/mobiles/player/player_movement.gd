@@ -24,8 +24,8 @@ func commit_move() -> void:
 	if host.is_on_floor() and commit_vel.y == 0:
 		var _discard = host.move_and_slide_with_snap(commit_vel, Vector3.DOWN, Vector3.UP, true)
 		return
-	if commit_vel.y == 0:
-		apply_gravity()
+	#if commit_vel.y == 0:
+	apply_gravity()
 	var _discard = host.move_and_slide(commit_vel, Vector3.UP, false)
 
 

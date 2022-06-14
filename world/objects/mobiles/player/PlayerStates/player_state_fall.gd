@@ -4,11 +4,12 @@ extends PlayerMoveState
 func _init() -> void:
 	index = "Fall"
 	animation = "Fall"
-	priority = -1
+	priority = 1
 	host = null
 
 
 func enter() -> void:
+	print("enter fall")
 	pass
 	
 	
@@ -29,7 +30,7 @@ func execute() -> void:
 		host.set_state("falling_attack")
 	host.add_force(host.get_wasd_cam() * 5)
 	#host.body_face(host.get_wasd_cam())
-	host.add_force(Vector3.DOWN * 5)
+	#host.add_force(Vector3.DOWN * 5)
 	#host.lock_on()
 	
 	pass
