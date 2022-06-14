@@ -1,27 +1,25 @@
 class_name Item
 extends Resource
 
-export var item_name = "Debug Item"
-export var slot = "Offhand"
-export var mesh = "naked" setget ,get_mesh
-export var description = "no description set" 
-export var is_modified = false
-export var count = 1
-export var durability = 3
-export var tags = []
-				
-
-export(Dictionary) var abilities = {
-		passive = [],
-		active = "high_jump"
-}
+export(String) var item_name = "Ballsack"
+export(String) var slot = "Offhand"
+export(String) var mesh = "naked" setget ,get_mesh
+export(String) var description = "no description set" 
+export(bool) var is_modified = false
+export(int) var count = 1
+export(int) var durability = 3
+export(PoolStringArray) var tags = []
+export var active = "Evade" setget set_active, get_active
+export(PoolStringArray) var passives = []
 
 var index setget , get_index
 var net_stats = NetStats.new()
 
 
 func _init() -> void:
-	index = item_name.to_lower().replace(" ", "_")
+	index = Data.snake_case(item_name)
+	set_active(active)
+	print(active)
 	net_stats.original_instance_id = get_instance_id()
 	net_stats.index = get_index()
 
@@ -60,8 +58,10 @@ func set_description(d: String) -> void:
 	description = d
 	
 	
-func set_ability(a_name: String) -> void:
-	abilities.active = Data.abilities[a_name].duplicate()
+func set_active(a_name: String) -> void:
+	print("res://data/abilities/"+Data.snake_case(a_name)+".gd")
+	active = load("res://data/abilities/"+Data.snake_case(a_name)+".gd").new()
+	print(active)
 
 #get
 func get_tags() -> Array:
@@ -69,11 +69,11 @@ func get_tags() -> Array:
 
 
 func get_index() -> String:
-	return item_name.to_lower().replace(" ", "_")
+	return Data.snake_case(item_name)
 	
 	
 func get_active() -> String:
-	return abilities.active
+	return active
 	
 	
 func get_name() -> String:
@@ -91,8 +91,8 @@ func get_slot() -> String:
 	
 	
 func get_list_of_passives() -> Array:
-	return abilities.passive
+	return passives
 
 #query
 func has_tag(tag:String) -> bool:
-	return tags.has(tag)
+	return tag in tags

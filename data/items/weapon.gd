@@ -6,7 +6,6 @@ export(String) var strong
 
 var state = Hitbox.states.GHOST
 
-
 func strike():
 	state = Hitbox.STRIKE
 	

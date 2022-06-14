@@ -101,6 +101,8 @@ func commit_move() -> void:
 
 #state interface
 func set_state(state) -> void:#takes strings or nodes
+	if state is State:
+		state.host = self
 	state_machine.call_deferred("set_state", state)
 	
 	
@@ -274,9 +276,10 @@ func destroy(slot:String) -> void:
 func activate_item_slot(slot:String) -> void:
 	var item = get_equipped(slot)
 	if item == null:
-		return
-	item.activate(self)
-	print(item)
+		item = get_default(slot)
+		if item == null:
+			return
+	set_state(item.get_active())
 	
 	
 func grab_camera() -> void:

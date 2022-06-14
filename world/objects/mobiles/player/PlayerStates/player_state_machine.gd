@@ -47,7 +47,7 @@ func execute() -> void:
 	cycle()
 	
 	
-func set_state(index:String) -> void:
+func set_state(index) -> void:
 	if get_state(index) == null:
 		return
 	var cprior

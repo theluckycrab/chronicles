@@ -10,13 +10,7 @@ mesh = "naked"
 description = "The ground feels cool between your toes."
 is_modified = false
 count = 1
-tags = [  ]
-attacks = {
-"dash": "Sit_Floor",
-"falling": "Combat_Idle",
-"strong": "Test_LAttack1"
-}
-abilities = {
-"active": "treasure_sense",
-"passive": [  ]
-}
+durability = 3
+tags = PoolStringArray(  )
+active = "Evade"
+passives = PoolStringArray(  )
