@@ -1,23 +1,17 @@
+class_name Spawner
 extends Position3D
 
-export(String) var item = "target_dummy"
+export(String) var index
 
-onready var args = {
-					type = "item",
-					index = item,
-					position = global_transform.origin,
-					modifications = {},
-					netID = Network.nid_gen()
-	}
-	
-func _physics_process(_delta):
-	if !Network.map_masters.has(Network.map) or Network.get_nid() != Network.map_masters[Network.map]:
-		return
-	if Input.is_action_just_pressed("debug"):
-		var obj = Data.get_reference_instance("target_dummy")
-		add_child(obj)
-	
-#func _physics_process(_delta) -> void:
-	#if Input.is_action_just_pressed("ui_cancel"):
-		#args.netID = Network.nid_gen()
-		#Network.call_deferred("relay_signal", "spawn", args)
+#spawn projectiles scenes
+# at our location
+# network that spawn call
+func retrieve_data(_i):
+	pass
+
+
+func spawn(i:String=index):
+	var object = retrieve_data(i)
+	get_viewport().add_child(object)
+	object.global_transform.origin = global_transform.origin
+	object.rotation = get_parent().rotation

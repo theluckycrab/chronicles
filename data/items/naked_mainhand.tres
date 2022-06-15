@@ -15,4 +15,4 @@ tags = PoolStringArray(  )
 active = "Evade"
 passives = PoolStringArray(  )
 combo = PoolStringArray(  )
-strong = ""
+strong = "Dash_Punch"

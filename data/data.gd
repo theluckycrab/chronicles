@@ -24,6 +24,8 @@ func get_reference_instance(index):
 		return object.duplicate()
 	elif object is String:
 		return load(object).instance()
+	elif object is PackedScene:
+		return load(object).instance()
 		
 
 func get_mesh(index):
@@ -36,6 +38,10 @@ func get_item(index):
 func get_attack(index):
 	index = snake_case(index)
 	return reference.attack_list[index]
+	
+	
+func get_projectile(index):
+	return reference.get_projectile(index)
 
 
 func snake_case(string) -> String:

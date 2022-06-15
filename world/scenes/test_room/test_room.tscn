@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://world/objects/generic/spawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/objects/generic/item_cube.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/ui/camera_controlled.tscn" type="PackedScene" id=4]
 [ext_resource path="res://data/assets/icon.png" type="Texture" id=6]
@@ -26,17 +25,6 @@ depth = 23.6039
 material = SubResource( 4 )
 
 [node name="ControlledCamera" parent="." instance=ExtResource( 4 )]
-
-[node name="Spawner" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8445, 5.34125 )
-
-[node name="Spawner2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24277, 2.8445, 5.34125 )
-item = "katana"
-
-[node name="Spawner3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.48669, 2.8445, 5.34125 )
-item = "wizard_hat"
 
 [node name="StaticBody" type="StaticBody" parent="."]
 

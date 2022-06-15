@@ -59,6 +59,7 @@ func get_hit_zone(dir:Vector3):
 				return "Boots"
 		Vector3.AXIS_Z:
 			return "HP"
+	return "HP"
 	
 	
 func get_can_act() -> bool:

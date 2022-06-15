@@ -11788,7 +11788,6 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -11824,7 +11823,7 @@ mesh = ExtResource( 37 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.538613, 0.252246, -0.80392, -0.824779, -0.0370544, -0.564224, -0.172113, 0.966953, 0.188093, 0.105127, 1.0982, 0.410694 )
+transform = Transform( -0.0264671, 0.0440108, -0.998688, -0.70463, 0.707814, 0.0498732, 0.709077, 0.705018, 0.0122693, -0.0207059, 1.24072, 0.595254 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]

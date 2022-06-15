@@ -5,6 +5,7 @@ var item_list = {}
 var ref_list = {}
 var mesh_list = {}
 var attack_list = {}
+var projectile_list = {}
 
 
 func get_data(what):
@@ -19,7 +20,8 @@ func setup() -> void:
 	build_list("res://data/items", ".tres", item_list)
 	build_list("res://data", ".tres", ref_list)
 	build_list("res://data/assets/meshes", ".mesh", mesh_list)
-	build_list("res://data/attacks", ".tres", attack_list)
+	#build_list("res://data/attacks", ".tres", attack_list)
+	build_list("res://data/projectiles", ".tscn", projectile_list)
 	ref_list["player"] = "res://world/objects/mobiles/player/player.tscn"
 	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
@@ -52,3 +54,7 @@ func convert_paths_to_objects(list) -> void:
 	for i in list:
 		var object = load(list[i])
 		list[i] = object
+		
+		
+func get_projectile(index: String) -> PackedScene:
+	return projectile_list[index]

@@ -6,11 +6,7 @@ var despawn_delay = 0.2
 
 func _ready():
 	setup_despawn_timer()
-	_setup()
-
-
-func _setup():
-	pass
+	
 
 func setup_despawn_timer():
 	despawn_timer.autostart = true

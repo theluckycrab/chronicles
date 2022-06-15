@@ -43,4 +43,5 @@ func combat_check() -> void:
 	if !is_instance_valid(host.lock_target):
 		host.npc("hide_weapon", {})
 		host.set_in_combat(false)
+		host.at_war = false
 	host.weaponbox_ghost()
