@@ -11,6 +11,7 @@ func _init() -> void:
 
 func enter() -> void:
 	host.armature.anim.connect("keyframe", self, "on_keyframe", [], CONNECT_ONESHOT)
+	host.hide_weapon()
 	pass
 
 

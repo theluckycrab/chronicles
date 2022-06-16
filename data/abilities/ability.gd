@@ -51,4 +51,6 @@ func combat_check() -> void:
 		host.npc("hide_weapon", {})
 		host.set_in_combat(false)
 		host.at_war = false
+		host.hide_weapon()
 	host.weaponbox_ghost()
+	host.show_weapon()
