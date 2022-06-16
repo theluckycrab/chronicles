@@ -240,9 +240,11 @@ func update() -> void:
 	
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy and args.update_number > update_count:
-		if get_animation() != args.animation and args.animation != "" and !armature.anim.is_using_root_motion():
+		if get_animation() != args.animation and args.animation != "" \
+		and !armature.anim.is_using_root_motion() and armature.anim.last_animation != args.animation:
 			#args.motion = false
 			play(args)#, args.anim_motion)
+			pass
 		else:
 			global_transform.origin = args.position
 			armature.rotation = args.rot
@@ -263,6 +265,7 @@ func equip(item:Item) -> void:
 	inventory.equip(item)
 	for i in item.get_list_of_passives():
 		add_effect(item, "slow_fall")
+	set_state("equip")
 	pass
 	
 	

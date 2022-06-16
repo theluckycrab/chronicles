@@ -18,11 +18,8 @@ func enter() -> void:
 	
 	
 func exit() -> void:
-	host.at_war = !host.at_war
-	if host.at_war:
-		host.npc("show_weapon", {})
-	else:
-		host.npc("hide_weapon", {})
+	host.at_war = true
+	host.npc("show_weapon", {})
 	pass
 	
 	

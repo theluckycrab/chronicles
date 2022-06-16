@@ -107,5 +107,5 @@ func show_weapon(_args={}):
 	armature.show_weapon()
 
 
-func play(args) -> void:
+func play(args) -> void: #state animations are networked
 	armature.play(args.animation, args.motion)

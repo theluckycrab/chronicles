@@ -29,9 +29,9 @@ func can_exit() -> bool:
 
 func execute() -> void:
 	if !done:
-		host.play({"animation":animation, "motion":true})
+		host.npc("play", {"animation":animation, "motion":true})
 		host.acquire_lock_target()
 		host.lock_on()
 	if Input.is_action_just_released("mainhand"):
-		host.play({"animation":"Fading_Horizon_2", "motion":true})
+		host.npc("play", {"animation":"Fading_Horizon_2", "motion":true})
 		done = true

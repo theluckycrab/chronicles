@@ -13,4 +13,4 @@ count = 1
 durability = 3
 tags = PoolStringArray(  )
 active = "Evade"
-passives = PoolStringArray(  )
+passives = PoolStringArray( "slow_fall" )

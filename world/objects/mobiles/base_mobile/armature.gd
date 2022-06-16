@@ -28,7 +28,12 @@ func equip(args:Dictionary) -> void:
 	if mount:
 		mount.set_mesh(item.get_mesh())
 		if item.get_slot() == "Mainhand":
+			$Skeleton/Sheath/Sheath/MeshInstance.set_mesh(item.get_mesh())
 			size_weapon()
+			if host.at_war:
+				show_weapon()
+			else:
+				hide_weapon()
 	
 	
 func activate_item(args:Dictionary) -> void:
@@ -54,6 +59,7 @@ func play(animation, motion: bool = false) -> void:
 	else:
 		anim.tree.active = false
 		anim.play(animation)
+	anim.last_animation = animation
 	
 
 func get_root_motion():
@@ -100,6 +106,7 @@ func get_hit_origin() -> Vector3:
 
 func weaponbox_strike() -> void:
 	weaponbox.strike()
+	keyframe()
 	
 	
 func weaponbox_ghost() -> void:
@@ -130,8 +137,13 @@ func on_weaponbox_entered(mybox:Hitbox, theirbox:Hitbox) -> void:
 
 func hide_weapon() -> void:
 	$Skeleton/Mainhand/Weapon.visible = false
+	$Skeleton/Sheath/Sheath.visible = true
 	
 	
 func show_weapon() -> void:
 	$Skeleton/Mainhand/Weapon.visible = true
+	$Skeleton/Sheath/Sheath.visible = false
 
+
+func keyframe() -> void:
+	anim.emit_signal("keyframe")

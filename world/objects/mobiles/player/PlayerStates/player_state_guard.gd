@@ -43,9 +43,9 @@ func execute() -> void:
 			host.play({animation="Guard_"+get_dir(), motion = false})
 			host.guard_reset()
 			host.parry(get_dir())
-			#yield(get_tree().create_timer(0.35), "timeout")
-			#exit()
-			#get_parent().quit_state()
+			yield(get_tree().create_timer(0.35), "timeout")
+			exit()
+			get_parent().quit_state()
 			return
 #	var dir = host.get_wasd_cam()
 #	host.add_force(dir * 3)

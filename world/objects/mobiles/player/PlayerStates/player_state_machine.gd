@@ -13,7 +13,7 @@ var war_state_dict = {
 		"fall" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_fall.gd").new(),
 		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
 		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
-		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
+		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_sheathe.gd").new(),
 		"light_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_light_attack.gd").new(),
 		"strong_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_strong_attack.gd").new(),
 		"guard" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_guard.gd").new(),
@@ -21,7 +21,9 @@ var war_state_dict = {
 		"dash" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dash.gd").new(),
 		"falling_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_falling_attack.gd").new(),
 		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
-		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new()
+		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new(),
+		"interact" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_interact.gd").new(),
+		"equip" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_equip.gd").new(),
 }
 
 var peace_state_dict = {
@@ -30,6 +32,9 @@ var peace_state_dict = {
 		"walk" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_walk.gd").new(),
 		"jump" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_jump.gd").new(),
 		"draw" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_draw.gd").new(),
+		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
+		"interact" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_interact.gd").new(),
+		"equip" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_equip.gd").new(),
 }
 				
 var override_dict = {}
@@ -150,6 +155,8 @@ func state_controls():
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 	for i in state_dict:
+		if ["interact"].has(i):
+			return
 		if InputMap.has_action(i):
 			if Input.is_action_just_pressed(i):
 				set_state(i)

@@ -54,19 +54,20 @@ func execute() -> void:
 	if combo_counter > combo.size():
 		done = true
 	if host.get_animation() != animation:
-		host.weaponbox_ghost()
+		#host.weaponbox_ghost()
 		if combo_timer.is_stopped():
 			combo_timer.start(combo_grace)
 		if combo_timer.time_left > 0:
 			#host.armature.anim.tree.active = false
 			if Input.is_action_just_pressed("light_attack"):
 				cycle()
+	host.lock_on()
 	pass
 	
 	
 func cycle():
 	if combo_counter < combo.size():
-		host.weaponbox_strike()
+		#host.weaponbox_strike()
 		animation = combo[combo_counter]
 		host.play({"animation":animation, "motion":true})
 		combo_timer.stop()
@@ -74,7 +75,8 @@ func cycle():
 	
 func on_keyframe() -> void:
 	if keyframe < hits.size():
-		instance_hit_effect(hits[keyframe])
+		pass
+		#instance_hit_effect(hits[keyframe])
 	keyframe += 1
 	
 	

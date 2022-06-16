@@ -20,6 +20,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	armature.hide_weapon()
+	armature.show_weapon()
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")

@@ -5,6 +5,7 @@ var host = null
 func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		if host and !host.in_combat:
+			host.set_state("interact")
 			get_parent().activate(host)
 			get_tree().set_input_as_handled()
 

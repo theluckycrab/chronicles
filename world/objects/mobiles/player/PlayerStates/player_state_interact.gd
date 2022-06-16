@@ -2,8 +2,8 @@ extends PlayerActionState
 
 
 func _init() -> void:
-	index = "Equip"
-	animation = "Equip"
+	index = "Interact"
+	animation = "Interact"
 	priority = 3
 	host = null
 	

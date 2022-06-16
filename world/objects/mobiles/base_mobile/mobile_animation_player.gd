@@ -5,6 +5,8 @@ signal keyframe
 var override_list = {
 }
 
+var last_animation = ""
+
 onready var tree = $AnimationTree
 
 
