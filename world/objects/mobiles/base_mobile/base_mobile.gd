@@ -241,7 +241,7 @@ func update() -> void:
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy and args.update_number > update_count:
 		if get_animation() != args.animation and args.animation != "" and !armature.anim.is_using_root_motion():
-			args.motion = false
+			#args.motion = false
 			play(args)#, args.anim_motion)
 		else:
 			global_transform.origin = args.position
@@ -355,6 +355,7 @@ func direction_to(loc) -> Vector3:
 	if loc is Spatial:
 		loc = loc.global_transform.origin
 	return global_transform.origin.direction_to(loc)
+	
 	
 func distance_to(loc) -> float:
 	if loc is Spatial:

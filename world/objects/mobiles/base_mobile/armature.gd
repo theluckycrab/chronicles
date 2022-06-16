@@ -69,23 +69,6 @@ func get_animation() -> String:
 		return anim.tree.get_tree_root().get_node("Action").animation
 	else:
 		return ""
-		
-#func get_animation_progress():
-#	var duration = 1
-#	var position = 1
-#	if anim.is_playing():
-#		duration = anim.current_animation_length
-#		position = anim.current_animation_position
-#	else:
-#		var a = anim.tree
-#		print(a.get_parameter_list())
-#		#duration = a.length
-#		#position = a.step
-#	if duration == 0 or position == 0:
-#		return 1
-#	else:
-#		print(duration/position)
-#		return duration / position
 	
 	
 func guard(dir:String) -> void:
@@ -127,11 +110,11 @@ func is_using_root_motion() -> bool:
 	return anim.is_using_root_motion()
 
 
-func on_guardbox_blocked(mybox, theirbox) -> void:
+func on_guardbox_blocked(mybox:Hitbox, theirbox:Hitbox) -> void:
 	emit_signal("blocked", mybox, theirbox)
 
 
-func on_weaponbox_entered(mybox, theirbox) -> void:
+func on_weaponbox_entered(mybox:Hitbox, theirbox:Hitbox) -> void:
 	match Hitbox.get_collision_type(mybox, theirbox):
 		Hitbox.collision_type.GOT_BLOCKED:
 			emit_signal("got_blocked", mybox, theirbox)
@@ -145,10 +128,10 @@ func on_weaponbox_entered(mybox, theirbox) -> void:
 			emit_signal("parried", mybox, theirbox)
 	return
 
-func hide_weapon():
+func hide_weapon() -> void:
 	$Skeleton/Mainhand/Weapon.visible = false
-	pass
 	
-func show_weapon():
+	
+func show_weapon() -> void:
 	$Skeleton/Mainhand/Weapon.visible = true
-	pass
+

@@ -1,14 +1,16 @@
 extends ActionState
 
-var idle_timer = Timer.new()
-var idle_duration = 5
-var done = false
+var idle_timer := Timer.new()
+var idle_duration: int = 5
+var done: bool = false
 
-func _ready():
+
+func _ready() -> void:
 	idle_timer.one_shot = true
 	idle_timer.autostart = false
 	add_child(idle_timer)
 	idle_timer.connect("timeout", self, "on_idle_timer")
+
 
 func _init() -> void:
 	index = "Delay"
@@ -40,5 +42,5 @@ func execute() -> void:
 	host.lock_on()
 	pass
 
-func on_idle_timer():
+func on_idle_timer() -> void:
 	done = true

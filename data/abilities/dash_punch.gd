@@ -10,13 +10,11 @@ func _init() -> void:
 
 
 func enter() -> void:
-	print("dash")
 	host.armature.anim.connect("keyframe", self, "on_keyframe", [], CONNECT_ONESHOT)
 	pass
 
 
 func exit() -> void:
-	print("punch")
 	combat_check()
 	pass
 
@@ -33,7 +31,6 @@ func execute() -> void:
 	pass
 	
 func on_keyframe():
-	print("go")
 	var projectile = Data.get_projectile("melee_aux").instance()
 	projectile.damage = host.get_equipped("Mainhand").get_damage()
 	host.add_child(projectile)

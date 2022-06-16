@@ -58,7 +58,7 @@ func execute() -> void:
 		if combo_timer.is_stopped():
 			combo_timer.start(combo_grace)
 		if combo_timer.time_left > 0:
-			host.armature.anim.tree.active = false
+			#host.armature.anim.tree.active = false
 			if Input.is_action_just_pressed("light_attack"):
 				cycle()
 	pass

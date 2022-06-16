@@ -33,9 +33,16 @@ func can_exit() -> bool:
 func execute() -> void:
 	pass
 
-func show_weapon():
+
+func show_weapon() -> void:
 	host.npc("show_weapon", {})
 	host.weaponbox_strike()
+	
+	
+func hide_weapon() -> void:
+	host.npc("hide_weapon", {})
+	host.weaponbox_ghost()
+
 
 func combat_check() -> void:
 	done = false
