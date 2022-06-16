@@ -45,7 +45,7 @@ func on_peer_disconnected(who) -> void:
 	for i in map_masters:
 		if map_masters[i] == who:
 			map_masters.erase(who)
-			rpc("sub_host_migration", who)
+	rpc("sub_host_migration", who)
 	relay_signal("unregister", {netID=who})
 	
 	
@@ -162,8 +162,6 @@ remotesync func sub_host_migration(who: int) -> void:
 		on_unregister({netID=who, map=tmap})
 	else:
 		return
-	if !map_masters.has(tmap) or map_masters[tmap] != who:
-		return
 	var alternate = null
 	for i in net_objects:
 		if i != who and net_objects[i] is Player:
@@ -172,7 +170,11 @@ remotesync func sub_host_migration(who: int) -> void:
 	if alternate:
 		for i in net_objects:
 			if is_instance_valid(net_objects[i]) and !net_objects[i] is Player:
+				print("migrating ", i, " to ", alternate)
 				net_objects[i].net_stats.netOwner = alternate
+	if !map_masters.has(tmap) or map_masters[tmap] != who:
+		return
+	if alternate:
 		rpc("set_map_master", tmap, alternate)
 	else:
 		rpc("set_map_master", tmap, "")

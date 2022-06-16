@@ -1,7 +1,5 @@
 extends Ability
 
-onready var projectile
-
 func _init() -> void:
 	index = "Dash Punch"
 	animation = "Dash_Punch"

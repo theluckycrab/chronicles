@@ -109,3 +109,8 @@ func show_weapon(_args={}):
 
 func play(args) -> void: #state animations are networked
 	armature.play(args.animation, args.motion)
+
+
+func on_got_blocked(_mybox, _theirbox):
+	print("got blocked")
+	set_state("stagger")

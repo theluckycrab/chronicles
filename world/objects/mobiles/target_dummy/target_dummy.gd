@@ -1,9 +1,9 @@
 extends BaseMobile
 
 var long = ["pursue"]
-var mid = ["pursue", "circle"]
-var close = ["attack"]
-var any = ["warcry", "circle", "delay"]
+var mid = ["pursue", "circle", "defend"]
+var close = ["attack", "defend"]
+var any = ["warcry", "circle", "delay", "defend"]
 var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
@@ -42,7 +42,7 @@ func on_got_parried(_mybox, _theirbox) -> void:
 	npc("stagger", {}, true)
 	print("parried")
 	
-func stagger(args):
+func stagger(_args):
 	set_state("stagger")
 
 func on_got_hit(mybox, theirbox) -> void:
@@ -83,7 +83,7 @@ func get_target_range() -> int:
 	if lock_target == null:
 		return NONE
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
-	if dist < 4 and dist > 2:
+	if dist < 4 and dist > 1:
 		return CLOSE
 	elif dist > 3 and dist < 6:
 		return MID

@@ -9,7 +9,7 @@ func _ready() -> void:
 	idle_timer.one_shot = true
 	idle_timer.autostart = false
 	add_child(idle_timer)
-	idle_timer.connect("timeout", self, "on_idle_timer")
+	var _discard = idle_timer.connect("timeout", self, "on_idle_timer")
 
 
 func _init() -> void:
