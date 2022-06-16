@@ -23,6 +23,7 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
+	tpos = Vector3(tpos.x, mypos.y, tpos.z)
 	return mypos.distance_to(tpos) < 1
 	
 	

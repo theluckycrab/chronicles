@@ -4,7 +4,7 @@ var host = null
 
 func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
-		if host and !host.in_combat:
+		if  host and host.net_stats.netID == Network.get_nid() and !host.in_combat:
 			host.set_state("interact")
 			get_parent().activate(host)
 			get_tree().set_input_as_handled()
@@ -16,8 +16,9 @@ func _ready():
 	
 
 func on_body_entered(body):
-	print(get_parent().name, " is ready")
-	host = body
+	if body is BaseMobile:
+		print(get_parent().name, " is ready")
+		host = body
 
 
 func on_body_exited(_body):

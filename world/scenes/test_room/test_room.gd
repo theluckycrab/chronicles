@@ -9,7 +9,7 @@ func _ready() -> void:
 #	Network.call_deferred("rpc_id", 1, "request_history", Network.map)
 	print("test_room ready")
 	
-func on_spawn(object, position = Vector3(0, 2, 0)) -> void:
+func on_spawn(object, position = Vector3(0, 0, 0)) -> void:
 	add_child(object)
 	object.global_transform.origin = position
 
