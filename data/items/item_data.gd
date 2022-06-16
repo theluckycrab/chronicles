@@ -61,7 +61,7 @@ func set_description(d: String) -> void:
 func set_active(a_name: String) -> void:
 	print("res://data/abilities/"+Data.snake_case(a_name)+".gd")
 	active = load("res://data/abilities/"+Data.snake_case(a_name)+".gd").new()
-	print(active)
+	print(index, active.index)
 
 #get
 func get_tags() -> Array:

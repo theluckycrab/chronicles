@@ -3,4 +3,3 @@ extends Resource
 
 var damage = 1
 var tags = ["Physical"]
-

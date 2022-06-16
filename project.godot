@@ -112,7 +112,7 @@ _global_script_classes=[ {
 "base": "Position3D",
 "class": "Spawner",
 "language": "GDScript",
-"path": "res://world/objects/generic/spawner.gd"
+"path": "res://world/objects/generic/spawners/spawner.gd"
 }, {
 "base": "Node",
 "class": "State",

@@ -8,7 +8,7 @@ var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
 
-var hp = 1
+var hp = 100
 
 
 func _init() -> void:
@@ -50,6 +50,7 @@ func on_got_hit(mybox, theirbox) -> void:
 	var coll_type = Hitbox.get_collision_type(mybox, theirbox)
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
+			print("got hit for ", theirbox.damage.damage, "\n", hp, " remains")
 			hp -= theirbox.damage.damage
 			set_state("stagger")
 			if hp <= 0:

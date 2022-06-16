@@ -16,3 +16,4 @@ active = "Evade"
 passives = PoolStringArray(  )
 combo = PoolStringArray( "Club_Combo_1", "Club_Combo_2", "Club_Strong" )
 strong = "Club_Strong"
+attack_power = 1
