@@ -39,6 +39,7 @@ func enter() -> void:
 func exit() -> void:
 	combo_timer.stop()
 	host.armature.anim.disconnect("keyframe", self, "on_keyframe")
+	host.weaponbox_ghost()
 	pass
 	
 	
@@ -67,7 +68,7 @@ func execute() -> void:
 	
 func cycle():
 	if combo_counter < combo.size():
-		#host.weaponbox_strike()
+		host.weaponbox_ghost()
 		animation = combo[combo_counter]
 		host.play({"animation":animation, "motion":true})
 		combo_timer.stop()

@@ -4775,20 +4775,17 @@ tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.5, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
 tracks/66/type = "method"
-tracks/66/path = NodePath(".")
+tracks/66/path = NodePath("Armature")
 tracks/66/interp = 1
 tracks/66/loop_wrap = true
 tracks/66/imported = false
 tracks/66/enabled = true
 tracks/66/keys = {
-"times": PoolRealArray( 0.4, 0.98804 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.34 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "weaponbox_strike"
-}, {
-"args": [  ],
-"method": "weaponbox_ghost"
 } ]
 }
 
@@ -9002,6 +8999,20 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.2, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.266667, 1, 0, 0.288116, 0, 0, 0, 0, 1, 1, 1, 1, 0.333333, 1, 0, 0.918793, 0, 0, 0, 0, 1, 1, 1, 1, 0.4, 1, 0, 1.35891, 0, 0, 0, 0, 1, 1, 1, 1, 0.416667, 1, 0, 1.41789, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/66/type = "method"
+tracks/66/path = NodePath("Armature")
+tracks/66/interp = 1
+tracks/66/loop_wrap = true
+tracks/66/imported = false
+tracks/66/enabled = true
+tracks/66/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "weaponbox_strike"
+} ]
+}
 
 [sub_resource type="Animation" id=50]
 length = 0.001
@@ -13266,6 +13277,8 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -13301,7 +13314,7 @@ mesh = ExtResource( 37 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.903021, -0.0531332, -0.426298, -0.428207, 0.0315961, 0.903128, -0.0345173, 0.998087, -0.0512843, -0.836815, 1.30322, 0.0590057 )
+transform = Transform( 0.961435, -0.161751, 0.222438, -0.248688, -0.165884, 0.954273, -0.117455, -0.972788, -0.199712, 0.18578, 1.02673, 0.127632 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -13321,7 +13334,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
+transform = Transform( 0.868191, -0.0510202, 0.4936, -0.00153281, 0.994419, 0.105483, -0.496227, -0.0923356, 0.863268, 0.00188686, 1.05706, -0.0195883 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

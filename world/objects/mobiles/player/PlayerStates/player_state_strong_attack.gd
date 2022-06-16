@@ -39,6 +39,7 @@ func enter() -> void:
 func exit() -> void:
 	combo_timer.stop()
 	host.armature.anim.disconnect("keyframe", self, "on_keyframe")
+	host.weaponbox_ghost()
 	pass
 	
 	

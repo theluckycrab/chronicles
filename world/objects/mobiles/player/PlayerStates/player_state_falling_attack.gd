@@ -18,6 +18,7 @@ func enter() -> void:
 	
 	
 func exit() -> void:
+	host.weaponbox_ghost()
 	pass
 	
 	
