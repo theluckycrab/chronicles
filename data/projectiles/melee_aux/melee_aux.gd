@@ -8,7 +8,7 @@ signal parried
 
 func _ready():
 	$Hitbox.strike()
-	$Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
+	var _discard = $Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
 	
 func on_hitbox_entered(mybox, theirbox):
 	match Hitbox.get_collision_type(mybox, theirbox):
