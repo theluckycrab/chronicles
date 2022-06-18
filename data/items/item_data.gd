@@ -71,7 +71,11 @@ func get_index() -> String:
 	
 func get_active() -> String:
 	if active is String:
-		active = Data.get_ability(active).new()
+		var node = Node.new()
+		Data.add_child(node)
+		active = Data.snake_case(active)
+		node.script = load("res://data/abilities/"+active+".gd")
+		active = node
 	return active
 	
 	
