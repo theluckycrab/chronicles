@@ -62,7 +62,7 @@ func set_state(index) -> void:
 	else:
 		cprior = get_state(current_state).priority
 		
-	if nprior > cprior:
+	if nprior >= cprior:
 		next_state = get_state(index)
 		
 	

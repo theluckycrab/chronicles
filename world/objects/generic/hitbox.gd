@@ -53,6 +53,8 @@ func reset() -> void:
 	
 func strike() -> void:
 	self.state = states.STRIKE
+	for i in get_overlapping_areas():
+		on_area_entered(i)
 	
 	
 func guard() -> void:
