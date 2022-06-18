@@ -21,6 +21,7 @@ func _ready() -> void:
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
 	$VBoxContainer/LineEdit.text = Data.get_config_value("last_character")
+	$VBoxContainer/LineEdit.connect("text_changed", self, "on_alias_changed")
 	
 	
 func _input(event) -> void:
@@ -64,5 +65,9 @@ func on_defaults():
 func on_defaults_hide():
 	$VBoxContainer.visible = true
 	$DefaultsMenu.visible = false
-	Data.load_char_save(Data.get_saved_char_value("alias"))
-	$VBoxContainer/LineEdit.text = Data.get_saved_char_value("alias")
+	Data.load_char_save(Data.get_char_value("alias"))
+	$VBoxContainer/LineEdit.text = Data.get_char_value("alias")
+
+
+func on_alias_changed(text):
+	Data.set_char_value("alias", text)

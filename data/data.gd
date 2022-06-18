@@ -56,6 +56,14 @@ func get_saved_char_value(key):
 func set_char_value(key, value):
 	return persistence.set_char_value(key, value)
 
+func get_char_value(key):
+	return persistence.get_char_value(key)
+	
+	
+func get_char_data():
+	return persistence.get_char_data()
+
+
 func save_char_value(key, value) -> void:
 	persistence.save_char_value(key, value)
 	

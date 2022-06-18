@@ -31,10 +31,6 @@ extents = Vector3( 0.262891, 1, 0.211927 )
 [node name="Target_Dummy" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 
-[node name="Skeleton" parent="Armature" index="0"]
-bones/2/bound_children = [  ]
-bones/62/bound_children = [  ]
-
 [node name="Mainhand" parent="Armature/Skeleton" index="7"]
 transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 

@@ -62,6 +62,13 @@ func get_saved_char_value(key):
 	return char_data[key]
 	
 	
+func get_char_value(key):
+	return char_data[key]
+	
+	
+func get_char_data():
+	return char_data
+	
 #Config File Interface
 func load_config_from_file():
 	var file_name = "config"

@@ -186,7 +186,6 @@ func add_item(item:Item) -> void:
 	
 func set_default(slot:String, item:Item) -> void:
 	inventory.set_default(slot, item)
-	Data.save_char_value("default", item)
 	
 	
 #bufflist interface

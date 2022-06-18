@@ -15,7 +15,11 @@ func _init() -> void:
 	net_init("target_dummy")
 	base_defaults = {
 			Head = "wizard_hat",
-			Mainhand = "katana"
+			Mainhand = "katana",
+			Chest = "shirt",
+			Legs = "pants",
+			Boots = "sandals",
+			Offhand = "fairy_band"
 	}
 
 

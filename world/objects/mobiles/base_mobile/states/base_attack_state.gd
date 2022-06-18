@@ -15,7 +15,7 @@ func enter() -> void:
 	if !weapon is Weapon:
 		return
 	animation = weapon.combo[0]
-	host.armature.anim.add_animation(animation, load("res://data/assets/Blender/BaseHumanoid/"+animation+".anim"))
+	#host.armature.anim.add_animation(animation, load("res://data/assets/Blender/BaseHumanoid/"+animation+".anim"))
 	host.lock_on()
 	pass
 	

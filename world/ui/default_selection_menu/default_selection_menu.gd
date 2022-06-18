@@ -20,6 +20,7 @@ func _ready():
 	save_button.connect("button_down", self, "on_save")
 	exit_button.connect("button_down", self, "on_exit")
 	name_entry.connect("text_changed", self, "on_name_entry")
+	connect("visibility_changed", self, "on_visibility_changed")
 	for i in item_lists:
 		i.connect("item_selected", self, "on_item_selected")
 		i.connect("item_unselected", self, "on_item_unselected")
@@ -34,6 +35,21 @@ func on_save():
 	Data.full_save_char()
 	on_exit()
 	pass
+	
+	
+func on_visibility_changed():
+	if visible:
+		Data.load_char_save(Data.get_char_value("alias"))
+		var data = Data.get_char_data().duplicate(true)
+		$Layout/Mid/Preview._ready()
+		$Layout/Mid/Label2.update()
+		$Layout/Mid/NameEntry.text = data.alias
+		for i in item_lists:
+			for j in i.get_children():
+				if data.defaults.has(i.category):
+					if j.item.index == data.defaults[i.category]:
+						j.modulate = Color.lightgoldenrod
+						i.selected_icon = j
 	
 	
 	
