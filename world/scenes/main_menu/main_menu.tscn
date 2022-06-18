@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://world/scenes/main_menu/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://world/ui/default_selection_menu/defaults_selection_menu.tscn" type="PackedScene" id=2]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -12,19 +13,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -27.5
-margin_top = -34.0
-margin_right = 27.5
-margin_bottom = 34.0
+margin_left = -75.0
+margin_top = -48.0
+margin_right = 75.0
+margin_bottom = 48.0
 
 [node name="Offline" type="Button" parent="VBoxContainer"]
-margin_right = 55.0
+margin_right = 150.0
 margin_bottom = 20.0
 text = "Offline"
 
 [node name="Online" type="Button" parent="VBoxContainer"]
 margin_top = 24.0
-margin_right = 55.0
+margin_right = 150.0
 margin_bottom = 44.0
 text = "Online"
 
@@ -48,13 +49,21 @@ margin_right = 42.0
 margin_bottom = 44.0
 text = "Host"
 
-[node name="Test" type="Button" parent="VBoxContainer"]
+[node name="Defaults" type="Button" parent="VBoxContainer"]
 margin_top = 48.0
-margin_right = 55.0
+margin_right = 150.0
 margin_bottom = 68.0
-text = "Test"
+text = "Set Defaults"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 150.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 150, 0 )
+text = "Character Name"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = 16.0
 margin_top = 13.0
 margin_right = 395.0
@@ -77,6 +86,7 @@ Falling -> [ ] - Falling Attack
 "
 
 [node name="Label4" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -192.0
@@ -91,6 +101,7 @@ If you have a controller connected, you may experience stuttery WASD."
 autowrap = true
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_top = 0.007
 anchor_right = 1.0
@@ -117,6 +128,7 @@ Falling -> Left Click - Falling Attack
 F11 - Fullscreen"
 
 [node name="Label3" type="Label" parent="."]
+visible = false
 anchor_left = 0.352
 anchor_top = 1.0
 anchor_right = 0.352
@@ -142,13 +154,5 @@ ZXCV - Activate Item
 Alt(Held) -> ZXCV - Remove Equipped
 "
 
-[node name="LineEdit" type="LineEdit" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -64.0
-margin_top = 48.0
-margin_right = 73.0
-margin_bottom = 72.0
-text = "Character Name"
+[node name="DefaultsMenu" parent="." instance=ExtResource( 2 )]
+visible = false

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://world/ui/default_selection_menu/item_list.gd" type="Script" id=1]
+
+[node name="Itemlist" type="HBoxContainer"]
+margin_right = 338.0
+script = ExtResource( 1 )
+category = "Mainhand"

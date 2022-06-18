@@ -1,6 +1,6 @@
 extends Spatial
 
-export(String) var start_scene = "test_room"
+export(String) var start_scene = "test_room2"
 var current_scene = null
 onready var mount = $SceneMount
 

@@ -29,11 +29,12 @@ func equip(args:Dictionary) -> void:
 		mount.set_mesh(item.get_mesh())
 		if item.get_slot() == "Mainhand":
 			$Skeleton/Sheath/Sheath/MeshInstance.set_mesh(item.get_mesh())
-			size_weapon()
-			if host.at_war:
-				show_weapon()
-			else:
-				hide_weapon()
+			if host is BaseMobile:
+				size_weapon()
+				if host.at_war:
+					show_weapon()
+				else:
+					hide_weapon()
 	
 	
 func activate_item(args:Dictionary) -> void:

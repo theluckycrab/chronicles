@@ -63,6 +63,9 @@ func full_save() -> void:
 	persistence.commit_to_char_file()
 	persistence.commit_to_config_file()
 	
+func full_save_char() -> void:
+	persistence.commit_to_char_file()
+	
 func load_char_save(character_name) -> void:
 	persistence.load_char_from_file(character_name)
 	
