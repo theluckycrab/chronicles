@@ -67,6 +67,7 @@ text = "Description"
 align = 1
 valign = 1
 autowrap = true
+max_lines_visible = 2
 
 [node name="Tags" type="Label" parent="VBoxContainer"]
 modulate = Color( 0.454902, 0.203922, 0.54902, 1 )

@@ -1,6 +1,7 @@
 extends HBoxContainer
 
 signal item_selected
+signal item_unselected
 
 export(String) var category = "Head"
 var item_list = Data.reference.item_list
@@ -18,12 +19,19 @@ func _ready():
 			
 
 func on_button_down(which):
-	if selected_icon:
+	if which == selected_icon:
 		selected_icon.modulate = Color.whitesmoke
-	selected_icon = which
-	selected_icon.modulate = Color.lightgoldenrod
-	emit_signal("item_selected", selected_icon.item.index)
-
+		emit_signal("item_unselected", category)
+		selected_icon = null
+		return
+	else:
+			if selected_icon != null:
+				selected_icon.modulate = Color.whitesmoke
+			selected_icon = which
+			which.modulate = Color.lightgoldenrod
+			emit_signal("item_selected", selected_icon.item.index)
+	
+	
 func get_item_icon():
 	print("selected icon")
 	return selected_icon

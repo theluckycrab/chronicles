@@ -5,3 +5,6 @@ func _ready():
 
 func change_item(i):
 	$Viewport/Camera/Armature.equip({index = i})
+	
+func destroy(slot: String) -> void:
+	$Viewport/Camera/Armature.destroy(slot)

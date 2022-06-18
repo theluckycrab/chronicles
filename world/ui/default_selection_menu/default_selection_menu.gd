@@ -22,6 +22,7 @@ func _ready():
 	name_entry.connect("text_changed", self, "on_name_entry")
 	for i in item_lists:
 		i.connect("item_selected", self, "on_item_selected")
+		i.connect("item_unselected", self, "on_item_unselected")
 		
 
 func on_save():
@@ -42,6 +43,9 @@ func on_exit():
 	
 func on_item_selected(index):
 	$Layout/Mid/Preview.change_item(index)
+	
+func on_item_unselected(slot):
+	$Layout/Mid/Preview.destroy(slot)
 
 
 func on_name_entry(_words):

@@ -5,7 +5,7 @@ const save_path = "user://saves/"
 
 var char_data = {
 	alias = "Player",
-	map = "test_room",
+	map = "test_room2",
 	defaults = {}
 }
 

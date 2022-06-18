@@ -18,6 +18,13 @@ func _ready():
 	var _discard1 = weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
 	
 
+func destroy(slot: String) -> void:
+	var mount = get_node_or_null("Skeleton/"+slot)
+	if slot == "Mainhand":
+		mount = get_node_or_null("Skeleton/"+slot+"/Weapon/MeshInstance")
+	if mount:
+		mount.set_mesh(null)
+
 
 func equip(args:Dictionary) -> void:
 	var item = Data.get_item(args.index)
