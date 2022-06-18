@@ -4,7 +4,7 @@ class_name ReferenceList
 var item_list = {}
 var ref_list = {}
 var mesh_list = {}
-var attack_list = {}
+var ability_list = {}
 var projectile_list = {}
 
 
@@ -17,11 +17,12 @@ func get_instance(what):
 	
 	
 func setup() -> void:
+	build_list("res://data/assets/meshes", ".mesh", mesh_list)
+	build_list("res://data/projectiles", ".tscn", projectile_list)
+	build_list("res://data/abilities/", ".gd", ability_list)
 	build_list("res://data/items", ".tres", item_list)
 	build_list("res://data", ".tres", ref_list)
-	build_list("res://data/assets/meshes", ".mesh", mesh_list)
-	#build_list("res://data/attacks", ".tres", attack_list)
-	build_list("res://data/projectiles", ".tscn", projectile_list)
+
 	ref_list["player"] = "res://world/objects/mobiles/player/player.tscn"
 	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"

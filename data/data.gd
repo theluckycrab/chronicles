@@ -35,9 +35,9 @@ func get_mesh(index):
 func get_item(index):
 	return reference.item_list[index]
 	
-func get_attack(index):
+func get_ability(index):
 	index = snake_case(index)
-	return reference.attack_list[index]
+	return reference.ability_list[index]
 	
 	
 func get_projectile(index):
