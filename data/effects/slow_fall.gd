@@ -15,6 +15,6 @@ func exit(_host: Object) -> void:
 
 
 func execute(host: Object) -> void:
-	if !host.is_on_floor():
-		host.add_force(Vector3.UP * 7)
+	if !host.is_on_floor() and host.move.velocity.y < 0:
+		host.add_force(host.move.gravity * Vector3.UP / 2)
 	pass

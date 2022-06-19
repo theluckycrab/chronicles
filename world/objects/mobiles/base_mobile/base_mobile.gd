@@ -263,9 +263,10 @@ func get_faction():
 ##commands
 func equip(item:Item) -> void:
 	npc("vis_equip", {index=item.get_index()})
-	inventory.equip(item)
+	remove_passives(get_equipped(item.get_slot()))
 	for i in item.get_list_of_passives():
 		add_effect(item, i)
+	inventory.equip(item)
 	set_state("equip")
 	pass
 	
