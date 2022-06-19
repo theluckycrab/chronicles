@@ -1,15 +1,15 @@
 extends Ability
 
 func _init() -> void:
-	index = "Dash Punch"
-	animation = "Dash_Punch"
+	index = "Lick"
+	animation = "Equip"
 	priority = 2
 	host = null
 
 
 func enter() -> void:
 	keyframe_connect()
-	host.hide_weapon()
+	#host.hide_weapon()
 	pass
 
 
@@ -32,7 +32,8 @@ func execute() -> void:
 	
 func on_keyframe():
 	var projectile = Data.get_projectile("melee_aux").instance()
-	projectile.damage = host.get_equipped("Mainhand").get_damage()
+	projectile.damage.damage = 1
+	projectile.damage.tags = ["Player", "Unblockable"]
 	host.add_child(projectile)
 	projectile.connect("got_blocked", host, "on_got_blocked", [], CONNECT_ONESHOT)
 	projectile.get_node("Hitbox").owner = host

@@ -9035,23 +9035,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath(".")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Above" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=38]
 resource_name = "Guard_Forward"
@@ -9518,23 +9501,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0.01, 0.74 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Forward" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=39]
 resource_name = "Guard_Left"
@@ -10001,23 +9967,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0.02, 0.76 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Left" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=40]
 resource_name = "Guard_Right"
@@ -10484,23 +10433,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0, 0.71 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Right" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=41]
 resource_name = "Idle"
@@ -20995,7 +20927,7 @@ mesh = ExtResource( 8 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.352646, 0.520802, -0.777445, -0.701383, -0.402862, -0.588024, -0.619436, 0.75264, 0.223222, 0.0918368, 1.01428, 1.21406 )
+transform = Transform( -0.0264466, 0.0439826, -0.998689, -0.704461, 0.708001, 0.0498426, 0.709256, 0.704839, 0.01225, -0.020696, 1.2409, 0.595283 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -21014,7 +20946,7 @@ script = ExtResource( 38 )
 shape = SubResource( 17 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, 0.002142, 1.05648, 0.990475 )
+transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, 0.00365351, 1.1444, -0.0209434 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

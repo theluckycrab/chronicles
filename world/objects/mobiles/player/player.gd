@@ -110,4 +110,7 @@ func play(args) -> void: #state animations are networked
 
 func on_got_blocked(_mybox, _theirbox):
 	print("got blocked")
+	#set_state("stagger")
+	
+func on_got_parried(_mybox, _theirbox):
 	set_state("stagger")

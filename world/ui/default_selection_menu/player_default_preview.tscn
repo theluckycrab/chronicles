@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=6]
 [ext_resource path="res://world/objects/generic/projectile_spawner.gd" type="Script" id=7]
 [ext_resource path="res://world/ui/default_selection_menu/player_default_preview.gd" type="Script" id=8]
+[ext_resource path="res://data/assets/default_env.tres" type="Environment" id=9]
+
+[sub_resource type="World" id=65]
+environment = ExtResource( 9 )
 
 [sub_resource type="BoxShape" id=17]
 extents = Vector3( 0.0502419, 0.731242, 0.0465176 )
@@ -20831,6 +20835,8 @@ script = ExtResource( 8 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 800, 600 )
+own_world = true
+world = SubResource( 65 )
 transparent_bg = true
 render_target_v_flip = true
 
@@ -20960,3 +20966,8 @@ size_flags_vertical = 3
 texture = SubResource( 64 )
 expand = true
 stretch_mode = 6
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0

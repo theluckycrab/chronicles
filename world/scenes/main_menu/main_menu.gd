@@ -9,6 +9,7 @@ onready var join_button = $VBoxContainer/Online/VBoxContainer/Join
 onready var host_button = $VBoxContainer/Online/VBoxContainer/Host
 onready var join_host_panel = $VBoxContainer/Online/VBoxContainer
 onready var defaults_menu = $DefaultsMenu
+onready var line_edit = $VBoxContainer/LineEdit
 
 
 func _ready() -> void:
@@ -20,8 +21,8 @@ func _ready() -> void:
 	defaults_menu.connect("hide", self, "on_defaults_hide")
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
-	$VBoxContainer/LineEdit.text = Data.get_config_value("last_character")
-	$VBoxContainer/LineEdit.connect("text_changed", self, "on_alias_changed")
+	line_edit.text = Data.get_config_value("last_character")
+	line_edit.connect("text_changed", self, "on_alias_changed")
 	
 	
 func _input(event) -> void:

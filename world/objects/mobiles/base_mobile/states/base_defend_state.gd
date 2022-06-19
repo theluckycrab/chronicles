@@ -10,12 +10,12 @@ func _init() -> void:
 
 	
 func enter() -> void:
-	host.guard(dir)
+	host.npc("parry", {direction="Forward"})
 	pass
 	
 	
 func exit() -> void:
-	host.guard_reset()
+	host.npc("guard_reset", {})
 	pass
 	
 	

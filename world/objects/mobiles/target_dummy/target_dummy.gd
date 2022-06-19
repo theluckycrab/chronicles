@@ -8,7 +8,7 @@ var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
 
-var hp = 100
+var hp = 3
 
 
 func _init() -> void:

@@ -131,15 +131,15 @@ func get_animation() -> String:
 	return armature.get_animation()
 	
 	
-func guard(dir:String) -> void:
-	armature.guard(dir)
+func guard(args) -> void:
+	armature.guard(args.direction)
 	
 	
-func parry(dir:String) -> void:
-	armature.parry(dir)
+func parry(args) -> void:
+	armature.parry(args.direction)
 	
 	
-func guard_reset() -> void:
+func guard_reset(_args) -> void:
 	armature.guard_reset()
 	
 	

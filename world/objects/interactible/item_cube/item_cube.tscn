@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://data/assets/meshes/equipment/club.mesh" type="ArrayMesh" id=1]
-[ext_resource path="res://world/objects/generic/pickup_zone.tscn" type="PackedScene" id=3]
-[ext_resource path="res://world/objects/generic/item_cube.gd" type="Script" id=4]
-[ext_resource path="res://world/objects/generic/pickup_zone.gd" type="Script" id=5]
+[ext_resource path="res://world/objects/interactible/pickup_zone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/objects/interactible/item_cube/item_cube.gd" type="Script" id=4]
+[ext_resource path="res://world/objects/interactible/pickup_zone.gd" type="Script" id=5]
 
 [sub_resource type="ViewportTexture" id=3]
 flags = 2

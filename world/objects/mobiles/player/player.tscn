@@ -3796,6 +3796,32 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.625, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/66/type = "value"
+tracks/66/path = NodePath("Armature/HitOrigin:translation")
+tracks/66/interp = 1
+tracks/66/loop_wrap = true
+tracks/66/imported = false
+tracks/66/enabled = true
+tracks/66/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.9147, 1.50431 ) ]
+}
+tracks/67/type = "method"
+tracks/67/path = NodePath("Armature/AnimationPlayer")
+tracks/67/interp = 1
+tracks/67/loop_wrap = true
+tracks/67/imported = false
+tracks/67/enabled = true
+tracks/67/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "keyframe"
+} ]
+}
 
 [sub_resource type="Animation" id=27]
 resource_name = "Fall"
@@ -5210,23 +5236,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath(".")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Above" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=30]
 resource_name = "Guard_Forward"
@@ -5693,23 +5702,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0.01, 0.74 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Forward" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=31]
 resource_name = "Guard_Left"
@@ -6176,23 +6168,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0.02, 0.76 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Left" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=32]
 resource_name = "Guard_Right"
@@ -6659,23 +6634,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.791667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath("Armature")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0, 0.71 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Right" ],
-"method": "parry"
-}, {
-"args": [  ],
-"method": "guard_reset"
-} ]
-}
 
 [sub_resource type="Animation" id=33]
 resource_name = "Idle"
@@ -12845,7 +12803,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.457142, -0.805443, -0.377204, -0.544689, -0.0817398, 0.834658, -0.703093, 0.58701, -0.401347, -0.408491, 1.24971, 1.88702 )
+transform = Transform( -0.650204, 0.172731, -0.739866, -0.0794883, 0.953003, 0.292352, 0.755593, 0.248892, -0.605926, -0.39901, 1.38815, 0.329383 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -12863,7 +12821,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, 0.002142, 1.05648, 1.49619 )
+transform = Transform( 0.672992, 0.0798333, -0.735328, -0.00121406, 0.994275, 0.106836, 0.739648, -0.0710067, 0.669236, 0.0134509, 1.08587, -0.121046 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

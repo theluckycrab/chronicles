@@ -15,13 +15,13 @@ func controls():
 	
 func enter() -> void:
 	controls()
-	host.guard(dir)
+	host.npc("guard", {direction=dir})
 	pass
 	
 	
 func exit() -> void:
 	dir = "Forward"
-	host.guard_reset()
+	host.npc("guard_reset", {})
 	pass
 	
 	
@@ -41,8 +41,8 @@ func execute() -> void:
 		if Input.is_action_just_pressed(i):
 			animation = "Guard_"+get_dir()
 			host.play({animation="Guard_"+get_dir(), motion = false})
-			host.guard_reset()
-			host.parry(get_dir())
+			host.npc("guard_reset", {})
+			host.npc("parry", {direction=get_dir()})
 			yield(get_tree().create_timer(0.35), "timeout")
 			exit()
 			get_parent().quit_state()

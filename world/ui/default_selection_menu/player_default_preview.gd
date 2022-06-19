@@ -7,6 +7,7 @@ func _ready():
 	for i in char_data.defaults:
 		$Viewport/Camera/Armature.equip({index=char_data.defaults[i]})
 	#$Viewport/Camera/Armature.equip({index="wizard_hat"})
+	
 
 func change_item(i):
 	$Viewport/Camera/Armature.equip({index = i})

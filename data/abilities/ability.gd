@@ -13,11 +13,13 @@ func _init() -> void:
 
 
 func enter() -> void:
+	keyframe_connect()
 	show_weapon()
 	pass
 
 
 func exit() -> void:
+	keyframe_disconnect()
 	combat_check()
 	pass
 
@@ -54,3 +56,15 @@ func combat_check() -> void:
 		host.at_war = false
 		host.hide_weapon()
 	host.show_weapon()
+	
+	
+func on_keyframe():
+	pass
+
+func keyframe_connect():
+	host.armature.anim.connect("keyframe", self, "on_keyframe")
+	pass
+	
+func keyframe_disconnect():
+	host.armature.anim.disconnect("keyframe", self, "on_keyframe")
+	pass

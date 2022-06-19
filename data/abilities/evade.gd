@@ -2,19 +2,21 @@ extends Ability
 
 
 func _init() -> void:
-	index = "Fading Horizon"
-	animation = "Fading_Horizon_1"
+	index = "Evade"
+	animation = "Evade"
 	priority = 2
 	host = null
 
 
 func enter() -> void:
-	animation = "Fading_Horizon_1"
-	show_weapon()
+	host.npc("guard", {direction="Forward"})
+	hide_weapon()
 	pass
 
 
 func exit() -> void:
+	host.npc("guard_reset", {})
+	show_weapon()
 	combat_check()
 	pass
 
@@ -24,14 +26,8 @@ func can_enter() -> bool:
 
 
 func can_exit() -> bool:
-	return done and host.get_animation() != animation and host.get_animation() != "Fading_Horizon_2"
+	return host.get_animation() != animation
 
 
 func execute() -> void:
-	if !done:
-		host.npc("play", {"animation":animation, "motion":true})
-		host.acquire_lock_target()
-		host.lock_on()
-	if Input.is_action_just_released("mainhand"):
-		host.npc("play", {"animation":"Fading_Horizon_2", "motion":true})
-		done = true
+	pass

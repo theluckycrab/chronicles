@@ -20,10 +20,16 @@ func _ready():
 	save_button.connect("button_down", self, "on_save")
 	exit_button.connect("button_down", self, "on_exit")
 	name_entry.connect("text_changed", self, "on_name_entry")
-	connect("visibility_changed", self, "on_visibility_changed")
+	var _discard = connect("visibility_changed", self, "on_visibility_changed")
 	for i in item_lists:
 		i.connect("item_selected", self, "on_item_selected")
 		i.connect("item_unselected", self, "on_item_unselected")
+		
+		
+func _physics_process(_delta):
+	if visible:
+		if Input.is_action_just_pressed("ui_cancel"):
+			on_exit()
 		
 
 func on_save():
