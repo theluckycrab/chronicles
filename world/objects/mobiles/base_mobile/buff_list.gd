@@ -11,7 +11,7 @@ func process() -> void:
 		
 		
 func add_effect(source, index:String) -> void:#source can be anything
-	var e = Data.get_reference_instance(index)
+	var e = load("res://data/effects/"+index+".gd").new()
 	e.source = source
 	e.enter(host)
 	list.append(e)

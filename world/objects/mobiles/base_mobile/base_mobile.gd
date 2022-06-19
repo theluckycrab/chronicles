@@ -34,6 +34,7 @@ func _physics_process(delta) -> void:
 	stored_delta = delta
 	if net_stats.is_master:
 		state_machine.execute()
+		buff_list.process()
 		#if self.can_act:
 			#lock_on()
 		if at_war:
@@ -263,7 +264,7 @@ func equip(item:Item) -> void:
 	npc("vis_equip", {index=item.get_index()})
 	inventory.equip(item)
 	for i in item.get_list_of_passives():
-		add_effect(item, "slow_fall")
+		add_effect(item, i)
 	set_state("equip")
 	pass
 	
