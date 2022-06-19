@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://data/projectiles/melee_aux/melee_aux.gd" type="Script" id=1]
+[ext_resource path="res://data/projectiles/throwing_knife/throwing_knife.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://data/assets/meshes/equipment/scimitar.mesh" type="ArrayMesh" id=3]
 

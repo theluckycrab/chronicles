@@ -11,7 +11,10 @@ func _init() -> void:
 	
 	
 func enter() -> void:
-	tpos = host.lock_target.global_transform.origin
+	if is_instance_valid(host.lock_target):
+		tpos = host.lock_target.global_transform.origin
+	else:
+		tpos = Vector3.ZERO
 	pass
 	
 	
