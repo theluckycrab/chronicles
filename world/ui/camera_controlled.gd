@@ -114,7 +114,7 @@ func acquire_lock_target(ignores):
 	else:
 		filter.append_array(ignores)
 	filter.append(transform_target)
-	return $LockOnArea.get_lock_target(filter)
+	return $LockOnArea.get_lock_target(filter, "Player")
 	
 	
 func get_r_stick():
