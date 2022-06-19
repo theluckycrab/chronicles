@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-item_name = "Naked Offhand"
-slot = "Offhand"
-mesh = "naked"
-description = "Cooperation is just a quieter form of conflict."
+item_name = "Wizard Shoes"
+slot = "Boots"
+mesh = "sandals"
+description = "Time and space suddenly feel more.. negotiable."
 is_modified = false
 count = 1
 durability = 3
 tags = PoolStringArray(  )
-active = "Evade"
+active = "Void Step"
 passives = PoolStringArray(  )

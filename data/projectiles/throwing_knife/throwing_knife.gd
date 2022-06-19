@@ -6,9 +6,6 @@ signal hit
 signal got_parried
 signal parried
 
-func _init():
-	despawn_delay = 3
-
 func _ready():
 	$Hitbox.strike()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
@@ -26,7 +23,3 @@ func on_hitbox_entered(mybox, theirbox):
 		Hitbox.collision_type.PARRIED:
 			emit_signal("parried", mybox, theirbox)
 	return
-
-func _physics_process(delta):
-	var dir = Vector3.BACK.rotated(Vector3.UP, rotation.y)
-	move_and_slide(dir * 15)

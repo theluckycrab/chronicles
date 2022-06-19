@@ -16,4 +16,4 @@ active = "Fading Horizon"
 passives = PoolStringArray(  )
 combo = PoolStringArray( "Katana_Combo_1", "Katana_Combo_2", "Katana_Strong" )
 strong = "Katana_Strong"
-damage = 500
+damage = 1

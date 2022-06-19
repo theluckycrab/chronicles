@@ -16,3 +16,4 @@ active = "Evade"
 passives = PoolStringArray(  )
 combo = PoolStringArray( "Scimitar_Combo_1", "Scimitar_Combo_2", "Scimitar_Strong" )
 strong = "Spin_Attack"
+damage = 1

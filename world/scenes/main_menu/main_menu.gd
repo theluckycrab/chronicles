@@ -22,6 +22,7 @@ func _ready() -> void:
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
 	line_edit.text = Data.get_config_value("last_character")
+	Data.set_char_value("alias", Data.get_config_value("last_character"))
 	line_edit.connect("text_changed", self, "on_alias_changed")
 	
 	
