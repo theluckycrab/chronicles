@@ -1,4 +1,4 @@
-extends PlayerMoveState
+extends ActionState
 
 
 func _init() -> void:
@@ -32,6 +32,7 @@ func enter() -> void:
 func exit() -> void:
 	dodge_timer.stop()
 	done = false
+	host.armature.anim.tree.active = false
 	pass
 	
 	

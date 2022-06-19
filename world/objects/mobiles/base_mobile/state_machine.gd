@@ -154,4 +154,4 @@ func quit_state() -> void:
 		current_state.exit()
 	current_state = null
 	next_state = null
-	current_state = calc_fallback_state()
+	#current_state = calc_fallback_state()

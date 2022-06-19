@@ -8,7 +8,7 @@ var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
 
-var hp = 3
+var hp = 30
 
 
 func _init() -> void:
@@ -52,14 +52,15 @@ func stagger(_args):
 func on_got_hit(mybox, theirbox) -> void:
 	if !theirbox.damage.tags.has("Player"):
 		return
-	if !is_instance_valid(lock_target):
+	if theirbox.owner is BaseMobile:
 		lock_target = theirbox.owner
 	var coll_type = Hitbox.get_collision_type(mybox, theirbox)
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
 			print("got hit for ", theirbox.damage.damage, "\n", hp, " remains")
 			hp -= theirbox.damage.damage
-			set_state("stagger")
+			state_machine.quit_state()
+			call_deferred("set_state", "stagger")
 			if hp <= 0:
 				var sword = preload("res://world/objects/generic/world_object.tscn").instance()
 				sword.item = "scimitar"
