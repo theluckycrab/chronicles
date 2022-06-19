@@ -10,17 +10,22 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	set_faction("Player")
+	var d = Damage.new()
+	d.add_tag("Player")
+	armature.weaponbox_damage(d)
 	if net_stats.is_master:
 		grab_camera()
 	else:
 		$UI.queue_free()
 	$Hitbox.idle()
 	$Hitbox.owner = self
-	armature.weaponbox.damage.tags.append("Player")
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	
 	
 func on_got_hit(mybox, theirbox):
+	if "Player" in theirbox.tags:
+		return
 	var dir = get_hit_dir(mybox, theirbox)
 	var zone = get_hit_zone(dir)
 	var item = get_equipped(zone)

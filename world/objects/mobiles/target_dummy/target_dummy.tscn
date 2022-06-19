@@ -4,12 +4,15 @@
 [ext_resource path="res://world/objects/mobiles/target_dummy/target_dummy.gd" type="Script" id=5]
 
 [sub_resource type="AnimationNodeAnimation" id=13]
+resource_local_to_scene = true
 animation = "Test_LAttack1"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
+resource_local_to_scene = true
 animation = "Walk"
 
 [sub_resource type="AnimationNodeOneShot" id=16]
+resource_local_to_scene = true
 fadein_time = 0.0
 fadeout_time = 0.0
 
@@ -31,11 +34,15 @@ extents = Vector3( 0.262891, 1, 0.211927 )
 [node name="Target_Dummy" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 
+[node name="Skeleton" parent="Armature" index="0"]
+bones/2/bound_children = [  ]
+bones/62/bound_children = [  ]
+
 [node name="Mainhand" parent="Armature/Skeleton" index="7"]
-transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
+transform = Transform( -0.90301, -0.0531259, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 
 [node name="Sheath" parent="Armature/Skeleton" index="8"]
-transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
+transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238581, 1.26308, -0.0208684 )
 
 [node name="AnimationTree" parent="Armature/AnimationPlayer" index="0"]
 tree_root = SubResource( 17 )

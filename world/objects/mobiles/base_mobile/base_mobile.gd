@@ -1,6 +1,8 @@
 class_name BaseMobile
 extends KinematicBody
 
+signal died
+
 var net_stats
 var base_defaults = {}
 
@@ -69,7 +71,6 @@ func connect_weapon_signals():
 	var _discard2 = armature.connect("parried", self, "on_parried")
 	var _discard3 = armature.connect("got_parried", self, "on_got_parried")
 	var _discard4 = armature.connect("got_blocked", self, "on_got_blocked")
-
 		
 #setget
 func get_can_act() -> bool:

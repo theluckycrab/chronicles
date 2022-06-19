@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 item_name = "Guard Pants"
-slot = "Pants"
+slot = "Legs"
 mesh = "guard_pants"
 description = "They say the town guards never rest."
 is_modified = false

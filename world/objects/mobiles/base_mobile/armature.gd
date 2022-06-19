@@ -117,6 +117,10 @@ func weaponbox_strike() -> void:
 	keyframe()
 	
 	
+func weaponbox_damage(damage) -> void:
+	weaponbox.damage = damage
+	
+	
 func weaponbox_ghost() -> void:
 	weaponbox.ghost()
 

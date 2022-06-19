@@ -2,7 +2,7 @@
 
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
-[ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=3]
+[ext_resource path="res://world/objects/mobiles/base_mobile/mobile_animation_player.gd" type="Script" id=3]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=6]
 [ext_resource path="res://data/assets/meshes/equipment/guard_helmet.mesh" type="ArrayMesh" id=7]
@@ -20861,12 +20861,15 @@ tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1.33333, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
 
 [sub_resource type="AnimationNodeAnimation" id=13]
+resource_local_to_scene = true
 animation = "Katana_Combo_1"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
+resource_local_to_scene = true
 animation = "Combat_Idle"
 
 [sub_resource type="AnimationNodeOneShot" id=16]
+resource_local_to_scene = true
 fadein_time = 0.0
 fadeout_time = 0.0
 
@@ -20893,6 +20896,8 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
@@ -20927,7 +20932,7 @@ mesh = ExtResource( 8 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.0264466, 0.0439826, -0.998689, -0.704461, 0.708001, 0.0498426, 0.709256, 0.704839, 0.01225, -0.020696, 1.2409, 0.595283 )
+transform = Transform( -0.0264465, 0.0439826, -0.998689, -0.704461, 0.708001, 0.0498426, 0.709256, 0.704839, 0.0122499, -0.020696, 1.2409, 0.595283 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]

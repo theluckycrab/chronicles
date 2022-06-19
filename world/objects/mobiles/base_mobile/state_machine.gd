@@ -111,7 +111,7 @@ func calc_fallback_state():
 		return get_state("idle")
 	if host.is_on_floor() and host.get_wasd() != Vector3.ZERO:
 		return get_state("walk")
-	return get_state("idle")
+	return get_state("patrol")
 	
 	
 func get_state(index=null):#string or node

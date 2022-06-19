@@ -2,13 +2,13 @@ extends BaseMobile
 
 var long = ["pursue"]
 var mid = ["pursue", "circle", "defend"]
-var close = ["attack", "circle", "defend"]
+var close = ["attack", "attack", "attack", "circle", "defend"]
 var any = ["warcry", "circle", "delay"]
 var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
 
-var hp = 30
+var hp = 3
 
 
 func _init() -> void:
@@ -33,9 +33,10 @@ func _ready() -> void:
 	
 func _physics_process(_delta) -> void:
 	if net_stats.is_master:
-		if lock_target == null:
+		if !is_instance_valid(lock_target) and can_act:
+			lock_target = null
 			set_state("patrol")
-		elif lock_target:
+		elif is_instance_valid(lock_target):
 			build_action_list(get_target_range())
 			choose_random_action()
 	#else:
@@ -46,11 +47,13 @@ func on_got_parried(_mybox, _theirbox) -> void:
 	npc("stagger", {}, true)
 	print("parried")
 	
+	
 func stagger(_args):
 	set_state("stagger")
 
 func on_got_hit(mybox, theirbox) -> void:
-	if !theirbox.damage.tags.has("Player"):
+	print("dummy struck")
+	if theirbox.damage.tags.has(get_faction()):
 		return
 	if theirbox.owner is BaseMobile:
 		lock_target = theirbox.owner
@@ -76,7 +79,7 @@ func action() -> void:
 	
 func in_range() -> bool:
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
-	return dist < 4 and dist > 3
+	return dist < 3 and dist > 4
 	
 	
 func in_view() -> bool:
@@ -118,5 +121,6 @@ func build_action_list(dist:int) -> void:
 			
 func choose_random_action() -> void:
 	if state_machine.get_state() == null or state_machine.get_state().can_exit():
-		var num = randi() % action_list.size() -1
-		set_state(action_list[num])
+		if !action_list.empty():
+			var num = randi() % action_list.size() -1
+			set_state(action_list[num])

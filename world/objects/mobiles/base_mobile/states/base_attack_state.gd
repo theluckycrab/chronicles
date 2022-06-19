@@ -15,6 +15,10 @@ func enter() -> void:
 	if !weapon is Weapon:
 		return
 	animation = weapon.combo[0]
+	host.npc("play", {animation=animation, motion=false})
+	var d = Damage.new()
+	d.add_tag(host.get_faction())
+	host.armature.weaponbox_damage(d)
 	#host.armature.anim.add_animation(animation, load("res://data/assets/Blender/BaseHumanoid/"+animation+".anim"))
 	host.lock_on()
 	pass
