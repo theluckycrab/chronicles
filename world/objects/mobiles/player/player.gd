@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	
 func on_got_hit(mybox, theirbox):
-	if "Player" in theirbox.tags:
+	if "Player" in theirbox.damage.tags:
 		return
 	var dir = get_hit_dir(mybox, theirbox)
 	var zone = get_hit_zone(dir)

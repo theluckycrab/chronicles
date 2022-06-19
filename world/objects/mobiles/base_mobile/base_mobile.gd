@@ -300,6 +300,11 @@ func set_war(t:bool) -> void:
 		state_machine.set_mode("peace")
 	else:
 		state_machine.set_mode("combat")
+		
+		
+func set_lock_target(args):
+	if args.has("netID"):
+		lock_target = Network.get_net_object(args.netID)
 	
 	
 func acquire_lock_target(_filter=[]) -> void:
@@ -319,6 +324,7 @@ func lock_on() -> void:
 func init_defaults() -> void:
 	for i in base_defaults:
 		var item = Data.get_item(base_defaults[i]).duplicate()
+		item.add_tag("Default")
 		set_default(i, item)
 		equip(item)
 
@@ -366,3 +372,6 @@ func distance_to(loc) -> float:
 	if loc is Spatial:
 		loc = loc.global_transform.origin
 	return global_transform.origin.distance_to(loc)
+
+func set_visible(args) -> void:
+	visible = args.visible

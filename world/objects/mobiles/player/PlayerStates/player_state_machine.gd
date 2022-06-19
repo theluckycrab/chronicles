@@ -64,6 +64,7 @@ func set_state(index) -> void:
 		
 	if nprior >= cprior:
 		next_state = get_state(index)
+		next_state.host = host
 		
 	
 func cycle() -> void:
@@ -162,3 +163,6 @@ func state_controls():
 				set_state(i)
 				return
 				
+func override(index, state):
+	state.host = host
+	override_dict[index] = state
