@@ -12,6 +12,7 @@ var height: float = 1.5 / duration
 var distance: float = 1.5 / duration
 var done: bool = false
 var dir = Vector3.ZERO
+var player_vel = Vector3.ZERO
 
 onready var jump_timer = Timer.new()
 
@@ -26,6 +27,7 @@ func _ready() -> void:
 func enter() -> void:
 	jump_timer.start(duration)
 	dir = host.get_wasd_cam()
+	player_vel = host.move.last_velocity
 	pass
 	
 	
@@ -44,7 +46,8 @@ func can_enter() -> bool:
 	
 func execute() -> void:
 	host.add_force(Vector3.UP * host.move.gravity)
-	host.add_force((Vector3.UP + dir) * height)
+	host.add_force(Vector3.UP * height)
+	host.add_force(player_vel)
 	
 	
 func on_jump_timer() -> void:

@@ -37,7 +37,7 @@ func on_keyframe():
 	var targets = get_viewport().get_camera().get_node("LockOnArea")
 	targets = targets.get_overlapping_bodies()
 	for i in targets:
-		if i is BaseMobile:
+		if i is BaseMobile and i.get_faction() != "Player":
 			i.npc("set_lock_target", {netID=host.net_stats.netID})
 	
 

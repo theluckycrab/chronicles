@@ -40,12 +40,21 @@ func execute() -> void:
 		
 	dir = host.get_wasd_cam()
 	if host.in_combat:
+		sprinting = false
 		animation = get_strafe_dir()
 		host.add_force(dir * speed / 3)
 		host.lock_on()
 	else:
-		animation = "Walk"
-		host.add_force(dir * speed)
+		if Input.is_action_pressed("dodge"):
+			sprinting = true
+		else:
+			sprinting = false
+		if sprinting:
+			animation = "Run"
+			host.add_force(dir * speed * 2.5)
+		else:
+			animation = "Walk"
+			host.add_force(dir * speed)
 		host.body_face(dir)
 	pass
 	

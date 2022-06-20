@@ -41,7 +41,7 @@ func can_exit() -> bool:
 	
 	
 func can_enter() -> bool:
-	return host.is_on_floor()
+	return host.is_on_floor() and host.in_combat
 	
 	
 func execute() -> void:

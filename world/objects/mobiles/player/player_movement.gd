@@ -1,6 +1,7 @@
 extends Node
 
 var velocity: Vector3 = Vector3.ZERO
+var last_velocity: Vector3 = Vector3.ZERO
 var gravity: float = 9
 
 onready var host : KinematicBody = get_parent()
@@ -21,6 +22,7 @@ func commit_move() -> void:
 	if host.armature.anim.tree.active:
 		commit_vel += (get_root_motion().origin / host.stored_delta).rotated(Vector3.UP, host.armature.rotation.y)
 	velocity = Vector3.ZERO
+	last_velocity = commit_vel
 	if host.is_on_floor() and commit_vel.y == 0:
 		var _discard = host.move_and_slide_with_snap(commit_vel, Vector3.DOWN, Vector3.UP, true)
 		return
