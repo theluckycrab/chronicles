@@ -1,8 +1,9 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
 [ext_resource path="res://world/objects/mobiles/base_mobile/mobile_animation_player.gd" type="Script" id=3]
+[ext_resource path="res://world/objects/mobiles/player/effects_player.gd" type="Script" id=4]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=6]
 [ext_resource path="res://data/assets/meshes/equipment/guard_helmet.mesh" type="ArrayMesh" id=7]
@@ -20885,6 +20886,177 @@ nodes/OneShot/position = Vector2( 460, 40 )
 nodes/output/position = Vector2( 640, 120 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation", "OneShot", 1, "Action" ]
 
+[sub_resource type="Animation" id=65]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("OmniLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OmniLight:light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OmniLight:omni_range")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("OmniLight/CPUParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=66]
+resource_name = "armor_break"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("OmniLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OmniLight:light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.960784, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OmniLight:omni_range")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("OmniLight/CPUParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=67]
+resource_name = "armor_hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("OmniLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OmniLight:omni_range")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=68]
+resource_name = "hp_hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("OmniLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OmniLight:light_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.0156863, 0.0156863, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OmniLight:omni_range")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
 [node name="Mobile" type="KinematicBody"]
 script = ExtResource( 1 )
 
@@ -20896,8 +21068,6 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
@@ -20932,7 +21102,7 @@ mesh = ExtResource( 8 )
 material/0 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.0264465, 0.0439826, -0.998689, -0.704461, 0.708001, 0.0498426, 0.709256, 0.704839, 0.0122499, -0.020696, 1.2409, 0.595283 )
+transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -20951,7 +21121,7 @@ script = ExtResource( 38 )
 shape = SubResource( 17 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, 0.00365351, 1.1444, -0.0209434 )
+transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]
@@ -21030,6 +21200,26 @@ anim_player = NodePath("..")
 process_mode = 0
 root_motion_track = NodePath("Armature/Skeleton:Root")
 parameters/OneShot/active = false
+
+[node name="EffectsPlayer" type="AnimationPlayer" parent="Armature"]
+anims/RESET = SubResource( 65 )
+anims/armor_break = SubResource( 66 )
+anims/armor_hit = SubResource( 67 )
+anims/hp_hit = SubResource( 68 )
+script = ExtResource( 4 )
+
+[node name="OmniLight" type="OmniLight" parent="Armature"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0843, 0.348922 )
+visible = false
+light_energy = 16.0
+omni_range = 1.0
+
+[node name="CPUParticles" type="CPUParticles" parent="Armature/OmniLight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.11089, 0 )
+emitting = false
+mesh = ExtResource( 7 )
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
 
 [node name="BuffList" type="Spatial" parent="."]
 script = ExtResource( 11 )

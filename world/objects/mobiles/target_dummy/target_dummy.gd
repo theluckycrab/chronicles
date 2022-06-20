@@ -62,6 +62,7 @@ func on_got_hit(mybox, theirbox) -> void:
 		Hitbox.collision_type.GOT_HIT:
 			print("got hit for ", theirbox.damage.damage, "\n", hp, " remains")
 			hp -= theirbox.damage.damage
+			$Armature/EffectsPlayer.play("hp_hit")
 			state_machine.quit_state()
 			call_deferred("set_state", "stagger")
 			if hp <= 0:

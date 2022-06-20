@@ -35,12 +35,16 @@ func on_got_hit(mybox, theirbox):
 	var item = get_equipped(zone)
 	if item and !item.has_tag("Default") and item.durability > 0:
 		item.durability -= 1
+		$Armature/EffectsPlayer.play("armor_hit")
 		if item.durability < 1:
 			destroy(zone)
+			$Armature/EffectsPlayer.play("armor_break")
 		print(item.index, " was struck", item.durability)
 	else:
 		print("player was struck", hp)
+		$Armature/EffectsPlayer.play("hp_hit")
 		hp -= 1
+		$HPBar.value = hp
 		set_state("stagger")
 		if hp < 1:
 			on_death()
