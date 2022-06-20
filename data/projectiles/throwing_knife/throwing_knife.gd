@@ -27,6 +27,6 @@ func on_hitbox_entered(mybox, theirbox):
 			emit_signal("parried", mybox, theirbox)
 	return
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var dir = Vector3.BACK.rotated(Vector3.UP, rotation.y)
-	move_and_slide(dir * 15)
+	var _discard = move_and_slide(dir * 15)

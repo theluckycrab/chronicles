@@ -1,7 +1,7 @@
 class_name Player
 extends BaseMobile
 
-var hp = 10
+var hp = 4
 var registered = false
 
 func _init() -> void:
@@ -22,6 +22,10 @@ func _ready() -> void:
 	$Hitbox.owner = self
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	
+func _physics_process(delta):
+	if net_stats.is_master:
+		if Input.is_action_just_pressed("debug"):
+			on_death()
 	
 func on_got_hit(mybox, theirbox):
 	if "Player" in theirbox.damage.tags:
@@ -38,6 +42,8 @@ func on_got_hit(mybox, theirbox):
 		print("player was struck", hp)
 		hp -= 1
 		set_state("stagger")
+		if hp < 1:
+			on_death()
 	
 func get_hit_dir(mybox, theirbox):
 	var mypos = mybox.global_transform.origin
@@ -119,3 +125,10 @@ func on_got_blocked(_mybox, _theirbox):
 	
 func on_got_parried(_mybox, _theirbox):
 	set_state("stagger")
+
+func on_death():
+	Network.rpc("sub_host_migration", net_stats.netID)
+	Network.relay_signal("net_print", {"text":Data.get_char_value("alias")+ " has died!"})
+	release_camera()
+	net_stats.call_deferred("unregister")
+	

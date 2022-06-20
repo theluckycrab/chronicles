@@ -62,6 +62,10 @@ func on_unregister(args) -> void:
 		if is_instance_valid(object):
 			print("unregister ", args.netID)
 			object.queue_free()
+		if args.netID == Network.get_nid():
+			print("changing scene")
+			yield(get_tree().create_timer(3), "timeout")
+			Events.emit_signal("scene_change_request", Data.get_saved_char_value("map"))
 		
 		
 func on_net_command(args) -> void:

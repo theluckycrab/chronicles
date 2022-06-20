@@ -4,6 +4,7 @@ extends Node
 #requests
 signal scene_change_request
 signal menu_opened
+signal player_died
 #completed
 signal menu_closed
 signal save_data_loaded

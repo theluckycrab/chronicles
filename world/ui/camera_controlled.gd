@@ -31,10 +31,11 @@ func _ready() -> void:
 
 
 func _process(_delta) -> void:
-	track_target()
-	calc_rotation()
-	if right_stick_vector != Vector2.ZERO:
-		apply_rotation(right_stick_vector, Vector2(h_speed, v_speed))
+	if is_instance_valid(transform_target):
+		track_target()
+		calc_rotation()
+		if right_stick_vector != Vector2.ZERO:
+			apply_rotation(right_stick_vector, Vector2(h_speed, v_speed))
 	
 	
 func calc_rotation() -> void:
@@ -103,6 +104,8 @@ func track_target() -> void:
 	
 	
 func set_track_target(who) -> void:
+	if !is_instance_valid(who):
+		return
 	transform_target = who
 	add_exception(who)
 	

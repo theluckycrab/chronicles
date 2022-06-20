@@ -291,6 +291,12 @@ func grab_camera() -> void:
 	var cam = get_viewport().get_camera()
 	if cam.has_method("set_track_target"):
 		cam.set_track_target(self)
+		
+
+func release_camera() -> void:
+	var cam = get_viewport().get_camera()
+	if cam.has_method("set_track_target"):
+		cam.set_track_target(null)
 	
 	
 func set_war(t:bool) -> void:
