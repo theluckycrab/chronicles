@@ -43,7 +43,8 @@ func on_def_menu_vis():
 		var character = Data.get_char_data()
 		for i in character.defaults:
 			if i != null:
-				host.set_default(i, Data.get_item(character.defaults[i]))
+				var item = Data.get_item(character.defaults[i]).duplicate()
+				host.set_default(i, item)
 				if host.get_equipped(i).has_tag("Default"):
-					host.destroy(i)
+					host.equip(item)
 

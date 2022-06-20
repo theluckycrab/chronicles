@@ -46,7 +46,7 @@ func get_defaults_dict() -> Dictionary:
 
 
 func equip(item:Item) -> void:
-	equipment_dict[item.get_slot()] = item.duplicate()
+	equipment_dict[item.get_slot()] = item
 	if !item.has_tag("Default"):
 		if items.has(item):
 			items.erase(item)
