@@ -381,3 +381,17 @@ func distance_to(loc) -> float:
 
 func set_visible(args) -> void:
 	visible = args.visible
+
+
+func instantiate_projectile(args) -> void:
+	var projectile = Data.get_projectile(args.index).instance()
+	if net_stats.is_master:
+		projectile.damage = get_equipped("Mainhand").get_damage()
+	else:
+		projectile.damage = Damage.new()
+		projectile.damage.damage = 0
+	projectile.damage.add_tag(get_faction())
+	add_child(projectile)
+	projectile.get_node("Hitbox").owner = self
+	projectile.global_transform.origin = armature.get_node("HitOrigin").global_transform.origin
+	projectile.rotation = armature.rotation

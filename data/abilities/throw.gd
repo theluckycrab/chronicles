@@ -31,11 +31,5 @@ func execute() -> void:
 	pass
 	
 func on_keyframe():
-	var projectile = Data.get_projectile("throwing_knife").instance()
-	projectile.damage = host.get_equipped("Mainhand").get_damage()
-	host.add_child(projectile)
-	projectile.connect("got_blocked", host, "on_got_blocked", [], CONNECT_ONESHOT)
-	projectile.get_node("Hitbox").owner = host
-	projectile.global_transform.origin = host.armature.get_node("HitOrigin").global_transform.origin
-	projectile.rotation = host.armature.rotation
+	host.npc("instantiate_projectile", {"index":"throwing_knife"})
 
