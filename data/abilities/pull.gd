@@ -10,6 +10,8 @@ func _init() -> void:
 func enter() -> void:
 	keyframe_connect()
 	host.hide_weapon()
+	if is_instance_valid(host.lock_target):
+		host.lock_target.set_state("stagger")
 	pass
 
 
@@ -35,10 +37,6 @@ func execute() -> void:
 	
 
 func on_keyframe():
-	var targets = get_viewport().get_camera().get_node("LockOnArea")
-	targets = targets.get_overlapping_bodies()
-	for i in targets:
-		if i is BaseMobile:
-			i.npc("set_lock_target", {netID=host.net_stats.netID})
+	pass
 	
 
