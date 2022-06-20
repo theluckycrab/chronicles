@@ -1,6 +1,7 @@
 class_name Ability
 extends ActionState
 
+signal completed
 
 var done = false
 
@@ -21,6 +22,7 @@ func enter() -> void:
 func exit() -> void:
 	keyframe_disconnect()
 	combat_check()
+	completed()
 	pass
 
 
@@ -68,3 +70,6 @@ func keyframe_connect():
 func keyframe_disconnect():
 	host.armature.anim.disconnect("keyframe", self, "on_keyframe")
 	pass
+
+func completed():
+	emit_signal("completed")

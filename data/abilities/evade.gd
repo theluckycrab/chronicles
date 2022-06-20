@@ -18,6 +18,7 @@ func exit() -> void:
 	host.npc("guard_reset", {})
 	show_weapon()
 	combat_check()
+	completed()
 	pass
 
 

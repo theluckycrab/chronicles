@@ -15,6 +15,7 @@ func enter() -> void:
 
 func exit() -> void:
 	combat_check()
+	completed()
 	pass
 
 

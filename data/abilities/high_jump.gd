@@ -8,7 +8,7 @@ func _init() -> void:
 	host = null
 
 var duration: float = 0.25#0.25
-var height: float = 3 / duration
+var height: float = 4 / duration
 var distance: float = 1.5 / duration
 var dir = Vector3.ZERO
 
@@ -29,6 +29,7 @@ func enter() -> void:
 func exit() -> void:
 	jump_timer.queue_free()
 	done = false
+	completed()
 	pass
 	
 	

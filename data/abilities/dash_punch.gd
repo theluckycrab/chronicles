@@ -16,6 +16,7 @@ func enter() -> void:
 func exit() -> void:
 	keyframe_disconnect()
 	combat_check()
+	completed()
 	pass
 
 

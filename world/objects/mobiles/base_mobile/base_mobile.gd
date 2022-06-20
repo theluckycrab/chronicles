@@ -285,6 +285,8 @@ func activate_item_slot(slot:String) -> void:
 		if item == null:
 			return
 	set_state(item.get_active())
+	yield(item.get_active(), "completed")
+	consume_durability(slot)
 	
 	
 func grab_camera() -> void:
@@ -395,3 +397,14 @@ func instantiate_projectile(args) -> void:
 	projectile.get_node("Hitbox").owner = self
 	projectile.global_transform.origin = armature.get_node("HitOrigin").global_transform.origin
 	projectile.rotation = armature.rotation
+
+
+func consume_durability(slot):
+	var item = get_equipped(slot)
+	if item.has_tag("Default"):
+		return
+	item.durability -= 1
+	if item.durability < 0:
+		set_state("stagger")
+		$Armature/EffectsPlayer.play("armor_break")
+		destroy(slot)

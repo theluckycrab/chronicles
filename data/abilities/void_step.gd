@@ -36,6 +36,7 @@ func exit() -> void:
 	jump_timer.queue_free()
 	done = false
 	combat_check()
+	completed()
 	pass
 	
 	
