@@ -39,7 +39,8 @@ func controls() -> void:
 		elif Input.is_action_just_released("item_scroll_left"):
 			shift("left")
 		elif Input.is_action_just_released("item_scroll_confirm"):
-			host.equip(items[0])
+			if !items.empty():
+				host.equip(items[0])
 			set_category(null)
 
 

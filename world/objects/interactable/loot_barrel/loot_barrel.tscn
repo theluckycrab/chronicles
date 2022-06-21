@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://data/assets/Blender/Furniture/Barrel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/objects/interactable/interactable_zone.tscn" type="PackedScene" id=2]
+[ext_resource path="res://world/objects/interactable/loot_barrel/loot_barrel.gd" type="Script" id=3]
+
+[node name="LootBarrel" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Barrel" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.55588, 0, 0, 0, 0.55588, 0, 0, 0, 0.55588, 0, 0, 0 )
+
+[node name="InteractableZone" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1.66158, 0, 0, 0, 1.66158, 0, 0, 0, 1.66158, 0, 1.05807, 0 )

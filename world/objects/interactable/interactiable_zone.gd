@@ -35,5 +35,5 @@ func on_body_exited(_body):
 
 func set_action_label(text):
 	action = text
-	$ActionLabel.text = "Press E to " + text
+	$ActionLabel.text = "E: " + text.capitalize()
 	

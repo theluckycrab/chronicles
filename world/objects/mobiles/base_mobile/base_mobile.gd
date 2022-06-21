@@ -184,6 +184,7 @@ func get_equipped(slot:String) -> Item:
 	
 func add_item(item:Item) -> void:
 	inventory.add_item(item)
+	Events.emit_signal("console_print", "Item added : "+item.item_name)
 	
 	
 func set_default(slot:String, item:Item) -> void:
@@ -268,6 +269,7 @@ func equip(item:Item) -> void:
 		add_effect(item, i)
 	inventory.equip(item)
 	set_state("equip")
+	Events.emit_signal("console_print", "Equipped " + item.item_name)
 	pass
 	
 	
@@ -400,6 +402,8 @@ func instantiate_projectile(args) -> void:
 
 
 func consume_durability(slot):
+	if "town" in Network.map:
+		return
 	var item = get_equipped(slot)
 	if item.has_tag("Default"):
 		return
