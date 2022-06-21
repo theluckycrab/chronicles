@@ -35,6 +35,7 @@ var peace_state_dict = {
 		"stagger" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_stagger.gd").new(),
 		"interact" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_interact.gd").new(),
 		"equip" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_equip.gd").new(),
+		"emote" : preload("res://world/objects/mobiles/player/PlayerStates/player_emote_state.gd").new(),
 }
 				
 var override_dict = {}

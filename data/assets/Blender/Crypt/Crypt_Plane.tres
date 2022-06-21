@@ -1,7 +1,7 @@
 [gd_resource type="ArrayMesh" load_steps=2 format=2]
 
 [sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.45098, 0.560784, 0.372549, 1 )
+albedo_color = Color( 0.160784, 0.333333, 0.113725, 1 )
 
 [resource]
 resource_name = "Crypt_Plane"

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://data/assets/Blender/lobi/lobi_PiGate.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://world/objects/generic/pose_point.tscn" type="PackedScene" id=2]
+
+[node name="Bench" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.121651, 0, 0, 0, 0.0601484, 0, 0, 0, 0.322907, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="PosePoint" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.364607, -0.123517 )
+action = "Sit"

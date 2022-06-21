@@ -6,7 +6,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		if  host and host.net_stats.netID == Network.get_nid() and !host.in_combat and host != null:
 			host.set_state("interact")
-			get_parent().activate(host)
+			get_parent().call_deferred("activate", host)
 			host = null
 
 func _ready():
