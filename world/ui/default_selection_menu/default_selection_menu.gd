@@ -37,6 +37,8 @@ func on_save():
 		if i.get_item_icon() != null:
 			var d = i.get_item_icon().item
 			Data.set_char_value("default", {slot=d.slot, index=d.index})
+		else:
+			Data.persistence.char_data.defaults.erase(i.category)
 	Data.set_char_value("alias", $Layout/Mid/NameEntry.text)
 	Data.full_save_char()
 	on_exit()

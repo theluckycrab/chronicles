@@ -6,7 +6,9 @@ const save_path = "user://saves/"
 var char_data = {
 	alias = "Player",
 	map = "test_room2",
-	defaults = {}
+	defaults = {},
+	equipped = {},
+	inventory = []
 }
 
 var config = {
@@ -47,6 +49,13 @@ func set_char_value(key, value):
 		"default":
 			char_data["defaults"][value.slot] = value.index
 			#print("defaults")
+		"equipped":
+			if value.has_tag("Default"):
+				char_data["equipped"].erase(value.slot)
+				return
+			char_data["equipped"][value.slot] = value.index
+		"inventory":
+			char_data["inventory"].append(value.index)
 		_:
 			char_data[key] = value
 			#print("all")

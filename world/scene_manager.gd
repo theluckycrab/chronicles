@@ -22,6 +22,11 @@ func change_scene(scene: String) -> void:
 	yield(get_tree(), "idle_frame")
 	Network.command_history.clear()
 	Network.net_objects.clear()
+	if "town" in scene:
+		print("clearing data")
+		Data.clear_char_equipped()
+		Data.clear_char_inventory()
+		Data.full_save()
 	yield(get_tree(), "idle_frame")
 	var nscene = load("res://world/scenes/"+scene+"/"+scene+".tscn").instance()
 	mount.add_child(nscene)

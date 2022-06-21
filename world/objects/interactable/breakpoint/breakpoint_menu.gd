@@ -40,11 +40,19 @@ func on_def_menu_vis():
 		$Panel.visible = false
 	else:
 		$Panel.visible = true
-		var character = Data.get_char_data()
-		for i in character.defaults:
-			if i != null:
-				var item = Data.get_item(character.defaults[i]).duplicate()
-				host.set_default(i, item)
-				if host.get_equipped(i).has_tag("Default"):
-					host.equip(item)
+		host.inventory.equipment_dict = {}
+		host.inventory.defaults_dict = {}
+		host.init_defaults()
+#		var equipped = host.get_all_equipped()
+#		for i in equipped:
+#			if equipped[i].has_tag("Default"):
+#				host.destroy(i)
+#		var character = Data.get_char_data()
+#		for i in character.defaults:
+#			if character.defaults[i] != null:
+#				var di = character.defaults[i]
+#				var ei = host.get_equipped(i)
+#				if ei == null:
+#					host.set_default(di)
+#					host.equip(di)
 

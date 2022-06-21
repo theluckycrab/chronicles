@@ -178,8 +178,11 @@ func get_default(slot:String) -> Item:
 	return inventory.get_default(slot)
 	
 	
-func get_equipped(slot:String) -> Item:
+func get_equipped(slot:String):
 	return inventory.get_equipped(slot)
+	
+func get_all_equipped():
+	return inventory.get_all_equipped()
 	
 	
 func add_item(item:Item) -> void:
@@ -188,6 +191,7 @@ func add_item(item:Item) -> void:
 	
 	
 func set_default(slot:String, item:Item) -> void:
+	item.add_tag("Default")
 	inventory.set_default(slot, item)
 	
 	
@@ -201,7 +205,8 @@ func remove_effect(index:String) -> void:
 	
 	
 func remove_passives(source) -> void:#source can be anything
-	buff_list.remove_passives(source)
+	if source != null:
+		buff_list.remove_passives(source)
 	
 	
 #controls interface
@@ -270,14 +275,17 @@ func equip(item:Item) -> void:
 	inventory.equip(item)
 	set_state("equip")
 	Events.emit_signal("console_print", "Equipped " + item.item_name)
+	if net_stats.netID == Network.get_nid():
+		Data.save_char_value("equipped", item)
 	pass
 	
 	
 func destroy(slot:String) -> void:
 	var item = get_default(slot)
 	if item == null:
-		return
-	equip(item)
+		equip(Data.get_item("naked_"+slot.to_lower()).duplicate())
+	else:
+		equip(item)
 	
 	
 func activate_item_slot(slot:String) -> void:
@@ -332,12 +340,33 @@ func lock_on() -> void:
 	
 	
 func init_defaults() -> void:
-	for i in base_defaults:
-		var item = Data.get_item(base_defaults[i]).duplicate()
-		item.add_tag("Default")
-		set_default(i, item)
-		equip(item)
-
+	if !Network.get_nid() == net_stats.netID:
+		for i in base_defaults:
+			var item = Data.get_item(base_defaults[i]).duplicate()
+			set_default(i, item)
+			equip(item)
+	else:
+		Data.load_char_save(Network.alias)
+		var char_data = Data.get_char_data()
+		print(char_data)
+		var eq = char_data.equipped
+		var d = char_data.defaults
+		var iv = char_data.inventory
+		for i in eq:
+			var it = Data.get_item(eq[i]).duplicate()
+			equip(it)
+		for i in d:
+			var it = Data.get_item(d[i]).duplicate()
+			set_default(i, it)
+			if get_equipped(i) == null:
+				equip(it)
+		for i in iv:
+			add_item(Data.get_item(i).duplicate())
+	for i in ["Head", "Mainhand", "Offhand", "Boots"]:
+		if get_equipped(i) == null and get_default(i) == null:
+			var it = Data.get_item("naked_"+i.to_lower()).duplicate()
+			set_default(it.slot, it)
+			equip(it)
 
 func get_target():
 	return lock_target

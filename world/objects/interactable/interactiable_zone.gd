@@ -22,13 +22,13 @@ func _ready():
 
 func on_body_entered(body):
 	if body is BaseMobile:
-		print(get_parent().name, " is ready")
+		#print(get_parent().name, " is ready")
 		host = body
 		$ActionLabel.show()
 
 
 func on_body_exited(_body):
-	print(get_parent().name, " is inactive")
+	#print(get_parent().name, " is inactive")
 	host = null
 	$ActionLabel.hide()
 	

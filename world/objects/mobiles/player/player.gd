@@ -25,7 +25,8 @@ func _ready() -> void:
 func _physics_process(delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
-			on_death()
+			print(inventory.defaults_dict)
+			print(inventory.equipment_dict)
 	
 func on_got_hit(mybox, theirbox):
 	if "Player" in theirbox.damage.tags:
