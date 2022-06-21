@@ -13024,7 +13024,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.90301, -0.0531259, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
+transform = Transform( -0.173323, -0.0144, -0.984764, -0.98108, 0.0901814, 0.171371, 0.0863398, 0.995821, -0.0297619, -0.279359, 1.0255, 0.0654442 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]

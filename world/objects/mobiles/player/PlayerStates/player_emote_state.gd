@@ -25,8 +25,8 @@ func can_exit():
 	
 	
 func execute():
-	if host.get_animation() != animation:
-		host.play({"animation":animation, "motion":true})
+	#if host.get_animation() != animation:
+		#host.play({"animation":animation, "motion":true})
 	for i in ["w", "a", "s", "d"]:
 		if Input.is_action_just_pressed(i):
 			get_parent().quit_state()

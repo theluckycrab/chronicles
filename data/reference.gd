@@ -6,6 +6,7 @@ var ref_list = {}
 var mesh_list = {}
 var ability_list = {}
 var projectile_list = {}
+var scene_list = {}
 
 
 func get_data(what):
@@ -22,6 +23,7 @@ func setup() -> void:
 	build_list("res://data/abilities/", ".gd", ability_list)
 	build_list("res://data/items", ".tres", item_list)
 	build_list("res://data", ".tres", ref_list)
+	build_list("res://world/scenes", ".tscn", scene_list)
 
 	ref_list["player"] = "res://world/objects/mobiles/player/player.tscn"
 	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"

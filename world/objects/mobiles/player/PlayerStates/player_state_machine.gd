@@ -24,6 +24,7 @@ var war_state_dict = {
 		"dodge_attack" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_dodge_attack.gd").new(),
 		"interact" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_interact.gd").new(),
 		"equip" : preload("res://world/objects/mobiles/player/PlayerStates/player_state_equip.gd").new(),
+		"emote" : preload("res://world/objects/mobiles/player/PlayerStates/player_emote_state.gd").new(),
 }
 
 var peace_state_dict = {
