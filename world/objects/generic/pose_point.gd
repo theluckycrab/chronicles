@@ -12,6 +12,7 @@ func _ready():
 func activate(host):
 	host.state_machine.get_state("emote").animation = animation
 	host.set_state("emote")
+	host.global_transform.origin = global_transform.origin
 	yield(get_tree().create_timer(0.02), "timeout")
 	rot(host)
 	$Label.visible = false
