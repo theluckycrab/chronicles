@@ -282,6 +282,7 @@ func get_faction():
 	
 ##commands
 func equip(item:Item) -> void:
+	yield(get_tree(), "idle_frame")
 	npc("vis_equip", {index=item.get_index()})
 	remove_passives(get_equipped(item.get_slot()))
 	for i in item.get_list_of_passives():

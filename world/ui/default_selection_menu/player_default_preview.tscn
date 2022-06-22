@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=4]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=6]
-[ext_resource path="res://world/objects/generic/projectile_spawner.gd" type="Script" id=7]
 [ext_resource path="res://world/ui/default_selection_menu/player_default_preview.gd" type="Script" id=8]
 [ext_resource path="res://data/assets/default_env.tres" type="Environment" id=9]
 [ext_resource path="res://data/assets/meshes/equipment/naked.mesh" type="ArrayMesh" id=10]
@@ -20850,6 +20849,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.058, -3.44 )
 script = ExtResource( 3 )
 
 [node name="Skeleton" parent="Viewport/Camera/Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
 mesh = ExtResource( 2 )
@@ -20963,8 +20964,6 @@ visible = false
 
 [node name="HitOrigin" type="Position3D" parent="Viewport/Camera/Armature"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30578, 3.60898 )
-script = ExtResource( 7 )
-index = "melee_aux"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0

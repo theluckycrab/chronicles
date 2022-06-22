@@ -8,7 +8,7 @@ func _init() -> void:
 	host = null
 
 var duration: float = 0.25#0.25
-var height: float = 1.5 / duration
+var height: float = 2 / duration
 var distance: float = 1.5 / duration
 var done: bool = false
 var dir = Vector3.ZERO
