@@ -18,6 +18,7 @@ extents = Vector3( 119.384, 0.642996, 78 )
 script = ExtResource( 1 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34388, 0, 0 )
 use_collision = true
 
 [node name="BigBox" type="CSGBox" parent="CSGCombiner"]
@@ -28,11 +29,11 @@ depth = 153.904
 material = SubResource( 4 )
 
 [node name="CSGCombiner" type="CSGCombiner" parent="CSGCombiner"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07496, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.47579, 2.07496, 0 )
 operation = 2
 
 [node name="CSGBox2" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.8217, -6.36159, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -46.8217, -5.36159, 0 )
 width = 16.4982
 height = 15.0
 depth = 7.46418
@@ -46,10 +47,31 @@ depth = 36.0
 material = SubResource( 4 )
 
 [node name="CSGBox3" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -49.8217, -4.36159, 0 )
-width = 16.4982
-height = 15.0
-depth = 7.46418
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -92.5011, -5.27362, -23.9234 )
+width = 9.66704
+height = 7.43636
+depth = 85.2564
+material = SubResource( 4 )
+
+[node name="CSGBox10" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -137.319, -8.36222, 21.0767 )
+width = 9.66704
+height = 7.43636
+depth = 85.2564
+material = SubResource( 4 )
+
+[node name="CSGBox11" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -159.319, -8.36222, -25.9233 )
+width = 9.66704
+height = 7.43636
+depth = 85.2564
+material = SubResource( 4 )
+
+[node name="CSGBox12" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -133.319, -9.36222, -68.9233 )
+width = 9.66704
+height = 7.43636
+depth = 85.2564
 material = SubResource( 4 )
 
 [node name="CSGBox4" type="CSGBox" parent="CSGCombiner/CSGCombiner"]
@@ -97,63 +119,79 @@ material = SubResource( 4 )
 [node name="PiGate" parent="CSGCombiner/CSGCombiner/CSGBox8" instance=ExtResource( 6 )]
 transform = Transform( -0.0500004, 0, 0.99875, 0, 1, 0, -0.99875, 0, -0.0500004, -0.585098, -7.64972, -0.501701 )
 
-[node name="ControlledCamera" parent="." instance=ExtResource( 3 )]
+[node name="Spawner" parent="CSGCombiner/CSGCombiner" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.4127, -9.07288, 0.537169 )
 
-[node name="Spawner" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7566, -6.99792, 0.537169 )
-
-[node name="Spawner2" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner2" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -54.6826, 0, 0 )
 
-[node name="Spawner12" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner12" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57.7496, -4.37694, -3.38083 )
 index = "loot_barrel"
 
-[node name="Spawner13" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner19" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -140.83, -2.65195, -65.8696 )
+index = "loot_barrel"
+
+[node name="Spawner20" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -140.83, -2.65195, -73.7635 )
+index = "loot_barrel"
+
+[node name="Spawner17" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -142.668, -2.84058, 24.8736 )
+index = "loot_barrel"
+
+[node name="Spawner18" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -142.668, -2.84058, 16.1597 )
+index = "loot_barrel"
+
+[node name="Spawner13" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.6929, -4.37694, -3.94915 )
 index = "loot_barrel"
 
-[node name="Spawner14" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner14" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -91.4918, -2.37694, -32.9119 )
 index = "loot_barrel"
 
-[node name="Spawner15" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner15" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -89.9579, -2.37694, -31.6898 )
 index = "loot_barrel"
 
-[node name="Spawner16" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner16" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -89.9579, -2.37694, -31.6898 )
 index = "loot_barrel"
 
-[node name="Spawner3" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner3" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7653, 0, -22.0031 )
 
-[node name="Spawner4" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner4" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7653, 0, -34.4493 )
 
-[node name="Spawner5" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner5" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3527, 0, -34.4493 )
 
-[node name="Spawner6" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner6" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -88.2187, 0, -34.4493 )
 
-[node name="Spawner7" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner7" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -48.0699, 0, -98.4558 )
 
-[node name="Spawner8" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner8" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -48.0699, 0, -68.3029 )
 
-[node name="Spawner9" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner9" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0016, 0, -68.3029 )
 
-[node name="Spawner10" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner10" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0016, 0, -97.5038 )
 
-[node name="Spawner11" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner11" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2718, 0, -47.47 )
 
-[node name="Spawner" parent="Spawner" instance=ExtResource( 5 )]
+[node name="Spawner" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9349, 7.91712, -0.537169 )
+
+[node name="ControlledCamera" parent="." instance=ExtResource( 3 )]
 
 [node name="StaticBody" type="StaticBody" parent="."]
 

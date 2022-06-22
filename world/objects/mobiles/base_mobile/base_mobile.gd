@@ -28,9 +28,12 @@ onready var controls := $Controls
 #builtin
 func _ready() -> void:
 	net_stats.register()
-	call_deferred("init_defaults")#to wait for net registration
+	#call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
 	
+func on_register():
+	if net_stats.is_master:
+		init_defaults()
 	
 func _physics_process(delta) -> void:
 	stored_delta = delta
@@ -356,12 +359,12 @@ func lock_on() -> void:
 	
 	
 func init_defaults() -> void:
-	if !Network.get_nid() == net_stats.netID:
+	if Network.get_nid() != net_stats.netID:
 		for i in base_defaults:
 			var item = Data.get_item(base_defaults[i]).duplicate()
 			set_default(i, item)
 			equip(item)
-	else:
+	elif net_stats.netID == Network.get_nid():
 		Data.load_char_save(Network.alias)
 		var char_data = Data.get_char_data()
 		var eq = char_data.equipped
@@ -373,10 +376,11 @@ func init_defaults() -> void:
 		for i in d:
 			var it = Data.get_item(d[i]).duplicate()
 			set_default(i, it)
-			if get_equipped(i) == null:
+			if !i in eq:
 				equip(it)
 		for i in iv:
 			add_item(Data.get_item(i).duplicate())
+			
 	for i in ["Head", "Mainhand", "Offhand", "Boots"]:
 		if get_equipped(i) == null and get_default(i) == null:
 			var it = Data.get_item("naked_"+i.to_lower()).duplicate()

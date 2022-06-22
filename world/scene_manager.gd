@@ -37,6 +37,7 @@ func change_scene(scene: String) -> void:
 	get_tree().paused = false
 	Events.emit_signal("console_print", "Scene has changed to " + scene)
 	Network.transition(scene)
+	print(Data.get_char_data().equipped)
 
 
 func on_scene_change_request(scene: String) -> void:

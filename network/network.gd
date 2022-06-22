@@ -29,7 +29,7 @@ func host(players = 1, port = 5555) -> void:
 	peer.connect("peer_disconnected", self, "on_peer_disconnected")
 	
 	
-func join(ip = "127.0.0.1", port = 5555) -> void:
+func join(ip = "192.168.1.180", port = 5555) -> void:
 	peer.close_connection()
 	peer.create_client(ip, port)
 	get_tree().network_peer = null
@@ -94,6 +94,8 @@ func spawn(args:Dictionary) -> void:
 		if is_instance_valid(instance_from_id(args.original_instance_id)):
 			#print("spawn already exists ", args.netID)
 			net_objects[args.netID] = instance_from_id(args.original_instance_id)
+			if net_objects[args.netID].has_method("on_register"):
+				net_objects[args.netID].on_register()
 		return
 	else:
 		#print("spawning new", args)
@@ -171,6 +173,10 @@ remotesync func sub_host_migration(who: int) -> void:
 		tmap = get_map_from_netID(who)
 		on_unregister({netID=who, map=tmap})
 	else:
+		if who in map_masters.values():
+			for i in map_masters:
+				if map_masters[i] == who:
+					map_masters[i] = null
 		return
 	var alternate = null
 	for i in net_objects:
@@ -186,7 +192,9 @@ remotesync func sub_host_migration(who: int) -> void:
 		return
 	if alternate:
 		rpc("set_map_master", tmap, alternate)
+		print("setting map master ", alternate)
 	else:
+		print("clearing map master ", tmap)
 		rpc("set_map_master", tmap, "")
 		
 		
