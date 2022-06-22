@@ -133,9 +133,7 @@ func set_nid() -> void:
 	nid = get_tree().get_network_unique_id()
 	netID_count = nid
 	
-
 	
-		
 #query
 func get_map_from_netID(who: int):
 	if is_instance_valid(get_net_object(who)):
@@ -172,12 +170,13 @@ remotesync func sub_host_migration(who: int) -> void:
 	if get_net_object(who):
 		tmap = get_map_from_netID(who)
 		on_unregister({netID=who, map=tmap})
-	else:
-		if who in map_masters.values():
-			for i in map_masters:
-				if map_masters[i] == who:
-					map_masters[i] = null
+	if !who in map_masters.values():
+		print(who, " not a map master")
 		return
+	if who in map_masters.values():
+		for i in map_masters:
+			if map_masters[i] == who:
+				set_map_master(i, null)
 	var alternate = null
 	for i in net_objects:
 		if i != who and net_objects[i] is Player:
@@ -193,9 +192,6 @@ remotesync func sub_host_migration(who: int) -> void:
 	if alternate:
 		rpc("set_map_master", tmap, alternate)
 		print("setting map master ", alternate)
-	else:
-		print("clearing map master ", tmap)
-		rpc("set_map_master", tmap, "")
 		
 		
 remotesync func emit(sig, args) -> void:
@@ -221,6 +217,7 @@ remotesync func send_history(who: int, masters: Dictionary, tmap: String) -> voi
 remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 		 masters: Dictionary, tmap: String) -> void:
 	map_masters = masters.duplicate(true)
+	print(map_masters)
 	command_history = commands.duplicate(true)
 	net_objects.clear()
 	map = tmap

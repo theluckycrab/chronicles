@@ -33,9 +33,7 @@ func equip(args:Dictionary) -> void:
 	if slot == "Mainhand":
 		mount = get_node_or_null("Skeleton/"+slot+"/Weapon/MeshInstance")
 	if mount:
-		print(mount.get_mesh())
 		mount.set_mesh(item.get_mesh())
-		print(mount.get_mesh())
 		if item.get_slot() == "Mainhand":
 			$Skeleton/Sheath/Sheath/MeshInstance.set_mesh(item.get_mesh())
 			if host is BaseMobile:
