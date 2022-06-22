@@ -29,10 +29,9 @@ func setup() -> void:
 	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
 	ref_list["target_dummy"] = "res://world/objects/mobiles/target_dummy/target_dummy.tscn"
-	
+	ref_list["loot_barrel"] = "res://world/objects/interactable/loot_barrel/loot_barrel.tscn"
 	
 func build_list(path, ending = ".tres", list = ref_list) -> void:
-	#print("Data.reference reading ", path, " for ", ending)
 	var dir = Directory.new()
 	dir.open(path)
 	dir.list_dir_begin()
@@ -50,7 +49,6 @@ func build_list(path, ending = ".tres", list = ref_list) -> void:
 func load_data(path:String, file:String, list:Dictionary) -> void:
 	var object = load(path+"/"+file)
 	list[file.get_basename()] = object
-#	print("Data.reference storing ", file)
 
 
 func convert_paths_to_objects(list) -> void:

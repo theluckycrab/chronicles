@@ -19,4 +19,3 @@ func spawn(i:String=index):
 	get_viewport().add_child(object)
 	object.global_transform.origin = global_transform.origin
 	object.rotation = get_parent().rotation
-	print("host is ", host)

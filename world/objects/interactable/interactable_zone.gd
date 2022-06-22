@@ -21,16 +21,15 @@ func _ready():
 	
 
 func on_body_entered(body):
-	if body is BaseMobile:
-		#print(get_parent().name, " is ready")
+	if body is BaseMobile and body.net_stats.netID == Network.get_nid():
 		host = body
 		$ActionLabel.show()
 
 
-func on_body_exited(_body):
-	#print(get_parent().name, " is inactive")
-	host = null
-	$ActionLabel.hide()
+func on_body_exited(body):
+	if body is BaseMobile and body.net_stats.netID == Network.get_nid():
+		host = null
+		$ActionLabel.hide()
 	
 
 func set_action_label(text):

@@ -106,7 +106,7 @@ func equip(text) -> void:
 func show():
 	visible = true
 	add_to_group("menus")
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(get_tree().create_timer(0.005), "timeout")
 	on_history()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	

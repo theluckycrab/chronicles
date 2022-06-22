@@ -131,6 +131,8 @@ func vis_equip(args:Dictionary) -> void:
 	
 	
 func get_animation() -> String:
+	if state_machine.get_state() is State and state_machine.get_state().index == "Emote":
+		return state_machine.get_state().animation
 	return armature.get_animation()
 	
 	
@@ -238,6 +240,7 @@ func update() -> void:
 	update_count += 1
 	var args = {
 			position = global_transform.origin,
+			arm_pos = armature.global_transform.origin,
 			rot = armature.rotation,
 			animation = get_animation(),
 			motion = armature.is_using_root_motion(),
@@ -255,6 +258,7 @@ func net_sync(args:Dictionary) -> void:
 			pass
 		else:
 			global_transform.origin = args.position
+			armature.global_transform.origin = args.arm_pos
 			armature.rotation = args.rot
 	
 	
@@ -350,7 +354,6 @@ func init_defaults() -> void:
 	else:
 		Data.load_char_save(Network.alias)
 		var char_data = Data.get_char_data()
-		print(char_data)
 		var eq = char_data.equipped
 		var d = char_data.defaults
 		var iv = char_data.inventory

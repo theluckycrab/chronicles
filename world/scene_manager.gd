@@ -23,7 +23,7 @@ func change_scene(scene: String) -> void:
 	Network.command_history.clear()
 	Network.net_objects.clear()
 	if "town" in scene:
-		print("clearing data")
+		print("clearing player inventory data")
 		Data.clear_char_equipped()
 		Data.clear_char_inventory()
 		Data.full_save()

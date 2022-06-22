@@ -33,5 +33,4 @@ func on_button_down(which):
 	
 	
 func get_item_icon():
-	print("selected icon")
 	return selected_icon

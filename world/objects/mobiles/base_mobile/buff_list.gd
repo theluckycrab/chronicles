@@ -30,18 +30,10 @@ func add_passives(source) -> void:#source can be anything
 		e.enter(host)
 		list.append(e)
 		e.source = source
-		if "net_stats" in source:
-			print("NetID ", source.net_stats.netID, ": add effect : ", e.effect_name)
-		else:
-			print("add effect : ", e.effect_name)
 	
 	
 func remove_passives(source) -> void:#source can be anything
 	for i in list:
 		if i.source == source:
-			if "net_stats" in source:
-				print("NetID ", source.net_stats.netID, ": remove effect : ", i.effect_name)
-			else:
-				print("remove effect : ", i.effect_name)
 			i.exit(host)
 			list.erase(i)

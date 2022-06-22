@@ -60,10 +60,10 @@ func on_unregister(args) -> void:
 		var object = net_objects[args.netID]
 		net_objects.erase(args.netID)
 		if is_instance_valid(object):
-			print("unregister ", args.netID)
+			#print("unregister ", args.netID)
 			object.queue_free()
 		if args.netID == Network.get_nid():
-			print("changing scene")
+			#print("changing scene")
 			yield(get_tree().create_timer(3), "timeout")
 			Events.emit_signal("scene_change_request", Data.get_saved_char_value("map"))
 		
@@ -92,11 +92,11 @@ func spawn(args:Dictionary) -> void:
 	var object
 	if args.netOwner == get_nid():
 		if is_instance_valid(instance_from_id(args.original_instance_id)):
-			print("spawning already exists ", args.netID)
+			#print("spawn already exists ", args.netID)
 			net_objects[args.netID] = instance_from_id(args.original_instance_id)
 		return
 	else:
-		print("spawning new", args)
+		#print("spawning new", args)
 		object = Data.get_reference_instance(args.index)
 		net_objects[args.netID] = object
 		object.net_stats.netID = args.netID
@@ -192,7 +192,7 @@ remotesync func request_history(tmap: String) -> void:
 	var who = get_tree().get_rpc_sender_id()
 	var host = get_map_master(tmap, who)
 	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters, tmap)
-	print(host, " sending history to ", get_tree().get_rpc_sender_id(), " for ", tmap)
+	#print(host, " sending history to ", get_tree().get_rpc_sender_id(), " for ", tmap)
 	
 	
 remotesync func send_history(who: int, masters: Dictionary, tmap: String) -> void:
@@ -201,7 +201,7 @@ remotesync func send_history(who: int, masters: Dictionary, tmap: String) -> voi
 		if is_instance_valid(net_objects[i]):
 			history[i] = net_objects[i].net_stats.net_sum()
 	rpc_id(who, "receive_history", history, command_history, masters, tmap)
-	print(get_nid(), " sent history to ", who, " for ", tmap)
+	#print(get_nid(), " sent history to ", who, " for ", tmap)
 	
 	
 remotesync func receive_history(history: Dictionary, commands: Dictionary,\
@@ -212,14 +212,14 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	map = tmap
 	for i in history:
 		on_register(history[i])
-		print(i)
+		#print(i)
 		
 	for i in commands:
 		if net_objects.has(commands[i].sender):
 			if is_instance_valid(net_objects[commands[i].sender]):
 				net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
-				print(commands[i])
-	print("history received from ", get_tree().get_rpc_sender_id(), "\n")
+				#print(commands[i])
+	#print("history received from ", get_tree().get_rpc_sender_id(), "\n")
 	if "town" in map:
 		Data.save_char_value("map", map)
 	Data.full_save()

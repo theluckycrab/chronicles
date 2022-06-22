@@ -132,4 +132,3 @@ func get_active() -> bool:
 	
 func fetch_items():
 	items = host.inventory.get_item_list()
-	print("fetched ", items)

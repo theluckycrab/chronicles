@@ -11,7 +11,6 @@ func _init() -> void:
 
 
 func enter() -> void:
-	print("skating?")
 	dir = host.get_wasd_cam()
 	pass
 

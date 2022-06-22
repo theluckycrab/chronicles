@@ -25,8 +25,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
-			print(inventory.defaults_dict)
-			print(inventory.equipment_dict)
+			pass
 	
 func on_got_hit(mybox, theirbox):
 	if "Player" in theirbox.damage.tags:
@@ -40,9 +39,9 @@ func on_got_hit(mybox, theirbox):
 		if item.durability < 1:
 			destroy(zone)
 			$Armature/EffectsPlayer.play("armor_break")
-		print(item.index, " was struck", item.durability)
+		Events.emit_signal("console_print", item.index+" was struck"+str(item.durability))
 	else:
-		print("player was struck", hp)
+		Events.emit_signal("console_print", "player was struck!")
 		$Armature/EffectsPlayer.play("hp_hit")
 		hp -= 1
 		$HPBar.value = hp
@@ -125,7 +124,7 @@ func play(args) -> void: #state animations are networked
 
 
 func on_got_blocked(_mybox, _theirbox):
-	print("got blocked")
+	Events.emit_signal("console_print", "got blocked!")
 	#set_state("stagger")
 	
 func on_got_parried(_mybox, _theirbox):

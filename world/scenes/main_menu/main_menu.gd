@@ -55,7 +55,7 @@ func on_next() -> void:
 	Data.save_config_value("last_character", $VBoxContainer/LineEdit.text)
 	next_scene = Data.get_saved_char_value("map")
 	Network.set_nid()
-	Events.emit_signal("console_print", str(Network.get_nid()))
+	Events.emit_signal("console_print", "Your network ID is : " + str(Network.get_nid()))
 	Events.emit_signal("scene_change_request", next_scene)
 	
 	

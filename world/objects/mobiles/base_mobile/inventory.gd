@@ -20,25 +20,6 @@ func get_item_list() -> Array:
 	
 func add_item(item:Item) -> void:
 	items.append(item)
-	
-	
-func remove_item(item, count: int = 1) -> void:
-	if item is Item:
-		item = item.stats
-	else:
-		item = {item_name = item}
-		
-	for i in items:
-		if i.stats.item_name == item.item_name:
-			i.stats.count -= 1 
-			if i.stats.count < 1: 
-				items.erase(i) 
-				print(item.item_name + " deleted from inventory.")
-				return
-			else:
-				print(count, " " + item.item_name + " removed from inventory.")
-				return
-
 
 func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)

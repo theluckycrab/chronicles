@@ -8,6 +8,7 @@ var net_stats = NetStats.new("loot_barrel")
 
 
 func _ready() -> void:
+	#net_stats.original_instance_id = get_instance_id()
 	#net_stats.register()
 	if item == "random":
 		rand_item()
@@ -19,13 +20,13 @@ func _ready() -> void:
 func activate(host):
 	if looted:
 		return
-	looted = true
+	net_stats.npc("set_looted", {})
 	host.add_item(item)
 	$Barrel/AnimationPlayer.play("Open")
 	yield(get_tree().create_timer(1.5), "timeout")
-	#if one_shot:
-		#queue_free()
-#	$Barrel/AnimationPlayer.queue("RESET")
+	if one_shot:
+		net_stats.unregister()
+	#$Barrel/AnimationPlayer.queue("RESET")
 
 func rand_item():
 	item = Data.get_random_item()
@@ -34,3 +35,6 @@ func rand_item():
 		rand_item()
 	else:
 		item = item.duplicate()
+
+func set_looted(_args):
+	looted = true

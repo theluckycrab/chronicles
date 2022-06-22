@@ -39,20 +39,16 @@ func _physics_process(_delta) -> void:
 		elif is_instance_valid(lock_target):
 			build_action_list(get_target_range())
 			choose_random_action()
-	#else:
-		#print(net_stats.netOwner)
 
 
 func on_got_parried(_mybox, _theirbox) -> void:
 	npc("stagger", {}, true)
-	print("parried")
 	
 	
 func stagger(_args):
 	set_state("stagger")
 
 func on_got_hit(mybox, theirbox) -> void:
-	print("dummy struck")
 	if theirbox.damage.tags.has(get_faction()):
 		return
 	if theirbox.owner is BaseMobile:
@@ -60,7 +56,6 @@ func on_got_hit(mybox, theirbox) -> void:
 	var coll_type = Hitbox.get_collision_type(mybox, theirbox)
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
-			print("got hit for ", theirbox.damage.damage, "\n", hp, " remains")
 			hp -= theirbox.damage.damage
 			$Armature/EffectsPlayer.play("hp_hit")
 			state_machine.quit_state()

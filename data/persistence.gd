@@ -48,7 +48,6 @@ func set_char_value(key, value):
 	match key:
 		"default":
 			char_data["defaults"][value.slot] = value.index
-			#print("defaults")
 		"equipped":
 			if value.has_tag("Default"):
 				char_data["equipped"].erase(value.slot)
@@ -58,7 +57,6 @@ func set_char_value(key, value):
 			char_data["inventory"].append(value.index)
 		_:
 			char_data[key] = value
-			#print("all")
 
 
 func save_char_value(key, value):

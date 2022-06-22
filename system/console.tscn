@@ -23,12 +23,13 @@ margin_right = 358.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Balls
-Dicks
-Weiners
+text = "=======================================
+MOTD : Thank you for playing! Please do share any thoughts you might have in the #feedback channel on the Crabsoft HQ Discord. https://discord.gg/FnR3C6XdhX
+========================================
 "
 readonly = true
 wrap_enabled = true
+scroll_vertical = 1.0
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
 margin_top = 112.0

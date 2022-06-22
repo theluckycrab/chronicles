@@ -25,7 +25,6 @@ func _ready():
 func enter() -> void:
 	weapon = host.get_equipped("Mainhand")
 	if !weapon is Weapon:
-		print()
 		return
 	done = false
 	combo_counter = 0
