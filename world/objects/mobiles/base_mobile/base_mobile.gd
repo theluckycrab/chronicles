@@ -28,8 +28,7 @@ onready var controls := $Controls
 #builtin
 func _ready() -> void:
 	net_stats.register()
-	if net_stats.is_master:
-		call_deferred("init_defaults")#to wait for net registration
+	call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
 	
 	
@@ -244,7 +243,8 @@ func update() -> void:
 			rot = armature.rotation,
 			animation = get_animation(),
 			motion = armature.is_using_root_motion(),
-			update_number = update_count
+			update_number = update_count,
+			unreliable = true
 	}
 	npc("net_sync", args)
 	
@@ -260,6 +260,15 @@ func net_sync(args:Dictionary) -> void:
 			global_transform.origin = args.position
 			armature.global_transform.origin = args.arm_pos
 			armature.rotation = args.rot
+			
+			
+func net_force(args):
+	if net_stats.is_master:
+		add_force(args.force)
+	
+func net_set_state(args):
+	if net_stats.is_master:
+		set_state(args.state)
 	
 	
 #stats interface

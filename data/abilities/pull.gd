@@ -11,7 +11,7 @@ func enter() -> void:
 	keyframe_connect()
 	host.hide_weapon()
 	if is_instance_valid(host.lock_target):
-		host.lock_target.set_state("stagger")
+		host.lock_target.npc("net_set_state", {state="stagger"})
 	pass
 
 
@@ -33,7 +33,7 @@ func can_exit() -> bool:
 func execute() -> void:
 	if is_instance_valid(host.lock_target):
 		var dir = host.lock_target.direction_to(host)
-		host.lock_target.add_force(dir * 10)
+		host.lock_target.npc("net_force", {force= dir * 10})
 	pass
 	
 

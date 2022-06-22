@@ -30,13 +30,13 @@ func position(args):
 func activate(host):
 	if looted:
 		return
+	host.add_item(item)
 	if Network.get_net_object(net_stats.netID):
 		net_stats.npc("set_looted", {})
 	else:
 		set_looted({})
 		yield(get_tree().create_timer(1.5), "timeout")
 		queue_free()
-	host.add_item(item)
 	#$Barrel/AnimationPlayer.queue("RESET")
 
 func rand_item():
@@ -50,6 +50,6 @@ func rand_item():
 func set_looted(_args):
 	looted = true
 	$Barrel/AnimationPlayer.play("Open")
-	yield(get_tree().create_timer(1.5), "timeout")
+	yield($Barrel/AnimationPlayer, "animation_finished")
 	if one_shot:
 		net_stats.unregister()

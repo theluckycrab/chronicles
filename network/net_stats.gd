@@ -45,7 +45,6 @@ func npc(function:String, args: Dictionary = {}, owner_only = false) -> void:
 			args[i] = args[i].net_stats.net
 	Network.relay_signal("network_command", args.duplicate(true), owner_only)
 
-
 func register() -> void:
 	var args: = net_sum()
 	Network.relay_signal("register", args)

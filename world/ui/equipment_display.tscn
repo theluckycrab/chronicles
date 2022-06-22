@@ -6,33 +6,35 @@
 [ext_resource path="res://world/ui/equipment_display.gd" type="Script" id=4]
 
 [node name="EquipmentDisplay" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 script = ExtResource( 4 )
 
 [node name="HeadIcon" parent="." instance=ExtResource( 1 )]
-margin_left = 70.0
-margin_top = 6.0
-margin_right = 134.0
-margin_bottom = 70.0
+margin_left = -11.0
+margin_top = -76.0
+margin_right = 53.0
+margin_bottom = -12.0
 
 [node name="MainIcon" parent="." instance=ExtResource( 1 )]
-margin_left = 135.0
-margin_top = 73.0
-margin_right = 199.0
-margin_bottom = 137.0
+margin_left = 54.0
+margin_top = -9.0
+margin_right = 118.0
+margin_bottom = 55.0
 
 [node name="BootsIcon" parent="." instance=ExtResource( 1 )]
-margin_left = 69.0
-margin_top = 139.0
-margin_right = 133.0
-margin_bottom = 203.0
+margin_left = -12.0
+margin_top = 57.0
+margin_right = 52.0
+margin_bottom = 121.0
 
 [node name="OffIcon" parent="." instance=ExtResource( 1 )]
-margin_left = 3.0
-margin_top = 72.0
-margin_right = 67.0
-margin_bottom = 136.0
+margin_left = -78.0
+margin_top = -10.0
+margin_right = -14.0
+margin_bottom = 54.0
 
 [node name="DestroyOverlay" type="Control" parent="."]
 visible = false

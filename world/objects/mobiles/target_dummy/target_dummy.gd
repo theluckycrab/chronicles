@@ -56,8 +56,7 @@ func on_got_hit(mybox, theirbox) -> void:
 	var coll_type = Hitbox.get_collision_type(mybox, theirbox)
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
-			hp -= theirbox.damage.damage
-			$Armature/EffectsPlayer.play("hp_hit")
+			npc("take_damage", {damage=theirbox.damage.damage})
 			state_machine.quit_state()
 			call_deferred("set_state", "stagger")
 			if hp <= 0:
@@ -69,6 +68,9 @@ func on_got_hit(mybox, theirbox) -> void:
 					loot.global_transform.origin = global_transform.origin
 					net_stats.unregister()
 	
+func take_damage(args):
+	hp -= args.damage
+	$Armature/EffectsPlayer.play("hp_hit")
 	
 func action() -> void:
 	if in_range() and in_view():

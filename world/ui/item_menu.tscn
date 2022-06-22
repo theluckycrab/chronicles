@@ -3,6 +3,4 @@
 [ext_resource path="res://world/ui/item_menu.gd" type="Script" id=1]
 
 [node name="ItemMenu" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
 script = ExtResource( 1 )

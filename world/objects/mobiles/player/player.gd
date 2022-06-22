@@ -28,26 +28,28 @@ func _physics_process(delta):
 			pass
 	
 func on_got_hit(mybox, theirbox):
-	if "Player" in theirbox.damage.tags:
-		return
-	var dir = get_hit_dir(mybox, theirbox)
-	var zone = get_hit_zone(dir)
-	var item = get_equipped(zone)
-	if item and !item.has_tag("Default") and item.durability > 0:
-		item.durability -= 1
-		$Armature/EffectsPlayer.play("armor_hit")
-		if item.durability < 1:
-			destroy(zone)
-			$Armature/EffectsPlayer.play("armor_break")
-		Events.emit_signal("console_print", item.index+" was struck"+str(item.durability))
-	else:
-		Events.emit_signal("console_print", "player was struck!")
-		$Armature/EffectsPlayer.play("hp_hit")
-		hp -= 1
-		$HPBar.value = hp
-		set_state("stagger")
-		if hp < 1:
-			on_death()
+	if net_stats.is_master:
+		if "Player" in theirbox.damage.tags:
+			return
+		var dir = get_hit_dir(mybox, theirbox)
+		var zone = get_hit_zone(dir)
+		var item = get_equipped(zone)
+		if item and !item.has_tag("Default") and item.durability > 0:
+			item.durability -= 1
+			$Armature/EffectsPlayer.play("armor_hit")
+			if item.durability < 1:
+				destroy(zone)
+				$Armature/EffectsPlayer.play("armor_break")
+			Events.emit_signal("console_print", item.index+" was struck "+str(item.durability))
+		else:
+			Events.emit_signal("console_print", "player was struck! " + str(hp))
+			$Armature/EffectsPlayer.play("hp_hit")
+			hp -= 1
+			if is_instance_valid($UI/HPBar):
+				$UI/HPBar.value = hp
+			set_state("stagger")
+			if hp < 1:
+				on_death()
 	
 func get_hit_dir(mybox, theirbox):
 	var mypos = mybox.global_transform.origin

@@ -111,8 +111,14 @@ func spawn(args:Dictionary) -> void:
 func relay_signal(sig, args, owner_only=false) -> void:
 	args.map = map
 	if owner_only:
+		if args.has("unreliable"):
+			rpc_unreliable_id(args.netOwner, "emit", sig, args)
+			return
 		rpc_id(args.netOwner, "emit", sig, args)
 	else:
+		if args.has("unreliable"):
+			rpc_unreliable("emit", sig, args)
+			return
 		rpc("emit", sig, args)
 	
 	
