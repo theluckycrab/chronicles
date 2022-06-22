@@ -20,6 +20,9 @@ func change_scene(scene: String) -> void:
 	for i in mount.get_children():
 		i.queue_free()
 	yield(get_tree(), "idle_frame")
+	for i in Network.net_objects:
+		if is_instance_valid(Network.net_objects[i]):
+			Network.net_objects[i].queue_free()
 	Network.command_history.clear()
 	Network.net_objects.clear()
 	if "town" in scene:

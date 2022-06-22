@@ -12999,6 +12999,8 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -13035,6 +13037,8 @@ skeleton = NodePath("../..")
 
 [node name="Hitbox" type="Area" parent="Armature/Skeleton/Mainhand/Weapon/MeshInstance"]
 transform = Transform( 1, 7.45058e-09, -2.98023e-08, -7.45058e-09, 1, 1.49012e-08, 2.98023e-08, 1.49012e-08, 1, -2.38419e-07, 5.96046e-08, 0 )
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 38 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Armature/Skeleton/Mainhand/Weapon/MeshInstance/Hitbox"]
@@ -13190,6 +13194,8 @@ script = ExtResource( 43 )
 script = ExtResource( 44 )
 
 [node name="Hitbox" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 38 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]

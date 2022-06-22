@@ -25,6 +25,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
+			get_viewport().add_child(Data.get_reference_instance("target_dummy"))
 			pass
 	
 func on_got_hit(mybox, theirbox):

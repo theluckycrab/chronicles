@@ -21115,6 +21115,8 @@ skeleton = NodePath("../..")
 material/0 = null
 
 [node name="Hitbox" type="Area" parent="Armature/Skeleton/Mainhand/Weapon/MeshInstance"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 38 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Armature/Skeleton/Mainhand/Weapon/MeshInstance/Hitbox"]
@@ -21240,4 +21242,6 @@ script = ExtResource( 14 )
 script = ExtResource( 2 )
 
 [node name="Hitbox" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 38 )
