@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://world/objects/interactable/interactable_zone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/Blender/Crypt/Crypt_BreakPoint.tres" type="ArrayMesh" id=2]
-[ext_resource path="res://world/objects/interactable/breakpoint/breakpoint_menu.gd" type="Script" id=3]
+[ext_resource path="res://world/objects/interactable/breakpoint/breakpoint_menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/objects/interactable/breakpoint/breakpoint.gd" type="Script" id=4]
-[ext_resource path="res://world/ui/default_selection_menu/defaults_selection_menu.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpatialMaterial" id=7]
 flags_transparent = true
@@ -380,50 +379,4 @@ anims/Idle = SubResource( 10 )
 anims/RESET = SubResource( 11 )
 anims/Working = SubResource( 12 )
 
-[node name="Control" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 3 )
-
-[node name="Panel" type="Panel" parent="Control"]
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -101.5
-margin_top = -22.0
-margin_right = 101.5
-margin_bottom = 22.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
-margin_right = 203.0
-margin_bottom = 20.0
-custom_constants/separation = 15
-
-[node name="SpawnEnemyButton" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer"]
-margin_right = 99.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-text = "Spawn Enemy"
-
-[node name="SetDefaultsButton" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer"]
-margin_left = 114.0
-margin_right = 203.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-text = "Set Defaults"
-
-[node name="ExitButton" type="Button" parent="Control/Panel/VBoxContainer"]
-margin_top = 24.0
-margin_right = 203.0
-margin_bottom = 44.0
-text = "Exit"
-
-[node name="DefaultsMenu" parent="Control" instance=ExtResource( 5 )]
-visible = false
+[node name="Control" parent="." instance=ExtResource( 3 )]

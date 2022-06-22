@@ -6,6 +6,7 @@ var item = "debug_item"
 func _ready() -> void:
 	item = Data.get_reference(item)
 	build(item)
+	$Label.text = item.item_name
 
 
 func build(n_item:Item) -> void:

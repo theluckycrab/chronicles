@@ -2,6 +2,7 @@ class_name BaseMobile
 extends KinematicBody
 
 signal died
+signal equipped_item
 
 var net_stats
 var base_defaults = {}
@@ -277,6 +278,7 @@ func equip(item:Item) -> void:
 	Events.emit_signal("console_print", "Equipped " + item.item_name)
 	if net_stats.netID == Network.get_nid():
 		Data.save_char_value("equipped", item)
+	emit_signal("equipped_item", item)
 	pass
 	
 	

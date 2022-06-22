@@ -51,3 +51,10 @@ texture_progress = ExtResource( 6 )
 fill_mode = 3
 tint_progress = Color( 0.921569, 1, 0, 1 )
 nine_patch_stretch = true
+
+[node name="Label" type="Label" parent="."]
+margin_left = -16.0
+margin_top = 68.0
+margin_right = 24.0
+margin_bottom = 82.0
+rect_scale = Vector2( 2.53678, 2.42607 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://world/objects/generic/projectile_spawner.gd" type="Script" id=7]
 [ext_resource path="res://world/ui/default_selection_menu/player_default_preview.gd" type="Script" id=8]
 [ext_resource path="res://data/assets/default_env.tres" type="Environment" id=9]
+[ext_resource path="res://data/assets/meshes/equipment/naked.mesh" type="ArrayMesh" id=10]
 
 [sub_resource type="World" id=65]
 environment = ExtResource( 9 )
@@ -20855,16 +20856,22 @@ mesh = ExtResource( 2 )
 material/0 = null
 
 [node name="Chest" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Head" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Gloves" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Legs" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Boots" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Offhand" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton"]
+mesh = ExtResource( 10 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Viewport/Camera/Armature/Skeleton"]
 transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
@@ -20875,6 +20882,7 @@ transform = Transform( 1, 3.72529e-09, 2.8871e-08, 7.45058e-09, 1, -3.72529e-09,
 
 [node name="MeshInstance" type="MeshInstance" parent="Viewport/Camera/Armature/Skeleton/Mainhand/Weapon"]
 transform = Transform( 1, 0, 2.89874e-08, 3.72529e-09, 1, -3.72529e-09, 1.36206e-08, 0, 1, 0, 0, 0 )
+mesh = ExtResource( 10 )
 skeleton = NodePath("../..")
 
 [node name="Hitbox" type="Area" parent="Viewport/Camera/Armature/Skeleton/Mainhand/Weapon/MeshInstance"]

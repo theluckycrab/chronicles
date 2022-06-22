@@ -21,7 +21,6 @@ func _physics_process(_delta):
 			on_exit()
 	
 func on_spawn():
-	get_parent().animate()
 	var object = Data.get_reference_instance("target_dummy")
 	add_child(object)
 	object.global_transform.origin = Vector3(0,5,0)
@@ -33,7 +32,6 @@ func on_set_defaults():
 func on_exit():
 	hide()
 	Input.call_deferred("set_mouse_mode", Input.MOUSE_MODE_CAPTURED)
-	get_parent().animate()
 	
 func on_def_menu_vis():
 	if defaults_menu.visible:

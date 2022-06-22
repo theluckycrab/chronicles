@@ -2,6 +2,7 @@ extends Spatial
 
 export(String) var item = "random"
 export(bool) var one_shot = true
+var looted = false
 
 var net_stats = NetStats.new("loot_barrel")
 
@@ -16,12 +17,15 @@ func _ready() -> void:
 	
 	
 func activate(host):
+	if looted:
+		return
+	looted = true
 	host.add_item(item)
 	$Barrel/AnimationPlayer.play("Open")
 	yield(get_tree().create_timer(1.5), "timeout")
-	if one_shot:
-		queue_free()
-	$Barrel/AnimationPlayer.queue("RESET")
+	#if one_shot:
+		#queue_free()
+#	$Barrel/AnimationPlayer.queue("RESET")
 
 func rand_item():
 	item = Data.get_random_item()

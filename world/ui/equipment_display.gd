@@ -3,6 +3,12 @@ extends Control
 export(NodePath) onready var host = get_node(host)
 var active: bool = false setget , get_active
 
+func _ready():
+	$HeadIcon/Label.rect_scale *= 0.5
+	$MainIcon/Label.rect_scale *= 0.5
+	$OffIcon/Label.rect_scale *= 0.5
+	$BootsIcon/Label.rect_scale *= 0.5
+
 
 func _physics_process(_delta) -> void:
 	if host.can_act:

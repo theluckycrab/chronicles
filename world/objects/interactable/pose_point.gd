@@ -1,4 +1,7 @@
 extends Spatial
+
+signal activated
+
 export(String) var animation = "Sit_Floor"
 export(String) var action = "Interact"
 
@@ -11,6 +14,7 @@ func activate(host):
 	host.global_transform.origin = global_transform.origin
 	yield(get_tree().create_timer(0.02), "timeout")
 	rot(host)
+	emit_signal("activated", host)
 
 func rot(host):
 	host.armature.global_transform.origin = global_transform.origin
