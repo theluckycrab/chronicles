@@ -15,17 +15,28 @@ func _ready() -> void:
 	else:
 		item = Data.get_item(item).duplicate()
 	$InteractableZone.set_action_label("Open Barrel")
+	call_deferred("send_position")
+	
+	
+func send_position():
+	if net_stats.is_master:
+		net_stats.npc("position", {position=global_transform.origin})
+	
+		
+func position(args):
+	global_transform.origin = args.position
 	
 	
 func activate(host):
 	if looted:
 		return
-	net_stats.npc("set_looted", {})
+	if Network.get_net_object(net_stats.netID):
+		net_stats.npc("set_looted", {})
+	else:
+		set_looted({})
+		yield(get_tree().create_timer(1.5), "timeout")
+		queue_free()
 	host.add_item(item)
-	$Barrel/AnimationPlayer.play("Open")
-	yield(get_tree().create_timer(1.5), "timeout")
-	if one_shot:
-		net_stats.unregister()
 	#$Barrel/AnimationPlayer.queue("RESET")
 
 func rand_item():
@@ -38,3 +49,7 @@ func rand_item():
 
 func set_looted(_args):
 	looted = true
+	$Barrel/AnimationPlayer.play("Open")
+	yield(get_tree().create_timer(1.5), "timeout")
+	if one_shot:
+		net_stats.unregister()

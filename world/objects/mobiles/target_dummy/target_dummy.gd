@@ -61,11 +61,13 @@ func on_got_hit(mybox, theirbox) -> void:
 			state_machine.quit_state()
 			call_deferred("set_state", "stagger")
 			if hp <= 0:
-				var sword = preload("res://world/objects/generic/world_object.tscn").instance()
-				sword.item = "scimitar"
-				get_viewport().add_child(sword)
-				sword.global_transform.origin = global_transform.origin + Vector3(0,3,0)
-				net_stats.unregister()
+				if net_stats.is_master:
+					var loot = Data.get_reference_instance("loot_barrel")
+					loot.net_stats.original_instance_id = loot.get_instance_id()
+					loot.net_stats.register()
+					get_viewport().add_child(loot)
+					loot.global_transform.origin = global_transform.origin
+					net_stats.unregister()
 	
 	
 func action() -> void:

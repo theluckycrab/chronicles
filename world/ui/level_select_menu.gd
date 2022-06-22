@@ -3,13 +3,14 @@ extends Control
 
 func _ready():
 	connect("visibility_changed", self, "on_visibility_changed")
-	for i in Data.reference.scene_list:
+	for i in Data.reference.scene_list.keys():
 		if "menu" in i:
-			return
-		var b = Button.new()
-		b.text = i
-		$Panel/VBoxContainer.add_child(b)
-		b.connect("button_down", self, "on_button_down", [b.text])
+			pass
+		else:
+			var b = Button.new()
+			b.text = i
+			$Panel/VBoxContainer.add_child(b)
+			b.connect("button_down", self, "on_button_down", [b.text])
 		
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
