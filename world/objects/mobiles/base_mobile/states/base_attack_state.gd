@@ -39,7 +39,7 @@ func enter() -> void:
 func exit() -> void:
 	host.weaponbox_ghost()
 	attack_timer.stop()
-	print("exit")
+	#print("exit")
 	done = false
 	pass
 	
@@ -67,7 +67,7 @@ func on_attack_timer():
 		attacking = true
 		animation = combo[combo_counter]
 		host.play({"animation":animation, "motion":true})
-		print(animation)
+		#print(animation)
 		combo_counter += 1
 	else:
 		done = true
