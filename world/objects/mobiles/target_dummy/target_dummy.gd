@@ -33,6 +33,7 @@ func _ready() -> void:
 	call_deferred("set_state", "patrol")
 	set_faction("Dummy")
 	armature.weaponbox.damage.tags.append(get_faction())
+
 	
 	
 func _physics_process(_delta) -> void:

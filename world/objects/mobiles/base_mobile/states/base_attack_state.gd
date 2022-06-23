@@ -26,7 +26,9 @@ func _ready():
 func enter() -> void:
 	weapon = host.get_equipped("Mainhand")
 	if !weapon is Weapon:
-		return
+		get_vis_wep()
+		if !weapon:
+			return
 	combo_max = 1 + randi() % weapon.combo.size()
 	done = false
 	combo_counter = 0
@@ -71,3 +73,8 @@ func on_attack_timer():
 		combo_counter += 1
 	else:
 		done = true
+
+func get_vis_wep():
+	var vis = host.armature.equipment["Mainhand"]
+	var item = Data.get_item(vis)
+	weapon = item

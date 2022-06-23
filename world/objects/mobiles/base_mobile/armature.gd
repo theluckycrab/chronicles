@@ -42,6 +42,7 @@ func equip(args:Dictionary) -> void:
 					show_weapon()
 				else:
 					hide_weapon()
+	equipment[slot] = args.index
 	
 	
 func activate_item(args:Dictionary) -> void:

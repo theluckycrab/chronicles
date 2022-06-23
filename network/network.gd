@@ -187,6 +187,7 @@ remotesync func sub_host_migration(who: int) -> void:
 			if is_instance_valid(net_objects[i]) and !net_objects[i] is Player:
 				print("migrating ", i, " to ", alternate)
 				net_objects[i].net_stats.netOwner = alternate
+				map_masters[Network.map] = alternate
 	if !map_masters.has(tmap) or map_masters[tmap] != who:
 		return
 	if alternate:
