@@ -32,6 +32,7 @@ func _ready() -> void:
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")
 	set_faction("Dummy")
+	armature.weaponbox.damage.tags.append(get_faction())
 	
 	
 func _physics_process(_delta) -> void:

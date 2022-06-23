@@ -3,6 +3,7 @@ extends Ability
 var gear = ["guard_helmet", "guard_chest", "guard_gloves", \
 		"guard_pants", "guard_boots"]
 var summon = null
+var summonID = null
 
 func _init() -> void:
 	index = "Summon Dummy"
@@ -13,6 +14,7 @@ func _init() -> void:
 
 func enter() -> void:
 	keyframe_connect()
+	host.connect("tree_exiting", self, "on_host_exit")
 	#host.hide_weapon()
 	pass
 
@@ -48,12 +50,14 @@ func on_keyframe():
 		w.combo[0] = "Katana_Combo_2"
 		projectile.call_deferred("equip", w)
 		summon = projectile
+		summonID = projectile.net_stats.netID
 		
 		
 func on_summon_died():
 	summon = null
+	summonID = null
 	
 
-func _exit_tree():
-	if is_instance_valid(summon):
-		summon.net_stats.unregister()
+func on_host_exit():
+	if summonID != null:
+		Network.relay_signal("unregister", {netID=summonID, map=Network.map, notice="summon despawn"})
