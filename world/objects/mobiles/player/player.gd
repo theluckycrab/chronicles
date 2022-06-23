@@ -6,6 +6,7 @@ var registered = false
 
 func _init() -> void:
 	net_init("player")
+	viewers = 1000
 
 
 func _ready() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Taunt.anim" type="Animation" id=18]
 [ext_resource path="res://data/assets/meshes/equipment/guard_helmet.mesh" type="ArrayMesh" id=19]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Club_Strong.anim" type="Animation" id=20]
+[ext_resource path="res://world/objects/mobiles/player/processing_area.gd" type="Script" id=21]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Katana_Strong.anim" type="Animation" id=22]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dash_Attack.anim" type="Animation" id=23]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Club_Combo_1.anim" type="Animation" id=24]
@@ -13028,6 +13029,10 @@ tracks/3/keys = {
 [sub_resource type="BoxShape" id=17]
 extents = Vector3( 0.240589, 1.02641, 0.281645 )
 
+[sub_resource type="CylinderShape" id=70]
+radius = 50.0
+height = 50.0
+
 [node name="Player" type="KinematicBody"]
 collision_layer = 0
 script = ExtResource( 1 )
@@ -13064,7 +13069,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.0264465, 0.0439827, -0.998689, -0.704461, 0.708, 0.0498422, 0.709256, 0.704839, 0.0122506, -0.0206956, 1.2409, 0.595282 )
+transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -13084,7 +13089,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.99442, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238574, 1.14434, -0.0208684 )
+transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]
@@ -13241,3 +13246,10 @@ script = ExtResource( 38 )
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998025, 0 )
 shape = SubResource( 17 )
+
+[node name="ProcessingArea" type="Area" parent="."]
+script = ExtResource( 21 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ProcessingArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39123, 0 )
+shape = SubResource( 70 )

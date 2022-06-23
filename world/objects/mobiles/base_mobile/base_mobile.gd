@@ -15,6 +15,7 @@ var at_war = false setget set_war
 
 var stored_delta = 0
 var update_count = 0
+var viewers = 0
 
 onready var state_machine := $StateMachine
 onready var armature := $Armature
@@ -36,7 +37,7 @@ func on_register():
 	
 func _physics_process(delta) -> void:
 	stored_delta = delta
-	if net_stats.is_master:
+	if net_stats.is_master and viewers > 0:
 		state_machine.execute()
 		buff_list.process()
 		#if self.can_act:
@@ -46,6 +47,8 @@ func _physics_process(delta) -> void:
 				acquire_lock_target()
 		commit_move()
 		update()
+	else:
+		armature.anim.play("Idle")
 	
 	
 #signal_response
