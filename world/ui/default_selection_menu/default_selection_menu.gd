@@ -52,6 +52,8 @@ func on_visibility_changed():
 		$Layout/Mid/Preview._ready()
 		$Layout/Mid/Label2.update()
 		$Layout/Mid/NameEntry.text = data.alias
+		if $Layout/Mid/NameEntry.text == "New Character":
+			$Layout/Mid/NameEntry.text = "Enter a character name"
 		for i in item_lists:
 			for j in i.get_children():
 				if data.defaults.has(i.category):

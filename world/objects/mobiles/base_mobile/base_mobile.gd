@@ -47,7 +47,7 @@ func _physics_process(delta) -> void:
 				acquire_lock_target()
 		commit_move()
 		update()
-	else:
+	elif viewers < 0:
 		armature.anim.play("Idle")
 	
 	

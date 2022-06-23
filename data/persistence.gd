@@ -4,7 +4,7 @@ extends Node
 const save_path = "user://saves/"
 
 var char_data = {
-	alias = "Player",
+	alias = "New Character",
 	map = "lobi_town",
 	defaults = {},
 	equipped = {},

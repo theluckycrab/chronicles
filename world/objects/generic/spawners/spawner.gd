@@ -15,7 +15,7 @@ func retrieve_data(_i):
 	pass
 
 
-func spawn(i:String=index):
+func spawn():
 	if Network.get_map_master(Network.map, Network.get_nid()) == Network.get_nid():
 		var object = Data.get_reference_instance(index)
 		add_child(object)

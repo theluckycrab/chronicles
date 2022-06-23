@@ -22,7 +22,7 @@ func _ready() -> void:
 	$Hitbox.owner = self
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
 			get_viewport().add_child(Data.get_reference_instance("target_dummy"))

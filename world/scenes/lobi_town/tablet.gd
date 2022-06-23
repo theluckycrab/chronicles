@@ -1,7 +1,9 @@
 extends MeshInstance
 
+onready var pose_point = $PosePoint2
+
 func _ready():
-	$PosePoint2.connect("activated", self, "on_activated")
+	pose_point.connect("activated", self, "on_activated")
 	$Control/DefaultsMenu/Layout/Mid/Preview/Viewport/Camera/Armature.play("Sit_Floor")
 	
 	

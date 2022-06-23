@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	connect("visibility_changed", self, "on_visibility_changed")
+	var _discard = connect("visibility_changed", self, "on_visibility_changed")
 	for i in Data.reference.scene_list.keys():
 		if "menu" in i:
 			pass
@@ -12,7 +12,7 @@ func _ready():
 			$Panel/VBoxContainer.add_child(b)
 			b.connect("button_down", self, "on_button_down", [b.text])
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		hide()
 		

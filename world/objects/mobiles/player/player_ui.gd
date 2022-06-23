@@ -7,7 +7,7 @@ onready var equipment_display = $EquipmentDisplay
 onready var host = get_parent()
 
 func _ready():
-	get_parent().connect("equipped_item", self, "on_equipped_item")
+	var _discard = get_parent().connect("equipped_item", self, "on_equipped_item")
 	
 
 func on_equipped_item(item):

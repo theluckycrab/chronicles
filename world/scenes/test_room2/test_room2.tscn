@@ -189,7 +189,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0016, 0, -97.5038 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.2718, 0, -47.47 )
 
 [node name="Spawner" parent="CSGCombiner/CSGCombiner/Spawner" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9349, 7.91712, -0.537169 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9349, 0.957383, -0.537169 )
 
 [node name="ControlledCamera" parent="." instance=ExtResource( 3 )]
 

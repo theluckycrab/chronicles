@@ -8,6 +8,7 @@ var persistence = Persistence.new()
 
 func _ready() -> void:
 	randomize()
+	init_files()
 	persistence.setup()
 	reference.setup()
 	call_deferred("emit_signal", "data_ready")
@@ -79,6 +80,9 @@ func full_save() -> void:
 func full_save_char() -> void:
 	persistence.commit_to_char_file()
 	
+func full_save_config() -> void:
+	persistence.commit_to_config_file()
+	
 func load_char_save(character_name) -> void:
 	persistence.load_char_from_file(character_name)
 	
@@ -97,3 +101,28 @@ func clear_char_inventory():
 func clear_char_equipped():
 	persistence.char_data["equipped"] = {}
 	
+func init_files():
+	create_saves_directory()
+	check_config_file_exists()
+	full_save_char()
+
+func check_saves_directory_exists():
+	pass
+	
+func create_saves_directory():
+	var dir = Directory.new()
+	dir.make_dir("user://saves/")
+	pass
+	
+func check_config_file_exists():
+	var file = File.new()
+	if file.file_exists("user://saves/config"):
+		return
+	full_save_config()
+	pass
+	
+func create_default_config_file():
+	pass
+	
+func create_new_character_save():
+	pass
