@@ -29,7 +29,7 @@ func host(players = 1, port = 5555) -> void:
 	peer.connect("peer_disconnected", self, "on_peer_disconnected")
 	
 	
-func join(ip = "192.168.1.180", port = 5555) -> void:
+func join(ip = "192.168.1.154", port = 5555) -> void:
 	peer.close_connection()
 	peer.create_client(ip, port)
 	get_tree().network_peer = null

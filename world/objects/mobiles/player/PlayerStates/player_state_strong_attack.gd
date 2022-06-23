@@ -7,7 +7,7 @@ var combo = []
 var combo_counter = 0
 var done = false
 var combo_timer = Timer.new()
-var combo_grace = 0.5
+var combo_grace = 0.1
 
 
 func _init() -> void:
@@ -31,6 +31,7 @@ func enter() -> void:
 	keyframe = 0
 	host.armature.anim.connect("keyframe", self, "on_keyframe")
 	combo = [weapon.strong]
+	host.armature.weaponbox.damage.tags.append("Unblockable")
 	cycle()
 	pass
 	
@@ -39,6 +40,7 @@ func exit() -> void:
 	combo_timer.stop()
 	host.armature.anim.disconnect("keyframe", self, "on_keyframe")
 	host.weaponbox_ghost()
+	host.armature.weaponbox.damage.tags.erase("Unblockable")
 	pass
 	
 	

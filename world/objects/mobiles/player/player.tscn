@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -508,20 +508,6 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.0416667, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
-tracks/66/type = "method"
-tracks/66/path = NodePath(".")
-tracks/66/interp = 1
-tracks/66/loop_wrap = true
-tracks/66/imported = false
-tracks/66/enabled = true
-tracks/66/keys = {
-"times": PoolRealArray( 0.012201 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "weaponbox_strike"
-} ]
-}
 
 [sub_resource type="Animation" id=19]
 resource_name = "Combat_Idle"
@@ -8506,7 +8492,7 @@ tracks/66/loop_wrap = true
 tracks/66/imported = false
 tracks/66/enabled = true
 tracks/66/keys = {
-"times": PoolRealArray( 0.3, 0.4 ),
+"times": PoolRealArray( 0.3, 0.418041 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -12744,18 +12730,21 @@ tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1.33333, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
 
 [sub_resource type="AnimationNodeAnimation" id=13]
+resource_local_to_scene = true
 animation = "Katana_Combo_1"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
+resource_local_to_scene = true
 animation = "Combat_Idle"
 
 [sub_resource type="AnimationNodeOneShot" id=16]
+resource_local_to_scene = true
 fadein_time = 0.0
 fadeout_time = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id=49]
 resource_local_to_scene = true
-graph_offset = Vector2( 0, 101.5 )
+graph_offset = Vector2( 0, 43 )
 nodes/Action/node = SubResource( 13 )
 nodes/Action/position = Vector2( 220, 200 )
 nodes/Animation/node = SubResource( 15 )
@@ -12932,6 +12921,58 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=69]
+resource_name = "blocked"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("OmniLight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OmniLight:omni_range")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OmniLight/CPUParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("OmniLight:light_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.223529, 0.0784314, 0.913725, 1 ) ]
+}
+
 [sub_resource type="Animation" id=55]
 resource_name = "hp_hit"
 length = 0.1
@@ -13023,7 +13064,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.220035, 0.954036, 0.203464, 0.217507, -0.251312, 0.943164, 0.950931, -0.163272, -0.262812, -0.109045, 1.31528, 0.56368 )
+transform = Transform( -0.0264465, 0.0439827, -0.998689, -0.704461, 0.708, 0.0498422, 0.709256, 0.704839, 0.0122506, -0.0206956, 1.2409, 0.595282 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -13043,7 +13084,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.962726, -0.027063, 0.26912, -0.00153272, 0.994419, 0.105483, -0.270473, -0.101963, 0.957312, 0.000803327, 1.05706, -0.0200517 )
+transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.99442, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238574, 1.14434, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]
@@ -13118,6 +13159,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30578, 3.60898 )
 anims/RESET = SubResource( 51 )
 anims/armor_break = SubResource( 54 )
 anims/armor_hit = SubResource( 52 )
+anims/blocked = SubResource( 69 )
 anims/hp_hit = SubResource( 55 )
 script = ExtResource( 13 )
 

@@ -4,10 +4,10 @@ extends ActionState
 func _init() -> void:
 	index = "Stagger"
 	animation = "Stagger"
-	priority = 5
+	priority = 300
 	host = null
 
-var duration: float = 0.5#0.25
+var duration: float = 1#0.5#0.25
 var height: float = 1 / duration
 var distance: float = 1.75 / duration
 var done: bool = false
@@ -26,6 +26,7 @@ func _ready() -> void:
 func enter() -> void:
 	direction = get_dir()
 	dodge_timer.start(duration)
+	done = false
 	pass
 	
 	

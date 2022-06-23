@@ -21,8 +21,9 @@ func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
 		if state != states.GHOST and who.state != states.GHOST:
 			if damage.tags.has("Unblockable"):
-				if who.state == states.GUARD:
+				if who.state == states.GUARD or who.state == states.PARRY:
 					return
+				print(who.state)
 			collisions.append(who)
 	
 			

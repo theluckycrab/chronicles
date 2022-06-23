@@ -125,6 +125,9 @@ func play(args) -> void: #state animations are networked
 	armature.play(args.animation, args.motion)
 
 
+func on_blocked(_mybox, _theirbox):
+	$Armature/EffectsPlayer.play("blocked")
+
 func on_got_blocked(_mybox, _theirbox):
 	Events.emit_signal("console_print", "got blocked!")
 	#set_state("stagger")

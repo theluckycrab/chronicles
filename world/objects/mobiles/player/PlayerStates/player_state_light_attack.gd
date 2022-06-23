@@ -7,7 +7,7 @@ var combo = []
 var combo_counter = 0
 var done = false
 var combo_timer = Timer.new()
-var combo_grace = 0.5
+var combo_grace = 0.4
 
 
 func _init() -> void:
@@ -55,6 +55,7 @@ func execute() -> void:
 		done = true
 	if host.get_animation() != animation:
 		#host.weaponbox_ghost()
+		host.armature.anim.tree.active = false
 		if combo_timer.is_stopped():
 			combo_timer.start(combo_grace)
 		if combo_timer.time_left > 0:

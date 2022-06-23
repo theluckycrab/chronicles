@@ -33,4 +33,6 @@ func can_enter() -> bool:
 	
 func execute() -> void:
 	host.lock_on()
+	if Input.is_action_pressed("guard"):
+		host.set_state("guard")
 	pass

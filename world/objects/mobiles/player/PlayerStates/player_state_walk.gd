@@ -42,7 +42,7 @@ func execute() -> void:
 	if host.in_combat:
 		sprinting = false
 		animation = get_strafe_dir()
-		host.add_force(dir * speed / 3)
+		host.add_force(dir * speed / 2)
 		host.lock_on()
 	else:
 		if Input.is_action_pressed("dodge"):
@@ -56,6 +56,8 @@ func execute() -> void:
 			animation = "Walk"
 			host.add_force(dir * speed)
 		host.body_face(dir)
+	if Input.is_action_pressed("guard"):
+		host.set_state("guard")
 	pass
 	
 	

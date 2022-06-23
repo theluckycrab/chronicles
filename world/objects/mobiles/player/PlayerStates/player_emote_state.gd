@@ -29,5 +29,6 @@ func execute():
 		#host.play({"animation":animation, "motion":true})
 	for i in ["w", "a", "s", "d"]:
 		if Input.is_action_just_pressed(i):
-			get_parent().quit_state()
+			if get_node("/root/SceneManager/Console").visible == false:
+				get_parent().quit_state()
 	#host.global_transform.origin = position

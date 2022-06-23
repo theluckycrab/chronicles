@@ -2,8 +2,8 @@ extends BaseMobile
 
 var long = ["pursue"]
 var mid = ["pursue", "circle", "defend"]
-var close = ["attack", "attack", "attack", "circle", "defend"]
-var any = ["warcry", "circle", "delay"]
+var close = ["attack", "attack", "attack", "defend"]
+var any = ["warcry", "delay"]
 var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
@@ -12,10 +12,13 @@ var hp = 3
 
 
 func _init() -> void:
+	var weps = ["katana", "club", "scimitar"]
+	var wep = randi() % weps.size() -1
+	wep = weps[wep]
 	net_init("target_dummy")
 	base_defaults = {
 			Head = "wizard_hat",
-			Mainhand = "katana",
+			Mainhand = wep,
 			Chest = "shirt",
 			Legs = "pants",
 			Boots = "sandals",
@@ -33,10 +36,10 @@ func _ready() -> void:
 	
 func _physics_process(_delta) -> void:
 	if net_stats.is_master:
-		if !is_instance_valid(lock_target) and can_act:
+		if !is_instance_valid(lock_target) and get_can_act():
 			lock_target = null
-			set_state("patrol")
-		elif is_instance_valid(lock_target):
+			call_deferred("set_state", "patrol")
+		elif is_instance_valid(lock_target) and get_can_act():
 			build_action_list(get_target_range())
 			choose_random_action()
 
@@ -57,7 +60,7 @@ func on_got_hit(mybox, theirbox) -> void:
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
 			npc("take_damage", {damage=theirbox.damage.damage})
-			state_machine.quit_state()
+			state_machine.call_deferred("quit_state")
 			call_deferred("set_state", "stagger")
 			if hp <= 0:
 				if net_stats.is_master:
@@ -71,11 +74,6 @@ func on_got_hit(mybox, theirbox) -> void:
 func take_damage(args):
 	hp -= args.damage
 	$Armature/EffectsPlayer.play("hp_hit")
-	
-func action() -> void:
-	if in_range() and in_view():
-		set_state("attack")
-	
 	
 func in_range() -> bool:
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
@@ -121,6 +119,7 @@ func build_action_list(dist:int) -> void:
 			
 func choose_random_action() -> void:
 	if state_machine.get_state() == null or state_machine.get_state().can_exit():
-		if !action_list.empty():
+		if !action_list.empty() and get_can_act():
 			var num = randi() % action_list.size() -1
-			set_state(action_list[num])
+			call_deferred("set_state", action_list[num])
+

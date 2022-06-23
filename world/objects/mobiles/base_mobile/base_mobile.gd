@@ -292,7 +292,7 @@ func equip(item:Item) -> void:
 		add_effect(item, i)
 	inventory.equip(item)
 	set_state("equip")
-	Events.emit_signal("console_print", "Equipped " + item.item_name)
+	#Events.emit_signal("console_print", "Equipped " + item.item_name)
 	if net_stats.netID == Network.get_nid():
 		Data.save_char_value("equipped", item)
 	emit_signal("equipped_item", item)
