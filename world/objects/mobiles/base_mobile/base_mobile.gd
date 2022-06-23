@@ -214,6 +214,10 @@ func remove_effect(index:String) -> void:
 func remove_passives(source) -> void:#source can be anything
 	if source != null:
 		buff_list.remove_passives(source)
+		
+		
+func clear_effects() -> void:
+	buff_list.clear_effects()
 	
 	
 #controls interface
@@ -374,6 +378,7 @@ func init_defaults() -> void:
 		var eq = char_data.equipped
 		var d = char_data.defaults
 		var iv = char_data.inventory
+		clear_effects()
 		for i in eq:
 			var it = Data.get_item(eq[i]).duplicate()
 			equip(it)

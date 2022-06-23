@@ -7,6 +7,7 @@ signal got_parried
 signal parried
 
 func _init():
+	index = "throwing_knife_projectile"
 	despawn_delay = 2
 
 func _ready():

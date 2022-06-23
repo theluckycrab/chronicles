@@ -30,6 +30,9 @@ func setup() -> void:
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
 	ref_list["target_dummy"] = "res://world/objects/mobiles/target_dummy/target_dummy.tscn"
 	ref_list["loot_barrel"] = "res://world/objects/interactable/loot_barrel/loot_barrel.tscn"
+	ref_list["throwing_knife_projectile"] = "res://data/projectiles/throwing_knife/throwing_knife.tscn"
+	ref_list["melee_aux"] = "res://data/projectiles/melee_aux/melee_aux.tscn"
+	ref_list["projectile"] = "res://data/projectiles/melee_aux/melee_aux/tscn"
 	
 func build_list(path, ending = ".tres", list = ref_list) -> void:
 	var dir = Directory.new()

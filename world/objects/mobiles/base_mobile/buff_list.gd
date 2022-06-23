@@ -37,3 +37,9 @@ func remove_passives(source) -> void:#source can be anything
 		if i.source == source:
 			i.exit(host)
 			list.erase(i)
+			
+			
+func clear_effects():
+	for i in list:
+		i.exit(host)
+	list.clear()

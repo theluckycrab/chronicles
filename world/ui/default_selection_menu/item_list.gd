@@ -28,7 +28,7 @@ func on_button_down(which):
 			if selected_icon != null:
 				selected_icon.modulate = Color.whitesmoke
 			selected_icon = which
-			which.modulate = Color.lightgoldenrod
+			which.modulate = Color.orange
 			emit_signal("item_selected", selected_icon.item.index)
 	
 	

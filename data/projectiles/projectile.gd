@@ -5,8 +5,11 @@ var despawn_timer = Timer.new()
 var despawn_delay = 0.2
 var source = null
 var damage = null setget set_damage, get_damage
+var index = "projectile"
+var net_stats = NetStats.new(index)
 
 func _ready():
+	#net_stats.register()
 	setup_despawn_timer()
 	
 

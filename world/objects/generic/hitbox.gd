@@ -10,12 +10,15 @@ signal hitbox_entered
 
 var collisions = []
 var damage = Damage.new()
+export(int) var damage_amount = 1
+export(PoolStringArray) var damage_tags = []
 
 #Only Strike hitboxes do logic, so everything is from attacker's perspective
 
 func _ready() -> void:
 	var _discard = connect("area_entered", self, "on_area_entered")
-	
+	damage.tags.append_array(damage_tags)
+	damage.damage = damage_amount
 	
 func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():

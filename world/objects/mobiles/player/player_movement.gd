@@ -21,7 +21,6 @@ func commit_move() -> void:
 	var commit_vel = velocity
 	if host.armature.anim.tree.active:
 		commit_vel += (get_root_motion().origin / host.stored_delta).rotated(Vector3.UP, host.armature.rotation.y)
-		commit_vel.y *= 2
 	velocity = Vector3.ZERO
 	last_velocity = commit_vel
 	if host.is_on_floor() and commit_vel.y == 0:

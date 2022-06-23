@@ -58,8 +58,10 @@ func on_visibility_changed():
 			for j in i.get_children():
 				if data.defaults.has(i.category):
 					if j.item.index == data.defaults[i.category]:
-						j.modulate = Color.lightgoldenrod
+						j.modulate = Color.orange
 						i.selected_icon = j
+					else:
+						j.modulate = Color.whitesmoke
 	
 	
 	

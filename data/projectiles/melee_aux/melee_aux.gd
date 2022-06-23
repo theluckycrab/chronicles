@@ -6,6 +6,9 @@ signal hit
 signal got_parried
 signal parried
 
+func init():
+	index = "melee_aux"
+
 func _ready():
 	$Hitbox.strike()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
