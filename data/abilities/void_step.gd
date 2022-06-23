@@ -19,6 +19,7 @@ onready var jump_timer = null
 
 func enter() -> void:
 	host.npc("set_visible", {"visible":false})
+	host.npc("guard", {direction="Forward"})
 	dir = Vector3(randi() % distance, -distance + randi() % distance, randi() % distance) * Vector3(1,-1,1)
 	rot = randi() % 360
 	dir = dir.rotated(Vector3.UP, rot)
@@ -33,6 +34,7 @@ func enter() -> void:
 	
 func exit() -> void:
 	host.npc("set_visible", {"visible":true})
+	host.npc("guard_reset", {})
 	jump_timer.queue_free()
 	done = false
 	combat_check()
