@@ -342,7 +342,10 @@ func set_war(t:bool) -> void:
 		
 func set_lock_target(args):
 	if args.has("netID"):
-		lock_target = Network.get_net_object(args.netID)
+		if args.netID == null:
+			lock_target = null
+		else:
+			lock_target = Network.get_net_object(args.netID)
 	
 	
 func acquire_lock_target(_filter=[]) -> void:

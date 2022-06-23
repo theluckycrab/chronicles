@@ -36,7 +36,7 @@ func on_got_hit(mybox, theirbox):
 		var zone = get_hit_zone(dir)
 		var item = get_equipped(zone)
 		if item and !item.has_tag("Default") and item.durability > 0:
-			item.durability -= 1
+			consume_durability(item.get_slot())
 			$Armature/EffectsPlayer.play("armor_hit")
 			if item.durability < 1:
 				destroy(zone)
@@ -128,6 +128,7 @@ func play(args) -> void: #state animations are networked
 
 func on_blocked(_mybox, _theirbox):
 	$Armature/EffectsPlayer.play("blocked")
+	consume_durability("Mainhand")
 
 func on_got_blocked(_mybox, _theirbox):
 	Events.emit_signal("console_print", "got blocked!")

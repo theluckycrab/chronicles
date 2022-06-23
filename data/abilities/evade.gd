@@ -4,7 +4,7 @@ extends Ability
 func _init() -> void:
 	index = "Evade"
 	animation = "Evade"
-	priority = 2
+	priority = 6
 	host = null
 
 
@@ -31,4 +31,5 @@ func can_exit() -> bool:
 
 
 func execute() -> void:
+	#host.add_force(Vector3.UP * 10)
 	pass

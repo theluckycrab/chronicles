@@ -30,7 +30,7 @@ func can_exit() -> bool:
 
 func execute() -> void:
 	if is_instance_valid(host.lock_target):
-		host.lock_target.lock_target = null
+		host.lock_target.npc("set_lock_target", {netID=null})
 	pass
 	
 	

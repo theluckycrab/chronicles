@@ -52,3 +52,8 @@ func on_keyframe():
 		
 func on_summon_died():
 	summon = null
+	
+
+func _exit_tree():
+	if is_instance_valid(summon):
+		summon.net_stats.unregister()
