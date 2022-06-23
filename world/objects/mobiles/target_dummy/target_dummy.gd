@@ -2,7 +2,7 @@ extends BaseMobile
 
 var long = ["pursue"]
 var mid = ["pursue", "circle", "defend"]
-var close = ["attack", "attack", "attack", "defend"]
+var close = ["attack", "attack", "defend"]
 var any = ["warcry", "delay"]
 var action_list = []
 

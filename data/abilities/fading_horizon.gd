@@ -10,7 +10,7 @@ func _init() -> void:
 
 func enter() -> void:
 	animation = "Fading_Horizon_1"
-	show_weapon()
+	hide_weapon()
 	pass
 
 
@@ -34,5 +34,6 @@ func execute() -> void:
 		host.acquire_lock_target()
 		host.lock_on()
 	if Input.is_action_just_released("mainhand"):
+		show_weapon()
 		host.npc("play", {"animation":"Fading_Horizon_2", "motion":true})
 		done = true
