@@ -32,5 +32,5 @@ func execute() -> void:
 	pass
 	
 func on_keyframe():
-	host.npc("instantiate_projectile", {"index":"melee_aux"})
+	host.npc("instantiate_projectile", {"index":"melee_aux", "tags":["Unblockable"]})
 

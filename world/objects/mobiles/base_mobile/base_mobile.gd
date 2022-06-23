@@ -452,6 +452,8 @@ func instantiate_projectile(args) -> void:
 		projectile.damage = Damage.new()
 		projectile.damage.damage = 0
 	projectile.damage.add_tag(get_faction())
+	if args.has("tags"):
+		projectile.damage.tags.append_array(args.tags)
 	add_child(projectile)
 	projectile.get_node("Hitbox").owner = self
 	projectile.global_transform.origin = armature.get_node("HitOrigin").global_transform.origin

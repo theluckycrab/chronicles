@@ -32,12 +32,5 @@ func execute() -> void:
 	pass
 	
 func on_keyframe():
-	var projectile = Data.get_projectile("melee_aux").instance()
-	projectile.damage.damage = 1
-	projectile.damage.tags = ["Player", "Unblockable"]
-	host.add_child(projectile)
-	projectile.connect("got_blocked", host, "on_got_blocked", [], CONNECT_ONESHOT)
-	projectile.get_node("Hitbox").owner = host
-	projectile.global_transform.origin = host.armature.get_node("HitOrigin").global_transform.origin
-	
+	host.npc("instantiate_projectile", {"index":"melee_aux", "tags":["Unblockable"]})
 
