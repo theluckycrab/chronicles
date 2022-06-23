@@ -3,7 +3,7 @@ extends Ability
 func _init() -> void:
 	index = "Dash Punch"
 	animation = "Dash_Punch"
-	priority = 2
+	priority = 6
 	host = null
 
 
