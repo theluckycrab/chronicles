@@ -11,6 +11,7 @@ onready var item_lists = [$Layout/Left/Itemlist, $Layout/Left/Itemlist2, \
 		$Layout/Right/Itemlist5, $Layout/Right/Itemlist6,\
 		$Layout/Right/Itemlist7]
 onready var chat_color_button = $Layout/Mid/HBoxContainer2/ChatColorButton
+onready var system_color_button = $Layout/Mid/HBoxContainer2/SystemColorButton
 
 func _ready():
 	for i in item_list:
@@ -19,7 +20,6 @@ func _ready():
 		#$VBoxContainer.add_child(nicon)
 	save_button.connect("button_down", self, "on_save")
 	exit_button.connect("button_down", self, "on_exit")
-	chat_color_button.connect("color_changed", self, "set_chat_color")
 	name_entry.connect("text_changed", self, "on_name_entry")
 	var _discard = connect("visibility_changed", self, "on_visibility_changed")
 	for i in item_lists:
@@ -41,6 +41,8 @@ func on_save():
 		else:
 			Data.persistence.char_data.defaults.erase(i.category)
 	Data.set_char_value("alias", $Layout/Mid/HBoxContainer2/NameEntry.text)
+	Data.save_config_value("chat_color", $Layout/Mid/HBoxContainer2/ChatColorButton.color.to_html())
+	Data.save_config_value("system_color", $Layout/Mid/HBoxContainer2/SystemColorButton.color.to_html())
 	Data.full_save_char()
 	on_exit()
 	pass
@@ -56,6 +58,7 @@ func on_visibility_changed():
 		if $Layout/Mid/HBoxContainer2/NameEntry.text == "New Character":
 			$Layout/Mid/HBoxContainer2/NameEntry.text = "Enter a character name"
 		chat_color_button.color = Color(Data.get_config_value("chat_color"))
+		system_color_button.color = Color(Data.get_config_value("system_color"))
 		for i in item_lists:
 			for j in i.get_children():
 				if data.defaults.has(i.category):
@@ -81,7 +84,3 @@ func on_item_unselected(slot):
 func on_name_entry(_words):
 	Data.set_char_value("alias", $Layout/Mid/NameEntry.text)
 	$Layout/Mid/Label2.update()
-
-func set_chat_color(c):
-	c = c.to_html()
-	Data.save_config_value("chat_color", c)

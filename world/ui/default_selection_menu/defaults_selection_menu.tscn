@@ -102,22 +102,24 @@ margin_top = 446.0
 margin_right = 305.0
 margin_bottom = 470.0
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Layout/Mid/HBoxContainer2"]
-margin_right = 12.0
+[node name="SystemColorButton" type="ColorPickerButton" parent="Layout/Mid/HBoxContainer2"]
+margin_right = 59.0
 margin_bottom = 24.0
+text = "System"
+color = Color( 0.0745098, 0.341176, 0.65098, 1 )
 
 [node name="NameEntry" type="LineEdit" parent="Layout/Mid/HBoxContainer2"]
-margin_left = 16.0
-margin_right = 224.0
+margin_left = 63.0
+margin_right = 253.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "Player"
 
 [node name="ChatColorButton" type="ColorPickerButton" parent="Layout/Mid/HBoxContainer2"]
-margin_left = 228.0
+margin_left = 257.0
 margin_right = 305.0
 margin_bottom = 24.0
-text = "Chat Color"
+text = "Chat  "
 color = Color( 1, 1, 1, 1 )
 edit_alpha = false
 

@@ -1,7 +1,7 @@
 extends Spatial
 class_name Label3D
 
-onready var text setget set_label_text, get_label_text
+export(String) onready var text setget set_label_text, get_label_text
 export(int) var lifespan = 3
 var rolling = false
 export(Color) var color setget set_label_color
@@ -19,7 +19,8 @@ func on_timer():
 
 func set_label_text(text):
 	$Viewport/Label.text = text
-	$Timer.start(lifespan)
+	if lifespan > 0:
+		$Timer.start(lifespan)
 	
 func get_label_text():
 	return $Viewport/Label.text

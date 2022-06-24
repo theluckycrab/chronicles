@@ -13,7 +13,8 @@ var char_data = {
 
 var config = {
 	last_character = "New Character",
-	chat_color = Color(1,1,1,1).to_html()
+	chat_color = "ffffff",
+	system_color = "ff1357a6"
 }
 
 func setup():

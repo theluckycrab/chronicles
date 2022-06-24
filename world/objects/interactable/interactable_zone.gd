@@ -11,6 +11,7 @@ func _unhandled_input(event):
 			host.set_state("interact")
 			get_parent().call_deferred("activate", host)
 			$ActionLabel.hide()
+			#$Label3D.visible = false
 			host = null
 
 func _ready():
@@ -24,15 +25,17 @@ func on_body_entered(body):
 	if body is BaseMobile and body.net_stats.netID == Network.get_nid():
 		host = body
 		$ActionLabel.show()
+		#$Label3D.visible = true
 
 
 func on_body_exited(body):
 	if body is BaseMobile and body.net_stats.netID == Network.get_nid():
 		host = null
 		$ActionLabel.hide()
+		#$Label3D.visible = false
 	
 
 func set_action_label(text):
 	action = text
 	$ActionLabel.text = "E: " + text.capitalize()
-	
+	#$Label3D.text = "E: " + text.capitalize()
