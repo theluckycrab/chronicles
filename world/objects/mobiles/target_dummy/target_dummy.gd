@@ -8,7 +8,7 @@ var action_list = []
 
 enum {CLOSE, MID, LONG, NONE}
 
-var hp = 3
+var hp = 4
 
 
 func _init() -> void:
@@ -64,7 +64,11 @@ func on_got_hit(mybox, theirbox) -> void:
 			npc("take_damage", {damage=theirbox.damage.damage})
 			state_machine.call_deferred("quit_state")
 			call_deferred("set_state", "stagger")
-			if hp <= 0:
+	
+func take_damage(args):
+	hp -= args.damage
+	$Armature/EffectsPlayer.play("hp_hit")
+	if hp <= 0:
 				if net_stats.is_master:
 					var loot = Data.get_reference_instance("loot_barrel")
 					loot.net_stats.original_instance_id = loot.get_instance_id()
@@ -72,10 +76,6 @@ func on_got_hit(mybox, theirbox) -> void:
 					get_viewport().add_child(loot)
 					loot.global_transform.origin = global_transform.origin
 					net_stats.unregister()
-	
-func take_damage(args):
-	hp -= args.damage
-	$Armature/EffectsPlayer.play("hp_hit")
 	
 func in_range() -> bool:
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
