@@ -12,7 +12,8 @@ var char_data = {
 }
 
 var config = {
-	last_character = "New Character"
+	last_character = "New Character",
+	chat_color = Color(1,1,1,1).to_html()
 }
 
 func setup():

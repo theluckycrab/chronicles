@@ -28,8 +28,8 @@ MOTD : Thank you for playing! Please do share any thoughts you might have in the
 ========================================
 "
 readonly = true
+show_line_numbers = true
 wrap_enabled = true
-scroll_vertical = 1.0
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
 margin_top = 112.0

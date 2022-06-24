@@ -30,6 +30,8 @@ func _ready() -> void:
 	net_stats.register()
 	#call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
+	Events.connect("net_print", self, "on_net_print")
+	Events.connect("console_print", self, "on_console_print")
 	
 func on_register():
 	if net_stats.is_master:
@@ -76,6 +78,15 @@ func connect_weapon_signals():
 	var _discard2 = armature.connect("parried", self, "on_parried")
 	var _discard3 = armature.connect("got_parried", self, "on_got_parried")
 	var _discard4 = armature.connect("got_blocked", self, "on_got_blocked")
+	
+func on_net_print(args):
+	if args.sender == net_stats.netID:
+		armature.print_overhead_chat(args)
+	
+func on_console_print(text):
+	if text.begins_with("System:"):
+		text = text.lstrip("System:")
+		armature.print_overhead_system(text)
 		
 #setget
 func get_can_act() -> bool:
@@ -176,6 +187,10 @@ func link_hitbox(box) -> void:
 	box.connect("hitbox_entered", self, "on_hitbox_entered")
 	
 	
+func print_overhead(args):
+	pass
+	
+	
 #inventory interface
 func get_defaults_dict() -> Dictionary:
 	return inventory.get_defaults_dict()
@@ -194,7 +209,7 @@ func get_all_equipped():
 	
 func add_item(item:Item) -> void:
 	inventory.add_item(item)
-	Events.emit_signal("console_print", "Item added : "+item.item_name)
+	Events.emit_signal("console_print", "System: "+item.item_name)
 	
 	
 func set_default(slot:String, item:Item) -> void:

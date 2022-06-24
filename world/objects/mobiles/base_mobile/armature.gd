@@ -160,3 +160,16 @@ func show_weapon() -> void:
 
 func keyframe() -> void:
 	anim.emit_signal("keyframe")
+
+
+func print_overhead_chat(args):
+	$OverheadChat/Viewport/Label.modulate = args.color as Color
+	var split = args.text.split(":")
+	if split.size() != 0:
+		split.remove(0)
+	split = split.join(" ")
+	$OverheadChat.text += split + "\n"
+	
+
+func print_overhead_system(text):
+	$OverheadSystem.text += text + "\n"

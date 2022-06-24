@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Fading_Horizon_2.anim" type="Animation" id=29]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Dash_Punch.anim" type="Animation" id=30]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Evade.anim" type="Animation" id=31]
+[ext_resource path="res://world/ui/label_3D.tscn" type="PackedScene" id=32]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Sheathe.anim" type="Animation" id=33]
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=38]
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=39]
@@ -13045,8 +13046,6 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -13071,7 +13070,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.00338742, -0.974362, 0.22496, 0.469723, 0.197047, 0.860552, -0.882806, 0.108582, 0.457021, -0.885337, 1.58379, -0.334368 )
+transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -13091,7 +13090,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172492, -0.00173419, -0.00153249, 0.99442, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238571, 1.05706, -0.0208684 )
+transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]
@@ -13183,6 +13182,14 @@ emitting = false
 mesh = ExtResource( 19 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 1, 1 )
+
+[node name="OverheadChat" parent="Armature" instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="OverheadSystem" parent="Armature" instance=ExtResource( 32 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
+lifespan = 1
+color = Color( 0.2, 0.32549, 0.545098, 1 )
 
 [node name="BuffList" type="Spatial" parent="."]
 script = ExtResource( 11 )

@@ -49,7 +49,7 @@ func net_send(text):
 		return
 	text = text.lstrip("/")
 	text = Network.alias + ": "+ text
-	Network.relay_signal("net_print",{text = text})
+	Network.relay_signal("net_print",{text = text, sender=Network.get_nid(), color=Data.get_config_value("chat_color")})
 		
 		
 func command_dispatch(text) -> void:

@@ -49,6 +49,8 @@ func on_keyframe():
 		var w = Data.get_item("katana").duplicate()
 		w.combo[0] = "Katana_Combo_2"
 		projectile.call_deferred("equip", w)
+		projectile.armature.weaponbox.damage.tags.append("Player")
+		projectile.armature.weaponbox.damage.tags.erase("Dummy")
 		summon = projectile
 		summonID = projectile.net_stats.netID
 		

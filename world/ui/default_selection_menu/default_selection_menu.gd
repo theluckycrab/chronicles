@@ -5,12 +5,12 @@ var icon = preload("res://world/ui/item_display.tscn")
 
 onready var save_button = $Layout/Mid/HBoxContainer/Save
 onready var exit_button = $Layout/Mid/HBoxContainer/Exit
-onready var name_entry = $Layout/Mid/NameEntry
+onready var name_entry = $Layout/Mid/HBoxContainer2/NameEntry
 onready var item_lists = [$Layout/Left/Itemlist, $Layout/Left/Itemlist2, \
 		$Layout/Left/Itemlist3, $Layout/Left/Itemlist4,\
 		$Layout/Right/Itemlist5, $Layout/Right/Itemlist6,\
 		$Layout/Right/Itemlist7]
-
+onready var chat_color_button = $Layout/Mid/HBoxContainer2/ChatColorButton
 
 func _ready():
 	for i in item_list:
@@ -19,6 +19,7 @@ func _ready():
 		#$VBoxContainer.add_child(nicon)
 	save_button.connect("button_down", self, "on_save")
 	exit_button.connect("button_down", self, "on_exit")
+	chat_color_button.connect("color_changed", self, "set_chat_color")
 	name_entry.connect("text_changed", self, "on_name_entry")
 	var _discard = connect("visibility_changed", self, "on_visibility_changed")
 	for i in item_lists:
@@ -39,7 +40,7 @@ func on_save():
 			Data.set_char_value("default", {slot=d.slot, index=d.index})
 		else:
 			Data.persistence.char_data.defaults.erase(i.category)
-	Data.set_char_value("alias", $Layout/Mid/NameEntry.text)
+	Data.set_char_value("alias", $Layout/Mid/HBoxContainer2/NameEntry.text)
 	Data.full_save_char()
 	on_exit()
 	pass
@@ -51,9 +52,10 @@ func on_visibility_changed():
 		var data = Data.get_char_data().duplicate(true)
 		$Layout/Mid/Preview._ready()
 		$Layout/Mid/Label2.update()
-		$Layout/Mid/NameEntry.text = data.alias
-		if $Layout/Mid/NameEntry.text == "New Character":
-			$Layout/Mid/NameEntry.text = "Enter a character name"
+		$Layout/Mid/HBoxContainer2/NameEntry.text = data.alias
+		if $Layout/Mid/HBoxContainer2/NameEntry.text == "New Character":
+			$Layout/Mid/HBoxContainer2/NameEntry.text = "Enter a character name"
+		chat_color_button.color = Color(Data.get_config_value("chat_color"))
 		for i in item_lists:
 			for j in i.get_children():
 				if data.defaults.has(i.category):
@@ -79,3 +81,7 @@ func on_item_unselected(slot):
 func on_name_entry(_words):
 	Data.set_char_value("alias", $Layout/Mid/NameEntry.text)
 	$Layout/Mid/Label2.update()
+
+func set_chat_color(c):
+	c = c.to_html()
+	Data.save_config_value("chat_color", c)

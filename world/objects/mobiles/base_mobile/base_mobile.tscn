@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile_stats.gd" type="Script" id=17]
 [ext_resource path="res://data/assets/meshes/equipment/guard_gloves.mesh" type="ArrayMesh" id=18]
 [ext_resource path="res://data/assets/meshes/equipment/guard_chest.mesh" type="ArrayMesh" id=19]
+[ext_resource path="res://world/ui/label_3D.tscn" type="PackedScene" id=20]
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=38]
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=39]
 [ext_resource path="res://world/ui/lock_on_area.gd" type="Script" id=43]
@@ -21120,8 +21121,6 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
@@ -21277,6 +21276,14 @@ emitting = false
 mesh = ExtResource( 7 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 1, 1 )
+
+[node name="OverheadChat" parent="Armature" instance=ExtResource( 20 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="OverheadSystem" parent="Armature" instance=ExtResource( 20 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
+lifespan = 1
+color = Color( 0.2, 0.32549, 0.545098, 1 )
 
 [node name="BuffList" type="Spatial" parent="."]
 script = ExtResource( 11 )
