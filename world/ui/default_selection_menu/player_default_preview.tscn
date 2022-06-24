@@ -20969,7 +20969,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 
 [node name="OverheadSystem" parent="Viewport/Camera/Armature" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
-lifespan = 1
 color = Color( 0.2, 0.32549, 0.545098, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]

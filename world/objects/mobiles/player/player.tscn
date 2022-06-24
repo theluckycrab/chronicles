@@ -13186,10 +13186,10 @@ emission_shape = 2
 emission_box_extents = Vector3( 1, 1, 1 )
 
 [node name="OverheadChat" parent="Armature" instance=ExtResource( 32 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.13933, 0 )
 
 [node name="OverheadSystem" parent="Armature" instance=ExtResource( 32 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0136784, 2.50223, 0.02 )
 lifespan = 1
 color = Color( 0.2, 0.32549, 0.545098, 1 )
 

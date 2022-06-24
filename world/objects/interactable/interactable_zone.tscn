@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://world/objects/interactable/interactable_zone.gd" type="Script" id=1]
-[ext_resource path="res://world/ui/label_3D.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 0.5, 0.5 )
@@ -15,16 +14,11 @@ shape = SubResource( 1 )
 [node name="ActionLabel" type="Label" parent="."]
 visible = false
 anchor_left = 0.5
-anchor_top = 0.786
+anchor_top = 0.857
 anchor_right = 0.5
-anchor_bottom = 0.799
-margin_left = -33.5
-margin_top = -7.0
-margin_right = 33.5
-margin_bottom = 7.0
-text = "Press E to "
-
-[node name="Label3D" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-visible = false
-lifespan = 0
+anchor_bottom = 0.857
+margin_left = -37.0
+margin_top = -47.2
+margin_right = 33.0
+margin_bottom = -33.2
+text = "Balldickery"

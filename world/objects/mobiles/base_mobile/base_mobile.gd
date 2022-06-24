@@ -84,6 +84,8 @@ func on_net_print(args):
 		armature.print_overhead_chat(args)
 	
 func on_console_print(text):
+	if net_stats.netID != Network.get_nid():
+		return
 	if text.begins_with("System:"):
 		text = text.lstrip("System:")
 		armature.print_overhead_system(text)

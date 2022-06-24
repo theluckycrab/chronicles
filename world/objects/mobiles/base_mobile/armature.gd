@@ -16,7 +16,7 @@ onready var weaponbox = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox
 func _ready():
 	var _discard = $Guardbox.connect("blocked", self, "on_guardbox_blocked")
 	var _discard1 = weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
-	$OverheadSystem/Viewport/Label.modulate = Data.get_config_value("system_color")
+	$OverheadSystem/Label.modulate = Data.get_config_value("system_color")
 	
 
 func destroy(slot: String) -> void:
@@ -164,7 +164,7 @@ func keyframe() -> void:
 
 
 func print_overhead_chat(args):
-	$OverheadChat/Viewport/Label.modulate = args.color as Color
+	$OverheadChat/Label.modulate = args.color as Color
 	var split = args.text.split(":")
 	if split.size() != 0:
 		split.remove(0)
