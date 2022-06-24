@@ -12,7 +12,10 @@ func _ready():
 		$Timer.start(lifespan)
 	#yield(get_tree().create_timer(lifespan), "timeout")
 	#queue_free()
-	
+
+func _physics_process(delta):
+	if $Label.text != "":
+		position()
 
 func on_timer():
 	$Label.text = ""
@@ -23,7 +26,6 @@ func set_label_text(t):
 	$Label.text = t
 	if lifespan > 0:
 		$Timer.start(lifespan)
-	position()
 	
 func get_label_text():
 	return $Label.text
