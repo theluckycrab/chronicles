@@ -164,7 +164,8 @@ func keyframe() -> void:
 
 
 func print_overhead_chat(args):
-	$OverheadChat/Label.modulate = args.color as Color
+	if args.has("color"):
+		$OverheadChat/Label.modulate = args.color as Color
 	var split = args.text.split(":")
 	if split.size() != 0:
 		split.remove(0)

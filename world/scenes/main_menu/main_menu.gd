@@ -23,7 +23,9 @@ func _ready() -> void:
 	Network.peer.connect("connection_succeeded", self, "on_next")
 	line_edit.text = Data.get_config_value("last_character")
 	Data.set_char_value("alias", Data.get_config_value("last_character"))
+	Data.load_char_save(Data.get_config_value("last_character"))
 	line_edit.connect("text_changed", self, "on_alias_changed")
+	build_armature()
 	
 	
 func _input(event) -> void:
@@ -69,7 +71,27 @@ func on_defaults_hide():
 	$DefaultsMenu.visible = false
 	Data.load_char_save(Data.get_char_value("alias"))
 	$VBoxContainer/LineEdit.text = Data.get_char_value("alias")
+	build_armature()
 
 
 func on_alias_changed(text):
 	Data.set_char_value("alias", text)
+	
+func build_armature():
+	var data = Data.get_char_data().duplicate(true)
+	var arm = $MeshInstance/Armature
+	print(data)
+	for i in data.defaults:
+		arm.equip({index=data.defaults[i]})
+	var anims = arm.anim.get_animation_list()
+	var a = randi() % anims.size()
+	a = anims[a]
+	arm.anim.play(a)
+	var phrases = ["There is victory in having fought",
+			"Do you have a job for me?",
+			"Welcome to the Lucky Crab!",
+			"It's not much, but it's ours.",
+			"Remember to smash that friend button!"]
+	a = randi() % phrases.size()
+	a = phrases[a]
+	arm.print_overhead_system(a)

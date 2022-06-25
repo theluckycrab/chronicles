@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 item_name = "Debug Item"
-slot = "Mainhand"
+slot = "Dicks"
 mesh = "naked"
 description = "They say it might have the power to alter the rules of the system itself."
 is_modified = true
