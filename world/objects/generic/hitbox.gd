@@ -10,7 +10,7 @@ signal hitbox_entered
 
 var collisions = []
 var damage = Damage.new()
-export(int) var damage_amount = 0
+export(int) var damage_amount = 1
 export(PoolStringArray) var damage_tags = []
 
 #Only Strike hitboxes do logic, so everything is from attacker's perspective

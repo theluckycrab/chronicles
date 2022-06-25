@@ -75,6 +75,10 @@ func on_attack_timer():
 		done = true
 
 func get_vis_wep():
-	var vis = host.armature.equipment["Mainhand"]
+	var vis = null
+	if host.armature.equipment.has("Mainhand"):
+		vis = host.armature.equipment["Mainhand"]
+	else:
+		vis = "katana"
 	var item = Data.get_item(vis)
 	weapon = item

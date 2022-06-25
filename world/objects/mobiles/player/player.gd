@@ -2,7 +2,6 @@ class_name Player
 extends BaseMobile
 
 var hp = 4
-var registered = false
 
 func _init() -> void:
 	net_init("player")

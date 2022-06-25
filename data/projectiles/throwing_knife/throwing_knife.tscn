@@ -17,6 +17,7 @@ script = ExtResource( 1 )
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 2 )
+damage_amount = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 shape = SubResource( 1 )
