@@ -9,6 +9,7 @@ func _ready() -> void:
 	var _dicksard = history.connect("text_changed", self, "on_history")
 	var _dicksword = Events.connect("console_print", self, "on_console_print")
 	var _deez = Events.connect("net_print", self, "on_net_print")
+	$VBoxContainer/LineEdit.modulate = Color(Data.get_config_value("chat_color"))
 	
 func _input(event) -> void:
 	if event.as_text() == "QuoteLeft" and event.is_pressed() and !event.is_echo():
@@ -105,14 +106,15 @@ func equip(text) -> void:
 
 func show():
 	visible = true
-	add_to_group("menus")
 	yield(get_tree().create_timer(0.005), "timeout")
 	on_history()
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	#get_viewport().warp_mouse(Vector2(0,0))
+	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
 	
 func hide():
 	visible = false
-	remove_from_group("menus")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func set_alias(a):

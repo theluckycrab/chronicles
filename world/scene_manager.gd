@@ -25,12 +25,12 @@ func change_scene(scene: String) -> void:
 			Network.net_objects[i].queue_free()
 	Network.command_history.clear()
 	Network.net_objects.clear()
+	print(scene)
 	if "town" in scene:
 		print("clearing player inventory data")
 		Data.clear_char_equipped()
 		Data.clear_char_inventory()
-		Data.full_save()
-	yield(get_tree(), "idle_frame")
+		yield(Data.full_save(), "completed")
 	var nscene = load("res://world/scenes/"+scene+"/"+scene+".tscn").instance()
 	mount.add_child(nscene)
 	current_scene = nscene

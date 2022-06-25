@@ -10,7 +10,7 @@ signal hitbox_entered
 
 var collisions = []
 var damage = Damage.new()
-export(int) var damage_amount = 1
+export(int) var damage_amount = 0
 export(PoolStringArray) var damage_tags = []
 
 #Only Strike hitboxes do logic, so everything is from attacker's perspective
@@ -39,8 +39,8 @@ func _physics_process(_delta):
 	emit_signal("hitbox_entered", self, collisions.front())
 	if is_instance_valid(collisions.front()):
 		collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
+		ghost()
 	collisions.clear()
-	ghost()
 			
 			
 func idle() -> void:

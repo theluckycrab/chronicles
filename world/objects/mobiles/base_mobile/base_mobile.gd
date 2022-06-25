@@ -27,11 +27,13 @@ onready var controls := $Controls
 
 #builtin
 func _ready() -> void:
+	yield(get_tree().create_timer(2), "timeout")
 	net_stats.register()
 	#call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
 	Events.connect("net_print", self, "on_net_print")
 	Events.connect("console_print", self, "on_console_print")
+	
 	
 func on_register():
 	if net_stats.is_master:
@@ -49,9 +51,8 @@ func _physics_process(delta) -> void:
 				acquire_lock_target()
 		commit_move()
 		update()
-	elif viewers < 0:
-		armature.anim.play("Idle")
-	
+	if !net_stats.is_master and update_count == 0:
+		npc("update", {})
 	
 #signal_response
 func on_blocked(_mybox, _theirbox):
@@ -259,9 +260,10 @@ func net_init(index:String) -> void:
 	#net_stats.register()
 	
 	
-func update() -> void:
+func update(_args={}) -> void:
 	if !net_stats.is_master:
-		print("Betrayer :", Network.get_nid())
+		print("Betrayer :", net_stats.netOwner)
+		return
 	update_count += 1
 	var args = {
 			position = global_transform.origin,
@@ -277,15 +279,17 @@ func update() -> void:
 	
 func net_sync(args:Dictionary) -> void:
 	if net_stats.is_dummy and args.update_number > update_count:
-		if get_animation() != args.animation and args.animation != "" \
-		and !armature.anim.is_using_root_motion() and armature.anim.last_animation != args.animation:
-			#args.motion = false
-			play(args)#, args.anim_motion)
-			pass
-		else:
-			global_transform.origin = args.position
-			armature.global_transform.origin = args.arm_pos
-			armature.rotation = args.rot
+		if viewers > 0 or update_count == 0:
+			if get_animation() != args.animation and args.animation != "" \
+			and !armature.anim.is_using_root_motion() and armature.anim.last_animation != args.animation:
+				#args.motion = false
+				play(args)#, args.anim_motion)
+				pass
+			else:
+				global_transform.origin = args.position
+				armature.global_transform.origin = args.arm_pos
+				armature.rotation = args.rot
+		update_count = args.update_number
 			
 			
 func net_force(args):

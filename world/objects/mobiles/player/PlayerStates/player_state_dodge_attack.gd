@@ -9,11 +9,9 @@ func _init() -> void:
 
 
 func enter() -> void:
-	host.weaponbox_strike()
 	pass
 	
 func exit() -> void:
-	host.weaponbox_ghost()
 	pass
 	
 	

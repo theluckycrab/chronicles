@@ -1,8 +1,10 @@
 extends Reference
 class_name NetStats
 
+signal owner_changed
+
 var netID: int = Network.nid_gen()
-var netOwner: int = Network.get_nid()
+var netOwner: int = Network.get_nid() setget set_owner
 var index: String
 var history = {}
 var original_instance_id: int = 0
@@ -60,4 +62,7 @@ func replay_history() -> void:
 		Network.net_objects[netID].call(history[i].command, history[i])
 		
 
-
+func set_owner(new_owner):
+	if new_owner != netOwner:
+		emit_signal("owner_changed")
+	netOwner = new_owner

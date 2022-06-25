@@ -24,7 +24,8 @@ func _ready() -> void:
 func _physics_process(_delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
-			get_viewport().add_child(Data.get_reference_instance("target_dummy"))
+			#get_viewport().add_child(Data.get_reference_instance("target_dummy"))
+			Events.emit_signal("scene_change_request", "test_room2")
 			pass
 	
 func on_got_hit(mybox, theirbox):
@@ -137,8 +138,8 @@ func on_got_parried(_mybox, _theirbox):
 	set_state("stagger")
 
 func on_death():
-	Network.rpc("sub_host_migration", net_stats.netID)
-	Network.relay_signal("net_print", {"text":Data.get_char_value("alias")+ " has died!"})
+	Network.rpc("sub_host_migration", net_stats.netID, Data.get_char_value("map"))
+	#Network.relay_signal("net_print", {"text":Data.get_char_value("alias")+ " has died!"})
 	release_camera()
 	net_stats.call_deferred("unregister")
 	

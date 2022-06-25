@@ -6,7 +6,8 @@ export(PackedScene) onready var pattern = preload("res://world/objects/generic/s
 onready var host = get_parent()
 
 func _ready():
-	call_deferred("spawn")
+	yield(get_tree().create_timer(3), "timeout")
+	spawn()
 #spawn projectiles scenes
 # at our location
 # network that spawn call
@@ -16,7 +17,8 @@ func retrieve_data(_i):
 
 
 func spawn():
-	if Network.get_map_master(Network.map, Network.get_nid()) == Network.get_nid():
+	if Network.map_masters[Network.map] == Network.get_nid():
+		print("spawning from spawner")
 		var object = Data.get_reference_instance(index)
 		add_child(object)
 		object.global_transform.origin = global_transform.origin

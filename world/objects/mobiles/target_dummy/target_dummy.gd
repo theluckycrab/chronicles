@@ -37,7 +37,7 @@ func _ready() -> void:
 	
 	
 func _physics_process(_delta) -> void:
-	if net_stats.is_master:
+	if net_stats.is_master and viewers > 0:
 		if !is_instance_valid(lock_target) and get_can_act():
 			lock_target = null
 			call_deferred("set_state", "patrol")
@@ -61,11 +61,13 @@ func on_got_hit(mybox, theirbox) -> void:
 	var coll_type = Hitbox.get_collision_type(mybox, theirbox)
 	match coll_type:
 		Hitbox.collision_type.GOT_HIT:
-			npc("take_damage", {damage=theirbox.damage.damage})
-			state_machine.call_deferred("quit_state")
-			call_deferred("set_state", "stagger")
+			if net_stats.is_master:
+				npc("take_damage", {damage=theirbox.damage.damage})
+				state_machine.call_deferred("quit_state")
+				call_deferred("set_state", "stagger")
 	
 func take_damage(args):
+	print("dummy damage ", args)
 	hp -= args.damage
 	$Armature/EffectsPlayer.play("hp_hit")
 	if hp <= 0:

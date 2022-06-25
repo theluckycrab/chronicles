@@ -13072,7 +13072,7 @@ mesh = ExtResource( 6 )
 mesh = ExtResource( 6 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
+transform = Transform( 0.789534, 0.231554, -0.568355, 0.456265, 0.397884, 0.795945, 0.410434, -0.887733, 0.208489, 0.0529012, 0.703879, 1.34655 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -13092,7 +13092,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
+transform = Transform( 0.989467, -0.0486328, 0.136347, 0.144128, 0.418899, -0.896521, -0.0135153, 0.906729, 0.421496, -0.0244283, 0.560954, 0.65719 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

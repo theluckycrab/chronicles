@@ -1,9 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://system/console.gd" type="Script" id=1]
 
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
 [node name="Console" type="Control"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -19,6 +24,7 @@ margin_right = -0.192017
 margin_bottom = 2.59998
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
+visible = false
 margin_right = 358.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
@@ -32,6 +38,10 @@ show_line_numbers = true
 wrap_enabled = true
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
-margin_top = 112.0
+margin_top = 123.0
 margin_right = 358.0
 margin_bottom = 137.0
+size_flags_vertical = 8
+custom_styles/read_only = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )

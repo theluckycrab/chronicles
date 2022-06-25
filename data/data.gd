@@ -76,6 +76,7 @@ func save_char_value(key, value) -> void:
 func full_save() -> void:
 	persistence.commit_to_char_file()
 	persistence.commit_to_config_file()
+	yield(get_tree(), "idle_frame")
 	
 func full_save_char() -> void:
 	persistence.commit_to_char_file()
@@ -97,32 +98,24 @@ func load_config():
 	
 func clear_char_inventory():
 	persistence.char_data["inventory"] = []
+	full_save_char()
 	
 func clear_char_equipped():
 	persistence.char_data["equipped"] = {}
+	full_save_char()
 	
 func init_files():
 	create_saves_directory()
 	check_config_file_exists()
 	full_save_char()
-
-func check_saves_directory_exists():
-	pass
 	
 func create_saves_directory():
 	var dir = Directory.new()
 	dir.make_dir("user://saves/")
-	pass
 	
 func check_config_file_exists():
 	var file = File.new()
 	if file.file_exists("user://saves/config"):
 		return
 	full_save_config()
-	pass
-	
-func create_default_config_file():
-	pass
-	
-func create_new_character_save():
-	pass
+

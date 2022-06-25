@@ -45,7 +45,7 @@ func on_peer_disconnected(who) -> void:
 	for i in map_masters:
 		if map_masters[i] == who:
 			map_masters.erase(who)
-	rpc("sub_host_migration", who)
+			rpc("sub_host_migration", who, i)
 	relay_signal("unregister", {netID=who})
 	
 	
@@ -56,12 +56,13 @@ func on_register(args) -> void:
 			
 			
 func on_unregister(args) -> void:
+	print(args)
 	if net_objects.has(args.netID) and args.map == map:
 		var object = net_objects[args.netID]
-		net_objects.erase(args.netID)
 		if is_instance_valid(object):
 			#print("unregister ", args.netID)
 			object.queue_free()
+			net_objects.erase(args.netID)
 		if args.netID == Network.get_nid():
 			#print("changing scene")
 			yield(get_tree().create_timer(3), "timeout")
@@ -82,9 +83,10 @@ func on_net_command(args) -> void:
 	
 #directly called
 func transition(scene:String) -> void:
-	if get_tree().network_peer:
+	if is_instance_valid(get_tree().network_peer):
+		print("transition")
+		rpc_id(1, "remove_map_master", map)
 		map = scene 
-		rpc("sub_host_migration", get_nid()) 
 		rpc_id(1, "request_history", scene)
 
 
@@ -165,35 +167,30 @@ func get_alias() -> String:
 	return Data.get_saved_char_value("alias")
 
 #remote functions
-remotesync func sub_host_migration(who: int) -> void:
-	var tmap = "not set"
-	if get_net_object(who):
-		tmap = get_map_from_netID(who)
-		on_unregister({netID=who, map=tmap})
-	if !who in map_masters.values():
-		print(who, " not a map master")
+remotesync func sub_host_migration(who: int, tmap: String) -> void:
+	print("subhost")
+	on_unregister({netID=who, map=tmap})
+	if Network.map != tmap:
 		return
-	if who in map_masters.values():
-		for i in map_masters:
-			if map_masters[i] == who:
-				set_map_master(i, null)
-	var alternate = null
-	for i in net_objects:
-		if i != who and net_objects[i] is Player:
-			alternate = i
-			break
-	if alternate:
-		for i in net_objects:
-			if is_instance_valid(net_objects[i]) and !net_objects[i] is Player:
-				print("migrating ", i, " to ", alternate)
-				net_objects[i].net_stats.netOwner = alternate
-				map_masters[Network.map] = alternate
-	if !map_masters.has(tmap) or map_masters[tmap] != who:
+	var nobjects = net_objects.duplicate()
+	var alternative = null
+	
+	for i in nobjects:
+		if nobjects[i] is Player:
+			if alternative == null:
+				alternative = i
+			elif i < alternative:
+				alternative = i
+	if alternative == null:
 		return
-	if alternate:
-		rpc("set_map_master", tmap, alternate)
-		print("setting map master ", alternate)
+				
 		
+	for i in net_objects:
+		if is_instance_valid(net_objects[i]):
+			if net_objects[i].net_stats.netOwner == who:
+				net_objects[i].net_stats.netOwner = alternative
+				
+	rpc_id(1, "set_map_master", tmap, alternative)
 		
 remotesync func emit(sig, args) -> void:
 	Events.emit_signal(sig, args)
@@ -236,9 +233,28 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 		Data.save_char_value("map", map)
 	Data.full_save()
 	
+	
 remotesync func set_map_master(tmap: String, who) -> void:
 	if who == null:
 		map_masters.erase(tmap)
 	else:
 		map_masters[tmap] = who
 		print(who, " now owns ", tmap)
+	rpc("update_map_masters", map_masters.duplicate(true))
+	
+remotesync func update_map_masters(masters):
+	if get_nid() != 1:
+		map_masters = masters.duplicate(true)
+		
+		
+remotesync func remove_map_master(tmap):
+	print("remove map master")
+	if tmap == "" or !map_masters.has(tmap):
+		print("map not found")
+		return
+	if map_masters[tmap] == get_tree().get_rpc_sender_id():
+		map_masters.erase(tmap)
+		rpc("sub_host_migration", get_tree().get_rpc_sender_id(), tmap)
+	else:
+		on_unregister({netID=get_tree().get_rpc_sender_id(),map=tmap})
+		

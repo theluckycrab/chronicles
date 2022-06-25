@@ -82,5 +82,5 @@ func on_item_unselected(slot):
 
 
 func on_name_entry(_words):
-	Data.set_char_value("alias", $Layout/Mid/NameEntry.text)
+	Data.set_char_value("alias", $Layout/Mid/HBoxContainer2/NameEntry.text)
 	$Layout/Mid/Label2.update()
