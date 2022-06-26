@@ -11,8 +11,13 @@ onready var join_host_panel = $VBoxContainer/Online/VBoxContainer
 onready var defaults_menu = $DefaultsMenu
 onready var line_edit = $VBoxContainer/LineEdit
 
+onready var cam = $MeshInstance/Camera
+onready var cam_start = $MeshInstance/CamStart
+onready var cam_end = $MeshInstance/CamEnd
+
 
 func _ready() -> void:
+	cam.global_transform = cam_start.global_transform
 	button_offline.connect("button_down", self, "on_offline")
 	button_online.connect("button_down", self, "on_online")
 	button_defaults.connect("button_down", self, "on_defaults")
@@ -26,6 +31,10 @@ func _ready() -> void:
 	Data.load_char_save(Data.get_config_value("last_character"))
 	line_edit.connect("text_changed", self, "on_alias_changed")
 	build_armature()
+	
+	
+func _physics_process(delta):
+	cam.global_transform = cam.global_transform.interpolate_with(cam_end.global_transform, 0.01)
 	
 	
 func _input(event) -> void:

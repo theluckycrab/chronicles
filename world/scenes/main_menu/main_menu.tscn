@@ -20993,7 +20993,7 @@ mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="Camera" type="Camera" parent="MeshInstance"]
-transform = Transform( -0.999266, 9.30639e-10, 0.038318, 0.0129433, 0.941223, 0.337537, -0.0360658, 0.337785, -0.940532, 0, 9.16168, 37.2736 )
+transform = Transform( -0.999171, -0.0137402, 0.0383179, -0.0107189, 0.996898, 0.0779685, -0.0392704, 0.0774932, -0.996219, 0, 5.03349, 39.9661 )
 environment = SubResource( 2 )
 
 [node name="PiGate" parent="MeshInstance" instance=ExtResource( 5 )]
@@ -21013,8 +21013,6 @@ transform = Transform( -0.909505, 0, 0.415694, 0, 1, 0, -0.415694, 0, -0.909505,
 script = ExtResource( 8 )
 
 [node name="Skeleton" parent="MeshInstance/Armature" instance=ExtResource( 10 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 14 )
@@ -21136,3 +21134,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 [node name="OverheadSystem" parent="MeshInstance/Armature" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
 color = Color( 0.705882, 0.0784314, 0.905882, 1 )
+
+[node name="CamEnd" type="Position3D" parent="MeshInstance"]
+transform = Transform( -0.99863, -0.00456139, 0.0521369, 0, 0.996195, 0.0871557, -0.052336, 0.0870363, -0.994829, 0, 3.7655, 40 )
+
+[node name="CamStart" type="Position3D" parent="MeshInstance"]
+transform = Transform( -0.99863, -0.017039, 0.0494847, 0, 0.945519, 0.325568, -0.052336, 0.325122, -0.944223, 0, 11.743, 31.5755 )

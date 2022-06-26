@@ -1,7 +1,10 @@
 [gd_resource type="Environment" load_steps=2 format=2]
 
 [sub_resource type="ProceduralSky" id=1]
+ground_bottom_color = Color( 0.262745, 0.407843, 0.556863, 1 )
+ground_horizon_color = Color( 0.509804, 0.658824, 0.698039, 1 )
 
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
+dof_blur_far_distance = 100.0

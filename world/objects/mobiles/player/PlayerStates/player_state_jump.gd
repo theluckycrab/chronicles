@@ -25,6 +25,7 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
+	done = false
 	jump_timer.start(duration)
 	dir = host.get_wasd_cam()
 	player_vel = host.move.last_velocity

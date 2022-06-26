@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://data/assets/new_noisetexture.tres" type="Texture" id=1]
+
+[sub_resource type="Shader" id=18]
+code = "shader_type spatial;
+
+uniform sampler2D noise;
+
+void vertex(){
+	float n = texture(noise, vec2(UV.x, UV.y)).y;
+	VERTEX.y += sin(VERTEX.x * TIME / 35.0 * n) * sin(VERTEX.z * TIME / 35.0 * n);
+}
+
+void fragment(){
+	float n = texture(noise, vec2(UV.x, UV.y * TIME / 10.0)).x;
+	METALLIC = n / 10.0;
+	ROUGHNESS = 0.1;
+	
+	ALBEDO = vec3(0.25,0.5,1);
+	RIM = 0.75 + SCREEN_UV.y;
+	ALPHA = n / 10.0;
+}"
+
+[resource]
+render_priority = 1
+shader = SubResource( 18 )
+shader_param/noise = ExtResource( 1 )
