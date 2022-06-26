@@ -9,7 +9,7 @@ func _init() -> void:
 
 func enter() -> void:
 	keyframe_connect()
-	host.hide_weapon()
+	hide_weapon()
 	pass
 
 

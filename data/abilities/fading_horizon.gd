@@ -1,5 +1,6 @@
 extends Ability
 
+var ready = false
 
 func _init() -> void:
 	index = "Fading Horizon"
@@ -10,13 +11,17 @@ func _init() -> void:
 
 func enter() -> void:
 	animation = "Fading_Horizon_1"
-	hide_weapon()
+	show_weapon()
+	host.weaponbox_ghost()
+	yield(get_tree().create_timer(0.25), "timeout")
+	ready = true
 	pass
 
 
 func exit() -> void:
-	combat_check()
+	#combat_check()
 	completed()
+	ready = false
 	pass
 
 
@@ -33,7 +38,7 @@ func execute() -> void:
 		host.npc("play", {"animation":animation, "motion":true})
 		host.acquire_lock_target()
 		host.lock_on()
-	if Input.is_action_just_released("mainhand"):
-		show_weapon()
-		host.npc("play", {"animation":"Fading_Horizon_2", "motion":true})
-		done = true
+	if ready and ! Input.is_action_pressed("mainhand"):
+		var stage2 = load("res://data/abilities/fading_horizon_2.gd").new()
+		stage2.host = host
+		host.set_state(stage2)

@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=3]
+resource_local_to_scene = true
+code = "shader_type spatial;
+
+uniform float dissolve_amount : hint_range(0.0, 1.0);
+
+void fragment(){
+	float y = UV.x;
+	ALPHA_SCISSOR = 0.1;
+	ALBEDO = vec3(0,0,0);
+	if(y > dissolve_amount)
+		ALBEDO = vec3(0.1, 1, 1);
+		EMISSION = ALBEDO;
+		ALPHA = dissolve_amount / 2.0;
+	if(y < dissolve_amount)
+		ALPHA = 0.0;
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource( 3 )
+shader_param/dissolve_amount = 0.0

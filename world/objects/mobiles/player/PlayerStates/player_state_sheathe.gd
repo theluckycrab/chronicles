@@ -10,12 +10,13 @@ func _init() -> void:
 	
 func enter() -> void:
 	host.lock_target = null
+	host.at_war = false
+	yield(get_tree().create_timer(0.1), "timeout")
+	host.npc("hide_weapon", {})
 	pass
 	
 	
 func exit() -> void:
-	host.at_war = false
-	host.npc("hide_weapon", {})
 	pass
 	
 	

@@ -56,8 +56,9 @@ func combat_check() -> void:
 		host.npc("hide_weapon", {})
 		host.set_in_combat(false)
 		host.at_war = false
-		host.hide_weapon()
-	host.show_weapon()
+		#host.hide_weapon()
+		return
+	show_weapon()
 	
 	
 func on_keyframe():

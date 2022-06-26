@@ -1,20 +1,20 @@
 extends Ability
 
+
 func _init() -> void:
-	index = "Throw"
+	index = "Fading Horizon 2"
 	animation = "Fading_Horizon_2"
 	priority = 2
 	host = null
 
 
 func enter() -> void:
-	keyframe_connect()
-	hide_weapon()
+	#show_weapon()
 	pass
 
 
 func exit() -> void:
-	keyframe_disconnect()
+	yield(host.get_tree().create_timer(0.35), "timeout")
 	combat_check()
 	completed()
 	pass
@@ -25,12 +25,4 @@ func can_enter() -> bool:
 
 
 func can_exit() -> bool:
-	return host.get_animation() != animation
-
-
-func execute() -> void:
-	pass
-	
-func on_keyframe():
-	host.npc("instantiate_projectile", {"index":"throwing_knife"})
-
+	return host.get_animation() != animation and !host.armature.is_using_root_motion()
