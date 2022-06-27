@@ -41,6 +41,10 @@ func _unhandled_input(event) -> void:
 	elif event.as_text() == "L" and ! entry.visible:
 		history.visible = !history.visible
 		call_deferred("on_history")
+	elif event.as_text() == "Escape" and entry.visible:
+		hide()
+	elif event.as_text() == "Escape" and ! entry.visible:
+		history.visible = false
 		
 		
 	
@@ -136,7 +140,7 @@ func show():
 	on_history()
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#get_viewport().warp_mouse(Vector2(0,0))
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	
 func hide():

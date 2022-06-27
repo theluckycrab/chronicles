@@ -41,6 +41,7 @@ func on_register():
 	if net_stats.is_master:
 		init_defaults()
 		set_ready()
+		npc("set_faction", {"faction":stats.faction})
 	
 func set_ready():
 	ready = true
@@ -309,8 +310,9 @@ func net_set_state(args):
 	
 	
 #stats interface
-func set_faction(faction:String) -> void:
-	stats.set_faction(faction)
+func set_faction(args) -> void:
+	print(args)
+	stats.set_faction(args.faction)
 	
 	
 func get_faction():

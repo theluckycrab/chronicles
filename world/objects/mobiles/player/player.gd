@@ -8,7 +8,7 @@ func _init() -> void:
 	viewers = 1000
 
 func _ready() -> void:
-	set_faction("Player")
+	set_faction({"faction":"Player"})
 	var d = Damage.new()
 	d.add_tag("Player")
 	armature.weaponbox_damage(d)

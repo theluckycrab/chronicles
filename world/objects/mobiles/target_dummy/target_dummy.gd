@@ -31,7 +31,7 @@ func _ready() -> void:
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")
-	set_faction("Dummy")
+	set_faction({"faction":"Dummy"})
 	armature.weaponbox.damage.tags.append(get_faction())
 
 	

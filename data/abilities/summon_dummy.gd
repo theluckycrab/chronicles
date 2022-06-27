@@ -60,7 +60,7 @@ func on_host_exit():
 func summon():
 	var projectile = Data.get_reference_instance("target_dummy")
 	get_viewport().add_child(projectile)
-	projectile.set_faction("Player")
+	projectile.stats.faction = "Player"
 	projectile.connect("died", self, "on_summon_died")
 	var a = Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y)
 	projectile.global_transform.origin = host.global_transform.origin + a
@@ -70,4 +70,6 @@ func summon():
 	projectile.armature.weaponbox.damage.tags.erase("Dummy")
 	summon = projectile
 	summonID = projectile.net_stats.netID
+	yield(get_tree().create_timer(1), "timeout")
+	print("dongetto")
 		
