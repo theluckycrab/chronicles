@@ -496,6 +496,6 @@ func consume_durability(slot):
 		return
 	item.durability -= 1
 	if item.durability < 0:
-		set_state("stagger")
-		$Armature/EffectsPlayer.play("armor_break")
+		$Armature/EffectsPlayer.call_deferred("play", "armor_break")
+		#set_state("stagger")
 		destroy(slot)

@@ -15,8 +15,8 @@ func enter() -> void:
 
 func exit() -> void:
 	yield(host.get_tree().create_timer(0.35), "timeout")
-	combat_check()
 	completed()
+	combat_check()
 	pass
 
 
