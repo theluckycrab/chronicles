@@ -177,6 +177,7 @@ func print_overhead_chat(args):
 	if split.size() != 0:
 		split.remove(0)
 	split = split.join(" ")
+	$OverheadChat.lifespan = 3 + split.length() * 0.1
 	$OverheadChat.text += split + "\n"
 	
 

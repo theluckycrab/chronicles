@@ -2,7 +2,7 @@ extends Spatial
 class_name Label3D
 
 export(String) onready var text setget set_label_text, get_label_text
-export(int) var lifespan = 3
+var lifespan = 0
 var rolling = false
 export(Color) var color setget set_label_color
 

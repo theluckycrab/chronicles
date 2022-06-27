@@ -11,7 +11,7 @@ start_scene = "main_menu"
 pause_mode = 2
 
 [node name="Console" parent="." instance=ExtResource( 1 )]
-visible = false
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Console"]
 visible = false

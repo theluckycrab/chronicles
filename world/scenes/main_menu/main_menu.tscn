@@ -21181,12 +21181,18 @@ transform = Transform( 0.591577, 0, -1.86265e-09, 0, 0.591578, 0, 1.86265e-09, 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508861, 0 )
 phase_speed = 0.02
 
+[node name="Lid" parent="MeshInstance/PiGate/Barrel/Empty" index="0"]
+transform = Transform( 0.794086, 0.607806, 0, -0.607806, 0.794086, 0, 0, 0, 1, 0, 0, 0 )
+
 [node name="Barrel2" parent="MeshInstance/PiGate" instance=ExtResource( 6 )]
 transform = Transform( 0.591577, 0, -1.86265e-09, 0, 0.591578, 0, 1.86265e-09, 0, 0.591577, -4.74951, 0.0284545, 1.20968 )
 
 [node name="Full" parent="MeshInstance/PiGate/Barrel2" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508861, 0 )
 phase_speed = 0.02
+
+[node name="Lid" parent="MeshInstance/PiGate/Barrel2/Empty" index="0"]
+transform = Transform( 0.794086, 0.607806, 0, -0.607806, 0.794086, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="AnimationPlayer" parent="MeshInstance/PiGate/Barrel2" index="2"]
 anims/Open = SubResource( 64 )

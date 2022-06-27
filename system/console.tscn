@@ -26,7 +26,7 @@ margin_bottom = 2.59998
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer"]
 visible = false
 margin_right = 358.0
-margin_bottom = 100.0
+margin_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "=======================================
@@ -38,6 +38,7 @@ show_line_numbers = true
 wrap_enabled = true
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+visible = false
 margin_top = 123.0
 margin_right = 358.0
 margin_bottom = 137.0

@@ -12,15 +12,19 @@ func _ready() -> void:
 	var _deez = Events.connect("net_print", self, "on_net_print")
 	$VBoxContainer/LineEdit.modulate = Color(Data.get_config_value("chat_color"))
 	
-func _input(event) -> void:
-	if event.as_text() == "QuoteLeft" and event.is_pressed() and !event.is_echo():
-		chat_mode = true
-	elif event.as_text() == "Enter" and event.is_pressed() and !event.is_echo() and ! visible:
-		chat_mode = false
+func _input(event):
+	if !event.is_pressed() or event.is_echo():
+		return
 		
+	if event.as_text() == "QuoteLeft":
+		chat_mode = true
+		
+	elif event.as_text() == "Enter" and ! entry.visible:
+		chat_mode = false
+	
 	if (event.as_text() == "QuoteLeft") or (event.as_text() == "Enter"):
 		if event.is_pressed() and !event.is_echo():
-			if !visible:
+			if !entry.visible:
 				entry.grab_focus()
 				entry.text = ""
 				show()
@@ -30,6 +34,17 @@ func _input(event) -> void:
 				else:
 					return
 			get_tree().set_input_as_handled()
+		
+func _unhandled_input(event) -> void:
+	if !event.is_pressed() or event.is_echo():
+		return
+	elif event.as_text() == "L" and ! entry.visible:
+		history.visible = !history.visible
+		call_deferred("on_history")
+		
+		
+	
+			
 	
 func on_entry(text) -> void:
 	net_send(text)
@@ -56,7 +71,7 @@ func on_net_print(args):
 		
 	
 func net_send(text):
-	if "/" in text:
+	if text.begins_with("/") or text.dedent() == "":
 		on_console_print(text)
 		return
 	text = text.lstrip("/")
@@ -116,16 +131,16 @@ func equip(text) -> void:
 	hide()
 
 func show():
-	visible = true
+	entry.visible = true
 	yield(get_tree().create_timer(0.005), "timeout")
 	on_history()
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#get_viewport().warp_mouse(Vector2(0,0))
-	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	
 func hide():
-	visible = false
+	entry.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func set_alias(a):
