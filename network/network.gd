@@ -188,6 +188,8 @@ remotesync func sub_host_migration(who: int, tmap: String) -> void:
 		if is_instance_valid(net_objects[i]):
 			if net_objects[i].net_stats.netOwner == who:
 				net_objects[i].net_stats.netOwner = alternative
+				if net_objects[i].has_method("set_ready"):
+					net_objects[i].ready = true
 				
 	rpc_id(1, "set_map_master", tmap, alternative)
 		

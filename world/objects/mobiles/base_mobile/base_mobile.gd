@@ -40,7 +40,11 @@ func _ready() -> void:
 func on_register():
 	if net_stats.is_master:
 		init_defaults()
-		ready = true
+		set_ready()
+	
+func set_ready():
+	ready = true
+	
 	
 func _physics_process(delta) -> void:
 	stored_delta = delta
@@ -488,7 +492,7 @@ func consume_durability(slot):
 	if "town" in Network.map:
 		return
 	var item = get_equipped(slot)
-	if item.has_tag("Default"):
+	if !is_instance_valid(item) or item.has_tag("Default"):
 		return
 	item.durability -= 1
 	if item.durability < 0:

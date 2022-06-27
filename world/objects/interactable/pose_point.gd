@@ -7,6 +7,7 @@ export(String) var action = "Interact"
 
 func _ready():
 	$InteractableZone.set_action_label(action)
+	$InteractableZone.connect("exited", self, "on_exited")
 
 func activate(host):
 	host.state_machine.get_state("emote").animation = animation
@@ -19,3 +20,6 @@ func activate(host):
 func rot(host):
 	host.armature.global_transform.origin = global_transform.origin
 	host.armature.rotation.y = atan2(global_transform.basis.z.x, global_transform.basis.z.z)
+
+func on_exited(host):
+	host.armature.global_transform.origin = host.global_transform.origin
