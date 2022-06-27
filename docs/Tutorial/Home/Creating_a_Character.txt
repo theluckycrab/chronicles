@@ -1,0 +1,30 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T20:44:47-05:00
+
+====== Creating a Character ======
+Created Thursday 23 June 2022
+
+On the Main Menu, you'll see 3 buttons and a text box.
+	* Offline - Host a local server with a player limit of 1
+	* Online
+		* Join - Connect to the hardlinked Crabsoft HQ server
+		* Host - Create a local server with a player limit of 4
+	* Set Defaults - Customize before loading in
+	* Text Box - Whatever name is in this box is the local character data that will be loaded
+
+====== Set Defaults ======
+See the image below for visuals.
+
+1. This currently shows the raw data of the save file. Later on it'll be formatted to be more selective
+2. This is the character preview, as you select items they'll appear here
+3. You can select your overhead system message color here (the color of item pickup notices)
+4. You can select your overhead chat color here (other players will see it)
+5. You can set your character name here. This will be used to index your save file and as your name in chat with other players.
+6. By clicking on an Item Icon, you can select your[[Combat Mechanics| defaults]]. This shows the name, a little flavor text, and the active ability that goes along with it. Click to select, click again or another to deselect. 
+	a. Chest, Legs, and Gloves do not actually grant abilities. They are purely cosmetic. Eventually they'll grant some stats but still no active.
+7. If you click Exit, nothing will be saved.
+8. If you click Save, your choices will be immediately committed to a save file by the same name as the current character name entry. You may have as many saves as you want. Using the same name twice will overwrite existing data.
+
+Once you've made all your selections, click save and join up! You'll spawn into [[Areas|Lobi Town.]]
+ {{./pasted_image.png}}

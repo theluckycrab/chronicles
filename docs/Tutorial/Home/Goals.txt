@@ -1,0 +1,62 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T21:33:31-05:00
+
+====== Goals ======
+Created Thursday 23 June 2022
+
+This page just talks about the bigger, less concrete ideas that drive the game. Feel free to skip this one.
+
+
+====== Two Wolves ======
+
+There are two major drivers for the design of this game. On the one hand, I want to create a game with combat that feels as tangible and involved as Collosseum : Road to Freedom. On the other, I want to create a sanctuary for my people.
+
+In many shows, movies, and games, you'll find scenes of someone heroically and viscerally using what's at hand to overcome a dicey situation. They'll grab a gun off a fallen enemy or dramatically pull out a hidden weapon to turn the tables - just in time.
+
+Megaman Battle Network took this feeling and ran with it. It was about an operator in the real world feeding equipments to a cyberspace Net Navi, who would utilize that equipment to overcome just exactly the situation that gear was suited for. The feeling of changing tools, adapting to the situation. There's also the struggle when you don't have the right tool for the job.
+
+I want to capture those feelings with the combat. I want items to feel like physical parts of the world. When you're hit in the head, I want you to feel the value and weight of your helmet. When you block with your weapon, I want you to feel that tension of figuring something else out before it breaks. I want you to adapt and overcome. I want you to overcome insurmountable odds with your trusty sidearm and the handful of stuff you happened to find today.
+
+I also really love those moments in anime when somebody makes a narrow dodge and cuts down their opponent in a dramatic finishing blow - or dies suddenly instead. That feeling of "going for it!" and slipping past. Gambling with your life so that your comrades might continue. I want to capture this feeling in the combat movement of the game. You should feel like you could try to go in for the finish, but you might also die spectacularly. You should never feel like you're gaming the system. You should feel like every fight will be decisive. 
+
+====== The Lucky Crab ======
+
+When I say "a sanctuary for my people", I'm talking about a class of gamers that prefers to overlay roleplay ontop of everything else they're doing in a video game - without sacrificing gameplay or roleplay. This is the person who turns a disconnect into a narcalepsy spell. It's the person who can seamlessly go from talking about the latest happenings in the war to helping you debug your computer, without any ridiculous OOC tags. It's the guy who insists that some random NPC is lying because his character believes it. He does the same quest as you but has a totally different story to tell. 
+
+The final form of Chronicles of Delonda will be a game about narratives. Each in-game day, every player will have access to their own Chronicle. In this chronicle, they can record happenings. At a regular time interval at night, all the chronicles will be "submitted". If a player has set their chronicles to public, their entries will be searchable via keywords or player name. If they have not, well, that's just for them to enjoy. The idea is to record your personal experiences and random unfounded beliefs about the game, based on your character and the things you've experienced. 
+
+If today you put a slug in the stew and got night sight - put that in the chronicle. Is it true that slugs grant night sight? Who knows! However, the next guy to find a slug can look in the logs for the keyword "slug", to see what they might be useful for. They'll see your post about it. They might try it. They might decide you're an idiot or a genius. They might read your in-character ramblings about how you hate slugs. One guy might focus on cooking recipes and establish himself as a reliable source, a master chef. Each server will have a different personality. The logs will be the natural result of your people playing and discovering a game together.  
+
+====== Camp Chores & Exploration ======
+
+If you've been around at all, you've heard me say this game is really about camp chores. The reason I say that is that it's the opportunity to explore the world and use your cool combat abilities for non-combat things. None of the camp chores are required. All of them are encouraged. There will probably be too many for everyone to do all of them every night.
+
+That's the idea, though. The idea is that you get together with your bros and optionally improve your chances on the following day. One guy gathers firewood, another preps the food, a third uses the rocks you've found to add fire damage to your weapon. You'll need that because tomorrow you enter the ice nation. 
+
+Using the simple task of collecting firewood as an example, I'll try to illustrate what makes it rad. You could use your default mainhand to walk around bopping trees until they fall. You could use its "Slashing" tagged ability to drop those trees faster. Even better still, you could equip some claws and spam your spinny attack to clear a lot of trees at once. One of the people in the party wil be best suited to each task and they'll get to flex their defaults to do it. This is the time to live out the identity of the character you've created over all the previous steps.
+
+Once you have the firewood, the cook can get his cook on. The smith can fire up his forge. Each one yielding to the one best suited. Each one increasing the efficacy of the party as a whole. All the while, avoiding the dangers of the ever-encroaching dark. This is when you become a party.
+
+This stage of preparing : it can be as involved or as simple as the party wants. You could skip food entirely and just go without temporary HP. You could skip smithing and get by without typed damage bonus. 
+
+However, if you're going to be taking on a world boss, you can also spend multiple in-game days getting ready. You can plan a route that will yield the resources you might need for specific modifications (that are based on your people's collective knowledge about the game). This route also needs to take you to the world boss in a timely manner. Should one party member fall, they'll have to catch back up with limited resources. It's a true march on the enemy and it's fueled by camp chores all along the way.
+
+When you log off, it's all gone. You may have unlocked some nifty new defaults or stacked up some bits for next time, but the world will be there waiting. You won't be missing anything. You won't need to do anything before jumping back in. You won't have to remember where you left off. You'll just call up some bros and strike out into the world to write your own story. 
+
+
+
+
+This is the tangibility I want to achieve. When you've got a legendary item, it should feel like it has a presence in the world - both in and out of combat. 
+
+
+
+
+
+
+
+
+
+
+
+

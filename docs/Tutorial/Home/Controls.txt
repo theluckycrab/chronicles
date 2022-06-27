@@ -1,0 +1,90 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T20:27:42-05:00
+
+====== Controls ======
+Created Thursday 23 June 2022
+
+Currently, all gameplay functions should be supported by both controller and keyboard. Menus are generally going to be mouse and keyboard only. Chat is keyboard only. Testing is generally done with mouse and keyboard, although the final game will favor controllers.
+
+====== Keyboard ======
+
+===== Universal =====
+	* Movement - WASD
+	* Camera - Mouse
+	* Draw/Sheathe Weapon - Tab
+	* Jump - Space
+	* Item Menu - Hold 2 on the toprow
+	* Cycle Item - Mouse Wheel
+	* Equip Item - Middle Mouse
+	* Interact - E
+	* Console/Chat - `
+	* Activate Item Slot:
+		* Head - v
+		* Mainhand - c
+		* Boots - x
+		* Offhand - z
+	* Destroy Item Slot:
+		* Head - Alt + v
+		* Mainhand - Alt + c
+		* Boots - Alt + x
+		* Offhand - Alt + z
+
+===== Weapon Drawn =====
+	* Light Attack - Left Click
+	* Strong Attack - E
+	* Guard - Right Click
+	* Parry - Held Right Click + WASD
+	* Quickstep - WASD + LShift
+	* Dash - Right Click during Forward Quickstep
+	* Dash Attack - Left Click during Dash
+	* Falling Attack - Left Click during descent
+	* Change Lock Target - Q
+
+===== Out of Combat =====
+	* Sprint - LShift
+
+===== In Combat =====
+	* Change Lock Target - Q
+
+
+====== Controller (PS3) ======
+
+===== Universal =====
+	* Movement - LStick
+	* Camera - RStick
+	* Draw/Sheathe Weapon - Select
+	* Jump - X
+	* Item Menu - Hold L1
+	* Cycle Item - O / [ ] (use O to select the Equipments category)
+	* Equip Item - R3
+	* Interact - [ ]
+	* Console/Chat - `
+	* Activate Item Slot:
+		* Head - L2 + /_\
+		* Mainhand - L2 + O
+		* Boots - L2 + X
+		* Offhand - L2 + [ ]
+	* Destroy Item Slot:
+		* Head - R2 + /_\
+		* Mainhand - R2 + O
+		* Boots - R2 + X
+		* Offhand - R2 + [ ]
+
+===== Weapon Drawn =====
+	* Light Attack - [ ]
+	* Strong Attack - /_\
+	* Guard - R1
+	* Parry - R1 + LStick
+	* Quickstep - LStick + O
+	* Dash - R1 during Quickstep
+	* Dash Attack - [ ] during Dash
+	* Falling Attack - [ ] during descent
+
+===== Out of Combat =====
+	* Sprint - O
+
+===== In Combat =====
+	* Change Lock Target - R3
+
+

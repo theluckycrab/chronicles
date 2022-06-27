@@ -1,0 +1,27 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T21:33:56-05:00
+
+====== Feedback ======
+Created Thursday 23 June 2022
+
+I'll be opening a Discord channel for the 7/1 test. This is the best place to dump feedback from that specific version of the game. 
+
+I know that many of you are shy! Feel free to DM anything on Discord, anytime. 
+
+====== What is good feedback? ======
+For feedback to be helpful, it needs to be about your specific experience. It has to talk about how you felt, your outcomes of playing the game. Too often, folks give feedback based on what they imagine I might be going for or what "people" are into. None of that is actually helpful. You're the one playing. You're the one testing. I need to know how it was for you and I'll do all the filtering and grains of salt later.
+
+Feedback has to be followed-up. If you test the game today and tell me an animation felt slow, that gives me something to go off. However, I can't know that it no longer feels slow unless you experience the new animation. Half fixes are infintely worse than doing nothing. Please do try to make yourself available for follow-ups.
+
+
+====== What is worth feedbacking? ======
+I want to hear every single thought that occurs to you while playing my game. If you thought it was weird that you couldn't go somewhere, I need to know. If you expected to be able to sit in a chair and couldn't, I need that too. If you really wish that club_combo_3 was faster so that you could combine it with another thing to do something cool, that's fantastic food for thought. Wonky controls, off colors, or even names you just don't like. Nothing is out of bounds or too minor if it's your honest reaction to the game. 
+
+
+====== Extra Helpful ======
+Folks who do any of the following will be counted as a cut above (and eventually rewarded in some way):
+	* Screen capture of you playing
+	* Video of your face while you're playing
+	* Live journal stream of conciousness of your experience
+	* Find a way to reproduce a bug

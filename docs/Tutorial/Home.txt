@@ -1,0 +1,18 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T20:21:26-05:00
+
+====== Home ======
+Created Thursday 23 June 2022
+
+Welcome to the Chronicles of Delonda testing group! Here are some things you should probably know about the game : 
+
+[[+Controls]] 
+[[+Creating a Character]]
+[[+Abilities]]
+[[+Combat Mechanics]]
+[[+Areas]]
+[[+Known Bugs & Jank]]
+[[+Goals]]
+[[+Feedback]]
+[[+Suggestions]]

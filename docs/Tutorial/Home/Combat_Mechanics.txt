@@ -1,0 +1,47 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T20:58:12-05:00
+
+====== Combat Mechanics ======
+Created Thursday 23 June 2022
+
+The combat mechanics are not final, even in design. They will take much iteration to get right and I hope you'll [[Home:Feedback|help]] with that.
+
+====== Damage ======
+Currently, all attacks do 1 damage. The capacity for typed damage exists but is not really used at the moment.
+
+====== HP ======
+You have 4 HP. You have a health meter in the top left. You will heal when you switch rooms for now. Enemies also have 4HP. 
+
+In the future, healing will take place at camp sites and regularly timed intervals. There will be many sources of temporary HP. 
+
+
+====== Anatomy of a Strike ======
+When an attack lands, this is the series of checks that takes place. They only take place on the first thing an attack collides with.
+
+Was I blocked or parried? > Am I unblockable? > Did I hit something that was receiving hits? > I've identified the thing I hit > What direction did I enter their hitbox from? > Is there a non-default equipment in the related equipment slot?
+
+If yes, then we reduce the durability (also remaining uses) of that item by 1. If no, we take an HP equivalent to the damage of the strike (1 in this version). 
+
+What this boils down to is that equipment (but not defaults) will protect you from attacks at the cost of their durability. Hats will defend overheads. Offhands will protect left-hand strikes. Mainhands protect right-hand and blocking. Boots protect feet.
+
+====== Blocking & Parrying ======
+Currently, blocking ignores all non-unblockable strikes from the front. There should be some stop or stagger on a successful block but there is currently not. There is a large hitbox covering from about the knees to a little over the head. If you get struck from behind while blocking, you will still take damage. Some strikes are a little glitchy and may start inside you, resulting in a bad hit. Sorry about that.
+
+Parrying does not use the same hitbox as blocking. It disables the front blocking box and enables other directional boxes of about the same size on each side of the character. However, a successful parry will result in a staggered enemy. 
+
+So, if you parry left, you can still get dickstabbed. In all cases, your feet are technically unprotected. This is intentional and you should jump. I believe the only low attack right now (club_combo_1) has too big of a hitbox to go under the blocking box. In the future, shockwaves and such will require a jump.
+
+====== Defaults and Equipment ======
+Defaults are the equipment you start the game with. They do not lose durability and do not protect against incoming attacks. However, they also have infinite uses. When your equipment breaks, these are the items that you will return to automatically. They can only be selected in the main menu or town. In the final game, you'll be able to customize them at camp as well. Choose the defaults with the looks and abilities you'd like to always have access to, should things get dicey.
+
+Equipment are the items you equip from the item menu during normal play. These items will provide armor. These items have limited uses (outside town, feel free to experiment inside town). Uses and durability are the same number. Running out of either one will destroy the item. A destroyed equipment results in a short stagger animation that will prevent you from acting. Keep this in mind when using your final Fading Horizon on your katana. If it doesn't slay, you might get got.
+
+Defaults are permanently unlocked (currently everything is unlocked). Equipment are temporary. They'll be consumed on use and wiped entirely when you return to town. In the final game, this wipe will result in currency/score that you can use to buy cool gear for your next outing. It is intentional that you start each run with limited options. 
+
+====== What's Unblockable? ======
+Currently, all strong attacks are unblockable. In the final game, they'll have an interaction with armored zones instead. Dash Punch cannot be staggered and is unblockable. You will still take damage. Lick is unblockable. 
+
+
+
+

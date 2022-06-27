@@ -1,0 +1,35 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-25T12:42:03-05:00
+
+====== Abilities ======
+Created Saturday 25 June 2022
+
+
+Dash Punch - Unblockable, unstaggerable
+
+Evasive Maneuvers - Causes your lock target to lose track of you
+
+Evade - A front-blocking back jump
+
+Fading Horizon - A held draw attack, will lock on to nearest target while holding
+
+High Jump - A jump with a height of 4
+
+Leap - A forward leap that can be chained into a dash attack by left clicking during the leap
+
+Lick - Unblockable attack aimed at head, currently not that useful
+
+Pull - Pulls an enemy towards you and causes a brief stagger along the way
+
+Quickturn - This ability is for turning quickly with ice skates
+
+Spin Attack - Hit's up to 4 enemies around you
+
+Summon Dummy - Summons a friendly target dummy, can resummon once that one is dead, pretty buggy and often spawns outside the map
+
+Taunt - Gets the aggro of everything in your lockon zone
+
+Throw - Throwing knives don't deal damage, but do get attention and cause a small stagger
+
+Void Step - Teleport to a random nearby spot (while front blocking!)

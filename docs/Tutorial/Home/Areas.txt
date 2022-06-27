@@ -1,0 +1,28 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T21:20:37-05:00
+
+====== Areas ======
+Created Thursday 23 June 2022
+
+Currently, you can only travel between zones using the Pi Gate. In the final game, there will be Pi Gates around but there world will be far more open and foot travely. 
+
+====== Lobi Town ======
+Lobi Town is the starting zone. Towns follow a different ruleset than fields. For now, the only differences are :
+	* Equipment does not lose durability/uses
+	* Inventory is wiped upon entering but not exiting
+
+In the future : 
+	* Items will be cashed in for bits upon entering
+	* There will be vendors and special town-only services
+	* Other reasonably expected limitations
+
+====== Test Room ======
+test_room is an endurance room. While you stay there, two target dummies will spawn every 10 seconds, up to a limit of 6. If you see more than 6, please report the conditions upon which this happened. Most likely, it means sub_host_migration() is broken again. There is a safe place in the room, if you look hard enough. 
+
+The white circle in the test_room is what's called a Breakpoint. Breakpoints will appear throughout the final game as points of management. You'll be able to change your defaults, fast travel, check logs, and access the hacking menu from these.
+
+====== Test Room 2 ======
+test_room2 is a hallway designed to give the bros a brief feeling of what it might be like to run a dungeon together. You'll have to search around for the exit. 
+
+Dungeons in the final game will be randomly placed on the overworld. They'll have semi-random insides. They will be separate zones from their entrances entirely. So, on the overworld there's a little witch hut. The inside might be a 100 floor tower. The goal will always be to find the mcguffin.

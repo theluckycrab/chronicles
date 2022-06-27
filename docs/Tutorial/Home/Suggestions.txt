@@ -1,0 +1,13 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T21:43:11-05:00
+
+====== Suggestions ======
+Created Thursday 23 June 2022
+
+Suggestions differ from feedback in some important ways. Feedback is about responding to what you've been given. Suggestions are about improving what you're being given. 
+
+Not all suggestions are in line with the [[Goals|goals]] that I'm pursing for the game. Some stuff is down to total personal preference. Please do not be offended if your suggestion is never implemented. I'll do my best to be honest about the chances.
+
+====== What is a good suggestion? ======
+Suggestions should be accompanied by an explanation of how they will improve the game. It's easy to say "we should have world pvp!". It's entirely another to explain how world pvp helps us to achieve the goals. Almost certainly, whatever vision of the game you are pursuing with your suggestion is not the same one I'm after. However, maybe yours is better! You have to help me see it, if you want your suggestions to get anywhere. At least one change has already been made as a result of suggestions backed by reasons. Why not yours next?

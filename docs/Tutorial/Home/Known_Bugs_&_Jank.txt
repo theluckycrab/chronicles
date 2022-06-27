@@ -1,0 +1,22 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2022-06-23T21:28:38-05:00
+
+====== Known Bugs & Jank ======
+Created Thursday 23 June 2022
+
+Keyboard controls can get a bit whack if a controller is plugged in. Unplug any controllers, if you find yourself stutter-stepping. 
+
+Currently there basic character movement code is extremely limited. You can't go over even the tiniest of ledges. You'll just have to jump.
+
+It's relatively easy to jump off test_room2 and fall forever.
+
+There's significant slowdown in test_room when dudes spawn. 
+
+Enemies outside 50 units distance of any player may just chill in the air until you approach. This is the result of a stop-gap method to reduces physics load for slower computers. 
+
+There is no P v P at the moment. 
+
+Many of the animations expose underlying skin. Joints bend weird. Items clip. 
+
+If you find bugs and jank outside of this, please do [[Feedback|report it]].
