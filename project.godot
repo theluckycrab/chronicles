@@ -87,7 +87,7 @@ _global_script_classes=[ {
 "base": "MeshInstance",
 "class": "PhaseMesh",
 "language": "GDScript",
-"path": "res://world/objects/mobiles/player/phae_mesh.gd"
+"path": "res://world/objects/generic/phase_mesh.gd"
 }, {
 "base": "BaseMobile",
 "class": "Player",

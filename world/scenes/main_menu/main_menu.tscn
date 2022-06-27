@@ -14,7 +14,7 @@
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=12]
 [ext_resource path="res://data/assets/meshes/equipment/naked.mesh" type="ArrayMesh" id=13]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=14]
-[ext_resource path="res://world/objects/mobiles/player/phae_mesh.gd" type="Script" id=15]
+[ext_resource path="res://world/objects/generic/phase_mesh.gd" type="Script" id=15]
 
 [sub_resource type="ProceduralSky" id=1]
 

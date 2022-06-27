@@ -3,7 +3,7 @@
 [ext_resource path="res://data/assets/Blender/Furniture/Furniture_Barrel.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://data/assets/Blender/Furniture/Furniture_BarrelEmpty.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://data/assets/Blender/Furniture/Furniture_BarrelLid.mesh" type="ArrayMesh" id=3]
-[ext_resource path="res://world/objects/mobiles/player/phae_mesh.gd" type="Script" id=4]
+[ext_resource path="res://world/objects/generic/phase_mesh.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Open"
