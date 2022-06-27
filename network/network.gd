@@ -56,7 +56,6 @@ func on_register(args) -> void:
 			
 			
 func on_unregister(args) -> void:
-	print(args)
 	if net_objects.has(args.netID) and args.map == map:
 		var object = net_objects[args.netID]
 		if is_instance_valid(object):

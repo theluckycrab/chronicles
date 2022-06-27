@@ -1,7 +1,8 @@
 extends Ability
 
-var gear = ["guard_helmet", "guard_chest", "guard_gloves", \
-		"guard_pants", "guard_boots"]
+var gear = {"Head":"guard_helmet", "Chest":"guard_chest", "Gloves":"guard_gloves", \
+		"Legs":"guard_pants", "Boots":"guard_boots", "Mainhand":"katana"}
+		
 var summon = null
 var summonID = null
 
@@ -39,23 +40,15 @@ func execute() -> void:
 	
 func on_keyframe():
 	if !is_instance_valid(summon):
-		var projectile = Data.get_reference_instance("target_dummy")
-		get_viewport().add_child(projectile)
-		projectile.set_faction("Player")
-		projectile.connect("died", self, "on_summon_died")
-		projectile.global_transform.origin = host.global_transform.origin + Vector3.FORWARD * 5
-		for i in gear:
-			projectile.call_deferred("equip", Data.get_item(i))
-		var w = Data.get_item("katana").duplicate()
-		w.combo[0] = "Katana_Combo_2"
-		projectile.call_deferred("equip", w)
-		projectile.armature.weaponbox.damage.tags.append("Player")
-		projectile.armature.weaponbox.damage.tags.erase("Dummy")
-		summon = projectile
-		summonID = projectile.net_stats.netID
+		summon()
+	else:
+		on_summon_died()
+		summon()
+		
 		
 		
 func on_summon_died():
+	summon.net_stats.unregister()
 	summon = null
 	summonID = null
 	
@@ -63,3 +56,18 @@ func on_summon_died():
 func on_host_exit():
 	if summonID != null:
 		Network.relay_signal("unregister", {netID=summonID, map=Network.map, notice="summon despawn"})
+
+func summon():
+	var projectile = Data.get_reference_instance("target_dummy")
+	get_viewport().add_child(projectile)
+	projectile.set_faction("Player")
+	projectile.connect("died", self, "on_summon_died")
+	var a = Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y)
+	projectile.global_transform.origin = host.global_transform.origin + a
+	for i in gear:
+		projectile.base_defaults = gear.duplicate(true)
+	projectile.armature.weaponbox.damage.tags.append("Player")
+	projectile.armature.weaponbox.damage.tags.erase("Dummy")
+	summon = projectile
+	summonID = projectile.net_stats.netID
+		

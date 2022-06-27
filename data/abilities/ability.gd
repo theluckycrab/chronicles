@@ -40,7 +40,7 @@ func execute() -> void:
 
 func show_weapon() -> void:
 	host.npc("show_weapon", {})
-	host.weaponbox_strike()
+	#host.weaponbox_strike()
 	
 	
 func hide_weapon() -> void:

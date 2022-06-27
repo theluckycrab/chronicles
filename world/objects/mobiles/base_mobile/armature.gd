@@ -123,7 +123,7 @@ func get_hit_origin() -> Vector3:
 
 func weaponbox_strike() -> void:
 	weaponbox.strike()
-	keyframe()
+	#keyframe()
 	
 	
 func weaponbox_damage(damage) -> void:

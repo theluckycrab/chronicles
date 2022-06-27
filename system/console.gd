@@ -2,6 +2,7 @@ extends Control
 
 onready var history = $VBoxContainer/TextEdit
 onready var entry = $VBoxContainer/LineEdit
+var chat_mode = false
 
 
 func _ready() -> void:
@@ -13,18 +14,28 @@ func _ready() -> void:
 	
 func _input(event) -> void:
 	if event.as_text() == "QuoteLeft" and event.is_pressed() and !event.is_echo():
-		if !visible:
-			entry.grab_focus()
-			entry.text = ""
-			show()
-		else:
-			hide()
-		get_tree().set_input_as_handled()
-	
+		chat_mode = true
+	elif event.as_text() == "Enter" and event.is_pressed() and !event.is_echo() and ! visible:
+		chat_mode = false
+		
+	if (event.as_text() == "QuoteLeft") or (event.as_text() == "Enter"):
+		if event.is_pressed() and !event.is_echo():
+			if !visible:
+				entry.grab_focus()
+				entry.text = ""
+				show()
+			else:
+				if event.as_text() == "QuoteLeft":
+					hide()
+				else:
+					return
+			get_tree().set_input_as_handled()
 	
 func on_entry(text) -> void:
 	net_send(text)
 	entry.text = ""
+	if !chat_mode:
+		hide()
 	
 	
 func on_history() -> void:

@@ -10,7 +10,7 @@ export var phase_speed = 0.01
 func _ready():
 	#print("ready", name)
 	phase_progress = 1.0
-	material_override = load("res://data/assets/phease_shader.tres")
+	material_override = load("res://data/assets/phase_shader.tres")
 	material_override.set_shader_param("dissolve_amount", 0.0)
 	
 func _physics_process(delta):
