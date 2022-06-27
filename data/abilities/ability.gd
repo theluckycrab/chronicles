@@ -49,6 +49,8 @@ func hide_weapon() -> void:
 
 
 func combat_check() -> void:
+	if !is_instance_valid(host):
+		return
 	done = false
 	host.weaponbox_ghost()
 	host.acquire_lock_target()

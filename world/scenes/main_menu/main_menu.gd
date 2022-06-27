@@ -89,9 +89,9 @@ func on_alias_changed(text):
 func build_armature():
 	var data = Data.get_char_data().duplicate(true)
 	var arm = $MeshInstance/Armature
-	print(data)
 	for i in data.defaults:
 		arm.equip({index=data.defaults[i]})
+	yield(get_tree().create_timer(0.35), "timeout")
 	var anims = arm.anim.get_animation_list()
 	var a = randi() % anims.size()
 	a = anims[a]
@@ -103,4 +103,5 @@ func build_armature():
 			"Remember to smash that friend button!"]
 	a = randi() % phrases.size()
 	a = phrases[a]
+	arm.get_node("OverheadSystem").text = ""
 	arm.print_overhead_system(a)

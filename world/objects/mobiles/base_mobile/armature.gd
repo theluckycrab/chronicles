@@ -17,11 +17,11 @@ func _ready():
 	var _discard = $Guardbox.connect("blocked", self, "on_guardbox_blocked")
 	var _discard1 = weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
 	$OverheadSystem/Label.modulate = Data.get_config_value("system_color")
-	$Skeleton/Body.visible = false
+	hide_weapon()
 	yield(get_tree().create_timer(2.1), "timeout")
 	$Skeleton/Body.visible = true
-	if $Skeleton/Body is PhaseMesh:
-		$Skeleton/Body.phase()
+	#if $Skeleton/Body is PhaseMesh:
+		#$Skeleton/Body.phase()
 	
 
 func destroy(slot: String) -> void:
@@ -157,20 +157,13 @@ func on_weaponbox_entered(mybox:Hitbox, theirbox:Hitbox) -> void:
 	return
 
 func hide_weapon() -> void:
-	if $Skeleton/Mainhand/Weapon.visible:
-		if $Skeleton/Sheath/Sheath/MeshInstance is PhaseMesh:
-			$Skeleton/Sheath/Sheath/MeshInstance.phase()
-			$Skeleton/Mainhand/Weapon.visible = false
-			$Skeleton/Sheath/Sheath.visible = true
+	$Skeleton/Mainhand/Weapon.visible = false
+	$Skeleton/Sheath/Sheath.visible = true
 	
 	
 func show_weapon() -> void:
-	print("hiding")
-	if $Skeleton/Sheath/Sheath.visible:
-		if $Skeleton/Mainhand/Weapon/MeshInstance is PhaseMesh:
-			$Skeleton/Mainhand/Weapon/MeshInstance.phase()
-			$Skeleton/Mainhand/Weapon.visible = true
-			$Skeleton/Sheath/Sheath.visible = false
+	$Skeleton/Mainhand/Weapon.visible = true
+	$Skeleton/Sheath/Sheath.visible = false
 
 
 func keyframe() -> void:

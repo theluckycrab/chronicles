@@ -13,12 +13,12 @@ func controls() -> String:
 	
 	
 func enter() -> void:
+	host.npc("show_weapon", {})
 	pass
 	
 	
 func exit() -> void:
 	host.at_war = true
-	host.npc("show_weapon", {})
 	pass
 	
 	

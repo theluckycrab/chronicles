@@ -16,6 +16,7 @@ var at_war = false setget set_war
 var stored_delta = 0
 var update_count = 0
 var viewers = 0
+var ready = false
 
 onready var state_machine := $StateMachine
 onready var armature := $Armature
@@ -27,6 +28,7 @@ onready var controls := $Controls
 
 #builtin
 func _ready() -> void:
+	armature.get_node("Skeleton/Body").visible = false
 	yield(get_tree().create_timer(2), "timeout")
 	net_stats.register()
 	#call_deferred("init_defaults")#to wait for net registration
@@ -38,10 +40,11 @@ func _ready() -> void:
 func on_register():
 	if net_stats.is_master:
 		init_defaults()
+		ready = true
 	
 func _physics_process(delta) -> void:
 	stored_delta = delta
-	if net_stats.is_master and viewers > 0:
+	if ready and net_stats.is_master and viewers > 0:
 		state_machine.execute()
 		buff_list.process()
 		#if self.can_act:

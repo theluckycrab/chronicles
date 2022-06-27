@@ -1,11 +1,11 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://world/scenes/main_menu/main_menu.gd" type="Script" id=1]
 [ext_resource path="res://world/ui/default_selection_menu/defaults_selection_menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/assets/fonts/saved/menu_theme.tres" type="Theme" id=3]
 [ext_resource path="res://data/assets/Blender/lobi/lobi_Lobi_Terrain.mesh" type="ArrayMesh" id=4]
 [ext_resource path="res://world/objects/interactable/pi_gate/pi_gate.tscn" type="PackedScene" id=5]
-[ext_resource path="res://world/objects/interactable/loot_barrel/loot_barrel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://data/assets/Blender/Furniture/Barrel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=7]
 [ext_resource path="res://world/objects/mobiles/base_mobile/armature.gd" type="Script" id=8]
 [ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=9]
@@ -14,6 +14,7 @@
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=12]
 [ext_resource path="res://data/assets/meshes/equipment/naked.mesh" type="ArrayMesh" id=13]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=14]
+[ext_resource path="res://world/objects/mobiles/player/phae_mesh.gd" type="Script" id=15]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -22,6 +23,181 @@ background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08 )
 background_color = Color( 0.482353, 0.380392, 0.380392, 1 )
+
+[sub_resource type="Animation" id=64]
+resource_name = "Open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Full:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Empty:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Empty/Lid:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Empty/Lid:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0.372519, 0, 0 ), Vector3( 1.66707, -1.24716, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Empty/Lid:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -37.431 ), Vector3( 0, 0, -33.777 ) ]
+}
+
+[sub_resource type="Animation" id=65]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Full:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Empty:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Empty/Lid:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Empty/Lid:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Empty/Lid:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -37.431 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Full:material/0:shader_param/dissolve_amount")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Full:mesh:surface_1/material:next_pass:shader_param/dissolve_amount")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Full:mesh:surface_1/material:albedo_color")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.321569, 0.25098, 0.2, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Full:mesh:surface_2/material:albedo_color")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.0995002, 0.14371, 0.173327, 1 ) ]
+}
 
 [sub_resource type="BoxShape" id=17]
 extents = Vector3( 0.0502419, 0.731242, 0.0465176 )
@@ -20998,11 +21174,23 @@ environment = SubResource( 2 )
 
 [node name="PiGate" parent="MeshInstance" instance=ExtResource( 5 )]
 
-[node name="LootBarrel" parent="MeshInstance/PiGate" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67047, 0.410112, 1.55499 )
+[node name="Barrel" parent="MeshInstance/PiGate" instance=ExtResource( 6 )]
+transform = Transform( 0.591577, 0, -1.86265e-09, 0, 0.591578, 0, 1.86265e-09, 0, 0.591577, -3.76207, 0.0284545, 1.58572 )
 
-[node name="LootBarrel2" parent="MeshInstance/PiGate" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.38096, 0.513032, 2.41524 )
+[node name="Full" parent="MeshInstance/PiGate/Barrel" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508861, 0 )
+phase_speed = 0.02
+
+[node name="Barrel2" parent="MeshInstance/PiGate" instance=ExtResource( 6 )]
+transform = Transform( 0.591577, 0, -1.86265e-09, 0, 0.591578, 0, 1.86265e-09, 0, 0.591577, -4.74951, 0.0284545, 1.20968 )
+
+[node name="Full" parent="MeshInstance/PiGate/Barrel2" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508861, 0 )
+phase_speed = 0.02
+
+[node name="AnimationPlayer" parent="MeshInstance/PiGate/Barrel2" index="2"]
+anims/Open = SubResource( 64 )
+anims/RESET = SubResource( 65 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, -0.787548, 0.616253, 0, -0.616253, -0.787548, 0, 0, 0 )
@@ -21017,24 +21205,31 @@ script = ExtResource( 8 )
 [node name="Body" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 14 )
 material/0 = null
+script = ExtResource( 15 )
 
 [node name="Chest" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Head" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Gloves" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Legs" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Boots" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Offhand" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 13 )
+script = ExtResource( 15 )
 
 [node name="Mainhand" type="BoneAttachment" parent="MeshInstance/Armature/Skeleton"]
 transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
@@ -21140,3 +21335,6 @@ transform = Transform( -0.99863, -0.00456139, 0.0521369, 0, 0.996195, 0.0871557,
 
 [node name="CamStart" type="Position3D" parent="MeshInstance"]
 transform = Transform( -0.99863, -0.017039, 0.0494847, 0, 0.945519, 0.325568, -0.052336, 0.325122, -0.944223, 0, 11.743, 31.5755 )
+
+[editable path="MeshInstance/PiGate/Barrel"]
+[editable path="MeshInstance/PiGate/Barrel2"]

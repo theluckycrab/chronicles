@@ -1,4 +1,4 @@
-extends MeshInstance
+extends PhaseMesh
 
 func activate(_host):
 	$LevelSelectMenu.show()
