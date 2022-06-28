@@ -23,7 +23,7 @@ func exit() -> void:
 	
 	
 func can_exit() -> bool:
-	return host.global_transform.origin.distance_to(tpos) < 4 or host.lock_target == null
+	return host.global_transform.origin.distance_to(tpos) < 2.25 or host.lock_target == null
 	
 	
 func can_enter() -> bool:

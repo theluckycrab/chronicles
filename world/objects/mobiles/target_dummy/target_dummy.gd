@@ -72,12 +72,14 @@ func take_damage(args):
 	$Armature/EffectsPlayer.play("hp_hit")
 	if hp <= 0:
 				if net_stats.is_master:
-					var loot = Data.get_reference_instance("loot_barrel")
-					loot.net_stats.original_instance_id = loot.get_instance_id()
-					loot.net_stats.register()
-					get_viewport().add_child(loot)
-					loot.global_transform.origin = global_transform.origin
 					net_stats.unregister()
+					if randi() % 100 < 20:
+						var loot = Data.get_reference_instance("loot_barrel")
+						loot.net_stats.original_instance_id = loot.get_instance_id()
+						loot.net_stats.register()
+						get_viewport().add_child(loot)
+						loot.global_transform.origin = global_transform.origin
+					
 	
 func in_range() -> bool:
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
@@ -95,9 +97,9 @@ func get_target_range() -> int:
 	if lock_target == null:
 		return NONE
 	var dist = global_transform.origin.distance_to(lock_target.global_transform.origin)
-	if dist < 4 and dist > 1:
+	if dist < 2.25 and dist > 1:
 		return CLOSE
-	elif dist > 3 and dist < 6:
+	elif dist > 2 and dist < 6:
 		return MID
 	elif dist > 6:
 		return LONG
