@@ -9,7 +9,7 @@ func _init() -> void:
 
 var duration: float = 0.25#0.25
 var height: float = 0.05 / duration
-var distance: float = 5#0.75 / duration#1.75 / duration
+var distance: float = 4#0.75 / duration#1.75 / duration
 var done: bool = false
 var direction = Vector3.ZERO
 
@@ -25,6 +25,8 @@ func _ready() -> void:
 	
 func enter() -> void:
 	get_anim_dir()
+	if animation != "Dash":
+		host.npc("guard", {"direction":"Forward"})
 	direction = host.get_wasd()
 	#direction = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 	dodge_timer.start(duration)
@@ -32,6 +34,7 @@ func enter() -> void:
 	
 	
 func exit() -> void:
+	host.npc("guard_reset", {})
 	dodge_timer.stop()
 	done = false
 	pass
@@ -46,7 +49,7 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	if Input.is_action_just_pressed("light_attack"):
+	if Input.is_action_just_pressed("light_attack") and animation == "Dash":
 		host.set_state("dodge_attack")
 	if dodge_timer.time_left > 0.02 and dodge_timer.time_left < duration - 0.02:
 		var dir = -direction.rotated(Vector3.UP, host.armature.rotation.y)
@@ -65,12 +68,12 @@ func get_anim_dir():
 		animation = "Dash"
 		return
 	if dir.z > 0:
-		animation = "Fall"
+		animation = "Guard_Forward"
 		return
 	if dir.x < 0:
-		animation = "Dodge_Left"
+		animation = "Guard_Forward"
 		return
 	if dir.x > 0:
-		animation = "Dodge_Right"
+		animation = "Guard_Forward"
 		return
 	animation = "Dash"

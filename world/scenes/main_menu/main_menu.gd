@@ -105,3 +105,4 @@ func build_armature():
 	a = phrases[a]
 	arm.get_node("OverheadSystem").text = ""
 	arm.print_overhead_system(a)
+	arm.get_node("OverheadSystem/Timer").start(4)
