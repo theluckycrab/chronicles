@@ -40,10 +40,10 @@ func execute() -> void:
 	
 func on_keyframe():
 	if !is_instance_valid(summon):
-		summon()
+		create_summon()
 	else:
 		on_summon_died()
-		summon()
+		create_summon()
 		
 		
 		
@@ -57,7 +57,7 @@ func on_host_exit():
 	if summonID != null:
 		Network.relay_signal("unregister", {netID=summonID, map=Network.map, notice="summon despawn"})
 
-func summon():
+func create_summon():
 	var projectile = Data.get_reference_instance("target_dummy")
 	get_viewport().add_child(projectile)
 	projectile.stats.faction = "Player"

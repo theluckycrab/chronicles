@@ -68,7 +68,7 @@ func execute() -> void:
 	
 func cycle():
 	if combo_counter < combo.size():
-		host.weaponbox_strike()
+		#host.weaponbox_strike()
 		animation = combo[combo_counter]
 		host.play({"animation":animation, "motion":true})
 		combo_timer.stop()

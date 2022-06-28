@@ -7,13 +7,13 @@ var rolling = false
 export(Color) var color setget set_label_color
 
 func _ready():
-	$Timer.connect("timeout", self, "on_timer")
+	var _discard = $Timer.connect("timeout", self, "on_timer")
 	if rolling:
 		$Timer.start(lifespan)
 	#yield(get_tree().create_timer(lifespan), "timeout")
 	#queue_free()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if $Label.text != "":
 		position()
 

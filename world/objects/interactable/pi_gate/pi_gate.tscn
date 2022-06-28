@@ -49,12 +49,12 @@ direction = Vector3( 1, 1, 0 )
 spread = 0.0
 
 [node name="PosePoint" parent="." instance=ExtResource( 5 )]
-transform = Transform( -6.35344, 0, -5.45439e-07, 0, 1, 0, 5.55435e-07, 0, -6.23909, 0, 0, 0 )
+transform = Transform( -6.35344, 0, -5.21541e-07, 0, 1, 0, 5.51343e-07, 0, -6.23909, 0, 0.397921, 0 )
 animation = "Interact"
 
 [node name="LevelSelectMenu" parent="." instance=ExtResource( 1 )]
 visible = false
 
 [node name="InteractableZone" parent="." instance=ExtResource( 6 )]
-transform = Transform( -6.22096, 0, -0.121945, 0, 1, 0, 0.122707, 0, -6.18234, 0.00180072, 0, 0.0912933 )
-action = "travel"
+transform = Transform( -6.22096, 0, -0.121945, 0, 1, 0, 0.122707, 0, -6.18234, 0.00180072, 0.871148, 0.0912933 )
+action = "E: Travel"

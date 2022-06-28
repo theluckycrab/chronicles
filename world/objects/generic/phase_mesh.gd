@@ -13,7 +13,7 @@ func _ready():
 	material_override = load("res://data/assets/phase_shader.tres")
 	material_override.set_shader_param("dissolve_amount", 0.0)
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if material_override is ShaderMaterial:
 		#print("processing")
 		phase_progress -= phase_speed

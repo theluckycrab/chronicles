@@ -5,7 +5,7 @@ Creation-Date: 2022-06-23T21:20:37-05:00
 ====== Areas ======
 Created Thursday 23 June 2022
 
-Currently, you can only travel between zones using the Pi Gate. In the final game, there will be Pi Gates around but there world will be far more open and foot travely. 
+Currently, you can only travel between zones using the Pi Gate. In the final game, there will be Pi Gates around,  but the world will be far more open and foot travely. 
 
 ====== Lobi Town ======
 Lobi Town is the starting zone. Towns follow a different ruleset than fields. For now, the only differences are :

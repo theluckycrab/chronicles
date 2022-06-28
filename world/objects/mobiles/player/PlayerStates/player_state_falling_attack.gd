@@ -13,7 +13,7 @@ func enter() -> void:
 	if weapon == null:
 		return
 	else:
-		animation = weapon.strong
+		animation = "Dash_Attack"
 	pass
 	
 	

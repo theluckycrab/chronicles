@@ -18,7 +18,10 @@ Currently, all gameplay functions should be supported by both controller and key
 	* Cycle Item - Mouse Wheel
 	* Equip Item - Middle Mouse
 	* Interact - E
-	* Console/Chat - `
+	* Chat (Continuous) - `
+	* Chat (Close on Return) - Enter
+	* Open Chat Log - L
+	* Fullscreen - F11
 	* Activate Item Slot:
 		* Head - v
 		* Mainhand - c
@@ -59,7 +62,10 @@ Currently, all gameplay functions should be supported by both controller and key
 	* Cycle Item - O / [ ] (use O to select the Equipments category)
 	* Equip Item - R3
 	* Interact - [ ]
-	* Console/Chat - `
+	* Chat (Continuous) - `
+	* Chat (Close on Return) - Enter
+	* Open Chat Log - L
+	* Fullscreen - F11
 	* Activate Item Slot:
 		* Head - L2 + /_\
 		* Mainhand - L2 + O

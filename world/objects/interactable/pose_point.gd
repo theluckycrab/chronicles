@@ -7,7 +7,7 @@ export(String) var action = "Interact"
 
 func _ready():
 	$InteractableZone.set_action_label(action)
-	$InteractableZone.connect("exited", self, "on_exited")
+	var _discard = $InteractableZone.connect("exited", self, "on_exited")
 
 func activate(host):
 	host.state_machine.get_state("emote").animation = animation

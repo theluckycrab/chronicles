@@ -33,7 +33,7 @@ func _ready() -> void:
 	build_armature()
 	
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	cam.global_transform = cam.global_transform.interpolate_with(cam_end.global_transform, 0.01)
 	
 	

@@ -24,7 +24,9 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	direction = host.get_wasd().normalized()
+	get_anim_dir()
+	direction = host.get_wasd()
+	#direction = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 	dodge_timer.start(duration)
 	pass
 	
@@ -46,12 +48,10 @@ func can_enter() -> bool:
 func execute() -> void:
 	if Input.is_action_just_pressed("light_attack"):
 		host.set_state("dodge_attack")
-	var dir = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 	if dodge_timer.time_left > 0.02 and dodge_timer.time_left < duration - 0.02:
+		var dir = -direction.rotated(Vector3.UP, host.armature.rotation.y)
 		host.add_force(dir * distance * 3)
-		host.add_force(Vector3.UP * 0.5)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
-	
 	host.lock_on()
 	
 	
@@ -59,21 +59,18 @@ func on_dodge_timer() -> void:
 	done = true
 	
 	
-func get_dir():
+func get_anim_dir():
 	var dir = host.get_wasd()
-	match dir.abs().max_axis():
-		Vector3.AXIS_X:
-			if dir.x < 0:
-				animation = "Dodge_Left"
-				return Vector3(1,0,0) * 2
-			elif dir.x > 0:
-				animation = "Dodge_Right"
-				return Vector3(1,0,0) * -2
-		Vector3.AXIS_Z:
-			if dir.z < 0:
-				animation = "Dash"
-				return Vector3(0,0,1) * 3.25
-			if dir.z > 0:
-				animation = "Fall"
-				return Vector3(0,0,1) * -1.75
-	return Vector3.ZERO
+	if dir.z < 0:
+		animation = "Dash"
+		return
+	if dir.z > 0:
+		animation = "Fall"
+		return
+	if dir.x < 0:
+		animation = "Dodge_Left"
+		return
+	if dir.x > 0:
+		animation = "Dodge_Right"
+		return
+	animation = "Dash"

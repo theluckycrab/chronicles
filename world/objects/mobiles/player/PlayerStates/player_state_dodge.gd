@@ -9,7 +9,7 @@ func _init() -> void:
 
 var duration: float = 0.35#0.25
 var height: float = 0#.015 / duration
-var distance: float = 4#0.75 / duration#1.75 / duration
+var distance: float = 2.5#0.75 / duration#1.75 / duration
 var done: bool = false
 var direction = Vector3.ZERO
 
@@ -24,7 +24,7 @@ func _ready() -> void:
 	
 	
 func enter() -> void:
-	animation = "Combat_Idle"
+	animation = "Combat_Idle"#get_anim_dir()
 	direction = host.get_wasd().normalized()
 	dodge_timer.start(duration)
 	pass
@@ -50,8 +50,7 @@ func execute() -> void:
 		host.add_force(dir * distance * 3)
 		host.add_force(Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y) * 0.03)
 	if Input.is_action_just_pressed("guard"):
-		if host.get_wasd().z < 0:
-			host.set_state("dash")
+		host.set_state("dash")
 	host.lock_on()
 	
 	
@@ -77,3 +76,16 @@ func get_dir():
 				animation = "Fall"
 				return Vector3(0,0,1) * -1.75
 	return Vector3.ZERO
+
+func get_anim_dir():
+	var dir = host.get_wasd()
+	if dir.z < 0:
+		animation = "Dash"
+		return
+	if dir.x < 0:
+		animation = "Dodge_Left"
+		return
+	if dir.x > 0:
+		animation = "Dodge_Right"
+		return
+	animation = "Dash"

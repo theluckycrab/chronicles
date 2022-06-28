@@ -18,7 +18,8 @@ func _ready():
 	var _discard1 = weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
 	$OverheadSystem/Label.modulate = Data.get_config_value("system_color")
 	hide_weapon()
-	yield(get_tree().create_timer(2.1), "timeout")
+	if get_parent() is BaseMobile:
+		yield(get_tree().create_timer(2.1), "timeout")
 	$Skeleton/Body.visible = true
 	#if $Skeleton/Body is PhaseMesh:
 		#$Skeleton/Body.phase()

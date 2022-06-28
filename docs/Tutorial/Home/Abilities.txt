@@ -6,9 +6,13 @@ Creation-Date: 2022-06-25T12:42:03-05:00
 Created Saturday 25 June 2022
 
 
+Abilities are usable from either sheathed or unsheated stances. If you complete an ability without a valid lock target in view, you will return to a sheathed posture. This is intentional to allow both dramatic conclusions and non-combat ability uses. 
+
+
 Dash Punch - Unblockable, unstaggerable
 
 Evasive Maneuvers - Causes your lock target to lose track of you
+					Won't work if you're not locked on
 
 Evade - A front-blocking back jump
 
@@ -24,11 +28,12 @@ Pull - Pulls an enemy towards you and causes a brief stagger along the way
 
 Quickturn - This ability is for turning quickly with ice skates
 
-Spin Attack - Hit's up to 4 enemies around you
+Spin Attack - Hits up to 4 enemies around you
 
-Summon Dummy - Summons a friendly target dummy, can resummon once that one is dead, pretty buggy and often spawns outside the map
+Summon Dummy - Summons a friendly target dummy. Casting again will replace the existing dummy with a brand new one, near your location. 
 
 Taunt - Gets the aggro of everything in your lockon zone
+		This is a forward-facing cone
 
 Throw - Throwing knives don't deal damage, but do get attention and cause a small stagger
 

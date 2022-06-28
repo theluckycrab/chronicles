@@ -13,6 +13,7 @@ func _init() -> void:
 
 
 func enter() -> void:
+	keyframe_connect()
 	animation = "Fading_Horizon_1"
 	show_weapon()
 	host.weaponbox_ghost()
@@ -21,6 +22,7 @@ func enter() -> void:
 
 
 func exit() -> void:
+	keyframe_disconnect()
 	combat_check()
 	completed()
 	done = false
@@ -45,5 +47,10 @@ func execute() -> void:
 			host.play({"animation":animation, "motion":true})
 			host.npc("play", {"animation":animation, "motion":true})
 			done = true
+
 func on_completed():
 	completed()
+
+func on_keyframe():
+	#host.npc("instantiate_projectile", {"index":"melee_aux"})
+	pass

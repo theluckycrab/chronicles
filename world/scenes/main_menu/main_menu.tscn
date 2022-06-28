@@ -21207,6 +21207,8 @@ transform = Transform( -0.909505, 0, 0.415694, 0, 1, 0, -0.415694, 0, -0.909505,
 script = ExtResource( 8 )
 
 [node name="Skeleton" parent="MeshInstance/Armature" instance=ExtResource( 10 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="MeshInstance/Armature/Skeleton"]
 mesh = ExtResource( 14 )

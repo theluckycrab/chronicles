@@ -33,8 +33,8 @@ func _ready() -> void:
 	net_stats.register()
 	#call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
-	Events.connect("net_print", self, "on_net_print")
-	Events.connect("console_print", self, "on_console_print")
+	var _discard = Events.connect("net_print", self, "on_net_print")
+	var _dicksward = Events.connect("console_print", self, "on_console_print")
 	
 	
 func on_register():
@@ -196,10 +196,6 @@ func get_weaponbox() -> Hitbox:
 	
 func link_hitbox(box) -> void:
 	box.connect("hitbox_entered", self, "on_hitbox_entered")
-	
-	
-func print_overhead(args):
-	pass
 	
 	
 #inventory interface

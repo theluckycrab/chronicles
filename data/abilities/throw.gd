@@ -2,7 +2,7 @@ extends Ability
 
 func _init() -> void:
 	index = "Throw"
-	animation = "Fading_Horizon_2"
+	animation = "Draw"
 	priority = 2
 	host = null
 
