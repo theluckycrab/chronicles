@@ -69,6 +69,7 @@ func controls() -> void:
 			if current_category == "consumables":
 				if !consumables.empty():
 					host.set_state(consumables[0].active)
+					host.inventory.items.erase(consumables[0])
 			set_category(null)
 
 

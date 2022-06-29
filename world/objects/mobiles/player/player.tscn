@@ -7153,6 +7153,20 @@ tracks/65/loop_wrap = true
 tracks/65/imported = true
 tracks/65/enabled = true
 tracks/65/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.625, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/66/type = "method"
+tracks/66/path = NodePath("Armature/AnimationPlayer")
+tracks/66/interp = 1
+tracks/66/loop_wrap = true
+tracks/66/imported = false
+tracks/66/enabled = true
+tracks/66/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "keyframe"
+} ]
+}
 
 [sub_resource type="Animation" id=37]
 resource_name = "Katana_Combo_1"
@@ -12178,8 +12192,6 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -12211,7 +12223,7 @@ mesh = SubResource( 71 )
 script = ExtResource( 34 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.175244, 0.0708188, -0.981978, -0.92426, -0.35546, 0.139321, -0.339181, 0.932005, 0.127748, -0.0477628, 0.564818, 0.878176 )
+transform = Transform( -0.216341, 0.648509, -0.729819, 0.127136, 0.759867, 0.637539, 0.968005, 0.0451384, -0.246849, -0.126769, 1.30932, 0.375643 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -12235,7 +12247,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.986251, -0.15738, -0.0504017, 0.0284084, 0.461922, -0.886464, 0.162793, 0.872844, 0.460043, -0.0354296, 1.00469, 0.173537 )
+transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238581, 1.26308, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

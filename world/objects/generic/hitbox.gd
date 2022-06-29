@@ -19,6 +19,8 @@ func _ready() -> void:
 	var _discard = connect("area_entered", self, "on_area_entered")
 	damage.tags.append_array(damage_tags)
 	damage.damage = damage_amount
+	set_collision_layer_bit(0, false)
+	set_collision_layer_bit(1, true)
 	
 func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
