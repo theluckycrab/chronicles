@@ -45,7 +45,7 @@ func execute() -> void:
 		host.add_force(dir * speed / 2)
 		host.lock_on()
 	else:
-		if Input.is_action_pressed("dodge"):
+		if Input.is_action_pressed("dodge") and host.can_act:
 			sprinting = true
 		else:
 			sprinting = false

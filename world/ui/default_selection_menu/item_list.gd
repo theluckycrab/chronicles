@@ -16,6 +16,8 @@ func _ready():
 			nicon.item = i
 			add_child(nicon)
 			nicon.connect("button_down", self, "on_button_down")
+			if ["Chest", "Gloves", "Legs"].has(category):
+				nicon.get_node("VBoxContainer/Ability").visible = false
 			
 
 func on_button_down(which):

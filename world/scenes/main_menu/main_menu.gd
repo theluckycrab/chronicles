@@ -91,6 +91,9 @@ func build_armature():
 	var arm = $MeshInstance/Armature
 	for i in data.defaults:
 		arm.equip({index=data.defaults[i]})
+	for i in ["Head", "Chest", "Gloves", "Legs", "Boots", "Mainhand", "Offhand"]:
+		if !data.defaults.has(i):
+			arm.equip({index="naked_"+i.to_lower()})
 	yield(get_tree().create_timer(0.35), "timeout")
 	var anims = arm.anim.get_animation_list()
 	var a = randi() % anims.size()

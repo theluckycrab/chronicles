@@ -31,6 +31,7 @@ func destroy(slot: String) -> void:
 		mount = get_node_or_null("Skeleton/"+slot+"/Weapon/MeshInstance")
 	if mount:
 		mount.set_mesh(null)
+		
 
 
 func equip(args:Dictionary) -> void:

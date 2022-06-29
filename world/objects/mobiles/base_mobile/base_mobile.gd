@@ -420,8 +420,9 @@ func init_defaults() -> void:
 		for i in iv:
 			add_item(Data.get_item(i).duplicate())
 			
-	for i in ["Head", "Mainhand", "Offhand", "Boots"]:
+	for i in ["Head", "Mainhand", "Offhand", "Boots", "Gloves", "Legs", "Chest"]:
 		if get_equipped(i) == null and get_default(i) == null:
+			print(i)
 			var it = Data.get_item("naked_"+i.to_lower()).duplicate()
 			set_default(it.slot, it)
 			equip(it)

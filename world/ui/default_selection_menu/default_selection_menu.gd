@@ -6,10 +6,8 @@ var icon = preload("res://world/ui/item_display.tscn")
 onready var save_button = $Layout/Mid/HBoxContainer/Save
 onready var exit_button = $Layout/Mid/HBoxContainer/Exit
 onready var name_entry = $Layout/Mid/HBoxContainer2/NameEntry
-onready var item_lists = [$Layout/Left/Itemlist, $Layout/Left/Itemlist2, \
-		$Layout/Left/Itemlist3, $Layout/Left/Itemlist4,\
-		$Layout/Right/Itemlist5, $Layout/Right/Itemlist6,\
-		$Layout/Right/Itemlist7]
+onready var item_lists = [$Layout/Left/HeadList, $Layout/Left/ChestList, $Layout/Left/GlovesList,
+		$Layout/Left/LegsList, $Layout/Left/BootsList, $Layout/Left/MainhandList, $Layout/Left/OffhandList]
 onready var chat_color_button = $Layout/Mid/HBoxContainer2/ChatColorButton
 onready var system_color_button = $Layout/Mid/HBoxContainer2/SystemColorButton
 
