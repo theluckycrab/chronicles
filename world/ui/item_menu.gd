@@ -1,6 +1,7 @@
 extends Control
 
 export var items: Array = []
+export onready var emotes: Array = ["Sit_Floor", "APose", "Item", "Taunt"]
 export var categories: Array = ["consumables", "equipment", "emote", "chat"]
 export var radius: int = 150
 
@@ -28,19 +29,37 @@ func controls() -> void:
 		set_category("consumables")
 	elif Input.is_action_just_pressed("item_category_2"):
 		set_category("equipment")
+	elif Input.is_action_just_pressed("item_category_3"):
+		set_category("emote")
 		
 	if current_category == "categories":
-		if Input.is_action_just_released("item_scroll_right"):
+		if Input.is_action_just_released("mainhand"):
 			set_category(categories[1])
+		elif Input.is_action_just_released("boots"):
+			set_category(categories[2])
 
-	elif current_category == "equipment":
+	elif current_category != null and current_category != "categories":
 		if Input.is_action_just_released("item_scroll_right"):
-			shift("right")
+			match current_category:
+				"equipment":
+					shift("right", items)
+				"emote":
+					shift("right", emotes)
 		elif Input.is_action_just_released("item_scroll_left"):
-			shift("left")
+			match current_category:
+				"equipment":
+					shift("left", items)
+				"emote":
+					shift("left", emotes)
 		elif Input.is_action_just_released("item_scroll_confirm"):
-			if !items.empty():
-				host.equip(items[0])
+			if current_category == "equipment":
+				if !items.empty():
+					host.equip(items[0])
+					return
+			if current_category == "emote":
+				if !emotes.empty():
+					host.get_state("emote").animation = emotes[0]
+					host.set_state("emote")
 			set_category(null)
 
 
@@ -75,17 +94,17 @@ func item_layout(list:Array) -> void:
 			lab.rect_position.x -= i.length() * 2.5
 		
 		
-func shift(dir:String) -> void:
-	if current_category == null or items.empty():
+func shift(dir:String, list) -> void:
+	if current_category == null or list.empty():
 		return
 	if dir == "right":
-		var n = items.front()
-		items.pop_front()
-		items.append(n)
+		var n = list.front()
+		list.pop_front()
+		list.append(n)
 	elif dir == "left":
-		var n = items.back()
-		items.pop_back()
-		items.insert(0, n)
+		var n = list.back()
+		list.pop_back()
+		list.insert(0, n)
 	refresh_category()
 	
 
@@ -100,13 +119,12 @@ func set_category(category) -> void:#string or null
 		fetch_items()
 		current_category = category
 		refresh_category()
-		shift("right")
+		match current_category:
+			"equipment":
+				shift("right", items)
 
 
 func refresh_category() -> void:
-	var new_list = []
-	var filter = []
-	
 	for i in get_children():
 		i.queue_free()
 	
@@ -115,15 +133,20 @@ func refresh_category() -> void:
 			item_layout(categories)
 			return
 		"equipment":
+			var new_list = []
+			var filter = []
 			filter.append("Head")
 			filter.append("Mainhand")
 			filter.append("Offhand")
 			filter.append("Boots")
-			
-	for i in items:
-		if filter.has(i.get_slot()):
-			new_list.append(i)
-	item_layout(new_list)
+			for i in items:
+				if filter.has(i.get_slot()):
+					new_list.append(i)
+			item_layout(new_list)
+			return
+		"emote":
+			item_layout(emotes)
+			return
 
 
 func get_active() -> bool:

@@ -129,6 +129,10 @@ func commit_move() -> void:
 
 
 #state interface
+func get_state(state):
+	return state_machine.get_state(state)
+	
+	
 func set_state(state) -> void:#takes strings or nodes
 	if state is State:
 		state.host = self
