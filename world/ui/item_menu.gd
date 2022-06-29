@@ -1,6 +1,7 @@
 extends Control
 
 export var items: Array = []
+export var consumables: Array = []
 export onready var emotes: Array = ["Sit_Floor", "APose", "Item", "Taunt"]
 export var categories: Array = ["consumables", "equipment", "emote", "chat"]
 export var radius: int = 150
@@ -37,6 +38,8 @@ func controls() -> void:
 			set_category(categories[1])
 		elif Input.is_action_just_released("boots"):
 			set_category(categories[2])
+		elif Input.is_action_just_released("head"):
+			set_category(categories[0])
 
 	elif current_category != null and current_category != "categories":
 		if Input.is_action_just_released("item_scroll_right"):
@@ -45,21 +48,27 @@ func controls() -> void:
 					shift("right", items)
 				"emote":
 					shift("right", emotes)
+				"consumables":
+					shift("right", consumables)
 		elif Input.is_action_just_released("item_scroll_left"):
 			match current_category:
 				"equipment":
 					shift("left", items)
 				"emote":
 					shift("left", emotes)
+				"consumables":
+					shift("left", consumables)
 		elif Input.is_action_just_released("item_scroll_confirm"):
 			if current_category == "equipment":
 				if !items.empty():
 					host.equip(items[0])
-					return
 			if current_category == "emote":
 				if !emotes.empty():
 					host.get_state("emote").animation = emotes[0]
 					host.set_state("emote")
+			if current_category == "consumables":
+				if !consumables.empty():
+					host.set_state(consumables[0].active)
 			set_category(null)
 
 
@@ -147,6 +156,15 @@ func refresh_category() -> void:
 		"emote":
 			item_layout(emotes)
 			return
+		"consumables":
+			var new_list = []
+			var filter = []
+			filter.append("Consumable")
+			for i in items:
+				if filter.has(i.get_slot()):
+					new_list.append(i)
+			item_layout(new_list)
+			consumables = new_list
 
 
 func get_active() -> bool:

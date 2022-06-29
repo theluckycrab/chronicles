@@ -41,7 +41,7 @@ func activate(host):
 
 func rand_item():
 	item = Data.get_random_item()
-	if !["Head", "Mainhand", "Offhand", "Boots"].has(item.get_slot())\
+	if !["Head", "Mainhand", "Offhand", "Boots", "Consumable"].has(item.get_slot())\
 			or "naked" in item.index or "debug" in item.index:
 		rand_item()
 	else:
