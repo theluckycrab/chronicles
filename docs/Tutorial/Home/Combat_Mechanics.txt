@@ -45,4 +45,5 @@ Defaults are permanently unlocked (currently everything is unlocked). Equipment 
 Currently, all strong attacks are unblockable. In the final game, they'll have an interaction with armored zones instead. Dash Punch cannot be staggered and is unblockable. You will still take damage. Lick is unblockable. 
 
 
-
+====== Stagger ======
+As a part of the 7/1 test and iterative cycle, I've added a temporary mechanic. Enemies can be staggered twice in a 1 second period. Staggers as a result of a parry are not counted towards this total. 

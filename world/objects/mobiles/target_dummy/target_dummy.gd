@@ -9,7 +9,7 @@ var action_list = []
 enum {CLOSE, MID, LONG, NONE}
 
 var hp = 4
-
+var staggers = 0
 
 func _init() -> void:
 	var weps = ["katana", "club", "scimitar"]
@@ -27,6 +27,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	$StaggerTimer.connect("timeout", self, "on_stagger_timer")
 	at_war = true
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
@@ -52,6 +53,9 @@ func on_got_parried(_mybox, _theirbox) -> void:
 	
 func stagger(_args):
 	set_state("stagger")
+		
+func on_stagger_timer():
+	staggers = 0
 
 func on_got_hit(mybox, theirbox) -> void:
 	if theirbox.damage.tags.has(get_faction()):
@@ -63,8 +67,11 @@ func on_got_hit(mybox, theirbox) -> void:
 		Hitbox.collision_type.GOT_HIT:
 			if net_stats.is_master:
 				npc("take_damage", {damage=theirbox.damage.damage})
-				state_machine.call_deferred("quit_state")
-				call_deferred("set_state", "stagger")
+				if staggers < 2:
+					$StaggerTimer.start(1)
+					staggers += 1
+					state_machine.call_deferred("quit_state")
+					call_deferred("set_state", "stagger")
 	
 func take_damage(args):
 	print("dummy damage ", args)

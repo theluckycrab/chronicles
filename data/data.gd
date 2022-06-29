@@ -97,7 +97,7 @@ func load_config():
 	persistence.load_config()
 	
 func clear_char_inventory():
-	persistence.char_data["inventory"] = ["katana"]
+	persistence.char_data["inventory"] = []
 	full_save_char()
 	
 func clear_char_equipped():
