@@ -15,8 +15,8 @@ Currently, all gameplay functions should be supported by both controller and key
 	* Draw/Sheathe Weapon - Tab
 	* Jump - Space
 	* Item Menu - Hold 2 on the toprow
-	* Cycle Item - Mouse Wheel
-	* Equip Item - Middle Mouse
+	* Cycle Item - Left Click / Right Click
+	* Equip Item - Spacebar
 	* Interact - E
 	* Chat (Continuous) - `
 	* Chat (Close on Return) - Enter
