@@ -115,6 +115,10 @@ func size_weapon() -> void:
 	var pos = mesh.get_aabb().position
 	if box == null:
 		return
+	if length == Vector3.ZERO:
+		length = Vector3(0.1, 0.4, 0.1)
+	if pos == Vector3.ZERO:
+		pos = Vector3(0.1, 0.1, -0.1)
 	box.transform.origin = pos + length / 2
 	box.get_shape().set_extents(length / 2)
 

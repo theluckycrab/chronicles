@@ -79,8 +79,7 @@ func get_hit_zone(dir:Vector3):
 	
 func get_can_act() -> bool:
 	return !state_machine.get_state() is ActionState\
-			and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED\
-			and !ui_active()
+			and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 		
 		
 func ui_active() -> bool:
