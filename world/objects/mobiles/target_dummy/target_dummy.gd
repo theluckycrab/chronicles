@@ -74,7 +74,6 @@ func on_got_hit(mybox, theirbox) -> void:
 					call_deferred("set_state", "stagger")
 	
 func take_damage(args):
-	print("dummy damage ", args)
 	hp -= args.damage
 	$Armature/EffectsPlayer.play("hp_hit")
 	if hp <= 0:

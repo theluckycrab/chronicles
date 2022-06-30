@@ -38,8 +38,10 @@ margin_bottom = 54.0
 
 [node name="DestroyOverlay" type="Control" parent="."]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -81.0
+margin_top = -82.0
+margin_right = -41.0
+margin_bottom = -42.0
 
 [node name="TextureRect" type="TextureRect" parent="DestroyOverlay"]
 margin_left = 70.0
@@ -71,8 +73,10 @@ texture = ExtResource( 2 )
 
 [node name="ActivateOverlay" type="Control" parent="."]
 visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -81.0
+margin_top = -82.0
+margin_right = -41.0
+margin_bottom = -42.0
 
 [node name="TextureRect" type="TextureRect" parent="ActivateOverlay"]
 margin_left = 70.0

@@ -20,9 +20,9 @@ func _ready():
 	hide_weapon()
 	if get_parent() is BaseMobile:
 		yield(get_tree().create_timer(2.1), "timeout")
+	if $Skeleton/Body is PhaseMesh:
+		$Skeleton/Body.phase()
 	$Skeleton/Body.visible = true
-	#if $Skeleton/Body is PhaseMesh:
-		#$Skeleton/Body.phase()
 	
 
 func destroy(slot: String) -> void:
