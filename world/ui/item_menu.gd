@@ -62,7 +62,7 @@ func controls() -> void:
 		elif Input.is_action_just_released("item_scroll_confirm"):
 			if current_category == "equipment":
 				if !items.empty():
-					host.equip(items[0])
+					host.equip(equipment[0])
 			if current_category == "emote":
 				if !emotes.empty():
 					host.get_state("emote").animation = emotes[0]
@@ -131,9 +131,6 @@ func set_category(category) -> void:#string or null
 		current_category = category
 		build_lists()
 		refresh_category()
-		match current_category:
-			"equipment":
-				shift("right", items)
 
 
 func refresh_category() -> void:
