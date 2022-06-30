@@ -25,7 +25,8 @@ func _physics_process(_delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
 			#get_viewport().add_child(Data.get_reference_instance("target_dummy"))
-			Events.emit_signal("scene_change_request", "test_room2")
+			#Events.emit_signal("scene_change_request", "test_room2")
+			Events.emit_signal("console_print", "System: Why you tryna cheat tho?")
 			pass
 	
 func on_got_hit(mybox, theirbox):

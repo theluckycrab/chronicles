@@ -24,6 +24,10 @@ func _init() -> void:
 			Boots = "sandals",
 			Offhand = "fairy_band"
 	}
+	for i in 3:
+		var it = Data.get_random_item()
+		if ! "naked" in it.index:
+			base_defaults[it.get_slot()] = it.index
 
 
 func _ready() -> void:
@@ -34,7 +38,6 @@ func _ready() -> void:
 	call_deferred("set_state", "patrol")
 	set_faction({"faction":"Dummy"})
 	armature.weaponbox.damage.tags.append(get_faction())
-
 	
 	
 func _physics_process(_delta) -> void:
@@ -135,3 +138,5 @@ func choose_random_action() -> void:
 			var num = randi() % action_list.size() -1
 			call_deferred("set_state", action_list[num])
 
+func hide_weapon(args={}):
+	show_weapon(args)

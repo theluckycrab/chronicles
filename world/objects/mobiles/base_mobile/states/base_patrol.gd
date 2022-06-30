@@ -61,7 +61,6 @@ func choose_next_patrol_point():
 		rand3 *= -1
 	
 	tpos = mypos + rand3
-	print(tpos)
 	timer.start(randi() % 10 + 5)
 
 

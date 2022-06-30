@@ -202,6 +202,14 @@ func link_hitbox(box) -> void:
 	box.connect("hitbox_entered", self, "on_hitbox_entered")
 	
 	
+func hide_weapon(_args={}):
+	armature.hide_weapon()
+	
+	
+func show_weapon(_args={}):
+	armature.show_weapon()
+	
+	
 #inventory interface
 func get_defaults_dict() -> Dictionary:
 	return inventory.get_defaults_dict()
@@ -311,7 +319,6 @@ func net_set_state(args):
 	
 #stats interface
 func set_faction(args) -> void:
-	print(args)
 	stats.set_faction(args.faction)
 	
 	
@@ -422,7 +429,7 @@ func init_defaults() -> void:
 			
 	for i in ["Head", "Mainhand", "Offhand", "Boots", "Gloves", "Legs", "Chest"]:
 		if get_equipped(i) == null and get_default(i) == null:
-			print(i)
+			#print(i)
 			var it = Data.get_item("naked_"+i.to_lower()).duplicate()
 			set_default(it.slot, it)
 			equip(it)

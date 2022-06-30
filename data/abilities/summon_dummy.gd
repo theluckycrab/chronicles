@@ -60,13 +60,13 @@ func on_host_exit():
 func create_summon():
 	var projectile = Data.get_reference_instance("target_dummy")
 	get_viewport().add_child(projectile)
-	projectile.stats.faction = "Player"
+	projectile.stats.faction = host.get_faction()
 	projectile.connect("died", self, "on_summon_died")
 	var a = Vector3.BACK.rotated(Vector3.UP, host.armature.rotation.y)
 	projectile.global_transform.origin = host.global_transform.origin + a
 	for i in gear:
 		projectile.base_defaults = gear.duplicate(true)
-	projectile.armature.weaponbox.damage.tags.append("Player")
+	projectile.armature.weaponbox.damage.tags.append(host.get_faction())
 	projectile.armature.weaponbox.damage.tags.erase("Dummy")
 	summon = projectile
 	summonID = projectile.net_stats.netID

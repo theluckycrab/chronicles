@@ -9,6 +9,9 @@ func _init() -> void:
 	
 	
 func enter() -> void:
+	var slots = ["Head", "Boots", "Mainhand", "Offhand"]
+	var slot = randi() % slots.size()
+	host.activate_item_slot(slots[slot])
 	pass
 	
 	

@@ -7,6 +7,13 @@ Created Thursday 23 June 2022
 
 Currently, all gameplay functions should be supported by both controller and keyboard. Menus are generally going to be mouse and keyboard only. Chat is keyboard only. Testing is generally done with mouse and keyboard, although the final game will favor controllers.
 
+====== Chat Commands ======
+Chat commands are prefixed with a / 
+	* alias - print save name and netID
+	* map - print the current map name and owner
+	* print - log a message to the console and chat log
+	* sit - emote sit on the floor
+
 ====== Keyboard ======
 
 ===== Universal =====

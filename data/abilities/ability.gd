@@ -49,7 +49,7 @@ func hide_weapon() -> void:
 
 
 func combat_check() -> void:
-	if !is_instance_valid(host):
+	if !is_instance_valid(host) or ! host is Player:
 		return
 	done = false
 	host.weaponbox_ghost()

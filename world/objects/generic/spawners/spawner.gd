@@ -18,7 +18,7 @@ func retrieve_data(_i):
 
 func spawn():
 	if Network.map_masters[Network.map] == Network.get_nid():
-		print("spawning from spawner")
+		#print("spawning from spawner")
 		var object = Data.get_reference_instance(index)
 		add_child(object)
 		object.global_transform.origin = global_transform.origin

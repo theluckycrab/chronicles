@@ -42,7 +42,7 @@ func execute() -> void:
 		host.npc("play", {"animation":animation, "motion":true})
 		host.acquire_lock_target()
 		host.lock_on()
-		if Input.is_action_just_released("mainhand"):
+		if Input.is_action_just_released("mainhand") or ! host is Player:
 			animation = "Fading_Horizon_2"
 			host.play({"animation":animation, "motion":true})
 			host.npc("play", {"animation":animation, "motion":true})

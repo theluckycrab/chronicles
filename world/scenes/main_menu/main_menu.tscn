@@ -21062,12 +21062,19 @@ margin_right = 150.0
 margin_bottom = 80.0
 text = "Set Defaults"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+[node name="CharacterName" type="LineEdit" parent="VBoxContainer"]
 margin_top = 84.0
 margin_right = 150.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 150, 0 )
 text = "Character Name"
+
+[node name="ServerIP" type="LineEdit" parent="VBoxContainer"]
+margin_top = 104.0
+margin_right = 150.0
+margin_bottom = 120.0
+text = "127.0.0.1"
+align = 1
 
 [node name="Label" type="Label" parent="."]
 visible = false

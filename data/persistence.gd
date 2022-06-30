@@ -14,8 +14,11 @@ var char_data = {
 var config = {
 	last_character = "New Character",
 	chat_color = "ffffff",
-	system_color = "ff1357a6"
+	system_color = "ff1357a6",
+	last_server = "127.0.0.1"
 }
+
+var base_config = config.duplicate(true)
 
 func setup():
 	load_config_from_file()
@@ -104,7 +107,11 @@ func commit_to_config_file():
 
 
 func get_config(key):
-	return config[key]
+	if config.has(key):
+		return config[key]
+	else:
+		config[key] = base_config[key]
+		return base_config[key]
 	
 	
 func save_config(key, value):

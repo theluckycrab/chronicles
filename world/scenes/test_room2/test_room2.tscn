@@ -55,17 +55,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.7909, 1.78906, 5.34574 )
 script = ExtResource( 4 )
 
 [node name="Spawner7" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44.9738, 0.519292, 5.34574 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44.9738, -1.28369, 5.34574 )
 script = ExtResource( 4 )
 index = "loot_barrel"
 
 [node name="Spawner8" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3172, 0.519292, 5.34574 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3172, -1.28369, 5.34574 )
 script = ExtResource( 4 )
 index = "loot_barrel"
 
 [node name="Spawner9" type="Position3D" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3172, 0.519292, 1.6849 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.3172, -1.28369, 1.6849 )
 script = ExtResource( 4 )
 index = "loot_barrel"
 

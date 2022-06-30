@@ -9,7 +9,8 @@ onready var join_button = $VBoxContainer/Online/VBoxContainer/Join
 onready var host_button = $VBoxContainer/Online/VBoxContainer/Host
 onready var join_host_panel = $VBoxContainer/Online/VBoxContainer
 onready var defaults_menu = $DefaultsMenu
-onready var line_edit = $VBoxContainer/LineEdit
+onready var character_name = $VBoxContainer/CharacterName
+onready var server_ip = $VBoxContainer/ServerIP
 
 onready var cam = $MeshInstance/Camera
 onready var cam_start = $MeshInstance/CamStart
@@ -26,10 +27,11 @@ func _ready() -> void:
 	defaults_menu.connect("hide", self, "on_defaults_hide")
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
-	line_edit.text = Data.get_config_value("last_character")
+	character_name.text = Data.get_config_value("last_character")
+	server_ip = Data.get_config_value("last_server")
 	Data.set_char_value("alias", Data.get_config_value("last_character"))
 	Data.load_char_save(Data.get_config_value("last_character"))
-	line_edit.connect("text_changed", self, "on_alias_changed")
+	character_name.connect("text_changed", self, "on_alias_changed")
 	build_armature()
 	
 	
@@ -52,7 +54,7 @@ func on_online() -> void:
 	
 	
 func on_join() -> void:
-	Network.join()
+	Network.join(server_ip.text)
 	
 	
 func on_host() -> void:
@@ -61,9 +63,9 @@ func on_host() -> void:
 	
 	
 func on_next() -> void:
-	Data.set_char_value("alias", $VBoxContainer/LineEdit.text)
-	Data.load_char_save($VBoxContainer/LineEdit.text)
-	Data.save_config_value("last_character", $VBoxContainer/LineEdit.text)
+	Data.set_char_value("alias", character_name.text)
+	Data.load_char_save(character_name.text)
+	Data.save_config_value("last_character", character_name.text)
 	next_scene = Data.get_saved_char_value("map")
 	Network.set_nid()
 	Events.emit_signal("console_print", "Your network ID is : " + str(Network.get_nid()))
@@ -79,7 +81,7 @@ func on_defaults_hide():
 	$VBoxContainer.visible = true
 	$DefaultsMenu.visible = false
 	Data.load_char_save(Data.get_char_value("alias"))
-	$VBoxContainer/LineEdit.text = Data.get_char_value("alias")
+	character_name.text = Data.get_char_value("alias")
 	build_armature()
 
 
