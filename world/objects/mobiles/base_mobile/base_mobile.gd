@@ -485,7 +485,9 @@ func instantiate_projectile(args) -> void:
 	projectile.damage.add_tag(get_faction())
 	if args.has("tags"):
 		projectile.damage.tags.append_array(args.tags)
-	get_node("/root/SceneManager").current_scene.add_child(projectile)
+	#get_node("/root/SceneManager").current_scene.add_child(projectile)
+	add_child(projectile)
+	#projectile.owner = self
 	projectile.get_node("Hitbox").owner = self
 	projectile.global_transform.origin = armature.get_node("HitOrigin").global_transform.origin
 	projectile.rotation = armature.rotation

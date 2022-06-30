@@ -1,6 +1,7 @@
 extends Control
 
 export var items: Array = []
+export var equipment: Array = []
 export var consumables: Array = []
 export onready var emotes: Array = ["Sit_Floor", "APose", "Item", "Taunt"]
 export var categories: Array = ["consumables", "equipment", "emote", "chat"]
@@ -45,7 +46,7 @@ func controls() -> void:
 		if Input.is_action_just_released("item_scroll_right"):
 			match current_category:
 				"equipment":
-					shift("right", items)
+					shift("right", equipment)
 				"emote":
 					shift("right", emotes)
 				"consumables":
@@ -53,7 +54,7 @@ func controls() -> void:
 		elif Input.is_action_just_released("item_scroll_left"):
 			match current_category:
 				"equipment":
-					shift("left", items)
+					shift("left", equipment)
 				"emote":
 					shift("left", emotes)
 				"consumables":
@@ -128,6 +129,7 @@ func set_category(category) -> void:#string or null
 	if category != current_category:
 		fetch_items()
 		current_category = category
+		build_lists()
 		refresh_category()
 		match current_category:
 			"equipment":
@@ -137,10 +139,31 @@ func set_category(category) -> void:#string or null
 func refresh_category() -> void:
 	for i in get_children():
 		i.queue_free()
-	
 	match current_category:
 		"categories":
 			item_layout(categories)
+			return
+		"equipment":
+			item_layout(equipment)
+			return
+		"emote":
+			item_layout(emotes)
+			return
+		"consumables":
+			item_layout(consumables)
+			return
+
+
+func get_active() -> bool:
+	return current_category != null
+	
+	
+func fetch_items():
+	items = host.inventory.get_item_list()
+
+func build_lists():
+	match current_category:
+		"categories":
 			return
 		"equipment":
 			var new_list = []
@@ -152,10 +175,9 @@ func refresh_category() -> void:
 			for i in items:
 				if filter.has(i.get_slot()):
 					new_list.append(i)
-			item_layout(new_list)
+			equipment = new_list
 			return
 		"emote":
-			item_layout(emotes)
 			return
 		"consumables":
 			var new_list = []
@@ -164,13 +186,5 @@ func refresh_category() -> void:
 			for i in items:
 				if filter.has(i.get_slot()):
 					new_list.append(i)
-			item_layout(new_list)
 			consumables = new_list
-
-
-func get_active() -> bool:
-	return current_category != null
-	
-	
-func fetch_items():
-	items = host.inventory.get_item_list()
+			return

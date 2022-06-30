@@ -8,6 +8,9 @@ func _ready():
 	$Hitbox.idle()
 	var _discard = $Hitbox.connect("hitbox_entered", self, "on_hitbox_entered")
 	$Hitbox.owner = self
+	var view = get_viewport()
+	get_parent().remove_child(self)
+	view.add_child(self)
 	
 func _physics_process(delta):
 	if !is_on_floor():
