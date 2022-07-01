@@ -10,11 +10,9 @@ func _ready() -> void:
 	var object = Data.get_reference_instance("player")
 	call_deferred("add_child", object)
 	add_child(spawn_timer)
-	spawn_timer.autostart = true
 	spawn_timer.one_shot = false
-	spawn_timer.wait_time = 10
 	spawn_timer.connect("timeout", self, "on_spawn_timer")
-	spawn_timer.start()
+	spawn_timer.start(10)
 	add_child(mon_mount)
 	
 func on_spawn(object, position = Vector3(0, 5, 0)) -> void:
@@ -32,3 +30,4 @@ func on_spawn_timer():
 		mon_mount.add_child(object)
 		mon_mount.add_child(Data.get_reference_instance("target_dummy"))
 	spawn_count = mon_mount.get_child_count()
+	spawn_timer.start(10)

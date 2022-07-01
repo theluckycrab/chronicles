@@ -21117,6 +21117,8 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
@@ -21271,11 +21273,9 @@ emission_box_extents = Vector3( 1, 1, 1 )
 
 [node name="OverheadChat" parent="Armature" instance=ExtResource( 20 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-lifespan = 5
 
 [node name="OverheadSystem" parent="Armature" instance=ExtResource( 20 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.02 )
-lifespan = 1
 color = Color( 0.2, 0.32549, 0.545098, 1 )
 
 [node name="BuffList" type="Spatial" parent="."]

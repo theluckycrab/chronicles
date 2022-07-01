@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	Network.peer.connect("connection_succeeded", self, "on_next")
 	character_name.text = Data.get_config_value("last_character")
-	server_ip = Data.get_config_value("last_server")
+	server_ip.text = Data.get_config_value("last_server")
 	Data.set_char_value("alias", Data.get_config_value("last_character"))
 	Data.load_char_save(Data.get_config_value("last_character"))
 	character_name.connect("text_changed", self, "on_alias_changed")
@@ -58,7 +58,7 @@ func on_join() -> void:
 	
 	
 func on_host() -> void:
-	Network.host(4)
+	Network.host(10)
 	on_next()
 	
 	

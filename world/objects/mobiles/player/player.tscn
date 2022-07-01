@@ -12177,8 +12177,8 @@ tracks/3/keys = {
 extents = Vector3( 0.240589, 1.02641, 0.281645 )
 
 [sub_resource type="CylinderShape" id=70]
-radius = 50.0
-height = 50.0
+radius = 25.0
+height = 25.0
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 0
@@ -12192,6 +12192,8 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
+bones/2/bound_children = [ NodePath("Sheath") ]
+bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -12223,7 +12225,7 @@ mesh = SubResource( 71 )
 script = ExtResource( 34 )
 
 [node name="Mainhand" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( -0.90301, -0.0531259, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
+transform = Transform( -0.90301, -0.053126, -0.426324, -0.428246, 0.0318445, 0.903113, -0.0344021, 0.998079, -0.0515092, -0.836811, 1.30323, 0.0590258 )
 bone_name = "WeaponBone.R"
 
 [node name="Weapon" type="Spatial" parent="Armature/Skeleton/Mainhand"]
@@ -12247,7 +12249,7 @@ script = ExtResource( 38 )
 shape = SubResource( 11 )
 
 [node name="Sheath" type="BoneAttachment" parent="Armature/Skeleton"]
-transform = Transform( 0.999997, 0.00172491, -0.00173419, -0.00153249, 0.994419, 0.105483, 0.00190643, -0.10548, 0.994419, -0.000238581, 1.26308, -0.0208684 )
+transform = Transform( 0.999997, 0.00172782, -0.00173046, -0.00153578, 0.994419, 0.105483, 0.00190303, -0.10548, 0.994419, -0.00023786, 1.26308, -0.0208684 )
 bone_name = "Spine2"
 
 [node name="Sheath" type="Spatial" parent="Armature/Skeleton/Sheath"]

@@ -22,4 +22,5 @@ func rot(host):
 	host.armature.rotation.y = atan2(global_transform.basis.z.x, global_transform.basis.z.z)
 
 func on_exited(host):
-	host.armature.global_transform.origin = host.global_transform.origin
+	if host.armature.is_inside_tree():
+		host.armature.global_transform.origin = host.global_transform.origin

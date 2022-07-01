@@ -28,8 +28,8 @@ onready var controls := $Controls
 
 #builtin
 func _ready() -> void:
-	armature.get_node("Skeleton/Body").visible = false
-	yield(get_tree().create_timer(2), "timeout")
+	#armature.get_node("Skeleton/Body").visible = false
+	#yield(get_tree().create_timer(2), "timeout")
 	net_stats.register()
 	#call_deferred("init_defaults")#to wait for net registration
 	connect_weapon_signals()
@@ -278,7 +278,7 @@ func net_init(index:String) -> void:
 	
 func update(_args={}) -> void:
 	if !net_stats.is_master:
-		print("Betrayer :", net_stats.netOwner)
+		#print("Betrayer :", net_stats.netOwner)
 		return
 	update_count += 1
 	var args = {

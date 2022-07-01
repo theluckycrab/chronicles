@@ -198,6 +198,7 @@ remotesync func emit(sig, args) -> void:
 	
 	
 remotesync func request_history(tmap: String) -> void:
+	rpc_id(get_tree().get_rpc_sender_id(), "receive_map_masters", map_masters)
 	var who = get_tree().get_rpc_sender_id()
 	var host = get_map_master(tmap, who)
 	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters, tmap)
@@ -259,3 +260,6 @@ remotesync func remove_map_master(tmap):
 	else:
 		on_unregister({netID=get_tree().get_rpc_sender_id(),map=tmap})
 		
+
+remotesync func receive_map_masters(maps):
+	map_masters = map_masters.duplicate()

@@ -8,7 +8,8 @@ func _init() -> void:
 
 
 func enter() -> void:
-	host.state_machine.get_state("walk").dir = host.get_wasd_cam()
+	if host.state_machine.get_state("walk"):
+		host.state_machine.get_state("walk").dir = host.get_wasd_cam()
 	host.body_face(host.get_wasd_cam())
 	keyframe_connect()
 	#host.hide_weapon()

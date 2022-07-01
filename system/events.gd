@@ -16,6 +16,7 @@ signal register
 signal unregister
 signal spawn
 signal network_command
+signal reload_game_request
 
 
 func _ready() -> void:
