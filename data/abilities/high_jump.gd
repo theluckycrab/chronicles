@@ -42,8 +42,9 @@ func can_enter() -> bool:
 	
 	
 func execute() -> void:
-	host.add_force(Vector3.UP * host.move.gravity)
-	host.add_force((Vector3.UP + dir) * height)
+	if !done:
+		host.add_force(Vector3.UP * host.move.gravity)
+		host.add_force((Vector3.UP + dir) * height)
 	
 	
 func on_jump_timer() -> void:

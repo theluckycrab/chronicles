@@ -8,6 +8,7 @@ signal player_died
 #completed
 signal menu_closed
 signal save_data_loaded
+signal map_masters_updated
 #function calls in disguise
 signal console_print
 signal net_print

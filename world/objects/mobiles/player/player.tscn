@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://world/objects/mobiles/player/player.gd" type="Script" id=1]
 [ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://world/objects/mobiles/player/effects_player.gd" type="Script" id=13]
 [ext_resource path="res://world/objects/mobiles/player/PlayerStates/player_state_machine.gd" type="Script" id=14]
 [ext_resource path="res://world/ui/equipment_display.tscn" type="PackedScene" id=15]
-[ext_resource path="res://world/ui/item_menu.tscn" type="PackedScene" id=16]
 [ext_resource path="res://world/objects/mobiles/player/player_controls.gd" type="Script" id=17]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Taunt.anim" type="Animation" id=18]
 [ext_resource path="res://data/assets/meshes/equipment/guard_helmet.mesh" type="ArrayMesh" id=19]
@@ -12192,8 +12191,6 @@ shape = SubResource( 2 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 9 )
@@ -12378,16 +12375,6 @@ margin_right = -53.0
 margin_bottom = -76.0
 host = NodePath("../..")
 
-[node name="ItemMenu" parent="UI" instance=ExtResource( 16 )]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -277.0
-margin_top = -301.0
-margin_right = -127.0
-margin_bottom = -151.0
-
 [node name="HPBar" type="ProgressBar" parent="UI"]
 modulate = Color( 1, 0, 0, 1 )
 margin_left = 31.0
@@ -12418,8 +12405,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.998025, 0 )
 shape = SubResource( 17 )
 
 [node name="ProcessingArea" type="Area" parent="."]
+collision_layer = 134217728
+collision_mask = 134217729
 script = ExtResource( 21 )
 
 [node name="CollisionShape" type="CollisionShape" parent="ProcessingArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39123, 0 )
 shape = SubResource( 70 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25

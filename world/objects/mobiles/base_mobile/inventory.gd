@@ -20,6 +20,8 @@ func get_item_list() -> Array:
 	
 func add_item(item:Item) -> void:
 	items.append(item)
+	if host.net_stats.netID == Network.get_nid():
+		Data.save_char_value("inventory", item)
 
 func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)
@@ -54,7 +56,3 @@ func set_default(slot:String, item:Item) -> void:
 	defaults_dict[slot] = item
 	defaults_dict[slot].add_tag("Default")
 
-func _exit_tree():
-	Data.clear_char_inventory()
-	for i in items:
-		Data.save_char_value("inventory", i)

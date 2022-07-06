@@ -50,3 +50,7 @@ func position():
 		s = s + t
 		var nector = cam.unproject_position(s) 
 		$Label.rect_position = nector
+
+
+func set_color(c):
+	$Label.modulate = c

@@ -15,7 +15,8 @@ func _init() -> void:
 
 func enter() -> void:
 	keyframe_connect()
-	host.connect("tree_exiting", self, "on_host_exit")
+	if !host.is_connected("tree_exiting", self, "on_host_exit"):
+		host.connect("tree_exiting", self, "on_host_exit")
 	#host.hide_weapon()
 	pass
 

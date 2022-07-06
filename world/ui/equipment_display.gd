@@ -1,74 +1,89 @@
 extends Control
 
 export(NodePath) onready var host = get_node(host)
-var active: bool = false setget , get_active
+var active: bool = false
+var slot_list = ["Head", "Boots", "Offhand", "Mainhand", "Consumable"]
+var current_equipment = {}
+var active_icon = null
+
+func _physics_process(_delta):
+	controls()
 
 func _ready():
-	$HeadIcon/Label.rect_scale *= 0.5
-	$MainIcon/Label.rect_scale *= 0.5
-	$OffIcon/Label.rect_scale *= 0.5
-	$BootsIcon/Label.rect_scale *= 0.5
+	host.connect("equipped_item", self, "on_equipped_item")
+	close()
+	
+func on_equipped_item(item):
+	current_equipment[item.get_slot()] = item
+	if get_node_or_null(item.get_slot()) != null:
+		get_node(item.get_slot()).set_item(item)
+	call_deferred("close")
+	
+func close():
+	for i in slot_list:
+		var n = get_node_or_null(i)
+		if n != null:
+			if current_equipment.has(i):
+				n.set_item(current_equipment[i])
+			n.active = false
+			n.show()
+	active = false
+	active_icon = null
+			
+func activate_icon(slot):
+	for i in slot_list:
+		var n = get_node_or_null(i)
+		if n != null and n.has_method("set_active"):
+			n.set_active(false)
+			#n.hide()
+	var s = get_node_or_null(slot)
+	if slot == null:
+		return
+	if s.has_method("set_active"):
+		s.active = true
+		s.set_list(host.inventory.get_item_list())
+		s.show()
+		active_icon = s
 
+func activate_item():
+	if active_icon == null:
+		return
+	var item = active_icon.get_item()
+	if item == null:
+		return
+	if "Consumable" in active_icon.name:
+		host.set_state(item.active)
+	else:
+		host.equip(item)
 
-func _physics_process(_delta) -> void:
-	if host.can_act:
-		controls()
-
-
-func controls() -> void:
-	if !self.active:
-		if Input.is_action_just_pressed("ability_mod"):
-			show_activate()
-		elif Input.is_action_just_pressed("destroy_mod"):
-			show_destroy()
-	if $DestroyOverlay.visible:
-		for i in ["head", "mainhand", "offhand", "boots"]:
-			if Input.is_action_just_pressed(i):
-				host.destroy(i.capitalize())
-				call_deferred("show_normal")
-				return
-	elif $ActivateOverlay.visible:
-		for i in ["head", "mainhand", "offhand", "boots"]:
-			if Input.is_action_just_pressed(i):
-				host.activate_item_slot(i.capitalize())
-				call_deferred("show_normal")
-				return
-	for i in ["ability_mod", "destroy_mod"]:
-		if Input.is_action_just_released(i):
-			show_normal()
+func controls():
+	if !active:
+		if Input.is_action_just_pressed("item_mod"):
+			active = true
+			activate_icon("Consumable")
+			active_icon.cycle("right")
 			return
-
-
-func show_destroy() -> void:
-	$ActivateOverlay.visible = false
-	$DestroyOverlay.visible = true
-	
-	
-func show_activate() -> void:
-	$DestroyOverlay.visible = false
-	$ActivateOverlay.visible = true
-	
-	
-func show_normal() -> void:
-	$ActivateOverlay.visible = false
-	$DestroyOverlay.visible = false
-	
-	
-func refresh() -> void:
-	for i in host.armature.equipment:
-		var icon = null
-		match host.armature.equipment[i].visual.slot:
-			"Head":
-				icon = $HeadIcon
-			"Mainhand":
-				icon = $MainIcon
-			"Offhand":
-				icon = $OffIcon
-			"Boots":
-				icon = $BootsIcon
-		if icon:
-			icon.refresh(host.armature.equipment[i].internal.index)
-
-
-func get_active() -> bool:
-	return $DestroyOverlay.visible or $ActivateOverlay.visible
+		for i in slot_list:
+			if host.can_act and i != "Consumable" and Input.is_action_pressed("ability_mod"):
+				if Input.is_action_just_pressed(i.to_lower()):
+					host.activate_item_slot(i)
+		return
+	if active:
+		if Input.is_action_just_released("item_mod"):
+			active = false
+			close()
+			return
+		for i in slot_list:
+			if Input.is_action_just_pressed(i.to_lower()):
+				if active_icon.name == i:
+					active_icon.cycle("right")
+				else:
+					if is_instance_valid(active_icon) and current_equipment.has(active_icon.name):
+						active_icon.refresh(current_equipment[active_icon.name])
+					activate_icon(i)
+		if Input.is_action_just_pressed("guard"):
+			if active_icon != null:
+				if active_icon.has_cycled or active_icon.name == "Consumable":
+					activate_item()
+				else:
+					host.destroy(active_icon.name)

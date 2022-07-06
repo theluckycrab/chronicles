@@ -5,9 +5,10 @@ func _ready():
 	var _ard = connect("body_exited", self, "on_body_exited")
 	
 func on_body_entered(body):
-	if body is BaseMobile:
+	if body.has_method("set_viewers"):
+		#print("viewed upon ", body)
 		body.viewers += 1
 		
 func on_body_exited(body):
-	if body is BaseMobile:
+	if body.has_method("set_viewers"):
 		body.viewers -= 1

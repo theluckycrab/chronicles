@@ -29,19 +29,19 @@ func _init() -> void:
 		if ! "naked" in it.index:
 			base_defaults[it.get_slot()] = it.index
 
-
 func _ready() -> void:
-	$StaggerTimer.connect("timeout", self, "on_stagger_timer")
+	var _discard = $Timer.connect("timeout", self, "on_tick")
+	var _dicks = $StaggerTimer.connect("timeout", self, "on_stagger_timer")
 	at_war = true
 	$Hitbox.idle()
-	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
+	var _diskcard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	call_deferred("set_state", "patrol")
 	set_faction({"faction":"Dummy"})
 	armature.weaponbox.damage.tags.append(get_faction())
 	
 	
-func _physics_process(_delta) -> void:
-	if net_stats.is_master and viewers > 0:
+func on_tick():
+	if can_act and net_stats.is_master and viewers > 0:
 		if !is_instance_valid(lock_target) and get_can_act():
 			lock_target = null
 			call_deferred("set_state", "patrol")

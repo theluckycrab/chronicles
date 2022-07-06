@@ -12,21 +12,24 @@ func _ready() -> void:
 	var d = Damage.new()
 	d.add_tag("Player")
 	armature.weaponbox_damage(d)
+	var _discard = Events.connect("console_print", self, "on_console_print")
+	var _nidscard = Events.connect("net_print", self, "on_net_print")
 	if net_stats.is_master:
 		grab_camera()
+		print("cam")
 	else:
 		$UI.queue_free()
 	$Hitbox.idle()
 	$Hitbox.owner = self
-	var _discard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
+	var _disffcard = $Hitbox.connect("hitbox_entered", self, "on_got_hit")
 	
 	
 func _physics_process(_delta):
 	if net_stats.is_master:
 		if Input.is_action_just_pressed("debug"):
 			#get_viewport().add_child(Data.get_reference_instance("target_dummy"))
-			#Events.emit_signal("scene_change_request", "test_room2")
-			Events.emit_signal("console_print", "System: Why you tryna cheat tho?")
+			Events.emit_signal("scene_change_request", "test_room2")
+			#Events.emit_signal("console_print", "System: Why you tryna cheat tho?")
 			pass
 	
 func on_got_hit(mybox, theirbox):
@@ -101,7 +104,7 @@ func lock_on() -> void:
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
 		var cam = get_viewport().get_camera()
-		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.08))
+		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.04))
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
 	elif self.at_war:
 		acquire_lock_target()
@@ -144,3 +147,17 @@ func on_death():
 	release_camera()
 	net_stats.call_deferred("unregister")
 	
+	
+func on_console_print(text):
+	if net_stats.netID != Network.get_nid():
+		return
+	if text.begins_with("System:"):
+		text = text.lstrip("System:")
+		armature.print_overhead_system(text)
+		
+		
+func on_net_print(args):
+	if args.sender == net_stats.netID:
+		armature.print_overhead_chat(args)
+	
+

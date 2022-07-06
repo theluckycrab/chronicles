@@ -21,6 +21,7 @@ func _ready() -> void:
 	damage.damage = damage_amount
 	set_collision_layer_bit(0, false)
 	set_collision_layer_bit(1, true)
+	monitoring_off()
 	
 func on_area_entered(who) -> void:
 	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
@@ -47,17 +48,18 @@ func _physics_process(_delta):
 			
 func idle() -> void:
 	self.state = states.IDLE
-	
+	monitoring_on()
 	
 func ghost() -> void:
 	self.state = states.GHOST
-	
+	monitoring_off()
 	
 func reset() -> void:
 	self.state = states.GHOST
-	
+	monitoring_off()
 	
 func strike() -> void:
+	monitoring_on()
 	self.state = states.STRIKE
 	for i in get_overlapping_areas():
 		on_area_entered(i)
@@ -65,10 +67,12 @@ func strike() -> void:
 	
 func guard() -> void:
 	self.state = states.GUARD
+	monitoring_on()
 	
 	
 func parry() -> void:
 	self.state = states.PARRY
+	monitoring_on()
 	
 	
 func am_hitbox() -> bool:
@@ -126,3 +130,12 @@ static func get_collision_type(mybox, theirbox) -> int:
 				states.STRIKE:
 					return collision_type.PARRIED
 	return collision_type.NULL
+
+
+func monitoring_on():
+	monitorable = true
+	monitoring = true
+	
+func monitoring_off():
+	monitorable = false
+	monitoring = false

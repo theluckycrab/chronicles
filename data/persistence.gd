@@ -30,8 +30,9 @@ func load_char_from_file(file_name):
 	file_name = Data.snake_case(file_name)
 	var file = File.new()
 	if file.file_exists(save_path+file_name+".chron"):
-		file.open(save_path+file_name+".chron", File.READ)
-		var data = parse_json(file.get_as_text())
+		file.open_encrypted_with_pass(save_path+file_name+".chron", File.READ, "dongers")
+		#var data = parse_json(file.get_as_text())
+		var data = file.get_var(true)
 		file.close()
 		if data is Dictionary:
 			char_data = data.duplicate(true)
@@ -44,8 +45,9 @@ func load_char_from_file(file_name):
 func commit_to_char_file():
 	var file_name = Data.snake_case(char_data.alias)
 	var file = File.new()
-	file.open(save_path+file_name+".chron", File.WRITE)
-	file.store_string(to_json(char_data))
+	file.open_encrypted_with_pass(save_path+file_name+".chron", File.WRITE, "dongers")
+	file.store_var(char_data)
+	#file.store_string(to_json(char_data))
 	file.close()
 	pass
 
@@ -87,8 +89,9 @@ func load_config_from_file():
 	var file_name = "config"
 	var file = File.new()
 	if file.file_exists(save_path+file_name):
-		file.open(save_path+file_name, File.READ)
-		var data = parse_json(file.get_as_text())
+		file.open_encrypted_with_pass(save_path+file_name, File.READ, "dongers")
+		var data = file.get_var(true)
+		#var data = parse_json(file.get_as_text())
 		file.close()
 		if data is Dictionary:
 			config = data.duplicate(true)
@@ -101,8 +104,9 @@ func load_config_from_file():
 func commit_to_config_file():
 	var file_name = Data.snake_case("config")
 	var file = File.new()
-	file.open(save_path+file_name, File.WRITE)
-	file.store_string(to_json(config))
+	file.open_encrypted_with_pass(save_path+file_name, File.WRITE, "dongers")
+	file.store_var(config)
+	#file.store_string(to_json(config))
 	file.close()
 	pass
 

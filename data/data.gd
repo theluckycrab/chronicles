@@ -14,6 +14,7 @@ func _ready() -> void:
 	call_deferred("emit_signal", "data_ready")
 	print("Data ready")
 
+
 #Reference interface
 func get_reference(index):
 	return reference.ref_list[index]

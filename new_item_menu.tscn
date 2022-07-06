@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://world/ui/item_icon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://new_item_menu.gd" type="Script" id=2]
+[ext_resource path="res://data/assets/destroy_icon.png" type="Texture" id=3]
+
+[node name="Control" type="Control"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 32, 32 )
+script = ExtResource( 2 )
+
+[node name="ItemIcon" parent="." instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+
+[node name="Decorations" type="Control" parent="ItemIcon"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Button" type="Button" parent="ItemIcon/Decorations"]
+margin_top = 20.0
+margin_right = 20.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 1 )
+text = "<"
+
+[node name="Button2" type="Button" parent="ItemIcon/Decorations"]
+margin_left = 54.0
+margin_top = 20.0
+margin_right = 74.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.5, 1 )
+text = ">"
+
+[node name="Destroy" type="TextureRect" parent="ItemIcon/Decorations"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 24.0
+margin_bottom = 24.0
+texture = ExtResource( 3 )

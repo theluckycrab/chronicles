@@ -16,7 +16,6 @@ var at_war = false setget set_war
 var stored_delta = 0
 var update_count = 0
 var viewers = 0
-var ready = false
 
 onready var state_machine := $StateMachine
 onready var armature := $Armature
@@ -28,28 +27,18 @@ onready var controls := $Controls
 
 #builtin
 func _ready() -> void:
-	#armature.get_node("Skeleton/Body").visible = false
-	#yield(get_tree().create_timer(2), "timeout")
-	net_stats.register()
-	#call_deferred("init_defaults")#to wait for net registration
+	register()
 	connect_weapon_signals()
-	var _discard = Events.connect("net_print", self, "on_net_print")
-	var _dicksward = Events.connect("console_print", self, "on_console_print")
-	
 	
 func on_register():
 	if net_stats.is_master:
 		init_defaults()
-		set_ready()
-		npc("set_faction", {"faction":stats.faction})
-	
-func set_ready():
-	ready = true
-	
+		#npc("set_faction", {"faction":stats.faction})
+	npc("update", {})
 	
 func _physics_process(delta) -> void:
 	stored_delta = delta
-	if ready and net_stats.is_master and viewers > 0:
+	if viewers > 0 and net_stats.is_master:
 		state_machine.execute()
 		buff_list.process()
 		#if self.can_act:
@@ -59,8 +48,6 @@ func _physics_process(delta) -> void:
 				acquire_lock_target()
 		commit_move()
 		update()
-	if !net_stats.is_master and update_count == 0:
-		npc("update", {})
 	
 #signal_response
 func on_blocked(_mybox, _theirbox):
@@ -87,17 +74,7 @@ func connect_weapon_signals():
 	var _discard2 = armature.connect("parried", self, "on_parried")
 	var _discard3 = armature.connect("got_parried", self, "on_got_parried")
 	var _discard4 = armature.connect("got_blocked", self, "on_got_blocked")
-	
-func on_net_print(args):
-	if args.sender == net_stats.netID:
-		armature.print_overhead_chat(args)
-	
-func on_console_print(text):
-	if net_stats.netID != Network.get_nid():
-		return
-	if text.begins_with("System:"):
-		text = text.lstrip("System:")
-		armature.print_overhead_system(text)
+
 		
 #setget
 func get_can_act() -> bool:
@@ -118,6 +95,9 @@ func set_in_combat(t:bool) -> void:
 func ui_active() -> bool:
 	return false
 			
+			
+func set_viewers():
+	pass
 			
 #move interface
 func add_force(force:Vector3) -> void:
@@ -264,6 +244,9 @@ func get_wasd_cam() -> Vector3:
 	
 	
 #network interface
+func register():
+	net_stats.register()
+
 func npc(function:String, args:Dictionary, owner_only = false) -> void:
 	net_stats.npc(function, args, owner_only)
 	
@@ -364,6 +347,9 @@ func grab_camera() -> void:
 	var cam = get_viewport().get_camera()
 	if cam.has_method("set_track_target"):
 		cam.set_track_target(self)
+		print("grab")
+	else:
+		print("no cam")
 		
 
 func release_camera() -> void:
@@ -410,8 +396,8 @@ func init_defaults() -> void:
 			set_default(i, item)
 			equip(item)
 	elif net_stats.netID == Network.get_nid():
-		Data.load_char_save(Network.alias)
-		var char_data = Data.get_char_data()
+		#Data.load_char_save(Network.alias)
+		var char_data = Data.get_char_data().duplicate(true)
 		var eq = char_data.equipped
 		var d = char_data.defaults
 		var iv = char_data.inventory

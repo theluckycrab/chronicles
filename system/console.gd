@@ -85,22 +85,25 @@ func net_send(text):
 		
 func command_dispatch(text) -> void:
 	text = get_command_format(text)
+	if OS.has_feature("standalone"):
+		if !["alias", "map", "masters", "quit", "sit"].has(text[0]):
+			return
 	match text[0]:
 		"print":
 			reprint(text)
-		#"load":
-			#load_scene(text)
-		#"equip":
-			#equip(text)
-		#"network_host":
-			#Network.host()
-		#"network_join":
-			#Network.join()
-		#"network_disconnect":
-			#get_tree().network_peer.close_connection()
-#		"netid":
-#			#print(get_tree().network_peer.get_connection_status())
-#			Events.emit_signal("console_print", "System: "+ str(get_tree().get_network_unique_id()))
+		"load":
+			load_scene(text)
+		"equip":
+			equip(text)
+		"network_host":
+			Network.host()
+		"network_join":
+			Network.join()
+		"network_disconnect":
+			get_tree().network_peer.close_connection()
+		"netid":
+			print(get_tree().network_peer.get_connection_status())
+			Events.emit_signal("console_print", "System: "+ str(get_tree().get_network_unique_id()))
 		"quit":
 			get_tree().quit()
 		"alias":
@@ -109,12 +112,14 @@ func command_dispatch(text) -> void:
 		"map":
 			Events.emit_signal("console_print", "System: "+ Network.map)
 			Events.emit_signal("console_print", "System: "+ "Owner: " + str(Network.map_masters[Network.map]))
+		"masters":
+			print(Network.map_masters)
 		"sit":
 			var me = Network.get_net_object(Network.get_nid())
 			me.get_state("emote").animation = "Sit_Floor"
 			me.set_state("emote")
-		#"set_alias":
-			#set_alias(text)
+		"set_alias":
+			set_alias(text)
 
 
 func get_command_format(text) -> PoolStringArray:
@@ -140,8 +145,9 @@ func load_scene(text) -> void:
 func equip(text) -> void:
 	text.remove(0)
 	text = text.join(" ")
-	var item = Data.items[text].duplicate()
-	get_node("/root/SceneManager/SceneMount/Start/Player").equip(item)
+	var item = Data.get_item(text).duplicate()
+	if Network.net_objects.has(Network.get_nid()):
+		Network.net_objects[Network.get_nid()].equip(item)
 	hide()
 
 func show():

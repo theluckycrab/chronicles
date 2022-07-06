@@ -185,7 +185,6 @@ tracks/8/keys = {
 [node name="Full" type="MeshInstance" parent="."]
 mesh = ExtResource( 1 )
 material/0 = null
-material/1 = null
 script = ExtResource( 4 )
 phase_speed = 0.05
 
@@ -193,7 +192,6 @@ phase_speed = 0.05
 visible = false
 mesh = ExtResource( 2 )
 material/0 = null
-material/1 = null
 
 [node name="Lid" type="MeshInstance" parent="Empty"]
 transform = Transform( 0.794086, 0.607806, 0, -0.607806, 0.794086, 0, 0, 0, 1, 0, 0, 0 )

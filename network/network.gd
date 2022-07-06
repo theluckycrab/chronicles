@@ -1,8 +1,9 @@
 extends Node
 
+signal history_received
+
 var peer = NetworkedMultiplayerENet.new()
 var netID_count = 0
-var nid = 1
 var map = ""
 var alias = "Player" setget , get_alias
 
@@ -13,12 +14,12 @@ var map_masters = {}
 
 func _ready():
 	var _discard = Events.connect("network_command", self, "on_net_command")
-	var _disc = peer.connect("connection_succeeded", self, "on_connection_succeeded")
+	var _dickss = peer.connect("peer_connected", self, "on_peer_connected")
+	var _dicka = peer.connect("peer_disconnected", self, "on_peer_disconnected")
 	var _dicks = Events.connect("register", self, "on_register")
 	var _dongs = Events.connect("unregister", self, "on_unregister")
-	var _ding = Events.connect("save_data_loaded", self, "on_save_data_loaded")
 	print("Network ready")
-	
+	#host()
 	
 #connection
 func host(players = 1, port = 5555) -> void:
@@ -26,8 +27,7 @@ func host(players = 1, port = 5555) -> void:
 	peer.create_server(port, players)
 	get_tree().network_peer = null
 	get_tree().network_peer = peer
-	peer.connect("peer_disconnected", self, "on_peer_disconnected")
-	
+	on_join_successful()
 	
 func join(ip = "192.168.1.180", port = 5555) -> void:
 	peer.close_connection()
@@ -36,9 +36,18 @@ func join(ip = "192.168.1.180", port = 5555) -> void:
 	get_tree().network_peer = peer
 	
 	
+remote func on_join_successful():
+	print("acknowledged")
+	netID_count = get_nid()
+	Events.emit_signal("scene_change_request", "lobi_town")
+	
+	
 #signal response
-func on_connection_succeeded() -> void:
-	set_nid()
+
+func on_peer_connected(who) -> void:
+	if get_nid() == 1:
+		rpc_id(who, "on_join_successful")
+		print(who, " has joined")
 	
 
 func on_peer_disconnected(who) -> void:
@@ -59,12 +68,9 @@ func on_unregister(args) -> void:
 	if net_objects.has(args.netID) and args.map == map:
 		var object = net_objects[args.netID]
 		if is_instance_valid(object):
-			#print("unregister ", args.netID)
 			object.queue_free()
 			net_objects.erase(args.netID)
 		if args.netID == Network.get_nid():
-			#print("changing scene")
-			yield(get_tree().create_timer(3), "timeout")
 			Events.emit_signal("scene_change_request", Data.get_saved_char_value("map"))
 		
 		
@@ -76,19 +82,8 @@ func on_net_command(args) -> void:
 	if net_objects.has(args.sender):
 		if is_instance_valid(net_objects[args.sender]):
 			net_objects[args.sender].call_deferred(args.command, args)
-		#else:
-			#print(args.sender, " not valid")
-	
 	
 #directly called
-func transition(scene:String) -> void:
-	if is_instance_valid(get_tree().network_peer):
-		print("transition")
-		rpc_id(1, "remove_map_master", map)
-		map = scene 
-		rpc_id(1, "request_history", scene)
-
-
 func spawn(args:Dictionary) -> void:
 	var object
 	if args.netOwner == get_nid():
@@ -129,12 +124,6 @@ func nid_gen() -> int:
 	netID_count += 1
 	return netID_count
 	
-	
-func set_nid() -> void:
-	nid = get_tree().get_network_unique_id()
-	netID_count = nid
-	
-	
 #query
 func get_map_from_netID(who: int):
 	if is_instance_valid(get_net_object(who)):
@@ -144,7 +133,9 @@ func get_map_from_netID(who: int):
 		
 		
 func get_nid() -> int:
-	return nid
+	if !is_instance_valid(get_tree().network_peer):
+		return 1
+	return get_tree().get_network_unique_id()
 	
 	
 func get_net_object(netID):
@@ -198,8 +189,10 @@ remotesync func emit(sig, args) -> void:
 	
 	
 remotesync func request_history(tmap: String) -> void:
-	rpc_id(get_tree().get_rpc_sender_id(), "receive_map_masters", map_masters)
 	var who = get_tree().get_rpc_sender_id()
+	for i in map_masters:
+		if map_masters[i] == who:
+			map_masters.erase(i)
 	var host = get_map_master(tmap, who)
 	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters, tmap)
 	#print(host, " sending history to ", get_tree().get_rpc_sender_id(), " for ", tmap)
@@ -221,19 +214,7 @@ remotesync func receive_history(history: Dictionary, commands: Dictionary,\
 	command_history = commands.duplicate(true)
 	net_objects.clear()
 	map = tmap
-	for i in history:
-		on_register(history[i])
-		#print(i)
-		
-	for i in commands:
-		if net_objects.has(commands[i].sender):
-			if is_instance_valid(net_objects[commands[i].sender]):
-				net_objects[commands[i].sender].call_deferred(commands[i].command, commands[i])
-				#print(commands[i])
-	#print("history received from ", get_tree().get_rpc_sender_id(), "\n")
-	if "town" in map:
-		Data.save_char_value("map", map)
-	Data.full_save()
+	emit_signal("history_received", history, commands, masters, tmap)
 	
 	
 remotesync func set_map_master(tmap: String, who) -> void:
@@ -262,4 +243,9 @@ remotesync func remove_map_master(tmap):
 		
 
 remotesync func receive_map_masters(maps):
-	map_masters = map_masters.duplicate()
+	map_masters = maps.duplicate()
+	Events.emit_signal("map_masters_updated")
+	
+	
+remotesync func fetch_map_masters():
+	rpc_id(get_tree().get_rpc_sender_id(), "receive_map_masters", map_masters.duplicate(true))

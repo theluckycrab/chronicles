@@ -12,12 +12,12 @@ func _ready():
 	get_parent().remove_child(self)
 	view.add_child(self)
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !is_on_floor():
-		move_and_collide(Vector3.DOWN * 9.8)
+		var _discard = move_and_collide(Vector3.DOWN * 9.8)
 	
 	
-func on_hitbox_entered(mybox, theirbox):
+func on_hitbox_entered(_mybox, _theirbox):
 	queue_free()
 	return
 

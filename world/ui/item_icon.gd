@@ -4,7 +4,8 @@ var item = "debug_item"
 
 
 func _ready() -> void:
-	item = Data.get_reference(item)
+	if item is String:
+		item = Data.get_reference(item)
 	build(item)
 	$Label.text = item.item_name
 
@@ -27,3 +28,9 @@ func refresh(i) -> void:
 	item = i
 	_ready()
 	pass
+	
+func show_label():
+	$Label.show()
+	
+func hide_label():
+	$Label.hide()

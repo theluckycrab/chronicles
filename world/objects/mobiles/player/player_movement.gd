@@ -2,7 +2,10 @@ extends Node
 
 var velocity: Vector3 = Vector3.ZERO
 var last_velocity: Vector3 = Vector3.ZERO
-var gravity: float = 9
+var gravity: float = 5
+var base_gravity = 5
+var max_gravity = 12
+var gravity_acceleration = 0.1
 
 onready var host : KinematicBody = get_parent()
 
@@ -13,7 +16,9 @@ func add_force(force:Vector3) -> void:
 	
 func apply_gravity() -> void:
 	if host.is_on_floor():
+		gravity = base_gravity
 		return
+	gravity += gravity_acceleration
 	add_force(Vector3.DOWN * gravity)
 
 

@@ -11,18 +11,21 @@ onready var equipment: Dictionary
 onready var host = get_parent()
 onready var anim = $AnimationPlayer
 onready var weaponbox = $Skeleton/Mainhand/Weapon/MeshInstance/Hitbox
-
+onready var guardbox = $Guardbox
+onready var overhead_chat = $OverheadChat
+onready var overhead_system = $OverheadSystem
+onready var weapon = $Skeleton/Mainhand/Weapon/MeshInstance
+onready var sheath = $Skeleton/Sheath/Sheath/MeshInstance
+onready var body = $Skeleton/Body
+onready var hit_origin = $HitOrigin
 
 func _ready():
-	var _discard = $Guardbox.connect("blocked", self, "on_guardbox_blocked")
+	var _discard = guardbox.connect("blocked", self, "on_guardbox_blocked")
 	var _discard1 = weaponbox.connect("hitbox_entered", self, "on_weaponbox_entered")
-	$OverheadSystem/Label.modulate = Data.get_config_value("system_color")
+	overhead_system.set_color(Data.get_config_value("system_color"))
 	hide_weapon()
-	#if get_parent() is BaseMobile:
-		#yield(get_tree().create_timer(2.1), "timeout")
-	if $Skeleton/Body is PhaseMesh:
-		$Skeleton/Body.phase()
-	$Skeleton/Body.visible = true
+	if body is PhaseMesh:
+		body.phase()
 	
 
 func destroy(slot: String) -> void:
@@ -43,13 +46,13 @@ func equip(args:Dictionary) -> void:
 	if mount:
 		mount.set_mesh(item.get_mesh())
 		if item.get_slot() == "Mainhand":
-			$Skeleton/Sheath/Sheath/MeshInstance.set_mesh(item.get_mesh())
+			sheath.set_mesh(item.get_mesh())
 			if host is BaseMobile:
 				size_weapon()
 				if host.at_war:
 					show_weapon()
 				else:
-					$Skeleton/Sheath/Sheath/MeshInstance.phase()
+					sheath.phase()
 					hide_weapon()
 	equipment[slot] = args.index
 	if mount is PhaseMesh:
@@ -97,20 +100,20 @@ func get_animation() -> String:
 	
 	
 func guard(dir:String) -> void:
-	$Guardbox.guard(dir)
+	guardbox.guard(dir)
 	
 	
 func parry(dir:String) -> void:
-	$Guardbox.parry(dir)
+	guardbox.parry(dir)
 	
 	
 func guard_reset() -> void:
-	$Guardbox.reset()
+	guardbox.reset()
 	
 	
 func size_weapon() -> void:
-	var mesh = $Skeleton/Mainhand/Weapon/MeshInstance
-	var box = get_node_or_null("Skeleton/Mainhand/Weapon/MeshInstance/Hitbox/CollisionShape")
+	var mesh = weapon
+	var box = weaponbox.get_node_or_null("CollisionShape")
 	var length = mesh.get_aabb().size
 	var pos = mesh.get_aabb().position
 	if box == null:
@@ -124,7 +127,7 @@ func size_weapon() -> void:
 
 
 func get_hit_origin() -> Vector3:
-	return $HitOrigin.global_transform.origin
+	return hit_origin.global_transform.origin
 
 
 func weaponbox_strike() -> void:
@@ -163,13 +166,13 @@ func on_weaponbox_entered(mybox:Hitbox, theirbox:Hitbox) -> void:
 	return
 
 func hide_weapon() -> void:
-	$Skeleton/Mainhand/Weapon.visible = false
-	$Skeleton/Sheath/Sheath.visible = true
+	weapon.visible = false
+	sheath.visible = true
 	
 	
 func show_weapon() -> void:
-	$Skeleton/Mainhand/Weapon.visible = true
-	$Skeleton/Sheath/Sheath.visible = false
+	weapon.visible = true
+	sheath.visible = false
 
 
 func keyframe() -> void:
@@ -178,15 +181,15 @@ func keyframe() -> void:
 
 func print_overhead_chat(args):
 	if args.has("color"):
-		$OverheadChat/Label.modulate = args.color as Color
+		overhead_chat.set_color(args.color as Color)
 	var split = args.text.split(":")
 	if split.size() != 0:
 		split.remove(0)
 	split = split.join(" ")
-	$OverheadChat.lifespan = 3 + split.length() * 0.1
-	$OverheadChat.text += split + "\n"
+	overhead_chat.lifespan = 3 + split.length() * 0.1
+	overhead_chat.text += split + "\n"
 	
 
 func print_overhead_system(text):
-	$OverheadSystem.text += text + "\n"
+	overhead_system.text += text + "\n"
 	

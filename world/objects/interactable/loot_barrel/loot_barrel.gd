@@ -8,7 +8,7 @@ var net_stats = NetStats.new("loot_barrel")
 
 
 func _ready() -> void:
-	#net_stats.original_instance_id = get_instance_id()
+	net_stats.original_instance_id = get_instance_id()
 	if one_shot:
 		net_stats.register()
 	if item == "random":

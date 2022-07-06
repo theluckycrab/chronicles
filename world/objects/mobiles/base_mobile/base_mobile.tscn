@@ -21117,8 +21117,6 @@ shape = SubResource( 18 )
 script = ExtResource( 10 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 5 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 6 )
@@ -21302,3 +21300,7 @@ collision_mask = 2
 script = ExtResource( 38 )
 
 [node name="VisibilityEnabler" type="VisibilityEnabler" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true

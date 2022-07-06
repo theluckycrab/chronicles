@@ -1,7 +1,5 @@
 extends Control
 
-var next_scene: String = "test_room"
-
 onready var button_offline = $VBoxContainer/Offline
 onready var button_online = $VBoxContainer/Online
 onready var button_defaults = $VBoxContainer/Defaults
@@ -33,6 +31,7 @@ func _ready() -> void:
 	Data.load_char_save(Data.get_config_value("last_character"))
 	character_name.connect("text_changed", self, "on_alias_changed")
 	build_armature()
+	print("main")
 	
 	
 func _physics_process(_delta):
@@ -54,22 +53,19 @@ func on_online() -> void:
 	
 	
 func on_join() -> void:
+	on_next()
 	Network.join(server_ip.text)
 	
 	
 func on_host() -> void:
-	Network.host(10)
 	on_next()
+	Network.host(10)
 	
 	
 func on_next() -> void:
 	Data.set_char_value("alias", character_name.text)
 	Data.load_char_save(character_name.text)
 	Data.save_config_value("last_character", character_name.text)
-	next_scene = Data.get_saved_char_value("map")
-	Network.set_nid()
-	Events.emit_signal("console_print", "Your network ID is : " + str(Network.get_nid()))
-	Events.emit_signal("scene_change_request", next_scene)
 	
 	
 func on_defaults():

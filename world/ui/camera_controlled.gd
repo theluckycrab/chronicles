@@ -9,6 +9,8 @@ var v_speed: float = 2.75
 var v_look_limit_degrees: int = 35
 var track_speed: float = 0.1
 var active: bool = true
+var auto_timer = Timer.new()
+var auto = false
 onready var h = get_parent().get_parent()
 onready var v = get_parent()
 
@@ -28,6 +30,10 @@ func _input(event) -> void:
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	auto_timer.autostart = false
+	auto_timer.one_shot = true
+	add_child(auto_timer)
+	auto_timer.connect("timeout", self, "on_auto_timer")
 
 
 func _process(_delta) -> void:
@@ -36,6 +42,24 @@ func _process(_delta) -> void:
 		calc_rotation()
 		if right_stick_vector != Vector2.ZERO:
 			apply_rotation(right_stick_vector, Vector2(h_speed, v_speed))
+			auto = false
+			auto_timer.stop()
+			return
+			
+		if transform_target.get_wasd() == Vector3.ZERO:
+			auto = false
+			auto_timer.stop()
+			
+		else:
+			auto_timer.start(1.5)
+			
+		if right_stick_vector == Vector2.ZERO \
+				and !transform_target.ui_active() \
+				and transform_target.get_wasd() != Vector3.ZERO\
+				and auto:
+			var arm = transform_target.armature.rotation.y
+			var angle = lerp_angle(get_h_rotation(), arm + deg2rad(180), 0.02)
+			set_h_rotation(angle)
 	
 	
 func calc_rotation() -> void:
@@ -130,3 +154,7 @@ func set_h_rotation(angle):
 	
 func set_v_rotation(angle):
 	v.rotation.x = angle
+
+
+func on_auto_timer():
+	auto = true

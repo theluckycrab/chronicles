@@ -4,7 +4,7 @@ extends PlayerActionState
 func _init() -> void:
 	index = "Equip"
 	animation = "Equip"
-	priority = 1
+	priority = 3
 	host = null
 	
 	
