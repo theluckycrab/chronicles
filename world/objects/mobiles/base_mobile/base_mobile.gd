@@ -82,7 +82,7 @@ func get_can_act() -> bool:
 			
 			
 func get_in_combat() -> bool:
-	return lock_target != null
+	return is_instance_valid(lock_target)
 	
 	
 func set_in_combat(t:bool) -> void:
