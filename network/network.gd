@@ -192,6 +192,7 @@ remotesync func request_history(tmap: String) -> void:
 	var who = get_tree().get_rpc_sender_id()
 	for i in map_masters:
 		if map_masters[i] == who:
+			rpc("sub_host_migration", who, i)
 			map_masters.erase(i)
 	var host = get_map_master(tmap, who)
 	rpc_id(host, "send_history", get_tree().get_rpc_sender_id(), map_masters, tmap)

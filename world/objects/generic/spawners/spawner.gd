@@ -10,24 +10,24 @@ var has_spawned = false
 
 func _ready():
 	net_stats.original_instance_id = get_instance_id()
-	net_stats.register()
+	if Network.map_masters.has(Network.map) and Network.map_masters[Network.map] == Network.get_nid():
+		net_stats.call_deferred("register")
 	
 		
 func on_register():
-	if net_stats.is_dummy:
-		queue_free()
-	else:
-		spawn()
+	spawn()
+	print("spawn register", net_stats.netOwner)
 
 func retrieve_data(_i):
 	Data.get_reference_instance(index)
 	pass
 
 
-func spawn():
+func spawn(_args={}):
 	if Network.map_masters[Network.map] == Network.get_nid() \
-			and !has_spawned:
+			and !has_spawned and net_stats.is_master:
 		has_spawned = true
+		net_stats.npc("set_has_spawned", {})
 		#print("spawning")
 		var object = Data.get_reference_instance(index)
 		get_viewport().add_child(object)
@@ -36,6 +36,10 @@ func spawn():
 		net_stats.unregister()
 
 func set_viewers(v):
+	print("spawn viewer", net_stats.netOwner)
 	viewers = v
-	spawn()
+	net_stats.npc("spawn", {}, true)
 	pass
+	
+func set_has_spawned(_args):
+	has_spawned = true

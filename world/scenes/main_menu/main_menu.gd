@@ -97,7 +97,7 @@ func build_armature():
 	var a = randi() % anims.size()
 	a = anims[a]
 	arm.anim.play(a)
-	var phrases = ["There is victory in having fought",
+	var phrases = ["There is victory in having fought.",
 			"Do you have a job for me?",
 			"Welcome to the Lucky Crab!",
 			"It's not much, but it's ours.",
