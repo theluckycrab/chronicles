@@ -7,6 +7,13 @@ export(int) var damage
 
 var state = Hitbox.states.GHOST
 
+func _init(data).(data):
+	var n = data.combo
+	n = n.split(",", true)
+	for i in n:
+		combo.append(i.dedent())
+	pass
+
 func strike():
 	state = Hitbox.STRIKE
 	

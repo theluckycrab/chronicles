@@ -14,7 +14,7 @@ onready var button = $Button
 func _ready():
 	name_label.text = item.item_name
 	slot_label.text = item.slot
-	ability_label.text = item.active.index
+	ability_label.text = Data.reference.item_list[item.index].active_index
 	description_label.text = item.description
 	tags_label.text = str(item.tags)
 	button.connect("button_down", self, "on_button_down")

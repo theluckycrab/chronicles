@@ -312,6 +312,7 @@ func get_faction():
 ##commands
 func equip(item:Item) -> void:
 	item.renew_active()
+	print(item.index)
 	npc("vis_equip", {index=item.get_index()})
 	remove_passives(get_equipped(item.get_slot()))
 	for i in item.get_list_of_passives():
@@ -396,7 +397,7 @@ func lock_on() -> void:
 func init_defaults() -> void:
 	if Network.get_nid() != net_stats.netID:
 		for i in base_defaults:
-			var item = Data.get_item(base_defaults[i]).duplicate()
+			var item = Data.get_item(base_defaults[i])
 			set_default(i, item)
 			equip(item)
 	elif net_stats.netID == Network.get_nid():
@@ -407,20 +408,19 @@ func init_defaults() -> void:
 		var iv = char_data.inventory
 		clear_effects()
 		for i in eq:
-			var it = Data.get_item(eq[i]).duplicate()
+			var it = Data.get_item(eq[i])
 			equip(it)
 		for i in d:
-			var it = Data.get_item(d[i]).duplicate()
+			var it = Data.get_item(d[i])
 			set_default(i, it)
 			if !i in eq:
 				equip(it)
 		for i in iv:
-			add_item(Data.get_item(i).duplicate())
+			add_item(Data.get_item(i))
 			
 	for i in ["Head", "Mainhand", "Offhand", "Boots", "Gloves", "Legs", "Chest"]:
 		if get_equipped(i) == null and get_default(i) == null:
-			#print(i)
-			var it = Data.get_item("naked_"+i.to_lower()).duplicate()
+			var it = Data.get_item("naked_"+i.to_lower())
 			set_default(it.slot, it)
 			equip(it)
 

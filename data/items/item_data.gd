@@ -8,15 +8,22 @@ export(String) var description = "no description set"
 export(bool) var is_modified = false
 export(int) var count = 1
 export(int) var durability = 3
-export(PoolStringArray) var tags = []
+export(PoolStringArray) var tags:PoolStringArray = []
 export var active = "Evade" setget ,get_active
-export(PoolStringArray) var passives = []
+export(PoolStringArray) var passives:PoolStringArray = []
 
-var index setget , get_index
+var index = "naked_mainhand"
 var net_stats = NetStats.new()
 
 
-func _init() -> void:
+func _init(data) -> void:
+	item_name = data.name
+	slot = data.slot
+	mesh = data.mesh_index
+	description = data.description
+	durability = data.durability
+	active = data.active_index
+	index = data.index
 	net_stats.original_instance_id = get_instance_id()
 	net_stats.index = get_index()
 
@@ -40,7 +47,9 @@ func add_tags(tag) -> void: #single or many
 			
 			
 func remove_tag(tag: String) -> void:
-	tags.remove(tag)
+	for i in tags.size():
+		if tags[i] == tag:
+			tags.remove(i)
 	
 	
 func set_name(n: String) -> void:
@@ -61,12 +70,12 @@ func set_active(a_name: String) -> void:
 	active = Data.get_ability(a_name)
 
 #get
-func get_tags() -> Array:
+func get_tags() -> PoolStringArray:
 	return tags
 
 
 func get_index() -> String:
-	return Data.snake_case(item_name)
+	return index
 	
 	
 func get_active() -> String:
@@ -74,7 +83,10 @@ func get_active() -> String:
 		var node = Node.new()
 		Data.add_child(node)
 		active = Data.snake_case(active)
-		node.script = load("res://data/abilities/"+active+".gd")
+		if active == "-":
+			node.script = load("res://data/abilities/evade.gd")
+		else:
+			node.script = load("res://data/abilities/"+active+".gd")
 		active = node
 	return active
 	
@@ -96,10 +108,10 @@ func get_mesh() -> ArrayMesh:
 	
 	
 func get_slot() -> String:
-	return slot
+	return slot.capitalize()
 	
 	
-func get_list_of_passives() -> Array:
+func get_list_of_passives() -> PoolStringArray:
 	return passives
 
 #query

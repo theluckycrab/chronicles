@@ -1,11 +1,11 @@
 extends Control
 
-var item = "debug_item"
+var item = "naked_mainhand"
 
 
 func _ready() -> void:
 	if item is String:
-		item = Data.get_reference(item)
+		item = Data.get_item(item)
 	build(item)
 	$Label.text = item.item_name
 

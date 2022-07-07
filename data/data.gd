@@ -35,12 +35,19 @@ func get_mesh(index):
 
 
 func get_item(index):
-	return reference.item_list[index]
+	var i
+	match reference.item_list[index].slot:
+		"mainhand":
+			i = Weapon.new(reference.item_list[index])
+		_:
+			i = Item.new(reference.item_list[index])
+	return i
+	#return reference.item_list[index]
 	
 func get_random_item():
 	var i = randi() % reference.item_list.size()
 	var k = reference.item_list.keys()[i]
-	return reference.item_list[k]
+	return get_item(k)
 	
 func get_ability(index):
 	index = snake_case(index)

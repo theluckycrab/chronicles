@@ -27,7 +27,7 @@ func _init() -> void:
 	for i in 3:
 		var it = Data.get_random_item()
 		if ! "naked" in it.index:
-			base_defaults[it.get_slot()] = it.index
+			base_defaults[it.slot] = it.index
 
 func _ready() -> void:
 	var _discard = $Timer.connect("timeout", self, "on_tick")
