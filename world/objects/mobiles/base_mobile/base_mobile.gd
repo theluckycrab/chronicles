@@ -311,6 +311,7 @@ func get_faction():
 	
 ##commands
 func equip(item:Item) -> void:
+	item.renew_active()
 	npc("vis_equip", {index=item.get_index()})
 	remove_passives(get_equipped(item.get_slot()))
 	for i in item.get_list_of_passives():
@@ -340,6 +341,9 @@ func activate_item_slot(slot:String) -> void:
 			return
 	set_state(item.get_active())
 	yield(item.get_active(), "completed")
+	var a = item.get_active()
+	item.renew_active()
+	a.queue_free()
 	consume_durability(slot)
 	
 	

@@ -79,6 +79,12 @@ func get_active() -> String:
 	return active
 	
 	
+func renew_active() -> void:
+	if ! active is String:
+		var a = active.index
+		active = a
+	
+	
 func get_name() -> String:
 	return item_name
 	
