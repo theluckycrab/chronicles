@@ -15,16 +15,16 @@ func _ready():
 	
 func on_equipped_item(item):
 	current_equipment[item.get_slot()] = item
-	if get_node_or_null(item.get_slot()) != null:
-		get_node(item.get_slot()).set_item(item)
+	if get_node_or_null(item.get_slot().capitalize()) != null:
+		get_node(item.get_slot().capitalize()).set_item(item)
 	call_deferred("close")
 	
 func close():
 	for i in slot_list:
 		var n = get_node_or_null(i)
 		if n != null:
-			if current_equipment.has(i):
-				n.set_item(current_equipment[i])
+			if current_equipment.has(i.to_lower()):
+				n.set_item(current_equipment[i.to_lower()])
 			n.active = false
 			n.show()
 	active = false
@@ -66,7 +66,7 @@ func controls():
 		for i in slot_list:
 			if host.can_act and i != "Consumable" and Input.is_action_pressed("ability_mod"):
 				if Input.is_action_just_pressed(i.to_lower()):
-					host.activate_item_slot(i)
+					host.activate_item_slot(i.to_lower())
 		return
 	if active:
 		if Input.is_action_just_released("item_mod"):

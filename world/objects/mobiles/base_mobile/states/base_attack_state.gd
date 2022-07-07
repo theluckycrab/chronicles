@@ -24,7 +24,7 @@ func _ready():
 	
 	
 func enter() -> void:
-	weapon = host.get_equipped("Mainhand")
+	weapon = host.get_equipped("mainhand")
 	if !weapon is Weapon:
 		get_vis_wep()
 		if !weapon:

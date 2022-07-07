@@ -39,13 +39,13 @@ func destroy(slot: String) -> void:
 
 func equip(args:Dictionary) -> void:
 	var item = Data.get_item(args.index)
-	var mount = get_node_or_null("Skeleton/"+item.get_slot())
-	var slot = item.get_slot()
+	var slot = item.get_slot().capitalize()
+	var mount = get_node_or_null("Skeleton/"+slot)
 	if slot == "Mainhand":
 		mount = get_node_or_null("Skeleton/"+slot+"/Weapon/MeshInstance")
 	if mount:
 		mount.set_mesh(item.get_mesh())
-		if item.get_slot() == "Mainhand":
+		if slot == "Mainhand":
 			sheath.set_mesh(item.get_mesh())
 			if host is BaseMobile:
 				size_weapon()
@@ -54,7 +54,7 @@ func equip(args:Dictionary) -> void:
 				else:
 					sheath.phase()
 					hide_weapon()
-	equipment[slot] = args.index
+	equipment[item.get_slot()] = args.index
 	if mount is PhaseMesh:
 		mount.phase()
 	

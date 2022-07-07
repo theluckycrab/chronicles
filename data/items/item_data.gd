@@ -2,7 +2,7 @@ class_name Item
 extends Resource
 
 export(String) var item_name = "Ballsack" setget set_name, get_name
-export(String) var slot = "Offhand"
+export(String) var slot = "offhand"
 export(String) var mesh = "naked" setget ,get_mesh
 export(String) var description = "no description set" 
 export(bool) var is_modified = false
@@ -58,7 +58,7 @@ func set_name(n: String) -> void:
 	
 	
 func set_slot(s: String) -> void:
-	slot = s
+	slot = s.to_lower()
 	
 	
 func set_description(d: String) -> void:
@@ -93,7 +93,7 @@ func get_active() -> String:
 	
 func renew_active() -> void:
 	if ! active is String:
-		var a = active.index
+		var a = Data.get_item(index).active
 		active = a
 	
 	
@@ -108,8 +108,7 @@ func get_mesh() -> ArrayMesh:
 	
 	
 func get_slot() -> String:
-	return slot.capitalize()
-	
+	return slot
 	
 func get_list_of_passives() -> PoolStringArray:
 	return passives

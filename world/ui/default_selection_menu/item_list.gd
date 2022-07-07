@@ -11,7 +11,7 @@ var selected_icon = null
 func _ready():
 	for i in item_list:
 		var item = Data.get_item(i)
-		if item.get_slot() == category:
+		if item.get_slot() == category.to_lower():
 			var nicon = icon.instance()
 			nicon.item = i
 			add_child(nicon)

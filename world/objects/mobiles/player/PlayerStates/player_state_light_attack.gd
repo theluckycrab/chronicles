@@ -23,7 +23,7 @@ func _ready():
 	combo_timer.connect("timeout", self, "on_combo_timer")
 	
 func enter() -> void:
-	weapon = host.get_equipped("Mainhand")
+	weapon = host.get_equipped("mainhand")
 	if !weapon is Weapon:
 		return
 	done = false

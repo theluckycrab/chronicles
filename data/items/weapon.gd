@@ -12,6 +12,7 @@ func _init(data).(data):
 	n = n.split(",", true)
 	for i in n:
 		combo.append(i.dedent())
+	strong = combo[combo.size() -1]
 	pass
 
 func strike():

@@ -87,9 +87,10 @@ func on_alias_changed(text):
 func build_armature():
 	var data = Data.get_char_data().duplicate(true)
 	var arm = $MeshInstance/Armature
+	print(data.defaults)
 	for i in data.defaults:
 		arm.equip({index=data.defaults[i]})
-	for i in ["Head", "Chest", "Gloves", "Legs", "Boots", "Mainhand", "Offhand"]:
+	for i in ["head", "chest", "gloves", "legs", "boots", "mainhand", "offhand"]:
 		if !data.defaults.has(i):
 			arm.equip({index="naked_"+i.to_lower()})
 	yield(get_tree().create_timer(0.35), "timeout")

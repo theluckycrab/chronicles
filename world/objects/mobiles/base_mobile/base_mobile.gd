@@ -196,7 +196,7 @@ func get_defaults_dict() -> Dictionary:
 	
 	
 func get_default(slot:String) -> Item:
-	return inventory.get_default(slot)
+	return inventory.get_default(slot.to_lower())
 	
 	
 func get_equipped(slot:String):
@@ -312,7 +312,6 @@ func get_faction():
 ##commands
 func equip(item:Item) -> void:
 	item.renew_active()
-	print(item.index)
 	npc("vis_equip", {index=item.get_index()})
 	remove_passives(get_equipped(item.get_slot()))
 	for i in item.get_list_of_passives():
@@ -329,7 +328,7 @@ func equip(item:Item) -> void:
 func destroy(slot:String) -> void:
 	var item = get_default(slot)
 	if item == null:
-		equip(Data.get_item("naked_"+slot.to_lower()).duplicate())
+		equip(Data.get_item("naked_"+slot))
 	else:
 		equip(item)
 	
@@ -418,12 +417,12 @@ func init_defaults() -> void:
 		for i in iv:
 			add_item(Data.get_item(i))
 			
-	for i in ["Head", "Mainhand", "Offhand", "Boots", "Gloves", "Legs", "Chest"]:
+	for i in ["head", "mainhand", "offhand", "boots", "gloves", "legs", "chest"]:
 		if get_equipped(i) == null and get_default(i) == null:
-			var it = Data.get_item("naked_"+i.to_lower())
+			var it = Data.get_item("naked_"+i)
 			set_default(it.slot, it)
 			equip(it)
-
+			
 func get_target():
 	return lock_target
 	
@@ -475,7 +474,7 @@ func set_visible(args) -> void:
 func instantiate_projectile(args) -> void:
 	var projectile = Data.get_projectile(args.index).instance()
 	if net_stats.is_master:
-		projectile.damage = get_equipped("Mainhand").get_damage()
+		projectile.damage = get_equipped("mainhand").get_damage()
 	else:
 		projectile.damage = Damage.new()
 		projectile.damage.damage = 0

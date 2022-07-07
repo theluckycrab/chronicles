@@ -14,7 +14,7 @@ func _ready() -> void:
 	if item == "random":
 		rand_item()
 	else:
-		item = Data.get_item(item).duplicate()
+		item = Data.get_item(item)
 	$InteractableZone.set_action_label("Open Barrel")
 	call_deferred("send_position")
 	
@@ -42,11 +42,9 @@ func activate(host):
 
 func rand_item():
 	item = Data.get_random_item()
-	if !["Head", "Mainhand", "Offhand", "Boots", "Consumable"].has(item.get_slot())\
+	if !["head", "mainhand", "offhand", "boots", "consumable"].has(item.get_slot())\
 			or "naked" in item.index or "debug" in item.index:
 		rand_item()
-	else:
-		item = item.duplicate()
 
 func set_looted(_args):
 	looted = true

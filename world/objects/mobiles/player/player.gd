@@ -38,7 +38,7 @@ func on_got_hit(mybox, theirbox):
 			return
 		var dir = get_hit_dir(mybox, theirbox)
 		var zone = get_hit_zone(dir)
-		var item = get_equipped(zone)
+		var item = get_equipped(zone.to_lower())
 		if item and !item.has_tag("Default") and item.durability > 0:
 			consume_durability(item.get_slot())
 			$Armature/EffectsPlayer.play("armor_hit")
@@ -68,14 +68,14 @@ func get_hit_zone(dir:Vector3):
 	match dir.abs().max_axis():
 		Vector3.AXIS_X:
 			if dir.x > 0:
-				return "Mainhand"
+				return "mainhand"
 			elif dir.x < 0:
-				return "Offhand"
+				return "offhand"
 		Vector3.AXIS_Y:
 			if dir.y > 0:
-				return "Head"
+				return "head"
 			else:
-				return "Boots"
+				return "boots"
 		Vector3.AXIS_Z:
 			return "HP"
 	return "HP"
@@ -132,7 +132,7 @@ func play(args) -> void: #state animations are networked
 
 func on_blocked(_mybox, _theirbox):
 	$Armature/EffectsPlayer.play("blocked")
-	consume_durability("Mainhand")
+	consume_durability("mainhand")
 
 func on_got_blocked(_mybox, _theirbox):
 	Events.emit_signal("console_print", "got blocked!")

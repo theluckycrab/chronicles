@@ -126,4 +126,3 @@ func check_config_file_exists():
 	if file.file_exists("user://saves/config"):
 		return
 	full_save_config()
-

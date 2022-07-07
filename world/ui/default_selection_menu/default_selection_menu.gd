@@ -59,8 +59,8 @@ func on_visibility_changed():
 		system_color_button.color = Color(Data.get_config_value("system_color"))
 		for i in item_lists:
 			for j in i.get_children():
-				if data.defaults.has(i.category):
-					if j.item.index == data.defaults[i.category]:
+				if data.defaults.has(i.category.to_lower()):
+					if j.item.index == data.defaults[i.category.to_lower()]:
 						j.modulate = Color.orange
 						i.selected_icon = j
 					else:

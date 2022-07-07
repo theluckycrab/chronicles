@@ -51,7 +51,7 @@ func set_item(item:Item):
 func set_list(list):
 	var l = []
 	for i in list:
-		if i.get_slot() == name:
+		if i.get_slot() == name.to_lower():
 			l.append(i)
 	item_list = l
 	if item_list.empty():

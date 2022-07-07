@@ -145,7 +145,7 @@ func load_scene(text) -> void:
 func equip(text) -> void:
 	text.remove(0)
 	text = text.join(" ")
-	var item = Data.get_item(text).duplicate()
+	var item = Data.get_item(text)
 	if Network.net_objects.has(Network.get_nid()):
 		Network.net_objects[Network.get_nid()].equip(item)
 	hide()
