@@ -79,6 +79,8 @@ func load_and_print_database():
 		var nobject = jobject.duplicate(true)
 		var counter = 0
 		for i in line:
+			if i.is_valid_integer():
+				i = i as int
 			nobject[nobject.keys()[counter]] = i
 			counter += 1
 		item_list[nobject.index] = nobject.duplicate(true)
