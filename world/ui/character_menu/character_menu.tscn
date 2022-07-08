@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://world/ui/character_menu/inventory_menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/ui/default_selection_menu/player_default_preview.tscn" type="PackedScene" id=2]
+
+[node name="CharacterMenu" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -229.0
+margin_top = -116.0
+margin_right = 229.0
+margin_bottom = 116.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="InventoryManager" parent="HBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 150.0
+margin_bottom = 232.0
+
+[node name="Control" parent="HBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 154.0
+margin_right = 304.0
+margin_bottom = 232.0
+
+[node name="InventoryManager2" parent="HBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 308.0
+margin_top = 0.0
+margin_right = 458.0
+margin_bottom = 232.0

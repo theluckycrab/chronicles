@@ -3,7 +3,7 @@ extends Control
 
 signal button_down
 
-onready var item = Data.get_item(item)
+export(String) onready var item = Data.get_item(item)
 onready var name_label = $VBoxContainer/Name
 onready var slot_label = $VBoxContainer/Slot
 onready var ability_label = $VBoxContainer/Ability
@@ -17,7 +17,12 @@ func _ready():
 	ability_label.text = Data.reference.item_list[item.index].active_index
 	description_label.text = item.description
 	tags_label.text = str(item.tags)
-	button.connect("button_down", self, "on_button_down")
+	if ! button.is_connected("button_down", self, "on_button_down"):
+		button.connect("button_down", self, "on_button_down")
 
 func on_button_down():
 	emit_signal("button_down", self)
+	
+func refresh(i):
+	item = i
+	_ready()

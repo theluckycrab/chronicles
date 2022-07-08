@@ -156,7 +156,7 @@ func show():
 	on_history()
 	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#get_viewport().warp_mouse(Vector2(0,0))
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	
 func hide():
