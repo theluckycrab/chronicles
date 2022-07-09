@@ -1,7 +1,9 @@
 extends Control
 
+signal inventory_changed
+
 var icon = preload("res://world/ui/item_icon.tscn")
-var inventory = Data.reference.item_list
+var inventory = []
 var filter_delay = 0.25
 
 onready var list = $VSplitContainer/ScrollContainer/GridContainer
@@ -28,11 +30,10 @@ func layout():
 		t.queue_free()
 		
 	for i in inventory:
-		if i != "":
-			var nicon = icon.instance()
-			list.add_child(nicon)
-			nicon.refresh(i)
-			nicon.connect("exited_inventory", self, "on_exited_inventory")
+		var nicon = icon.instance()
+		list.add_child(nicon)
+		nicon.refresh(i)
+		nicon.connect("exited_inventory", self, "on_exited_inventory")
 	pass
 
 func has_filters(dictionary, filters):
@@ -63,11 +64,13 @@ func on_item_dropped(data):
 	list.add_child(i)
 	i.connect("exited_inventory", self, "on_exited_inventory")
 	data.source.emit_signal("exited_inventory", data.source)
-	inventory.append(data.item.index)
+	inventory.append(data.item)
+	emit_signal("inventory_changed", inventory)
 	layout()
 
 func on_exited_inventory(whichcon):
 	print(name, " ", whichcon)
-	inventory.erase(whichcon.item.index)
+	inventory.erase(whichcon.item)
+	emit_signal("inventory_changed", inventory)
 	whichcon.queue_free()
 	layout()
