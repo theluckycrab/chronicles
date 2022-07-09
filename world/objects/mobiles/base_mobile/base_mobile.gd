@@ -405,6 +405,7 @@ func init_defaults() -> void:
 		var eq = char_data.equipped
 		var d = char_data.defaults
 		var iv = char_data.inventory
+		var p = char_data.pouch
 		clear_effects()
 		for i in eq:
 			var it = Data.get_item(eq[i])
@@ -416,6 +417,8 @@ func init_defaults() -> void:
 				equip(it)
 		for i in iv:
 			add_item(Data.get_item(i))
+		for i in p:
+			inventory.add_item_to_pouch(Data.get_item(i))
 			
 	for i in ["head", "mainhand", "offhand", "boots", "gloves", "legs", "chest"]:
 		if get_equipped(i) == null and get_default(i) == null:

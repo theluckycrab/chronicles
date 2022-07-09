@@ -81,6 +81,9 @@ func get_char_data():
 func save_char_value(key, value) -> void:
 	persistence.save_char_value(key, value)
 	
+func remove_char_value(key, value) -> void:
+	persistence.remove_char_value(key, value)
+	
 func full_save() -> void:
 	persistence.commit_to_char_file()
 	persistence.commit_to_config_file()

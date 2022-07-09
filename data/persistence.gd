@@ -8,7 +8,8 @@ var char_data = {
 	map = "lobi_town",
 	defaults = {},
 	equipped = {},
-	inventory = []
+	inventory = [],
+	pouch = []
 }
 
 var config = {
@@ -35,7 +36,9 @@ func load_char_from_file(file_name):
 		var data = file.get_var(true)
 		file.close()
 		if data is Dictionary:
-			char_data = data.duplicate(true)
+			for i in char_data:
+				if data.has(i):
+					char_data[i] = data[i]
 		else:
 			print("data corrupted")
 	else:
@@ -53,6 +56,7 @@ func commit_to_char_file():
 
 
 func set_char_value(key, value):
+	print(key, value)
 	match key:
 		"default":
 			char_data["defaults"][value.slot] = value.index
@@ -63,6 +67,8 @@ func set_char_value(key, value):
 			char_data["equipped"][value.slot] = value.index
 		"inventory":
 			char_data["inventory"].append(value.index)
+		"pouch":
+			char_data["pouch"].append(value.index)
 		_:
 			char_data[key] = value
 
@@ -71,6 +77,16 @@ func save_char_value(key, value):
 	set_char_value(key, value)
 	commit_to_char_file()
 	pass
+	
+	
+func remove_char_value(key, value):
+	if !char_data.has(key):
+		return
+	match key:
+		"inventory":
+			char_data["inventory"].erase(value.index)
+		"pouch":
+			char_data["pouch"].erase(value.index)
 	
 	
 func get_saved_char_value(key):

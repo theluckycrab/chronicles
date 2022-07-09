@@ -12,7 +12,14 @@ var defaults_dict = {
 
 onready var equipment_dict = defaults_dict.duplicate(true)
 		
+onready var gui = $InventoryManager
+		
 onready var host = get_parent()
+
+func _ready():
+	gui.connect("item_added", self, "add_item")
+	gui.connect("item_removed", self, "remove_item")
+	gui.inventory = items
 
 func get_item_list() -> Array:
 	return items
@@ -22,6 +29,15 @@ func add_item(item:Item) -> void:
 	items.append(item)
 	if host.net_stats.netID == Network.get_nid():
 		Data.save_char_value("inventory", item)
+	gui.inventory = items
+	gui.layout()
+	
+func remove_item(item:Item) -> void:
+	items.erase(item)
+	if host.net_stats.netID == Network.get_nid():
+		Data.remove_char_value("inventory", item)
+	gui.inventory = items
+	gui.layout()
 
 func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)
@@ -30,8 +46,7 @@ func get_defaults_dict() -> Dictionary:
 func equip(item:Item) -> void:
 	equipment_dict[item.get_slot()] = item
 	if !item.has_tag("Default"):
-		if items.has(item):
-			items.erase(item)
+		remove_item(item)
 	
 
 func get_default(slot:String):

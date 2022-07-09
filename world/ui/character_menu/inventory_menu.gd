@@ -1,6 +1,7 @@
 extends Control
 
-signal inventory_changed
+signal item_added
+signal item_removed
 
 var icon = preload("res://world/ui/item_icon.tscn")
 var inventory = []
@@ -32,8 +33,8 @@ func layout():
 	for i in inventory:
 		var nicon = icon.instance()
 		list.add_child(nicon)
+		nicon.connect("item_removed", self, "on_item_removed")
 		nicon.refresh(i)
-		nicon.connect("exited_inventory", self, "on_exited_inventory")
 	pass
 
 func has_filters(dictionary, filters):
@@ -59,18 +60,8 @@ func apply_filter(text):
 			i.hide()
 
 func on_item_dropped(data):
-	var i = icon.instance()
-	i.item = data.item
-	list.add_child(i)
-	i.connect("exited_inventory", self, "on_exited_inventory")
-	data.source.emit_signal("exited_inventory", data.source)
-	inventory.append(data.item)
-	emit_signal("inventory_changed", inventory)
-	layout()
+	emit_signal("item_added", data.item)
+	data.source.declare_removed()
 
-func on_exited_inventory(whichcon):
-	print(name, " ", whichcon)
-	inventory.erase(whichcon.item)
-	emit_signal("inventory_changed", inventory)
-	whichcon.queue_free()
-	layout()
+func on_item_removed(whichcon):
+	emit_signal("item_removed", whichcon.item)

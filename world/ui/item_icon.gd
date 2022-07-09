@@ -1,6 +1,6 @@
 extends Control
 
-signal exited_inventory
+signal item_removed
 
 var item = "naked_mainhand"
 var tooltip_delay = 0.25
@@ -74,3 +74,6 @@ func get_drag_data(position):
 
 func can_drop_data(position, data):
 	return true
+
+func delcare_removed():
+	emit_signal("item_removed", self)
