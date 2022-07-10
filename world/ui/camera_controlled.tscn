@@ -13,6 +13,7 @@
 [node name="ClippedCamera" type="ClippedCamera" parent="H/V"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5.804 )
 environment = ExtResource( 2 )
+h_offset = -0.1
 current = true
 far = 200.0
 script = ExtResource( 1 )

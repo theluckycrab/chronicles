@@ -42,7 +42,7 @@ func execute() -> void:
 	if host.in_combat:
 		sprinting = false
 		animation = get_strafe_dir()
-		host.add_force(dir * speed / 2)
+		host.add_force(dir * speed / 1.5)
 		host.lock_on()
 	else:
 		if Input.is_action_pressed("dodge") and host.can_act and !host.ui_active():

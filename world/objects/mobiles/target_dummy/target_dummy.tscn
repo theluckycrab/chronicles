@@ -9,7 +9,7 @@
 [ext_resource path="res://world/ui/label_3D.tscn" type="PackedScene" id=7]
 [ext_resource path="res://world/objects/mobiles/base_mobile/armature.gd" type="Script" id=8]
 [ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=9]
-[ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=10]
+[ext_resource path="res://world/objects/mobiles/base_mobile/inventory.tscn" type="PackedScene" id=10]
 [ext_resource path="res://world/objects/mobiles/base_mobile/state_machine.gd" type="Script" id=11]
 [ext_resource path="res://world/objects/mobiles/base_mobile/movement.gd" type="Script" id=12]
 [ext_resource path="res://world/objects/mobiles/base_mobile/buff_list.gd" type="Script" id=13]
@@ -21122,8 +21122,6 @@ shape = SubResource( 17 )
 script = ExtResource( 8 )
 
 [node name="Skeleton" parent="Armature" instance=ExtResource( 1 )]
-bones/2/bound_children = [ NodePath("Sheath") ]
-bones/62/bound_children = [ NodePath("Mainhand") ]
 
 [node name="Body" type="MeshInstance" parent="Armature/Skeleton"]
 mesh = ExtResource( 16 )
@@ -21298,9 +21296,6 @@ script = ExtResource( 3 )
 [node name="StateMachine" type="Spatial" parent="."]
 script = ExtResource( 11 )
 
-[node name="Inventory" type="Spatial" parent="."]
-script = ExtResource( 10 )
-
 [node name="Hitbox" type="Area" parent="."]
 collision_layer = 2
 collision_mask = 2
@@ -21318,3 +21313,5 @@ one_shot = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
+
+[node name="Inventory" parent="." instance=ExtResource( 10 )]

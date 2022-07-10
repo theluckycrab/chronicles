@@ -1,7 +1,7 @@
 [gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://world/objects/mobiles/base_mobile/base_mobile.gd" type="Script" id=1]
-[ext_resource path="res://world/objects/mobiles/base_mobile/inventory.gd" type="Script" id=2]
+[ext_resource path="res://world/objects/mobiles/base_mobile/inventory.tscn" type="PackedScene" id=2]
 [ext_resource path="res://world/objects/mobiles/base_mobile/mobile_animation_player.gd" type="Script" id=3]
 [ext_resource path="res://world/objects/mobiles/player/effects_player.gd" type="Script" id=4]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=5]
@@ -21291,9 +21291,6 @@ script = ExtResource( 17 )
 [node name="StateMachine" type="Spatial" parent="."]
 script = ExtResource( 14 )
 
-[node name="Inventory" type="Spatial" parent="."]
-script = ExtResource( 2 )
-
 [node name="Hitbox" type="Area" parent="."]
 collision_layer = 2
 collision_mask = 2
@@ -21304,3 +21301,5 @@ script = ExtResource( 38 )
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
+
+[node name="Inventory" parent="." instance=ExtResource( 2 )]

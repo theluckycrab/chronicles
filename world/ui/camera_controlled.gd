@@ -50,8 +50,9 @@ func _process(_delta) -> void:
 			auto = false
 			auto_timer.stop()
 			
-		else:
+		elif transform_target.get_wasd() != Vector3.ZERO and auto_timer.is_stopped():
 			auto_timer.start(1.5)
+			print("start")
 			
 		if right_stick_vector == Vector2.ZERO \
 				and !transform_target.ui_active() \
