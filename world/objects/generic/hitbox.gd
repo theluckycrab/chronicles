@@ -3,10 +3,18 @@ extends Area
 
 enum states {GHOST, IDLE, STRIKE, GUARD, PARRY}
 
-enum collision_type {NULL, HIT, GOT_HIT, BLOCKED, GOT_BLOCKED, PARRIED, GOT_PARRIED, CLASH_WON, CLASH_LOST}
-
 var state = states.GHOST
+
+var signals = ["got_hit", "got_blocked", "got_parried", "hit", "parried", "blocked", "clash_lost"]
+
 signal hitbox_entered
+signal got_hit
+signal got_blocked
+signal got_parried
+signal hit
+signal parried
+signal blocked
+signal clash_lost
 
 var collisions = []
 var damage = Damage.new()
@@ -24,13 +32,7 @@ func _ready() -> void:
 	monitoring_off()
 	
 func on_area_entered(who) -> void:
-	if who.has_method("am_hitbox") and who.get_owner() != get_owner():
-		if state != states.GHOST and who.state != states.GHOST:
-			if damage.tags.has("Unblockable"):
-				if who.state == states.GUARD or who.state == states.PARRY:
-					return
-				print(who.state)
-			collisions.append(who)
+	collisions.append(who)
 	
 			
 func _physics_process(_delta):
@@ -38,11 +40,13 @@ func _physics_process(_delta):
 		return
 	if collisions.empty():
 		return
-	#print(collisions)
-	emit_signal("hitbox_entered", self, collisions.front())
-	if is_instance_valid(collisions.front()):
-		collisions.front().emit_signal("hitbox_entered", collisions.front(), self)
-		ghost()
+	process_collision_list()
+			
+			
+func process_collision_list():
+	for i in collisions:
+		emit_collision_type(self, i)
+		i.emit_collision_type(i, self)
 	collisions.clear()
 			
 			
@@ -101,36 +105,39 @@ func get_dir(other:Hitbox) -> String:
 				return "behind"
 	print(self, " unable to determine direction of ", other)
 	return "front"
-
-
-static func get_collision_type(mybox, theirbox) -> int:
+	
+	
+func emit_collision_type(mybox, theirbox) -> void:
 	if !is_instance_valid(mybox) or !is_instance_valid(theirbox):
-		return collision_type.NULL
+		return
 	match mybox.state:
 		states.IDLE:
 			match theirbox.state:
 				states.STRIKE:
-					return collision_type.GOT_HIT
+					emit_signal("got_hit", theirbox)
 		states.STRIKE:
 			match theirbox.state:
 				states.IDLE:
-					return collision_type.HIT
+					emit_signal("hit", theirbox)
 				states.STRIKE:
-					return collision_type.CLASH_LOST
+					emit_signal("clash_lost", theirbox)
 				states.GUARD:
-					return collision_type.GOT_BLOCKED
+					if ! "Unblockable" in damage_tags:
+						emit_signal("got_blocked", theirbox)
+						collisions.clear()
 				states.PARRY:
-					return collision_type.GOT_PARRIED
+					if ! "Unblockable" in damage_tags:
+						emit_signal("got_parried", theirbox)
+						collisions.clear()
 		states.GUARD:
 			match theirbox.state:
 				states.STRIKE:
-					return collision_type.BLOCKED
+					emit_signal("blocked", theirbox)
 		states.PARRY:
 			match theirbox.state:
 				states.STRIKE:
-					return collision_type.PARRIED
-	return collision_type.NULL
-
+					emit_signal("parried", theirbox)
+	return
 
 func monitoring_on():
 	monitorable = true
@@ -139,3 +146,7 @@ func monitoring_on():
 func monitoring_off():
 	monitorable = false
 	monitoring = false
+	
+func Connect(who):
+	for i in signals:
+		var _discard = connect(i, who, "on_"+i)

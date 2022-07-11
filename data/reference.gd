@@ -25,15 +25,16 @@ func setup() -> void:
 	#build_list("res://data", ".tres", ref_list)
 	build_list("res://world/scenes", ".tscn", scene_list)
 
-	ref_list["player"] = "res://world/objects/mobiles/player/player.tscn"
-	ref_list["base_mobile"] = "res://world/objects/mobiles/base_mobile/base_mobile.tscn"
+	ref_list["player"] = "res://world/mobiles/player/player.tscn"
+	ref_list["base_mobile"] = "res://world/mobiles/base_mobile/base_mobile.tscn"
 	ref_list["item_cube"] = "res://world/objects/generic/item_cube.tscn"
-	ref_list["target_dummy"] = "res://world/objects/mobiles/target_dummy/target_dummy.tscn"
+	ref_list["target_dummy"] = "res://world/mobiles/target_dummy/target_dummy.tscn"
 	ref_list["loot_barrel"] = "res://world/objects/interactable/loot_barrel/loot_barrel.tscn"
 	ref_list["throwing_knife_projectile"] = "res://data/projectiles/throwing_knife/throwing_knife.tscn"
 	ref_list["melee_aux"] = "res://data/projectiles/melee_aux/melee_aux.tscn"
 	ref_list["projectile"] = "res://data/projectiles/melee_aux/melee_aux/tscn"
 	ref_list["spawner"] = "res://world/objects/generic/spawners/spawner.tscn"
+	ref_list["debug"] = "res://world/mobiles/debug_mobile/debug_mobile.tscn"
 	
 	load_and_print_database()
 	
@@ -69,7 +70,7 @@ func get_projectile(index: String) -> PackedScene:
 
 func load_and_print_database():
 	var file = File.new()
-	file.open("res://data/item_database.csv", File.READ)
+	file.open("res://data/spreadsheets/item_database.csv", File.READ)
 	var headers = file.get_csv_line()
 	var jobject = {}
 	for i in headers:

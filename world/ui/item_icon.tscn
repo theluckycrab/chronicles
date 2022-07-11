@@ -73,7 +73,7 @@ size_flags_vertical = 1
 align = 1
 valign = 1
 
-[node name="TooltipDelay" type="Timer" parent="."]
+[node name="TooltipTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

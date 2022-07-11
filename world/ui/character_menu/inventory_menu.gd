@@ -8,11 +8,12 @@ var inventory = []
 var filter_delay = 0.25
 
 onready var list = $VSplitContainer/ScrollContainer/GridContainer
+onready var scroll_container = $VSplitContainer/ScrollContainer
 onready var filter = $VSplitContainer/Filter
 onready var filter_timer = Timer.new()
 
 func _ready():
-	$VSplitContainer/ScrollContainer.connect("item_dropped", self, "on_item_dropped")
+	scroll_container.connect("item_dropped", self, "on_item_dropped")
 	filter.connect("text_changed", self, "on_filter_set")
 	filter_timer.autostart = false
 	filter_timer.one_shot = true

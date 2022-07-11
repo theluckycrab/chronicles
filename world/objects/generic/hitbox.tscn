@@ -1,8 +1,150 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=1]
+[sub_resource type="GDScript" id=1]
+script/source = "class_name Hitbox
+extends Area
+
+enum states {GHOST, IDLE, STRIKE, GUARD, PARRY}
+
+enum collision_type {NULL, HIT, GOT_HIT, BLOCKED, GOT_BLOCKED, PARRIED, GOT_PARRIED, CLASH_WON, CLASH_LOST}
+
+var state = states.GHOST
+signal hitbox_entered
+
+var collisions = []
+var damage = Damage.new()
+export(int) var damage_amount = 1
+export(PoolStringArray) var damage_tags = []
+
+#Only Strike hitboxes do logic, so everything is from attacker's perspective
+
+func _ready() -> void:
+	var _discard = connect(\"area_entered\", self, \"on_area_entered\")
+	damage.tags.append_array(damage_tags)
+	damage.damage = damage_amount
+	set_collision_layer_bit(0, false)
+	set_collision_layer_bit(1, true)
+	monitoring_off()
+	
+func on_area_entered(who) -> void:
+	if who.has_method(\"am_hitbox\") and who.get_owner() != get_owner():
+		if state != states.GHOST and who.state != states.GHOST:
+			if damage.tags.has(\"Unblockable\"):
+				if who.state == states.GUARD or who.state == states.PARRY:
+					return
+				print(who.state)
+			collisions.append(who)
+	
+			
+func _physics_process(_delta):
+	if state != states.STRIKE:
+		return
+	if collisions.empty():
+		return
+	#print(collisions)
+	emit_signal(\"hitbox_entered\", self, collisions.front())
+	if is_instance_valid(collisions.front()):
+		collisions.front().emit_signal(\"hitbox_entered\", collisions.front(), self)
+		ghost()
+	collisions.clear()
+			
+			
+func idle() -> void:
+	self.state = states.IDLE
+	monitoring_on()
+	
+func ghost() -> void:
+	self.state = states.GHOST
+	monitoring_off()
+	
+func reset() -> void:
+	self.state = states.GHOST
+	monitoring_off()
+	
+func strike() -> void:
+	monitoring_on()
+	self.state = states.STRIKE
+	for i in get_overlapping_areas():
+		on_area_entered(i)
+	
+	
+func guard() -> void:
+	self.state = states.GUARD
+	monitoring_on()
+	
+	
+func parry() -> void:
+	self.state = states.PARRY
+	monitoring_on()
+	
+	
+func am_hitbox() -> bool:
+	return true
+	
+	
+func get_dir(other:Hitbox) -> String:
+	var pos = global_transform.origin
+	var opos = other.global_transform.origin
+	var dir = pos.direction_to(opos)
+	match dir.max_axis():
+		Vector3.AXIS_X:
+			if dir.x > 0:
+				return \"right\"
+			elif dir.x < 0:
+				return \"left\"
+		Vector3.AXIS_Y:
+			if dir.y > 0:
+				return \"up\"
+			elif dir.y < 0:
+				return \"down\"
+		Vector3.AXIS_Z:
+			if dir.z > 0:
+				return \"front\"
+			elif dir.z < 0:
+				return \"behind\"
+	print(self, \" unable to determine direction of \", other)
+	return \"front\"
+
+
+static func get_collision_type(mybox, theirbox) -> int:
+	if !is_instance_valid(mybox) or !is_instance_valid(theirbox):
+		return collision_type.NULL
+	match mybox.state:
+		states.IDLE:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.GOT_HIT
+		states.STRIKE:
+			match theirbox.state:
+				states.IDLE:
+					return collision_type.HIT
+				states.STRIKE:
+					return collision_type.CLASH_LOST
+				states.GUARD:
+					return collision_type.GOT_BLOCKED
+				states.PARRY:
+					return collision_type.GOT_PARRIED
+		states.GUARD:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.BLOCKED
+		states.PARRY:
+			match theirbox.state:
+				states.STRIKE:
+					return collision_type.PARRIED
+	return collision_type.NULL
+
+
+func monitoring_on():
+	monitorable = true
+	monitoring = true
+	
+func monitoring_off():
+	monitorable = false
+	monitoring = false
+"
 
 [node name="Hitbox" type="Area"]
 collision_layer = 2
 collision_mask = 2
-script = ExtResource( 1 )
+script = SubResource( 1 )

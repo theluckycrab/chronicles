@@ -4,6 +4,7 @@ signal item_removed
 
 var item = "naked_mainhand"
 var tooltip_delay = 0.25
+onready var tooltip_timer = $TooltipTimer
 onready var detail = $CanvasLayer/Detail
 
 func _ready() -> void:
@@ -17,7 +18,7 @@ func _ready() -> void:
 			and ! is_connected("mouse_exited", self, "on_mouse_exited"):
 		var _discard = connect("mouse_entered", self, "on_mouse_entered")
 		var _dicks = connect("mouse_exited", self, "on_mouse_exited")
-		$TooltipDelay.connect("timeout", self, "on_tooltip_timer")
+		tooltip_timer.connect("timeout", self, "on_tooltip_timer")
 
 
 func build(n_item:Item) -> void:
@@ -47,11 +48,11 @@ func hide_label():
 
 
 func on_mouse_entered():
-	$TooltipDelay.start(tooltip_delay)
+	tooltip_timer.start(tooltip_delay)
 	pass
 	
 func on_mouse_exited():
-	$TooltipDelay.stop()
+	tooltip_timer.stop()
 	detail.hide()
 	pass
 	
@@ -60,7 +61,7 @@ func on_tooltip_timer():
 	detail.rect_global_position = get_viewport().get_mouse_position()
 	pass
 
-func get_drag_data(position):
+func get_drag_data(_position):
 	var data = {"item":item, "source":self}
 	var drag_texture = TextureRect.new()
 	drag_texture.expand = true
@@ -72,7 +73,7 @@ func get_drag_data(position):
 	set_drag_preview(c)
 	return data
 
-func can_drop_data(position, data):
+func can_drop_data(_position, _data):
 	return true
 
 func delcare_removed():

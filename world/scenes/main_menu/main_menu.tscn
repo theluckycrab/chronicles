@@ -7,11 +7,11 @@
 [ext_resource path="res://world/objects/interactable/pi_gate/pi_gate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/assets/Blender/Furniture/Barrel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/objects/generic/hitbox.gd" type="Script" id=7]
-[ext_resource path="res://world/objects/mobiles/base_mobile/armature.gd" type="Script" id=8]
-[ext_resource path="res://world/objects/mobiles/player/player_animation_player.gd" type="Script" id=9]
+[ext_resource path="res://world/mobiles/base_mobile/armature.gd" type="Script" id=8]
+[ext_resource path="res://world/mobiles/player/player_animation_player.gd" type="Script" id=9]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/Skeleton.tscn" type="PackedScene" id=10]
 [ext_resource path="res://world/ui/label_3D.tscn" type="PackedScene" id=11]
-[ext_resource path="res://world/objects/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=12]
+[ext_resource path="res://world/mobiles/base_mobile/guardbox_array.tscn" type="PackedScene" id=12]
 [ext_resource path="res://data/assets/meshes/equipment/naked.mesh" type="ArrayMesh" id=13]
 [ext_resource path="res://data/assets/Blender/BaseHumanoid/BaseHumanoid_Body.mesh" type="ArrayMesh" id=14]
 [ext_resource path="res://world/objects/generic/phase_mesh.gd" type="Script" id=15]
@@ -21259,6 +21259,8 @@ skeleton = NodePath("../..")
 
 [node name="Hitbox" type="Area" parent="MeshInstance/Armature/Skeleton/Mainhand/Weapon/MeshInstance"]
 transform = Transform( 1, 7.45058e-09, -2.98023e-08, -7.45058e-09, 1, 1.49012e-08, 2.98023e-08, 1.49012e-08, 1, -2.38419e-07, 5.96046e-08, 0 )
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 7 )
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Armature/Skeleton/Mainhand/Weapon/MeshInstance/Hitbox"]

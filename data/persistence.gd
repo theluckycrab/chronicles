@@ -56,7 +56,6 @@ func commit_to_char_file():
 
 
 func set_char_value(key, value):
-	print(key, value)
 	match key:
 		"default":
 			char_data["defaults"][value.slot] = value.index
