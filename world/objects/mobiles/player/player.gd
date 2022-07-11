@@ -105,7 +105,7 @@ func lock_on() -> void:
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
 		var cam = get_viewport().get_camera()
-		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.04))
+		cam.set_h_rotation(lerp_angle(cam.get_h_rotation(), angle + deg2rad(180), 0.05))
 		armature.rotation.y = lerp_angle(armature.rotation.y, angle, 0.2)
 	elif self.at_war:
 		acquire_lock_target()
