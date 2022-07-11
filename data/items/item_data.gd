@@ -26,6 +26,11 @@ func _init(data) -> void:
 	index = data.index
 	net_stats.original_instance_id = get_instance_id()
 	net_stats.index = get_index()
+	var n = data.passives
+	if n != "-":
+		n = n.split(",", true)
+		for i in n:
+			passives.append(i.dedent())
 
 #command
 func activate(host: Object) -> void:

@@ -36,7 +36,7 @@ func setup() -> void:
 	ref_list["spawner"] = "res://world/objects/generic/spawners/spawner.tscn"
 	ref_list["debug"] = "res://world/mobiles/debug_mobile/debug_mobile.tscn"
 	
-	load_and_print_database()
+	load_item_database()
 	
 func build_list(path, ending = ".tres", list = ref_list) -> void:
 	var dir = Directory.new()
@@ -68,7 +68,7 @@ func get_projectile(index: String) -> PackedScene:
 	return projectile_list[index]
 
 
-func load_and_print_database():
+func load_item_database():
 	var file = File.new()
 	file.open("res://data/spreadsheets/item_database.csv", File.READ)
 	var headers = file.get_csv_line()
