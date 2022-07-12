@@ -208,6 +208,10 @@ func get_all_equipped():
 func add_item(item:Item) -> void:
 	inventory.add_item(item)
 	Events.emit_signal("console_print", "System: "+item.item_name)
+		
+		
+func remove_item(item:Item) -> void:
+	inventory.remove_item(item)
 	
 	
 func set_default(slot:String, item:Item) -> void:

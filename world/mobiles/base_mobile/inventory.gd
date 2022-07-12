@@ -13,13 +13,17 @@ var defaults_dict = {
 onready var equipment_dict = defaults_dict.duplicate(true)
 		
 onready var gui = $InventoryManager
+onready var pui = $PouchManager
 		
 onready var host = get_parent()
 
 func _ready():
 	gui.connect("item_added", self, "add_item")
 	gui.connect("item_removed", self, "remove_item")
+	pui.connect("item_added", self, "add_item")
+	pui.connect("item_removed", self, "remove_item")
 	gui.inventory = items
+	pui.inventory = items
 
 func get_item_list() -> Array:
 	return items
@@ -27,17 +31,21 @@ func get_item_list() -> Array:
 	
 func add_item(item:Item) -> void:
 	items.append(item)
-	if host.net_stats.netID == Network.get_nid():
+	if host.is_player:
 		Data.save_char_value("inventory", item)
 	gui.inventory = items
 	gui.layout()
+	pui.inventory = items
+	pui.layout()
 	
 func remove_item(item:Item) -> void:
 	items.erase(item)
-	if host.net_stats.netID == Network.get_nid():
+	if host.is_player:
 		Data.remove_char_value("inventory", item)
 	gui.inventory = items
 	gui.layout()
+	pui.inventory = items
+	pui.layout()
 
 func get_defaults_dict() -> Dictionary:
 	return defaults_dict.duplicate(true)

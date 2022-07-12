@@ -63,13 +63,13 @@ func apply_filter(text):
 		for j in text:
 			if j in i.item.tags:
 				i.show()
-		if ! ":pouch:" in text:
-			if ":pouch:" in i.item.tags:
-				i.hide()
 
 func on_item_dropped(data):
 	data.source.declare_removed()
-	emit_signal("item_added", data.item)
+	data.item.add_tag(":pouch:")
+	if ! inventory.has(data.item):
+		emit_signal("item_added", data.item)
 
 func on_item_removed(whichcon):
+	whichcon.item.remove_tag(":pouch:")
 	emit_signal("item_removed", whichcon.item)

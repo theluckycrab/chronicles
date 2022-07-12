@@ -76,5 +76,5 @@ func get_drag_data(_position):
 func can_drop_data(_position, _data):
 	return true
 
-func delcare_removed():
+func declare_removed():
 	emit_signal("item_removed", self)

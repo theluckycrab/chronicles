@@ -25,7 +25,7 @@ func _ready() -> void:
 	
 func _physics_process(_delta):
 	if net_stats.is_master:
-		if Input.is_action_just_pressed("debug"):
+		if Input.is_action_just_pressed("inventory"):
 			#get_viewport().add_child(Data.get_reference_instance("target_dummy"))
 			#Events.emit_signal("scene_change_request", "test_room2")
 			$Inventory/InventoryManager.visible = !$Inventory/InventoryManager.visible
