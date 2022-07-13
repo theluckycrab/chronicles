@@ -3,7 +3,7 @@ extends Control
 signal item_removed
 
 var item = "naked_mainhand"
-var tooltip_delay = 0.25
+var tooltip_delay = 1
 onready var tooltip_timer = $TooltipTimer
 onready var detail = $CanvasLayer/Detail
 

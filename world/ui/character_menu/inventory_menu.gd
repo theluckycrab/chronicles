@@ -5,7 +5,7 @@ signal item_removed
 
 var icon = preload("res://world/ui/item_icon.tscn")
 var inventory = []
-var filter_delay = 0.25
+var filter_delay = 0.15
 
 onready var list = $VSplitContainer/ScrollContainer/GridContainer
 onready var scroll_container = $VSplitContainer/ScrollContainer
