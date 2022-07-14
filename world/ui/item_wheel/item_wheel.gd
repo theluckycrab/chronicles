@@ -6,6 +6,8 @@ onready var host = inventory.host
 var icon = preload("res://world/ui/item_wheel/mouse_over_item_icon.tscn")
 var selected = null
 var mouse_mode = Input.MOUSE_MODE_VISIBLE
+var mouse_motion_vector = Vector2.ZERO
+var right_stick_vector = Vector2.ZERO
 
 func get_item_list(pouch=true):
 	var new_list = []
@@ -17,6 +19,10 @@ func get_item_list(pouch=true):
 			new_list.append(i)
 	item_list = new_list
 	
+func _input(event):
+	right_stick_vector.x = Input.get_joy_axis(1, JOY_AXIS_2)
+	right_stick_vector.y = Input.get_joy_axis(1, JOY_AXIS_3)
+	
 func _physics_process(delta):
 	if Input.is_action_just_pressed("item_mod"):
 		update()
@@ -26,6 +32,11 @@ func _physics_process(delta):
 	if Input.is_action_just_released("item_mod"):
 		release()
 		Input.set_mouse_mode(mouse_mode)
+	var wasd = right_stick_vector
+	var angle = atan2(wasd.x, -wasd.y)
+	var dir = Vector2.UP.rotated(angle).normalized()
+	if right_stick_vector.length() > 0.25:
+		warp_mouse((dir * 150) + Vector2(16,16))
 	
 func update():
 	get_item_list()
@@ -44,8 +55,7 @@ func layout():
 		nicon.connect("mouse_entered", self, "select", [nicon])
 		nicon.connect("mouse_exited", self, "deselect", [nicon])
 		nicon.rect_position = dir * 150
-		dir = dir.rotated(angle)
-		print(dir)
+		dir = dir.rotated(deg2rad(angle))
 
 func select(ni):
 	selected = ni
