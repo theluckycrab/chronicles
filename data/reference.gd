@@ -79,10 +79,12 @@ func load_item_database():
 		var line = file.get_csv_line()
 		var nobject = jobject.duplicate(true)
 		var counter = 0
-		for i in line:
-			if i.is_valid_integer():
-				i = i as int
-			nobject[nobject.keys()[counter]] = i
-			counter += 1
-		item_list[nobject.index] = nobject.duplicate(true)
+		if line.size() > 1:
+			for i in line:
+				if i.is_valid_integer():
+					i = i as int
+				nobject[nobject.keys()[counter]] = i
+				counter += 1
+			item_list[nobject.index] = nobject.duplicate(true)
+	print(item_list)
 	file.close()

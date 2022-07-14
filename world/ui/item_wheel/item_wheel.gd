@@ -19,11 +19,11 @@ func get_item_list(pouch=true):
 			new_list.append(i)
 	item_list = new_list
 	
-func _input(event):
+func _input(_event):
 	right_stick_vector.x = Input.get_joy_axis(1, JOY_AXIS_2)
 	right_stick_vector.y = Input.get_joy_axis(1, JOY_AXIS_3)
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("item_mod"):
 		update()
 		visible = true
@@ -60,7 +60,7 @@ func layout():
 func select(ni):
 	selected = ni
 	
-func deselect(ni):
+func deselect(_ni):
 	selected = null
 	
 func release():
