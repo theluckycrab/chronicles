@@ -8,11 +8,12 @@ var selected = null
 var mouse_mode = Input.MOUSE_MODE_VISIBLE
 var mouse_motion_vector = Vector2.ZERO
 var right_stick_vector = Vector2.ZERO
+var pouch_only = true
 
-func get_item_list(pouch=true):
+func get_item_list():
 	var new_list = []
 	for i in inventory.items:
-		if pouch:
+		if pouch_only:
 			if i.has_tag(":pouch:"):
 				new_list.append(i)
 		else:
@@ -27,11 +28,15 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("item_mod"):
 		update()
 		visible = true
+		pouch_only = true
 		mouse_mode = Input.get_mouse_mode()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if Input.is_action_just_released("item_mod"):
 		release()
 		Input.set_mouse_mode(mouse_mode)
+	if Input.is_action_just_released("draw"):
+		pouch_only = !pouch_only
+		update()
 	var wasd = right_stick_vector
 	var angle = atan2(wasd.x, -wasd.y)
 	var dir = Vector2.UP.rotated(angle).normalized()
@@ -43,6 +48,8 @@ func update():
 	layout()
 	
 func layout():
+	for i in get_children():
+		i.queue_free()
 	if item_list.empty():
 		return
 	var angle = 360 / item_list.size()
