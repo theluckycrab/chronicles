@@ -165,6 +165,7 @@ config/icon="res://data/assets/icon.png"
 [autoload]
 
 Events="*res://system/events.gd"
+Gateway="*res://network/gateway.gd"
 Network="*res://network/network.gd"
 Data="*res://data/data.gd"
 
