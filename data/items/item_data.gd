@@ -116,7 +116,6 @@ func get_slot() -> String:
 	return slot
 	
 func get_list_of_passives() -> PoolStringArray:
-	print(passives)
 	return passives
 
 #query

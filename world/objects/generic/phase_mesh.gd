@@ -10,7 +10,6 @@ var done = false
 
 func _ready():
 	done = false
-	#print("ready", name)
 	phase_progress = 1.0
 	material_override = load("res://data/assets/phase_shader.tres")
 	material_override.set_shader_param("dissolve_amount", 0.0)

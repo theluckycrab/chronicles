@@ -86,5 +86,4 @@ func load_item_database():
 				nobject[nobject.keys()[counter]] = i
 				counter += 1
 			item_list[nobject.index] = nobject.duplicate(true)
-	print(item_list)
 	file.close()

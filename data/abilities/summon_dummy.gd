@@ -17,7 +17,6 @@ func enter() -> void:
 	keyframe_connect()
 	if !host.is_connected("tree_exiting", self, "on_host_exit"):
 		host.connect("tree_exiting", self, "on_host_exit")
-	#host.hide_weapon()
 	pass
 
 
@@ -72,5 +71,4 @@ func create_summon():
 	summon = projectile
 	summonID = projectile.net_stats.netID
 	yield(get_tree().create_timer(1), "timeout")
-	print("dongetto")
 		

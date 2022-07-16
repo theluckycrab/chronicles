@@ -31,7 +31,6 @@ func _ready() -> void:
 	Data.load_char_save(Data.get_config_value("last_character"))
 	character_name.connect("text_changed", self, "on_alias_changed")
 	build_armature()
-	print("main")
 	
 	
 func _physics_process(_delta):

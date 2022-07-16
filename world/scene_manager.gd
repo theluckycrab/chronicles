@@ -58,7 +58,6 @@ func change_scene(history, commands, tmap) -> void:
 
 func play_history(history, commands):
 	for i in history:
-		print("register ", i)
 		Network.on_register(history[i])
 	for i in commands:
 		if Network.net_objects.has(commands[i].sender):

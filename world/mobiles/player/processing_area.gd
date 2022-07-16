@@ -6,7 +6,6 @@ func _ready():
 	
 func on_body_entered(body):
 	if body.has_method("set_viewers"):
-		#print("viewed upon ", body)
 		body.viewers += 1
 		
 func on_body_exited(body):

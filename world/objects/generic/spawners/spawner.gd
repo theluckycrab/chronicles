@@ -16,11 +16,9 @@ func _ready():
 		
 func on_register():
 	spawn()
-	print("spawn register", net_stats.netOwner)
 
 func retrieve_data(_i):
 	Data.get_reference_instance(index)
-	pass
 
 
 func spawn(_args={}):
@@ -36,10 +34,8 @@ func spawn(_args={}):
 		net_stats.unregister()
 
 func set_viewers(v):
-	print("spawn viewer", net_stats.netOwner)
 	viewers = v
 	net_stats.npc("spawn", {}, true)
-	pass
 	
 func set_has_spawned(_args):
 	has_spawned = true
