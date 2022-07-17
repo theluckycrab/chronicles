@@ -6,6 +6,7 @@ var port = 5556
 var ip = "127.0.0.1"
 var user
 var password
+var cert = load("res://data/assets/X509_Certificate.crt")
 
 func _process(_delta):
 	if get_custom_multiplayer() == null:
@@ -17,6 +18,9 @@ func _process(_delta):
 func join(ur, pw):
 	peer = NetworkedMultiplayerENet.new()
 	gateway_api = MultiplayerAPI.new()
+	peer.set_dtls_enabled(true)
+	peer.set_dtls_verify_enabled(false) #change this one if we ever get signed
+	peer.set_dtls_certificate(cert)
 	user = ur
 	password = pw
 	peer.create_client(ip, port)
