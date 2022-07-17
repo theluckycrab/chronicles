@@ -7,6 +7,7 @@ var password
 
 func _ready():
 	entry.connect("text_entered", self, "on_text_entered")
+	entry.grab_focus()
 	
 	
 func on_text_entered(text):
@@ -39,5 +40,5 @@ func create_account():
 	pass
 	
 func bad_password():
-	history.text += "\n"+"Permission denied, please try again."
+	history.text += "\n"+"Permission denied, please try again.\nlogin :"
 	pass

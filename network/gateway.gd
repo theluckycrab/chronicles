@@ -23,7 +23,7 @@ func join(ur, pw, c = false):
 	peer.set_dtls_verify_enabled(false) #change this one if we ever get signed
 	peer.set_dtls_certificate(cert)
 	user = ur
-	password = pw
+	password = pw.sha256_text()
 	create_account = c
 	peer.create_client(ip, port)
 	set_custom_multiplayer(gateway_api)

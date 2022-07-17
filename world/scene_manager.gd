@@ -19,13 +19,13 @@ func on_scene_change_request(scene: String) -> void:
 func unload_current(next_scene) -> void:
 	for i in mount.get_children():
 		i.queue_free()
-		
-	for i in Network.net_objects:
-		if is_instance_valid(Network.net_objects[i]):
-			Network.net_objects[i].queue_free()
-			
-	Network.net_objects.clear()
-	Network.command_history.clear()
+	change_scene("balls", "dicks", next_scene)
+#	for i in Network.net_objects:
+#		if is_instance_valid(Network.net_objects[i]):
+#			Network.net_objects[i].queue_free()
+#
+#	Network.net_objects.clear()
+#	Network.command_history.clear()
 	
 	if "town" in next_scene:
 		print("clearing inventories")
@@ -52,7 +52,7 @@ func change_scene(history, commands, tmap) -> void:
 	var nscene = load("res://world/scenes/"+tmap+"/"+tmap+".tscn").instance()
 	mount.add_child(nscene)
 	current_scene = nscene
-	play_history(history, commands)
+	#play_history(history, commands)
 	Events.emit_signal("console_print", "Scene has changed to " + tmap)
 	
 
