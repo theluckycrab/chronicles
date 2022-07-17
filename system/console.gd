@@ -22,7 +22,7 @@ func _input(event):
 	elif event.as_text() == "Enter" and ! entry.visible:
 		chat_mode = false
 	
-	if (event.as_text() == "QuoteLeft") or (event.as_text() == "Enter"):
+	if (event.as_text() == "QuoteLeft"): #or (event.as_text() == "Enter"):
 		if event.is_pressed() and !event.is_echo():
 			if !entry.visible:
 				entry.grab_focus()

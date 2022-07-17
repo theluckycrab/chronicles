@@ -40,7 +40,7 @@ func join(ip = "127.0.0.1", port = 5555) -> void:
 remote func on_join_successful():
 	print("acknowledged")
 	netID_count = get_nid()
-	Events.emit_signal("scene_change_request", "lobi_town")
+	Events.emit_signal("scene_change_request", "main_menu")
 	
 	
 #signal response
