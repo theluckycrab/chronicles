@@ -40,10 +40,10 @@ func request_login():
 	user = ""
 	password = ""
 
-remote func receive_login_result(result):
+remote func receive_login_result(result, token):
 	print("Login request result : ", result)
 	if result == true:
-		Network.host()
-		Events.emit_signal("scene_change_request", "main_menu")
+		Network.token = token
+		Network.join()
 	peer.disconnect("connection_failed", self, "on_connection_failed")
 	peer.disconnect("connection_succeeded", self, "on_connection_succeeded")

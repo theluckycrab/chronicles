@@ -6,6 +6,7 @@ var peer = NetworkedMultiplayerENet.new()
 var netID_count = 0
 var map = ""
 var alias = "Player" setget , get_alias
+var token = null
 
 var net_objects = {}
 var command_history = {}
@@ -29,7 +30,7 @@ func host(players = 1, port = 5555) -> void:
 	get_tree().network_peer = peer
 	on_join_successful()
 	
-func join(ip = "192.168.1.180", port = 5555) -> void:
+func join(ip = "127.0.0.1", port = 5555) -> void:
 	peer.close_connection()
 	peer.create_client(ip, port)
 	get_tree().network_peer = null
@@ -56,6 +57,14 @@ func on_peer_disconnected(who) -> void:
 			map_masters.erase(who)
 			rpc("sub_host_migration", who, i)
 	relay_signal("unregister", {netID=who})
+	
+	
+remote func fetch_token():
+	rpc_id(1, "return_token", token)
+	
+remote func receive_token_verification(verified):
+	if verified:
+		Events.emit_signal("scene_change_request", "main_menu")
 	
 	
 func on_register(args) -> void:
