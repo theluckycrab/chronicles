@@ -13,7 +13,8 @@ func _physics_process(delta):
 		emit_signal("text_entered", history, current_line)
 	
 func on_text_changed():
-	current_line = text.trim_prefix(history)
+	if text != text.trim_prefix(history):
+		current_line = text.trim_prefix(history)
 	text = history + current_line
 	cursor_set_line(100)
 	cursor_set_column(100)
