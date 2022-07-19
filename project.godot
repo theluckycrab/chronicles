@@ -8,18 +8,98 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "State",
+"class": "ActionState",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/states/action_state.gd"
+}, {
+"base": "Spatial",
+"class": "Armature",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/armature.gd"
+}, {
+"base": "KinematicBody",
+"class": "BaseMobile",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/base_mobile.gd"
+}, {
+"base": "Area",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://v1-reference/hitbox.gd"
+}, {
+"base": "Spatial",
+"class": "Inventory",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/inventory.gd"
+}, {
+"base": "Resource",
+"class": "Item",
+"language": "GDScript",
+"path": "res://v1-reference/item_data.gd"
+}, {
+"base": "Spatial",
+"class": "Label3D",
+"language": "GDScript",
+"path": "res://v1-reference/label_3D.gd"
+}, {
+"base": "State",
+"class": "MoveState",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/states/move_state.gd"
+}, {
+"base": "BaseMobile",
+"class": "Player",
+"language": "GDScript",
+"path": "res://v1-reference/player/player.gd"
+}, {
+"base": "ActionState",
+"class": "PlayerActionState",
+"language": "GDScript",
+"path": "res://v1-reference/player/PlayerStates/player_action_state.gd"
+}, {
+"base": "MoveState",
+"class": "PlayerMoveState",
+"language": "GDScript",
+"path": "res://v1-reference/player/PlayerStates/player_move_state.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://v1-reference/base_mobile/states/state.gd"
+}, {
+"base": "Item",
+"class": "Weapon",
+"language": "GDScript",
+"path": "res://v1-reference/weapon.gd"
+} ]
+_global_script_class_icons={
+"ActionState": "",
+"Armature": "",
+"BaseMobile": "",
+"Hitbox": "",
+"Inventory": "",
+"Item": "",
+"Label3D": "",
+"MoveState": "",
+"Player": "",
+"PlayerActionState": "",
+"PlayerMoveState": "",
+"State": "",
+"Weapon": ""
+}
+
 [application]
 
 config/name="chronicles"
-run/main_scene="res://world/scene_manager.tscn"
-config/icon="res://data/assets/icon.png"
+run/main_scene="res://scenes/scene_manager.tscn"
+config/icon="res://assets/icon.png"
 
 [autoload]
 
-Events="*res://system/events.gd"
 Gateway="*res://network/gateway.gd"
-Network="*res://network/network.gd"
-Data="*res://data/data.gd"
+GameServer="*res://network/game_server.gd"
 
 [debug]
 
