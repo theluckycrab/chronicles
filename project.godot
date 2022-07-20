@@ -374,3 +374,4 @@ quality/driver/fallback_to_gles2=true
 quality/directional_shadow/size=256
 quality/shadow_atlas/size=256
 quality/filters/anisotropic_filter_level=1
+environment/default_environment="res://assets/default_env.tres"

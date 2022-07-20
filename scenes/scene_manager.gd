@@ -16,3 +16,12 @@ func change_scene(scene) -> void:
 func unload_current() -> void:
 	for i in mount.get_children():
 		i.queue_free()
+		
+func spawn_new_player(who, where):
+	current_scene.spawn_new_player(who, where)
+	
+func despawn_player(who):
+	current_scene.despawn_player(who)
+
+func update_world_state(world_state):
+	current_scene.update_world_state(world_state)
