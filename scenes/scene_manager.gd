@@ -6,6 +6,7 @@ onready var mount = $SceneMount
 
 func _ready():
 	change_scene(start_scene)
+	$Terminal.connect("text_entered", self, "on_terminal_entry")
 	
 func change_scene(scene) -> void:
 	unload_current()
@@ -25,3 +26,13 @@ func despawn_player(who):
 
 func update_world_state(world_state):
 	current_scene.update_world_state(world_state)
+
+func on_terminal_entry(history, current_line):
+	var text = current_line.split(" ")
+	var command = text[0]
+	text.remove(0)
+	match command:
+		"quit":
+			get_tree().quit()
+		"print":
+			print(text)

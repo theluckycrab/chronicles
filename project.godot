@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://v1-reference/base_mobile/base_mobile.gd"
 }, {
+"base": "Node",
+"class": "Command",
+"language": "GDScript",
+"path": "res://system/command.gd"
+}, {
 "base": "Area",
 "class": "Hitbox",
 "language": "GDScript",
@@ -78,6 +83,7 @@ _global_script_class_icons={
 "ActionState": "",
 "Armature": "",
 "BaseMobile": "",
+"Command": "",
 "Hitbox": "",
 "Inventory": "",
 "Item": "",
@@ -100,6 +106,7 @@ config/icon="res://assets/icon.png"
 
 Gateway="*res://network/gateway.gd"
 GameServer="*res://network/game_server.gd"
+Commands="*res://system/commands.gd"
 
 [debug]
 

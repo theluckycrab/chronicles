@@ -10,8 +10,11 @@ func _ready():
 	
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
-		history = text
-		emit_signal("text_entered", history, current_line)
+		if !Commands.parse_text_for_commands(current_line):
+			history = text
+			emit_signal("text_entered", history, current_line)
+		else:
+			text = history
 	
 func on_text_changed() -> void:
 	if text != text.trim_prefix(history):
