@@ -7,9 +7,11 @@ const interpolation_offset = 100
 func _physics_process(delta):
 	var render_time = GameServer.client_clock - interpolation_offset
 	if world_state_buffer.size() > 1:
-		while world_state_buffer.size() > 2 and render_time > world_state_buffer[2].T:
-			world_state_buffer.remove(0)
-		if world_state_buffer.size() > 2:
+		while world_state_buffer.size() > 2 and render_time > world_state_buffer[1].T:
+			print(render_time," // ", world_state_buffer[1].T)
+			world_state_buffer.remove(0)#if we have 3 states and the newest is newer than our delay
+		if world_state_buffer.size() > 2:#if we still have 3 states
+			print("interpolate")
 			var interpolation_factor = float(render_time - world_state_buffer[1]["T"]) / float(world_state_buffer[2]["T"] - world_state_buffer[1]["T"])
 			for player in world_state_buffer[2].keys():
 				if str(player) == "T":
@@ -24,6 +26,7 @@ func _physics_process(delta):
 				else:
 					spawn_new_player(player, world_state_buffer[2][player]["P"])
 		elif render_time > world_state_buffer[1].T:
+			print("extrapolate")
 			var extrapolation_factor = float(render_time - world_state_buffer[0]["T"]) / float(world_state_buffer[1]["T"] - world_state_buffer[0]["T"]) - 1.00
 			for player in world_state_buffer[1].keys():
 				if str(player) == "T":

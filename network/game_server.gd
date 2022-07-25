@@ -32,8 +32,8 @@ func on_connection_succeeded():
 	rpc_id(1, "fetch_server_time", OS.get_system_time_msecs())
 	var timer = Timer.new()
 	timer.wait_time = 0.5
-	timer.autostart = true
 	add_child(timer)
+	timer.autostart = true
 	timer.connect("timeout", self, "determine_latency")
 	
 remote func return_server_time(stime, ctime):
@@ -54,7 +54,7 @@ remote func return_latency(ctime):
 				latency_array.remove(i)
 			else:
 				total_latency += latency_array[i]
-		delta_latency = (total_latency / latency_array.size() - latency)
+		delta_latency = (total_latency / latency_array.size()) - latency
 		latency = total_latency / latency_array.size()
 		latency_array.clear()
 	
