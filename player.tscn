@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://base_human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://blender/mobiles/base_human/Walk.anim" type="Animation" id=3]
+[ext_resource path="res://blender/mobiles/base_human/Idle.anim" type="Animation" id=4]
+[ext_resource path="res://player_camera.gd" type="Script" id=5]
+
+[sub_resource type="CapsuleShape" id=2]
+radius = 0.353038
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "Walk"
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+graph_offset = Vector2( 0, 196.5 )
+nodes/Animation/node = SubResource( 5 )
+nodes/Animation/position = Vector2( 360, 300 )
+nodes/output/position = Vector2( 560, 240 )
+node_connections = [ "output", 0, "Animation" ]
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349715, 0 )
+shape = SubResource( 2 )
+
+[node name="Armature" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00376052, 0 )
+
+[node name="base_human" parent="Armature" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.040757, 0 )
+
+[node name="AnimationTree" type="AnimationTree" parent="Armature"]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+process_mode = 0
+root_motion_track = NodePath("Armature/Skeleton:root")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Armature"]
+root_node = NodePath("../base_human")
+autoplay = "Walk"
+playback_process_mode = 0
+anims/Idle = ExtResource( 4 )
+anims/Walk = ExtResource( 3 )
+
+[node name="CameraPivot" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="Camera" type="Camera" parent="CameraPivot"]
+transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410342, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.61988, -2.48416 )
+far = 300.0
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Behind70" type="Position3D" parent="CameraPivot"]
+transform = Transform( -1, -2.62201e-08, 1.48702e-07, -1.09088e-08, 0.99478, 0.102046, -1.50601e-07, 0.102046, -0.99478, 0, 2.19477, -3 )
+
+[node name="Focus90" type="Position3D" parent="CameraPivot"]
+transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410341, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.47311, -2.48416 )
+
+[node name="Reflex90" type="Position3D" parent="CameraPivot"]
+transform = Transform( 0.276275, -0.165551, 0.946713, -1.50591e-08, 0.985052, 0.172256, -0.961079, -0.0475899, 0.272145, 2.03183, 1.832, 2 )
+
+[node name="Wide100" type="Position3D" parent="CameraPivot"]
+transform = Transform( -1, -1.51808e-08, 8.60946e-08, 2.22565e-08, 0.90815, 0.418644, -8.45422e-08, 0.418644, -0.90815, 0.15, 4.99088, -2.57053 )
+
+[node name="Finisher90" type="Position3D" parent="CameraPivot"]
+transform = Transform( -0.734201, 0.120661, -0.668124, 0.00609657, 0.985213, 0.171227, 0.678905, 0.121642, -0.72408, -2.6039, 2.28338, -1.03794 )
+
+[node name="RayCast" type="RayCast" parent="."]
+transform = Transform( 0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0, 0.383797, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 10 )
