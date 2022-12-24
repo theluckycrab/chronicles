@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "MoveStats",
+"language": "GDScript",
+"path": "res://move_stats.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://state.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://state_machine.gd"
+} ]
+_global_script_class_icons={
+"MoveStats": "",
+"State": "",
+"StateMachine": ""
+}
+
 [application]
 
 config/name="chronicles"
