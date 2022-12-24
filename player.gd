@@ -19,13 +19,14 @@ onready var armature = $Armature
 	
 func _ready():
 	state_machine.add_override("Walk", preload("res://fly.gd").new())
+	state_machine.set_state("Walk")
 	
 func _physics_process(delta):
 	stored_delta = delta
 	state_machine.cycle()
 	if Input.is_action_just_pressed("ui_accept"):
-		state_machine.remove_override("Walk")
-	#move(delta)
+		state_machine.call_deferred("remove_override", "Walk")
+	move(delta)
 
 func get_wasd():
 	var wasd = Vector3.ZERO
@@ -37,29 +38,19 @@ func get_wasd_cam():
 	return get_wasd().normalized().rotated(Vector3.UP, $CameraPivot.rotation.y)
 	
 func move(delta):
-	var wasd = get_wasd().normalized()
-	move_speed = base_speed
-	if wasd != Vector3.ZERO:
-		armature.face_dir(wasd.rotated(Vector3.UP, $CameraPivot.rotation.y), delta)
-	sprint(delta)
-	wasd = wasd.rotated(Vector3.UP, $CameraPivot.rotation.y)
-	wasd.y = -1
-	if wasd.z != 0:
-		$Armature/AnimationPlayer.play("Walk")
-	else:
-		$Armature/AnimationPlayer.play("Idle")
-	if move_speed == sprint_speed:
-		$Armature/AnimationPlayer.play("Walk", 0, 2.5)
-	move_and_slide(wasd * move_speed)
-
-func sprint(delta):
-	if Input.is_action_just_pressed("sprint"):
-			sprint_acceleration = base_speed * 2
-	if Input.is_action_pressed("sprint"):
-		sprint_acceleration += base_speed * 1.33 * delta
-		if sprint_acceleration > sprint_speed:
-			sprint_acceleration = sprint_speed
-		move_speed = sprint_acceleration
-	else:
-		sprint_acceleration = base_speed
+	if using_gravity:
+		add_force(Vector3.DOWN * 20)
+	if velocity != Vector3.ZERO:
+		armature.face_dir(velocity, delta)
+	move_and_slide(velocity + force)
+	velocity = Vector3.ZERO
+	force = Vector3.ZERO
 		
+func set_velocity(v):
+	velocity = v
+	
+func add_force(f):
+	force += f
+
+func play(anim:String, root_motion:=false):
+	armature.play(anim, root_motion)

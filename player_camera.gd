@@ -24,7 +24,7 @@ func _input(event):
 		
 func _process(delta):
 	if last_mouse_relative != Vector2.ZERO:
-		rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), 0.9)
+		rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), 26 * delta)
 		last_mouse_relative = Vector2.ZERO
 		
 func build_views():
