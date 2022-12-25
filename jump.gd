@@ -16,7 +16,7 @@ func _init():
 	priority = 1
 	index = "Jump"
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if jumped == true and host.is_on_floor():
 		jumped = false
 

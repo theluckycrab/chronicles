@@ -11,14 +11,17 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		last_mouse_relative = event.relative
+	if event.is_action_released("ui_cancel"):
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if event.as_text() as int < views.size():
 		var v = event.as_text() as int
 		if v == 0:
 			if event.as_text() != "0":
 				return
 		change_view(v)
-	if event.as_text() == "Escape":
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 		
 		

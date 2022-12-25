@@ -27,3 +27,14 @@ shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.4836, 2.57498, -77.7079 )
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -32.5
+margin_right = 157.0
+margin_bottom = 32.5
+text = "Escape to release cursor
+Escape to capture cursor
+Shift to run
+Space to jump"

@@ -81,6 +81,5 @@ func fallback():
 		for i in ["Fall", "Walk", "Idle"]:
 			if get_state(i).can_enter():
 				set_state(get_state(i))
-				print("falling back to ", i)
 				return
 		print("couldn't find a fallback state for ", get_parent())

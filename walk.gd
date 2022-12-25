@@ -24,13 +24,12 @@ func exit():
 	pass
 	
 func execute():
-	var wasd = host.get_wasd().normalized()
 	move_speed = base_speed
 	handle_sprint()
 	check_turning(host)
 	host.play("Walk")
 	if move_speed == sprint_speed:
-		host.armature.get_node("AnimationPlayer").play("Walk", 0, 2.5)
+		host.armature.get_node("AnimationPlayer").play("Walk", 0, 2.5) #this won't network
 	host.set_velocity(host.get_wasd_cam() * move_speed)
 
 func handle_sprint():
@@ -50,4 +49,5 @@ func check_turning(host):
 	var angle = rad2deg(atan2(wasd.x, wasd.z))
 	if abs(arm_rot - angle) > turn_angle_limit and abs(arm_rot - angle) < 360 - turn_angle_limit:
 		move_speed = turn_speed
+		sprint_acceleration *= 0.9
 	pass
