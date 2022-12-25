@@ -10,7 +10,7 @@ var max_v_angle = deg2rad(25)
 var views = []
 var stored_delta = 0
 
-onready var v = $Vertical
+onready var vertical_pivot = $Vertical
 onready var camera = $Vertical/Camera
 
 func _ready():
@@ -35,13 +35,25 @@ func _input(event):
 	if event.is_action_released("ui_page_down"):
 		h_invert *= -1
 			
-	if event.as_text() as int < views.size():
-		var v = event.as_text() as int
-		if v == 0:
-			if event.as_text() != "0":
-				return
-		change_view(v)
-		
+#	if event.as_text() as int < views.size():
+#		var v = event.as_text() as int
+#		if v == 0:
+#			if event.as_text() != "0":
+#				return
+#		change_view(v)
+
+func _process(_delta):
+	if last_mouse_relative == Vector2.ZERO:
+		last_mouse_relative.x = Input.get_joy_axis(1, 2)
+		last_mouse_relative.y = Input.get_joy_axis(1, 3)
+		if abs(last_mouse_relative.x) < 0.25 and abs(last_mouse_relative.y) < 0.25 or last_mouse_relative == Vector2.ZERO:
+			print("stuck")
+			last_mouse_relative = Vector2.ZERO
+			return
+		print(last_mouse_relative)
+		apply_rotation(true)
+		apply_limits()
+	
 func build_views():
 	for i in get_children():
 		if i is Position3D:
@@ -54,9 +66,19 @@ func change_view(v):
 	camera.rotation.y = deg2rad(-180)
 	rotation.y = views[v].rotation.y
 
-func apply_rotation():
-	rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), h_sens * h_invert)
-	v.rotation.x = lerp_angle(v.rotation.x, v.rotation.x - deg2rad(last_mouse_relative.y), v_sens * v_invert)
+func apply_rotation(joypad=false):
+	var hmod = h_sens
+	var vmod = v_sens
+	if joypad:
+		hmod *= 10
+		vmod *= 10
+	rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), hmod * h_invert)
+	vertical_pivot.rotation.x = \
+			lerp_angle(vertical_pivot.rotation.x,\
+			 vertical_pivot.rotation.x - deg2rad(last_mouse_relative.y),\
+			 vmod * v_invert)
+	last_mouse_relative = Vector2.ZERO
 	
 func apply_limits():
-	v.rotation.x = clamp(v.rotation.x, min_v_angle, max_v_angle)
+	vertical_pivot.rotation.x = clamp(vertical_pivot.rotation.x, min_v_angle, max_v_angle)
+	

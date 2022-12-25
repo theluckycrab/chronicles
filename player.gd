@@ -18,7 +18,7 @@ func _ready():
 func _physics_process(delta):
 	stored_delta = delta
 	state_machine.cycle()
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("jump"):
 		state_machine.call_deferred("set_state", jump_state)
 	move(delta)
 

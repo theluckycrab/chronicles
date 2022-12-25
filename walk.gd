@@ -44,10 +44,12 @@ func handle_sprint():
 		sprint_acceleration = base_speed
 
 func check_turning(host):
+	if move_speed < sprint_speed:
+		return
 	var arm_rot = int(rad2deg(host.armature.rotation.y)) % 360
 	var wasd = host.get_wasd_cam()
 	var angle = rad2deg(atan2(wasd.x, wasd.z))
 	if abs(arm_rot - angle) > turn_angle_limit and abs(arm_rot - angle) < 360 - turn_angle_limit:
 		move_speed = turn_speed
-		sprint_acceleration *= 0.9
+		sprint_acceleration *= 0.75
 	pass
