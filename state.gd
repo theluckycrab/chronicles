@@ -3,6 +3,7 @@ class_name State
 
 var priority = 0
 var host = null
+var index = null
 
 func can_enter():
 	return true

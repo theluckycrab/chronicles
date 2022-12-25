@@ -19,7 +19,7 @@ onready var armature = $Armature
 	
 func _ready():
 	state_machine.add_override("Walk", preload("res://fly.gd").new())
-	state_machine.set_state("Walk")
+	state_machine.connect("state_changed", $StateLabel, "set_text")
 	
 func _physics_process(delta):
 	stored_delta = delta

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://base_human.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://armature.gd" type="Script" id=6]
 [ext_resource path="res://state_machine.gd" type="Script" id=7]
 [ext_resource path="res://walk.gd" type="Script" id=8]
+[ext_resource path="res://idle.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.353038
@@ -79,3 +80,13 @@ script = ExtResource( 7 )
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="StateLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+align = 1

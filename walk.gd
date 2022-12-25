@@ -9,12 +9,13 @@ var turn_angle_limit = 30
 
 func _init():
 	priority = 0
+	index = "Walk"
 
 func can_enter():
-	return true
+	return host.get_wasd() * Vector3(1,0,1) != Vector3.ZERO
 	
 func can_exit():
-	return host.get_wasd() == Vector3.ZERO
+	return host.get_wasd() * Vector3(1,0,1) == Vector3.ZERO
 
 func enter():
 	pass

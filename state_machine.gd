@@ -1,13 +1,13 @@
 extends Node
 class_name StateMachine
 
+signal state_changed
+
 var current_state = null
 var next_state = null
 var last_state = null
 
 var override_dictionary = {}
-
-onready var walk = $Walk
 
 onready var host = get_parent()
 
@@ -40,6 +40,7 @@ func cycle():
 		else:
 			fallback()
 			return
+	emit_signal("state_changed", current_state.index)
 	current_state.execute()
 	pass
 
@@ -76,4 +77,8 @@ func remove_override(key:String):
 	
 func fallback():
 	if ! is_instance_valid(current_state):
-		set_state(get_state("Walk"))
+		for i in ["Walk", "Idle"]:
+			if get_state(i).can_enter():
+				set_state(get_state(i))
+				return
+		print("couldn't find a fallback state for ", get_parent())
