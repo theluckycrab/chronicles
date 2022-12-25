@@ -12,10 +12,10 @@ func _init():
 	index = "Walk"
 
 func can_enter():
-	return host.get_wasd() * Vector3(1,0,1) != Vector3.ZERO
+	return host.is_on_floor() and host.get_wasd() != Vector3.ZERO
 	
 func can_exit():
-	return host.get_wasd() * Vector3(1,0,1) == Vector3.ZERO
+	return ! host.is_on_floor() or host.get_wasd() == Vector3.ZERO
 
 func enter():
 	pass
@@ -37,7 +37,7 @@ func handle_sprint():
 	if Input.is_action_just_pressed("sprint"):
 		sprint_acceleration = base_speed * 2
 	if Input.is_action_pressed("sprint"):
-		sprint_acceleration += base_speed * 0.05
+		sprint_acceleration += base_speed * 0.03
 		if sprint_acceleration > sprint_speed:
 			sprint_acceleration = sprint_speed
 		move_speed = sprint_acceleration

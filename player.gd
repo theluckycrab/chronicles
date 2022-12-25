@@ -16,16 +16,17 @@ var move_stats = MoveStats.new()
 
 onready var state_machine = $StateMachine
 onready var armature = $Armature
+
+onready var jump_state = $StateMachine/Jump
 	
 func _ready():
-	state_machine.add_override("Walk", preload("res://fly.gd").new())
 	state_machine.connect("state_changed", $StateLabel, "set_text")
 	
 func _physics_process(delta):
 	stored_delta = delta
 	state_machine.cycle()
 	if Input.is_action_just_pressed("ui_accept"):
-		state_machine.call_deferred("remove_override", "Walk")
+		state_machine.call_deferred("set_state", jump_state)
 	move(delta)
 
 func get_wasd():
@@ -42,7 +43,7 @@ func move(delta):
 		add_force(Vector3.DOWN * 20)
 	if velocity != Vector3.ZERO:
 		armature.face_dir(velocity, delta)
-	move_and_slide(velocity + force)
+	move_and_slide(velocity + force, Vector3.UP)
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
 		

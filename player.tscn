@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://base_human.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://state_machine.gd" type="Script" id=7]
 [ext_resource path="res://walk.gd" type="Script" id=8]
 [ext_resource path="res://idle.gd" type="Script" id=9]
+[ext_resource path="res://fall.gd" type="Script" id=10]
+[ext_resource path="res://jump.gd" type="Script" id=11]
 
 [sub_resource type="CapsuleShape" id=2]
 radius = 0.353038
@@ -83,6 +85,12 @@ script = ExtResource( 8 )
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 9 )
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource( 10 )
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
 
 [node name="StateLabel" type="Label" parent="."]
 anchor_top = 1.0

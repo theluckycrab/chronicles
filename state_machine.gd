@@ -51,6 +51,7 @@ func set_state(state):
 		next_state = state
 	if is_instance_valid(next_state):
 		next_state.host = host
+	cycle()
 		
 func get_state(state:String):
 	if override_dictionary.has(state):
@@ -77,8 +78,9 @@ func remove_override(key:String):
 	
 func fallback():
 	if ! is_instance_valid(current_state):
-		for i in ["Walk", "Idle"]:
+		for i in ["Fall", "Walk", "Idle"]:
 			if get_state(i).can_enter():
 				set_state(get_state(i))
+				print("falling back to ", i)
 				return
 		print("couldn't find a fallback state for ", get_parent())
