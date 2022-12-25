@@ -55,16 +55,8 @@ anims/Walk = ExtResource( 3 )
 [node name="CameraPivot" type="Spatial" parent="."]
 script = ExtResource( 5 )
 
-[node name="Camera" type="ClippedCamera" parent="CameraPivot"]
-transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410342, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.61988, -2.48416 )
-far = 300.0
-process_mode = 1
-__meta__ = {
-"_editor_description_": ""
-}
-
 [node name="Behind70" type="Position3D" parent="CameraPivot"]
-transform = Transform( -1, -2.63746e-08, 1.50208e-07, -1.09088e-08, 0.99478, 0.102046, -1.52115e-07, 0.102046, -0.99478, 0, 2.19477, -3 )
+transform = Transform( -1, -2.63746e-08, 1.50208e-07, -1.09088e-08, 0.99478, 0.102046, -1.52115e-07, 0.102046, -0.99478, 0, 1.98805, -4.18379 )
 
 [node name="Focus90" type="Position3D" parent="CameraPivot"]
 transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410341, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.47311, -2.48416 )
@@ -77,6 +69,17 @@ transform = Transform( -1, -1.51808e-08, 8.60946e-08, 2.22565e-08, 0.90815, 0.41
 
 [node name="Finisher90" type="Position3D" parent="CameraPivot"]
 transform = Transform( -0.734201, 0.120661, -0.668124, 0.00609657, 0.985213, 0.171227, 0.678905, 0.121642, -0.72408, -2.6039, 2.28338, -1.03794 )
+
+[node name="Vertical" type="Spatial" parent="CameraPivot"]
+
+[node name="Camera" type="ClippedCamera" parent="CameraPivot/Vertical"]
+transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410342, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.61988, -2.48416 )
+h_offset = 0.02
+far = 300.0
+process_mode = 1
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 7 )
