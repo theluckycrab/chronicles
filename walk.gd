@@ -2,7 +2,7 @@ extends State
 
 var base_speed = 15
 var move_speed = base_speed
-var sprint_speed = base_speed * 4
+var sprint_speed = base_speed * 2.75
 var sprint_acceleration = base_speed
 var turn_speed = 5
 var turn_angle_limit = 30
@@ -34,7 +34,7 @@ func execute():
 
 func handle_sprint():
 	if Input.is_action_just_pressed("sprint"):
-		sprint_acceleration = base_speed * 2
+		sprint_acceleration = base_speed * 1.15
 	if Input.is_action_pressed("sprint"):
 		sprint_acceleration += base_speed * 0.03
 		if sprint_acceleration > sprint_speed:
@@ -51,5 +51,5 @@ func check_turning(host):
 	var angle = rad2deg(atan2(wasd.x, wasd.z))
 	if abs(arm_rot - angle) > turn_angle_limit and abs(arm_rot - angle) < 360 - turn_angle_limit:
 		move_speed = turn_speed
-		sprint_acceleration *= 0.75
+		sprint_acceleration *= 0.66
 	pass

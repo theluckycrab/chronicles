@@ -57,6 +57,7 @@ func play(anim:String, root_motion:=false):
 
 func sync_move(args):
 	if is_dummy():
+		print(name + " getting updates")
 		global_transform.origin = args.position
 		armature.rotation.y = args.rotation
 		play(args.animation)

@@ -22,12 +22,14 @@ func _ready():
 	join()
 	
 remote func receive_map_history(history):
-	for i in history:
-		if history[i].size() > 0:
-			npc(history[i][history[i].keys()[0]])
-			print("[History] ", history[i])
+	for call_dict in history:
+		if history[call_dict].size() > 0:
+			for entry in history[call_dict]:
+				npc(history[call_dict][entry])
+				print("[History] ", history[call_dict][entry])
 		
-	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 5, -5)}
+	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 5, -5),
+				"unit_uuid":nid}
 	Server.npc(args)
 
 remote func npc(args):
@@ -35,8 +37,9 @@ remote func npc(args):
 		if str(args.uuid) == Server.map:
 			print("[NPC / MAP] ", args)
 			get_node("/root/"+args.map).call(args.function, args)
-		elif !args.has("update"):
-			print("[NPC] ", args)
+		else:
+			if ! args.has("update"):
+				print("[NPC] ", args)
 			get_node("/root/"+str(args.map)+"/"+str(args.uuid)).call(args.function, args)
 	
 	

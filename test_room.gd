@@ -12,4 +12,4 @@ func spawn(args):
 	var p = load("res://" + args.unit + ".tscn").instance()
 	add_child(p)
 	p.global_transform.origin = args.position
-	p.name = str(args.sender)
+	p.name = str(args.unit_uuid)

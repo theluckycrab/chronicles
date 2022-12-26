@@ -32,7 +32,6 @@ anchor_bottom = 0.5
 margin_top = -32.5
 margin_right = 157.0
 margin_bottom = 32.5
-text = "Escape to release cursor
-Escape to capture cursor
-Shift to run
-Space to jump"
+text = "Escape to toggle cursor
+Shift/R1 to run
+Space/X to jump"
