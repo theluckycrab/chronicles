@@ -36,6 +36,11 @@ config/name="chronicles"
 run/main_scene="res://test_room.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Client="*res://client.gd"
+Server="*res://server.gd"
+
 [input]
 
 w={

@@ -47,10 +47,8 @@ func _process(_delta):
 		last_mouse_relative.x = Input.get_joy_axis(1, 2)
 		last_mouse_relative.y = Input.get_joy_axis(1, 3)
 		if abs(last_mouse_relative.x) < 0.25 and abs(last_mouse_relative.y) < 0.25 or last_mouse_relative == Vector2.ZERO:
-			print("stuck")
 			last_mouse_relative = Vector2.ZERO
 			return
-		print(last_mouse_relative)
 		apply_rotation(true)
 		apply_limits()
 	

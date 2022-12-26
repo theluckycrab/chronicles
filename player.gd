@@ -48,3 +48,4 @@ func add_force(f):
 
 func play(anim:String, root_motion:=false):
 	armature.play(anim, root_motion)
+	
