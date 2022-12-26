@@ -1,6 +1,6 @@
 extends Node
 
-var map = "main"
+var map = "test_room"
 
 func get_history(map):
 	rpc_id(1, "send_history", map)
