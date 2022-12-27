@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://base_human.tscn" type="PackedScene" id=2]
@@ -11,19 +11,36 @@
 [ext_resource path="res://idle.gd" type="Script" id=9]
 [ext_resource path="res://fall.gd" type="Script" id=10]
 [ext_resource path="res://jump.gd" type="Script" id=11]
+[ext_resource path="res://ledge_climb_sensor.gd" type="Script" id=12]
+[ext_resource path="res://hang.gd" type="Script" id=13]
+[ext_resource path="res://blender/mobiles/base_human/UpLedge.anim" type="Animation" id=14]
+[ext_resource path="res://blender/mobiles/base_human/HangLedge.anim" type="Animation" id=15]
+[ext_resource path="res://climb.gd" type="Script" id=16]
+[ext_resource path="res://armature_animator.gd" type="Script" id=17]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.453421
 
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "UpLedge"
+
 [sub_resource type="AnimationNodeAnimation" id=5]
-animation = "Walk"
+animation = "UpLedge"
+
+[sub_resource type="AnimationNodeOneShot" id=8]
+fadein_time = 0.0
+fadeout_time = 0.0
 
 [sub_resource type="AnimationNodeBlendTree" id=4]
-graph_offset = Vector2( 0, 196.5 )
+graph_offset = Vector2( 0, 304.5 )
+nodes/Action/node = SubResource( 7 )
+nodes/Action/position = Vector2( 240, 360 )
 nodes/Animation/node = SubResource( 5 )
-nodes/Animation/position = Vector2( 360, 300 )
-nodes/output/position = Vector2( 560, 240 )
-node_connections = [ "output", 0, "Animation" ]
+nodes/Animation/position = Vector2( 280, 180 )
+nodes/OneShot/node = SubResource( 8 )
+nodes/OneShot/position = Vector2( 460, 240 )
+nodes/output/position = Vector2( 720, 240 )
+node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation", "OneShot", 1, "Action" ]
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -33,24 +50,44 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.97
 shape = SubResource( 6 )
 
 [node name="Armature" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00376052, 0 )
 script = ExtResource( 6 )
 
 [node name="base_human" parent="Armature" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.040757, 0 )
 
-[node name="AnimationTree" type="AnimationTree" parent="Armature"]
-tree_root = SubResource( 4 )
-anim_player = NodePath("../AnimationPlayer")
-process_mode = 0
-root_motion_track = NodePath("Armature/Skeleton:root")
+[node name="RootMotionView" type="RootMotionView" parent="Armature/base_human"]
+animation_path = NodePath("../../AnimationPlayer/AnimationTree")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Armature"]
 root_node = NodePath("../base_human")
-autoplay = "Walk"
 playback_process_mode = 0
+anims/HangLedge = ExtResource( 15 )
 anims/Idle = ExtResource( 4 )
+anims/UpLedge = ExtResource( 14 )
 anims/Walk = ExtResource( 3 )
+script = ExtResource( 17 )
+
+[node name="AnimationTree" type="AnimationTree" parent="Armature/AnimationPlayer"]
+tree_root = SubResource( 4 )
+anim_player = NodePath("..")
+process_mode = 0
+root_motion_track = NodePath("Armature/Skeleton:root")
+parameters/OneShot/active = false
+
+[node name="Sensors" type="Spatial" parent="Armature"]
+
+[node name="LedgeClimb" type="Spatial" parent="Armature/Sensors"]
+script = ExtResource( 12 )
+
+[node name="Wall" type="RayCast" parent="Armature/Sensors/LedgeClimb"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.43141, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 1 )
+
+[node name="Over" type="RayCast" parent="Armature/Sensors/LedgeClimb"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7188, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 1 )
 
 [node name="CameraPivot" type="Spatial" parent="."]
 script = ExtResource( 5 )
@@ -99,6 +136,12 @@ script = ExtResource( 10 )
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
+
+[node name="Hang" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
+
+[node name="Climb" type="Node" parent="StateMachine"]
+script = ExtResource( 16 )
 
 [node name="StateLabel" type="Label" parent="."]
 anchor_top = 1.0

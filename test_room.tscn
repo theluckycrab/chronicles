@@ -34,4 +34,8 @@ margin_right = 157.0
 margin_bottom = 32.5
 text = "Escape to toggle cursor
 Shift/R1 to run
-Space/X to jump"
+Space/X to jump
+Page Up/Down to invert camera"
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 82.0178, 0 )

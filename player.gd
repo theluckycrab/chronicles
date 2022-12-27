@@ -36,10 +36,15 @@ func get_wasd_cam():
 	return get_wasd().normalized().rotated(Vector3.UP, $CameraPivot.rotation.y)
 	
 func move(delta):
-	if using_gravity:
-		add_force(Vector3.DOWN * 20)
-	if velocity != Vector3.ZERO:
-		armature.face_dir(velocity, delta)
+	if armature.anim.is_using_root_motion():
+		var m = armature.anim.get_root_motion().origin
+		m = m.rotated(Vector3.UP, armature.rotation.y)
+		velocity = m / delta
+	else: 
+		if using_gravity:
+			add_force(Vector3.DOWN * 20)
+		if velocity != Vector3.ZERO:
+			armature.face_dir(velocity, delta)
 	var _d = move_and_slide(velocity + force, Vector3.UP)
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
@@ -57,10 +62,15 @@ func play(anim:String, root_motion:=false):
 
 func sync_move(args):
 	if is_dummy():
-		print(name + " getting updates")
 		global_transform.origin = args.position
 		armature.rotation.y = args.rotation
 		play(args.animation)
 
 func is_dummy():
 	return name != str(Client.nid)
+	
+func get_ledge():
+	return $Armature/Sensors/LedgeClimb.get_ledge()
+
+func set_state(state):
+	state_machine.set_state(state)
