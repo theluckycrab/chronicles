@@ -10,16 +10,34 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "BaseAbility",
+"language": "GDScript",
+"path": "res://abilities/base_ability.gd"
+}, {
+"base": "Node",
+"class": "BaseEffect",
+"language": "GDScript",
+"path": "res://effects/base_effect.gd"
+}, {
+"base": "Node",
+"class": "BaseItem",
+"language": "GDScript",
+"path": "res://items/base_item.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
-"path": "res://state.gd"
+"path": "res://mobiles/states/state.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://state_machine.gd"
+"path": "res://mobiles/state_machine.gd"
 } ]
 _global_script_class_icons={
+"BaseAbility": "",
+"BaseEffect": "",
+"BaseItem": "",
 "State": "",
 "StateMachine": ""
 }
@@ -27,13 +45,14 @@ _global_script_class_icons={
 [application]
 
 config/name="chronicles"
-run/main_scene="res://test_room.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://maps/test_room.tscn"
+config/icon="res://assets/2d/icon.png"
 
 [autoload]
 
-Client="*res://client.gd"
-Server="*res://server.gd"
+Data="*res://system/data.gd"
+Client="*res://system/client.gd"
+Server="*res://system/server.gd"
 
 [input]
 
@@ -80,4 +99,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://assets/misc/default_env.tres"

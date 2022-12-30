@@ -1,22 +1,24 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://player.gd" type="Script" id=1]
-[ext_resource path="res://base_human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mobiles/player.gd" type="Script" id=1]
+[ext_resource path="res://mobiles/base_human.tscn" type="PackedScene" id=2]
 [ext_resource path="res://blender/mobiles/base_human/Walk.anim" type="Animation" id=3]
 [ext_resource path="res://blender/mobiles/base_human/Idle.anim" type="Animation" id=4]
-[ext_resource path="res://player_camera.gd" type="Script" id=5]
-[ext_resource path="res://armature.gd" type="Script" id=6]
-[ext_resource path="res://state_machine.gd" type="Script" id=7]
-[ext_resource path="res://walk.gd" type="Script" id=8]
-[ext_resource path="res://idle.gd" type="Script" id=9]
-[ext_resource path="res://fall.gd" type="Script" id=10]
-[ext_resource path="res://jump.gd" type="Script" id=11]
-[ext_resource path="res://ledge_climb_sensor.gd" type="Script" id=12]
-[ext_resource path="res://hang.gd" type="Script" id=13]
+[ext_resource path="res://mobiles/player_camera.gd" type="Script" id=5]
+[ext_resource path="res://mobiles/armature.gd" type="Script" id=6]
+[ext_resource path="res://mobiles/state_machine.gd" type="Script" id=7]
+[ext_resource path="res://mobiles/states/walk.gd" type="Script" id=8]
+[ext_resource path="res://mobiles/states/idle.gd" type="Script" id=9]
+[ext_resource path="res://mobiles/states/fall.gd" type="Script" id=10]
+[ext_resource path="res://mobiles/states/jump.gd" type="Script" id=11]
+[ext_resource path="res://mobiles/ledge_climb_sensor.gd" type="Script" id=12]
+[ext_resource path="res://mobiles/states/hang.gd" type="Script" id=13]
 [ext_resource path="res://blender/mobiles/base_human/UpLedge.anim" type="Animation" id=14]
 [ext_resource path="res://blender/mobiles/base_human/HangLedge.anim" type="Animation" id=15]
-[ext_resource path="res://climb.gd" type="Script" id=16]
-[ext_resource path="res://armature_animator.gd" type="Script" id=17]
+[ext_resource path="res://mobiles/states/climb.gd" type="Script" id=16]
+[ext_resource path="res://mobiles/armature_animator.gd" type="Script" id=17]
+[ext_resource path="res://mobiles/effect_manager.gd" type="Script" id=18]
+[ext_resource path="res://assets/misc/default_env.tres" type="Environment" id=19]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.453421
@@ -116,6 +118,7 @@ spring_length = -4.0
 
 [node name="Camera" type="Camera" parent="CameraPivot/Vertical"]
 transform = Transform( -0.987125, 0.0400545, -0.154853, 0.00410342, 0.97416, 0.22582, 0.159897, 0.222277, -0.961783, -0.566122, 2.25022, -2.48416 )
+environment = ExtResource( 19 )
 h_offset = 0.02
 far = 300.0
 __meta__ = {
@@ -149,3 +152,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
 align = 1
+
+[node name="EffectManager" type="Spatial" parent="."]
+script = ExtResource( 18 )

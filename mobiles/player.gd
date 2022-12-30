@@ -4,6 +4,7 @@ var velocity = Vector3.ZERO
 var force = Vector3.ZERO
 var using_gravity = true
 var stored_delta = 0
+var items
 
 onready var state_machine = $StateMachine
 onready var armature = $Armature
@@ -17,6 +18,7 @@ func _ready():
 		$CameraPivot/Vertical/Camera.current = false
 	else:
 		$CameraPivot/Vertical/Camera.current = true
+	items = BaseItem.new("thief_head")
 	
 func _physics_process(delta):
 	if !is_dummy():
@@ -24,6 +26,8 @@ func _physics_process(delta):
 		state_machine.cycle()
 		if Input.is_action_just_pressed("jump"):
 			state_machine.call_deferred("set_state", jump_state)
+		if Input.is_action_just_pressed("ui_left"):
+			items.activate(self)
 		move(delta)
 
 func get_wasd():
@@ -74,3 +78,14 @@ func get_ledge():
 
 func set_state(state):
 	state_machine.set_state(state)
+
+func npc(function, args):
+	args["function"] = function
+	args["uuid"] = int(name)
+	Server.npc(args)
+
+func equip(args):
+	armature.equip(args)
+
+func add_effect(e):
+	$EffectManager.add_effect(e)

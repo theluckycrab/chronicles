@@ -9,7 +9,7 @@ func _ready():
 
 func spawn(args):
 	print("Spawning ", args)
-	var p = load("res://" + args.unit + ".tscn").instance()
+	var p = load("res://mobiles/" + args.unit + ".tscn").instance()
 	add_child(p)
 	p.global_transform.origin = args.position
 	p.name = str(args.unit_uuid)
