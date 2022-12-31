@@ -27,3 +27,5 @@ func execute(host):
 				for j in host.get_tree().get_nodes_in_group(i):
 					if j.has_method("highlight"):
 						j.highlight(color)
+		"buff":
+			host.add_effect(current)

@@ -1,7 +1,14 @@
 {
 	"kunai_cloak":
 				{
-					"ability":"treasure_sense",
-					"mesh":"cloak"
+					"ability":"glamour",
+					"mesh":"cloak",
+					"slot":"back"
+				},
+	"glamour":
+				{
+					"ability":"none",
+					"mesh":"",
+					"slot":"glamour"
 				}	
 }

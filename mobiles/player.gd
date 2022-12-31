@@ -89,6 +89,9 @@ func npc(function, args):
 
 func equip(args):
 	armature.equip(args)
+	
+func unequip(args):
+	armature.unequip(args)
 
 func add_effect(e):
 	$EffectManager.add_effect(e)
