@@ -57,9 +57,6 @@ script = ExtResource( 6 )
 [node name="base_human" parent="Armature" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.040757, 0 )
 
-[node name="RootMotionView" type="RootMotionView" parent="Armature/base_human"]
-animation_path = NodePath("../../AnimationPlayer/AnimationTree")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Armature"]
 root_node = NodePath("../base_human")
 playback_process_mode = 0

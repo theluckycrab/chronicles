@@ -19,7 +19,9 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if get_parent().is_dummy():
+		return
+	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE and event is InputEventMouseMotion:
 		last_mouse_relative = event.relative
 		apply_rotation()
 		apply_limits()

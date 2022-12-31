@@ -42,8 +42,17 @@
 				},
 	"glamour_cloak":
 				{
-					"name":"Glamour (Cloak)",
+					"name":"Glamour",
 					"description":"Apparently equip a cloak.",
+					"slot":"active",
+					"type":"buff",
+					"effect":{"index":"glamour", "args":{"mesh":"cloak"}},
+					"animation":"Pose"
+				},
+	"glamour_bandana":
+				{
+					"name":"Glamour (Cloak)",
+					"description":"Apparently equip a bandana.",
 					"slot":"active",
 					"type":"buff",
 					"effect":"glamour",

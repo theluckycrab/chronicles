@@ -16,13 +16,12 @@ func play(animation, motion: bool = false):
 		anim.play(animation)
 	anim.last_animation = animation
 
-func equip(item):
+func equip(args):
 	var m = MeshInstance.new()
-	var i = ""
-	if item is String:
-		i = BaseItem.new(item)
-	else:
-		i = item
+	var item = Data.get_item(args.base_item)
+	for i in args:
+		if item.current.has(i):
+			item.current[i] = args[i]
 	$base_human/Armature/Skeleton.add_child(m)
-	m.mesh = i.current.mesh
+	m.mesh = load("res://blender/equipment/"+item.current.mesh+".mesh")
 	m.skeleton = $base_human/Armature/Skeleton.get_path()

@@ -47,7 +47,7 @@
 	"glamour":
 				{
 					"skills":[],
-					"ability":"",
+					"ability":"glamour_bandana",
 					"slot":"glamour",
 					"value":0,
 					"mesh":"bandana",

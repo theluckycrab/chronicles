@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://items/base_item.gd"
 }, {
+"base": "BaseEffect",
+"class": "EquipEffect",
+"language": "GDScript",
+"path": "res://effects/equip_effect.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "BaseAbility": "",
 "BaseEffect": "",
 "BaseItem": "",
+"EquipEffect": "",
 "State": "",
 "StateMachine": ""
 }

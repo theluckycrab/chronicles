@@ -4,11 +4,15 @@ class_name BaseAbility
 var raw
 var current
 
-func _init(index):
-	raw = Data.get_ability(index) 
+func _init(data):
+	if data is String:
+		return
+	raw = data
 	current = raw
-	if current is Dictionary:
-		current.effect = BaseEffect.new(raw.effect, raw.args)
+	if current.effect is Dictionary:
+		current.effect = Data.get_effect(current.effect.index, current.effect.args)
+		return
+	current.effect = Data.get_effect(current.effect)
 	
 func execute(host):
 	match current.type:

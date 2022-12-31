@@ -22,17 +22,20 @@ func load_json(file_name):
 	f.close()
 	return list
 
-func get_item(index):
-	if index == "":
-		return index
-	return items[index].duplicate(true)
+func get_item(index, args={}):
+	var item = items[index].duplicate(true)
+	return BaseItem.new(item)
 	
-func get_ability(index):
-	if index == "":
-		return index
-	return abilities[index].duplicate(true)
+func get_ability(index, args={}):
+	var ability = abilities[index].duplicate(true)
+	match ability.type:
+		"buff":
+			return BaseAbility.new(ability)
+	return null
 	
-func get_effect(index):
-	if index == "":
-		return index
-	return effects[index].duplicate(true)
+func get_effect(index, args={}):
+	var effect = effects[index].duplicate(true)
+	match effect.type:
+		"equip":
+			return EquipEffect.new(effect, args)
+	return null

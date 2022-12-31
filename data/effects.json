@@ -12,13 +12,8 @@
 				"name":"Glamour",
 				"description":"Your appearance has been changed.",
 				"trigger":"none",
-				"function":"equip",
-				"args":
-					{
-						"item":"glamour",
-						"visual_item":"bandana"
-					}
-
-				
+				"type":"equip",
+				"item":"glamour",
+				"args":{}
 			}
 }

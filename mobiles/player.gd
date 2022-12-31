@@ -18,7 +18,7 @@ func _ready():
 		$CameraPivot/Vertical/Camera.current = false
 	else:
 		$CameraPivot/Vertical/Camera.current = true
-	items = BaseItem.new("thief_head")
+	items = Data.get_item("thief_head")
 	
 func _physics_process(delta):
 	if !is_dummy():

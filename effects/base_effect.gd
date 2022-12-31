@@ -3,13 +3,17 @@ class_name BaseEffect
 
 var raw
 var current
+var host
 
-func _init(index, args={}):
-	raw = Data.get_effect(index)
+func _init(data, args={}):
+	if data is String:
+		return
+	raw = data
 	current = raw
 	for i in args:
-		if current.args.has(i):
-			current.args[i] = args[i]
+		data[i] = args[i]
+	print(current)
+		
+func execute():
+	pass
 	
-func _ready():
-	current.target.call(current.function, current.args)
