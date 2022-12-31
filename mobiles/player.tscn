@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://mobiles/player.gd" type="Script" id=1]
 [ext_resource path="res://mobiles/base_human.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://mobiles/armature_animator.gd" type="Script" id=17]
 [ext_resource path="res://mobiles/effect_manager.gd" type="Script" id=18]
 [ext_resource path="res://assets/misc/default_env.tres" type="Environment" id=19]
+[ext_resource path="res://mobiles/states/emote.gd" type="Script" id=20]
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.453421
@@ -142,6 +143,9 @@ script = ExtResource( 13 )
 
 [node name="Climb" type="Node" parent="StateMachine"]
 script = ExtResource( 16 )
+
+[node name="Emote" type="Node" parent="StateMachine"]
+script = ExtResource( 20 )
 
 [node name="StateLabel" type="Label" parent="."]
 anchor_top = 1.0

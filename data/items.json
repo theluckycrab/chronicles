@@ -1,62 +1,7 @@
 {
-	"thief_head":
+	"kunai_cloak":
 				{
-					"skills":["Data"],
-					"ability":"glamour_cloak",
-					"slot":"head",
-					"value":10,
-					"mesh":"bandana",
-					"icon":"icon",
-					"modifiers":{},
-					"name":"Bandana",
-					"description":"A loose cloth headcovering worn by laborers and bandits alike.",
-					"durability":3,
-					"animations":{},
-					"states":{}
-				},
-	"thief_gloves":
-				{
-					"skills":["Precision"],
-					"ability":"poison_throw",
-					"slot":"gloves",
-					"value":10,
-					"mesh":"bandana",
-					"icon":"icon",
-					"modifiers":{},
-					"name":"Thief Gloves",
-					"description":"These gloves have been specially reinforced and cut off at the fingers for maximum dexterity and support.",
-					"durability":3,
-					"animations":{},
-					"states":{}
-				},
-	"thief_boots":
-				{
-					"skills":["Agility"],
-					"ability":"Evade",
-					"slot":"boots",
-					"value":10,
-					"mesh":"bandana",
-					"icon":"icon",
-					"modifiers":{},
-					"name":"Thief Shoes",
-					"description":"These cloth shoes are hardly more than thick socks, but they make almost no noise.",
-					"durability":3,
-					"animations":{},
-					"states":{}
-				},
-	"glamour":
-				{
-					"skills":[],
-					"ability":"glamour_bandana",
-					"slot":"glamour",
-					"value":0,
-					"mesh":"bandana",
-					"icon":"icon",
-					"modifiers":{},
-					"name":"Glamour",
-					"description":"Your visuals have been altered.",
-					"durability":3,
-					"animations":{},
-					"states":{}
-				}
+					"ability":"treasure_sense",
+					"mesh":"cloak"
+				}	
 }

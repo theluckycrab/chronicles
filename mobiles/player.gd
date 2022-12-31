@@ -18,7 +18,7 @@ func _ready():
 		$CameraPivot/Vertical/Camera.current = false
 	else:
 		$CameraPivot/Vertical/Camera.current = true
-	items = Data.get_item("thief_head")
+	items = Data.get_item("kunai_cloak")
 	
 func _physics_process(delta):
 	if !is_dummy():
@@ -76,6 +76,9 @@ func is_dummy():
 func get_ledge():
 	return $Armature/Sensors/LedgeClimb.get_ledge()
 
+func get_state(state):
+	return state_machine.get_state(state)
+
 func set_state(state):
 	state_machine.set_state(state)
 
@@ -89,3 +92,7 @@ func equip(args):
 
 func add_effect(e):
 	$EffectManager.add_effect(e)
+
+func emote(animation):
+	get_state("Emote").animation = animation
+	set_state("Emote")
