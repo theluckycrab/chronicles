@@ -8,7 +8,7 @@ func _ready():
 	get_history()
 
 func spawn(args):
-	print("Spawning ", args)
+	#print("Spawning ", args)
 	var p = load("res://mobiles/" + args.unit + ".tscn").instance()
 	if args.has("spawn_args"):
 		for i in args.spawn_args:

@@ -26,7 +26,7 @@ remote func receive_map_history(history):
 		if history[call_dict].size() > 0:
 			for entry in history[call_dict]:
 				npc(history[call_dict][entry])
-				print("[History] ", history[call_dict][entry])
+				#print("[History] ", history[call_dict][entry])
 		
 	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 5, -5),
 				"unit_uuid":nid}
@@ -35,11 +35,11 @@ remote func receive_map_history(history):
 remote func npc(args):
 	if args.has("function"):
 		if str(args.uuid) == Server.map:
-			print("[NPC / MAP] ", args)
+			#print("[NPC / MAP] ", args)
 			get_node("/root/"+args.map).call(args.function, args)
 		else:
-			if ! args.has("update"):
-				print("[NPC] ", args)
+			#if ! args.has("update"):
+				#print("[NPC] ", args)
 			get_node("/root/"+str(args.map)+"/"+str(args.uuid)).call(args.function, args)
 	
 	

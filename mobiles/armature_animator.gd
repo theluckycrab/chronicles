@@ -2,8 +2,7 @@ extends AnimationPlayer
 
 signal keyframe
 
-var override_list = {
-}
+var override_list = {}
 
 var last_animation = ""
 var host = null
@@ -47,3 +46,9 @@ func is_using_root_motion() -> bool:
 func set_host():
 	root_node = get_parent().get_parent().get_path()
 	host = get_node(root_node)
+
+func get_current_animation():
+	if is_using_root_motion():
+		return tree.get_tree_root().get_node("Action").animation
+	else:
+		return current_animation

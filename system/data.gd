@@ -22,10 +22,10 @@ func load_json(file_name):
 	f.close()
 	return list
 
-func get_item(index, args={}):
+func get_item(index, _args={}):
 	var item = items[index].duplicate(true)
 	return BaseItem.new(item)
 	
-func get_ability(index, args={}):
+func get_ability(index, _args={}):
 	var ability = abilities[index].duplicate(true)
 	return BaseAbility.new(ability)

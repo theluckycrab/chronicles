@@ -19,7 +19,7 @@ func can_enter():
 func can_exit():
 	return host.is_on_floor() or !host.get_ledge()
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !host.get_node("Armature/Sensors/LedgeClimb/Wall").enabled:
 		host.get_node("Armature/Sensors/LedgeClimb").toggle()
 

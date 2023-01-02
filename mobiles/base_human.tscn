@@ -30,6 +30,14 @@ surfaces/0 = {
 
 [node name="base_human" instance=ExtResource( 1 )]
 
+[node name="Skeleton" parent="Armature" index="0"]
+bones/1/bound_children = [ NodePath("Spine") ]
+bones/9/bound_children = [ NodePath("LArm") ]
+bones/14/bound_children = [ NodePath("RArm") ]
+bones/18/bound_children = [ NodePath("LLeg") ]
+bones/23/bound_children = [ NodePath("RLeg") ]
+bones/68/bound_children = [ NodePath("Weapon") ]
+
 [node name="ApprenticeBoots" parent="Armature/Skeleton" index="0"]
 visible = false
 
@@ -79,3 +87,40 @@ visible = false
 
 [node name="ThiefBandana" parent="Armature/Skeleton" index="18"]
 visible = false
+
+[node name="LArm" type="BoneAttachment" parent="Armature/Skeleton" index="23"]
+transform = Transform( 0.970936, 0.239232, -0.00713105, 0.227826, -0.932948, -0.278697, -0.073328, 0.268979, -0.96035, 0.268263, 1.22523, -0.0550795 )
+bone_name = "forearm.l"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/LArm" index="0"]
+transform = Transform( 1, 3.72529e-09, -7.45058e-09, -1.86265e-09, 1, 2.98023e-08, -7.45058e-09, 2.98023e-08, 1, 0, 0, 0 )
+
+[node name="Spine" type="BoneAttachment" parent="Armature/Skeleton" index="24"]
+transform = Transform( 1, -1.95686e-16, 2.0632e-16, 2.06298e-16, 0.998582, -0.0529325, -1.95676e-16, 0.0529305, 0.998598, 4.2416e-17, 0.95432, -0.0114774 )
+bone_name = "Spine1"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/Spine" index="0"]
+
+[node name="RArm" type="BoneAttachment" parent="Armature/Skeleton" index="25"]
+transform = Transform( 0.970936, -0.239232, 0.00713118, -0.227825, -0.932948, -0.278697, 0.073328, 0.268979, -0.96035, -0.268263, 1.22523, -0.0550795 )
+bone_name = "forearm.r"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/RArm" index="0"]
+
+[node name="LLeg" type="BoneAttachment" parent="Armature/Skeleton" index="26"]
+transform = Transform( 0.941775, 0.0548153, 0.331746, -0.0057034, -0.983861, 0.178757, 0.336196, -0.170241, -0.926278, 0.122731, 0.493064, 0.0343957 )
+bone_name = "shin.l"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/LLeg" index="0"]
+
+[node name="RLeg" type="BoneAttachment" parent="Armature/Skeleton" index="27"]
+transform = Transform( 0.941775, -0.0548154, -0.331746, 0.00570341, -0.983861, 0.178757, -0.336196, -0.170242, -0.926278, -0.122731, 0.493064, 0.0343957 )
+bone_name = "shin.r"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/RLeg" index="0"]
+
+[node name="Weapon" type="BoneAttachment" parent="Armature/Skeleton" index="28"]
+transform = Transform( -1, -2.23517e-07, 2.42144e-06, 2.42284e-06, -1.94088e-06, 1.00001, -2.08616e-07, 1, -8.41916e-07, -0.343682, 0.887096, 0.0232593 )
+bone_name = "weapon.r"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Armature/Skeleton/Weapon" index="0"]

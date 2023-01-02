@@ -1,14 +1,108 @@
 {
 	"kunai_cloak":
 				{
-					"ability":"glamour",
+					"index":"kunai_cloak",
+					"name":"Poisoner's Cloak",
+					"description":"The cloak of a famous poisoner. It will absorb any incoming poison damage first.",
+					"ability":"poison_kunai",
 					"mesh":"cloak",
-					"slot":"back"
+					"slot":"back",
+					"durability":1000000,
+					"skills":
+						{
+							"mobility":1
+						},
+					"resists":
+						{
+							"poison":100
+						},
+					"animations":
+						{
+						},
+					"states":
+						{
+						},
+					"tags":
+						{
+						}
 				},
 	"glamour":
 				{
+					"index":"glamour",
+					"name":"Glamour",
+					"description":"Probably just the wind.",
 					"ability":"none",
 					"mesh":"",
-					"slot":"glamour"
-				}	
+					"slot":"glamour",
+					"durability":10000000,
+					"skills":
+						{
+						},
+					"resists":
+						{
+						},
+					"animations":
+						{
+						},
+					"states":
+						{
+						},
+					"tags":
+						{
+						}
+				},
+	"bandana":
+				{
+					"index":"bandana",
+					"name":"Bandana",
+					"description":"A loose cloth headcovering worn by laborers and bandits alike.",
+					"ability":"treasure_sense",
+					"mesh":"bandana",
+					"slot":"head",
+					"durability":5,
+					"skills":
+						{
+							"Data":1
+						},
+					"resists":
+						{
+						},
+					"animations":
+						{
+						},
+					"states":
+						{
+						},
+					"tags":
+						{
+						}
+				},
+	"thief_shoes":
+				{
+					"index":"thief_shoes",
+					"name":"Thief Shoes",
+					"description":"These cloth shoes are hardly more than thick socks, but they make almost no sound.",
+					"ability":"none",
+					"mesh":"thief_shoes",
+					"slot":"boots",
+					"durability":3,
+					"skills":
+						{
+							"mobility":1
+						},
+					"resists":
+						{
+						},
+					"animations":
+						{
+						},
+					"states":
+						{
+						},
+					"tags":
+						{
+						}
+				}
+
+
 }

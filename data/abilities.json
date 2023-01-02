@@ -1,7 +1,7 @@
 {
 	"poison_kunai":
 		{
-			"animation":"UpLedge",
+			"animation":"Swipe",
 			"type":"projectile",
 			"pattern":"single",
 			"offset_x":0,
@@ -28,7 +28,7 @@
 		},
 	"glamour":
 		{
-			"animation":"UpLedge",
+			"animation":"Swipe",
 			"type":"buff",
 			"function":"equip",
 			"exit_function":"unequip",

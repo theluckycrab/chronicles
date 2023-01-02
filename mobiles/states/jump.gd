@@ -17,7 +17,8 @@ func _init():
 	index = "Jump"
 	
 func _physics_process(_delta):
-	if jumped == true and host.is_on_floor():
+	if jumped == true and (host.is_on_floor() \
+	or (host.get_skill("mobility") > 0 and host.is_on_wall())):
 		jumped = false
 
 func can_enter():
