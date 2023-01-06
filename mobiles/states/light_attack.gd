@@ -1,27 +1,28 @@
 extends State
 
 var facing
-var animation = "Swipe"
-#var attack = Data.get_ability("light_attack")
+var combo = ["Fist_Combo_1", "Fist_Combo_2", "Fist_Combo_3"]
+var combo_counter = 0
 
 func _init():
 	priority = 2
 	index = "Light_Attack"
 
 func can_enter():
-	return true
+	return host.is_on_floor()
 	
 func can_exit():
-	return ! host.armature.anim.is_using_root_motion()
+	return host.get_animation() == ""
 
 func enter():
-	host.play(animation, true)
+	host.play(combo[combo_counter], true)
 	facing = host.armature.rotation.y
+	combo_counter += 1
 	pass
 	
 func exit():
-	#attack.execute(host)
-	host.using_gravity = true
+	if combo_counter > combo.size() -1:
+		combo_counter = 0
 	pass
 	
 func execute():

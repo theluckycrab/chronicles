@@ -9,6 +9,7 @@ var min_v_angle = deg2rad(-25)
 var max_v_angle = deg2rad(25)
 var views = []
 var stored_delta = 0
+var lock_target = null
 
 onready var vertical_pivot = $Vertical
 onready var camera = $Vertical/Camera
@@ -45,6 +46,10 @@ func _input(event):
 #		change_view(v)
 
 func _process(_delta):
+	if is_instance_valid(lock_target):
+		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
+		var angle = atan2(dir.x, dir.z)
+		rotation.y = lerp_angle(rotation.y, angle, 0.8)
 	if last_mouse_relative == Vector2.ZERO:
 		last_mouse_relative.x = Input.get_joy_axis(1, 2)
 		last_mouse_relative.y = Input.get_joy_axis(1, 3)
@@ -53,6 +58,7 @@ func _process(_delta):
 			return
 		apply_rotation(true)
 		apply_limits()
+	
 	
 func build_views():
 	for i in get_children():
@@ -82,3 +88,5 @@ func apply_rotation(joypad=false):
 func apply_limits():
 	vertical_pivot.rotation.x = clamp(vertical_pivot.rotation.x, min_v_angle, max_v_angle)
 	
+func set_lock_target(t):
+	lock_target = t

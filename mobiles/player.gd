@@ -7,11 +7,11 @@ var stored_delta = 0
 var items
 var attacking = false
 var blocking = false
+var lock_target = null
 
 onready var state_machine = $StateMachine
 onready var armature = $Armature
-
-onready var jump_state = $StateMachine/Jump
+onready var quickstep = $StateMachine/Quickstep
 	
 func _ready():
 	state_machine.connect("state_changed", $StateLabel, "set_text")
@@ -20,7 +20,7 @@ func _ready():
 		$CameraPivot/Vertical/Camera.current = false
 	else:
 		$CameraPivot/Vertical/Camera.current = true
-	items = Data.get_item("thief_shoes")
+	items = Data.get_item("kott")
 	$Armature/Hitbox.connect("hit", self, "take_damage")
 	
 func _physics_process(delta):
@@ -28,11 +28,16 @@ func _physics_process(delta):
 		stored_delta = delta
 		state_machine.cycle()
 		if Input.is_action_just_pressed("jump"):
-			state_machine.call_deferred("set_state", jump_state)
+			if has_lock_target():
+				state_machine.call_deferred("set_state", "Quickstep")
+			else:
+				state_machine.call_deferred("set_state", "Jump")
 		if Input.is_action_just_pressed("ui_left"):
 			equip({"base_item":items.current.index})
 		if Input.is_action_just_pressed("left_click"):
-			set_state("LightAttack")
+			state_machine.call_deferred("set_state", "LightAttack")
+		if Input.is_action_just_pressed("tab"):
+			acquire_lock_target()
 		move(delta)
 
 func get_wasd():
@@ -45,16 +50,18 @@ func get_wasd_cam():
 	return get_wasd().normalized().rotated(Vector3.UP, $CameraPivot.rotation.y)
 	
 func move(delta):
+	if using_gravity and !$Armature/Sensors/Step.get_step():
+			add_force(Vector3.DOWN * 20)
 	if armature.anim.is_using_root_motion():
 		var m = armature.anim.get_root_motion().origin
 		m = m.rotated(Vector3.UP, armature.rotation.y)
 		velocity = m / delta
 	else: 
-		if using_gravity:
-			add_force(Vector3.DOWN * 20)
 		if velocity != Vector3.ZERO:
 			armature.face_dir(velocity, delta)
-	var _d = move_and_slide(velocity + force, Vector3.UP)
+		if is_instance_valid(lock_target):
+			armature.rotation.y = $CameraPivot.rotation.y
+	var _d = move_and_slide(velocity + force, Vector3.UP, true)
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
 	var npc_args = {
@@ -172,7 +179,7 @@ func get_hitzone_fallback(z):
 		
 			
 func get_equipped(slot):
-	if slot == items.current.slot:
+	if slot == items.current.slot and items.get_durability() > 0:
 		return items
 	else:
 		return null
@@ -182,3 +189,23 @@ func get_skill(s):
 		return items.current.skills[s]
 	else:
 		return 0
+
+func get_ground():
+	return $Armature/Sensors/Ground.is_colliding()
+	
+func set_lock_target(t):
+	lock_target = t
+	$CameraPivot.set_lock_target(t)
+	
+func acquire_lock_target():
+	for i in get_tree().get_nodes_in_group("enemies"):
+		if i != lock_target:
+			set_lock_target(i)
+			return
+	set_lock_target(null)
+
+func has_lock_target():
+	return is_instance_valid(lock_target)
+
+func get_animation():
+	return armature.get_animation()

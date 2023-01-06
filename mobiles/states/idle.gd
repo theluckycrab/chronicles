@@ -17,5 +17,8 @@ func exit():
 	pass
 	
 func execute():
-	host.play("Idle")
+	if host.has_lock_target():
+		host.play("Fist_Idle")
+	else:
+		host.play("Idle")
 	pass

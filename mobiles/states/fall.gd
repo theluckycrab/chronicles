@@ -5,6 +5,7 @@ var base_gravity = -19
 var gravity = base_gravity
 var gravity_acceleration = 1
 var max_gravity = 20
+var delay = 0
 
 
 func _init():
@@ -12,13 +13,14 @@ func _init():
 	index = "Fall"
 
 func can_enter():
-	return ! host.is_on_floor()
+	return ! host.is_on_floor() and host.using_gravity
 	
 func can_exit():
 	return host.is_on_floor()
 
 func enter():
 	gravity = base_gravity
+	delay = 0
 	pass
 	
 func exit():
@@ -33,5 +35,6 @@ func execute():
 	host.add_force(Vector3.DOWN * gravity)
 	gravity += gravity_acceleration
 	#gravity = clamp(gravity, 0, max_gravity)
-	host.play("Idle")
-	
+	if delay > 3:
+		host.play("Fall")
+	delay += 1

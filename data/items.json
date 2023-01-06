@@ -1,4 +1,31 @@
 {
+	"kott":
+				{
+					"index":"kott",
+					"name":"Key of the Twilight",
+					"description":"It could do anything.",
+					"ability":"none",
+					"mesh":"cloak",
+					"slot":"gloves",
+					"durability":-1,
+					"skills":
+						{
+							"mobility":1
+						},
+					"resists":
+						{
+							"poison":100000
+						},
+					"animations":
+						{
+						},
+					"states":
+						{
+						},
+					"tags":
+						{
+						}
+				},
 	"kunai_cloak":
 				{
 					"index":"kunai_cloak",

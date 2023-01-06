@@ -25,7 +25,6 @@ func keyframe() -> void:
 
 func play_with_root_motion(anim:String) -> void:
 	stop()
-	get_parent().get_parent().using_gravity = false
 	var anim_node = tree.get_tree_root().get_node("Action")
 	anim_node.animation = anim
 	tree.active = false

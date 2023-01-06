@@ -1,14 +1,14 @@
 extends State
 
 var lat_acceleration = 0.33
-var base_lat = 25
+var base_lat = 15
 var lateral_speed = base_lat
 var max_lat = 30
 
 var enter_y = 0
 var jumped = false
 
-var max_height = 3.0
+var max_height = 2
 var actual_time = 0.33
 var frame_height = max_height / actual_time
 
@@ -47,4 +47,4 @@ func execute():
 	lateral_speed += lat_acceleration
 	lateral_speed = clamp(lateral_speed, 0, max_lat)
 	
-	host.play("Idle")
+	host.play("Jump")

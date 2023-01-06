@@ -1,7 +1,7 @@
 extends Node
 
 var port = 5555
-var ip = "127.0.0.1"
+var ip = "108.160.216.96"
 var peer = NetworkedMultiplayerENet.new()
 var nid = 1
 
@@ -28,7 +28,7 @@ remote func receive_map_history(history):
 				npc(history[call_dict][entry])
 				#print("[History] ", history[call_dict][entry])
 		
-	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 5, -5),
+	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 15, -30),
 				"unit_uuid":nid}
 	Server.npc(args)
 

@@ -30,7 +30,6 @@ func cycle():
 				current_state.exit() #check if we can exit the current state
 				current_state = null #exit it and fallback
 				fallback()
-				return
 	elif !is_instance_valid(current_state):
 		if is_instance_valid(next_state):
 			if next_state.can_enter():

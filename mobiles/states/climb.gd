@@ -13,12 +13,14 @@ func can_exit():
 	return ! host.armature.anim.is_using_root_motion()
 
 func enter():
+	host.using_gravity = false
 	host.play("UpLedge", true)
 	facing = host.armature.rotation.y
 	pass
 	
 func exit():
 	host.using_gravity = true
+	host.play("Idle")
 	pass
 	
 func execute():

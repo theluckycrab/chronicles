@@ -1,7 +1,7 @@
 extends MeshInstance
 
 func _ready():
-	add_to_group("loot")
+	add_to_group("enemies")
 	var _d = $Hitbox.connect("hit", self, "on_got_hit")
 
 func highlight(color):
