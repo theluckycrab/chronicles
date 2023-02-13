@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://mobiles/armatures/armature_animator.gd" type="Script" id=1]
+
+[sub_resource type="AnimationNodeAnimation" id=1]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeOneShot" id=3]
+resource_local_to_scene = true
+fadein_time = 0.0
+fadeout_time = 0.0
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 51.6667 )
+nodes/Action/node = SubResource( 1 )
+nodes/Action/position = Vector2( 373.333, 240 )
+"nodes/Animation 2/node" = SubResource( 2 )
+"nodes/Animation 2/position" = Vector2( 373.333, 53.3333 )
+nodes/OneShot/node = SubResource( 3 )
+nodes/OneShot/position = Vector2( 640, 80 )
+nodes/output/position = Vector2( 853.333, 106.667 )
+node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneShot", 1, "Action" ]
+
+[node name="ArmatureAnimator" type="AnimationPlayer"]
+root_node = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112")
+playback_process_mode = 0
+script = ExtResource( 1 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/ArmatureAnimator")
+process_mode = 0
+root_motion_track = NodePath("../../Skeleton:root")
+parameters/OneShot/active = false

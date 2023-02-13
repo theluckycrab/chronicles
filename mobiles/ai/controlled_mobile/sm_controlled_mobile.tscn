@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://mobiles/ai/controlled_mobile/sm_controlled_mobile.gd" type="Script" id=1]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/emote.gd" type="Script" id=2]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/fall.gd" type="Script" id=3]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/idle.gd" type="Script" id=4]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/jump.gd" type="Script" id=5]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/walk.gd" type="Script" id=6]
+[ext_resource path="res://mobiles/ai/controlled_mobile/controlled_camera/controlled_camera.tscn" type="PackedScene" id=7]
+
+[node name="StateMachine" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Idle" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="Walk" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="Fall" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="ControlledCamera" parent="." instance=ExtResource( 7 )]
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -14.0
+margin_right = 20.0
+
+[node name="Jump" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Emote" type="Node" parent="."]
+script = ExtResource( 2 )
