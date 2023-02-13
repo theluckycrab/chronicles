@@ -31,6 +31,6 @@ remote func receive_map_history(history: Dictionary) -> void:
 			for entry in history[call_dict]:
 				npc(history[call_dict][entry])
 
-	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 15, -30),
+	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(-150, -37, 0),
 				"unit_uuid":nid}
 	Server.npc(args)

@@ -23,9 +23,6 @@ var velocity := Vector3.ZERO
 var force := Vector3.ZERO
 var item_list := []
 
-func _ready():
-	build_from_dictionary(Data.get_mobile_data("player"))
-
 func _physics_process(delta):
 	ai.cycle()
 	move(delta)

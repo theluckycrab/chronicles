@@ -31,7 +31,6 @@ func _enter_tree():
 
 func _ready() -> void:
 	var _discard = connect("animation_started", self, "on_animation_started")
-	setup()
 	
 func get_current_animation() -> String:
 	if is_using_root_motion():
@@ -71,7 +70,7 @@ func play_with_root_motion(anim:String) -> void:
 	tree.set("parameters/OneShot/active", true)
 
 func setup():
-	root_node = get_parent().get_parent().get_path()
+	root_node = get_path_to(get_parent().get_parent())
 	playback_process_mode = AnimationPlayer.ANIMATION_PROCESS_PHYSICS
 	tree = get_node("AnimationTree")
 	tree.process_mode = AnimationTree.ANIMATION_PROCESS_PHYSICS
