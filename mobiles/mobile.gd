@@ -17,7 +17,7 @@ class_name BaseMobile
 
 var armature: Armature
 onready var ai: StateMachine
-var interfaces = [IActor.new(self), IContainer.new(self)]
+var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
 
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
@@ -56,6 +56,14 @@ func move(delta) -> void:
 		npc("sync_move", sync_args)
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
+	
+func sync_move(args):
+	if is_dummy():
+		if args.has("position"):
+			global_transform.origin = args.position
+		armature.rotation.y = args.rotation
+		if args.animation != armature.get_current_animation() and args.animation != "":
+			play(args.animation, args.root_motion)
 				
 ##IActor
 func emote(e: String) -> void:
@@ -92,14 +100,6 @@ func npc(function: String, args: Dictionary) -> void:
 	args["function"] = function
 	args["uuid"] = int(name)
 	Server.npc(args)
-	
-func sync_move(args):
-	if is_dummy():
-		if args.has("position"):
-			global_transform.origin = args.position
-		armature.rotation.y = args.rotation
-		if args.animation != armature.get_current_animation() and args.animation != "":
-			play(args.animation, args.root_motion)
 	
 func is_dummy() -> bool:
 	return int(name) != Client.nid
