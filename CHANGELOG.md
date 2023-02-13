@@ -1,4 +1,6 @@
 # [Unreleased]
+[Changed] mobile's build process now has networked equip calls
+[Added] equip function to mobile
 [Changed] defined npc() and is_dummy() templates in i_networked.gd
 [Added] mobile.move() now includes an npc() call to sync_move()
 [Added] npc(), sync_move(), and is_dummy() added to mobile

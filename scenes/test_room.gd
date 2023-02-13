@@ -17,8 +17,8 @@ func spawn(args):
 		if args.unit_uuid != Client.nid:
 			args.unit = "dummy"
 			print("dummy")
-	m.build_from_dictionary(Data.get_mobile_data(args.unit))
 	m.name = str(args.unit_uuid)
+	m.build_from_dictionary(Data.get_mobile_data(args.unit))
 	m.global_transform.origin = args.position
 
 func despawn(args):

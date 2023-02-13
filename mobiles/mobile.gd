@@ -35,7 +35,7 @@ func build_from_dictionary(data: Dictionary) -> void:
 				add_child(armature)
 			"equipment":
 				for j in data.equipment:
-					armature.equip(Data.get_item(j))
+					npc("equip", {"base_item":j})
 			"ai":
 				ai = load("res://mobiles/ai/"+data.ai+"/sm_"+data.ai+".tscn").instance()
 				add_child(ai)
@@ -57,14 +57,18 @@ func move(delta) -> void:
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
 	
-func sync_move(args):
+func sync_move(args: Dictionary) -> void:
 	if is_dummy():
 		if args.has("position"):
 			global_transform.origin = args.position
 		armature.rotation.y = args.rotation
 		if args.animation != armature.get_current_animation() and args.animation != "":
 			play(args.animation, args.root_motion)
-				
+			
+func equip(args: Dictionary) -> void:
+	armature.equip(Data.get_item(args.base_item))
+			
+			
 ##IActor
 func emote(e: String) -> void:
 	ai.get_state("Emote").animation = e
