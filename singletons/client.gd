@@ -19,7 +19,7 @@ remote func npc(args: Dictionary) -> void:
 		if str(args.uuid) == Server.map:
 			get_node("/root/Main/"+args.uuid).call(args.function, args)
 		else:
-			get_node("/root/"+str(args.map)+"/"+str(args.uuid)).call(args.function, args)
+			get_node("/root/Main/"+str(args.map)+"/"+str(args.uuid)).call(args.function, args)
 
 func on_connection_succeeded() -> void:
 	nid = get_tree().get_network_unique_id()

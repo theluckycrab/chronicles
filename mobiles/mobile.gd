@@ -44,6 +44,16 @@ func move(delta) -> void:
 	add_force(Vector3.DOWN)
 	var _d = move_and_slide(velocity + force, Vector3.UP, true)
 	armature.face_dir(velocity, delta)
+	if ! is_dummy():
+		var sync_args = {
+			"function":"sync_move",
+			"update":"", 
+			"position":global_transform.origin, 
+			"rotation":armature.rotation.y,
+			"animation": armature.get_current_animation(), 
+			"root_motion": armature.is_using_root_motion(), 
+			"uuid":int(name)}
+		npc("sync_move", sync_args)
 	velocity = Vector3.ZERO
 	force = Vector3.ZERO
 				
@@ -76,3 +86,20 @@ func remove_item(removal) -> void:
 	
 func get_items() -> Array:
 	return item_list
+
+##INetworked
+func npc(function: String, args: Dictionary) -> void:
+	args["function"] = function
+	args["uuid"] = int(name)
+	Server.npc(args)
+	
+func sync_move(args):
+	if is_dummy():
+		if args.has("position"):
+			global_transform.origin = args.position
+		armature.rotation.y = args.rotation
+		if args.animation != armature.get_current_animation() and args.animation != "":
+			play(args.animation, args.root_motion)
+	
+func is_dummy() -> bool:
+	return int(name) != Client.nid
