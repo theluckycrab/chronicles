@@ -8,3 +8,5 @@ extends Node
 		
 		Truly decoupled objects should not use this singleton.
 """
+
+signal chat_message_received
