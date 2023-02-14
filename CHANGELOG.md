@@ -1,4 +1,6 @@
 # [Unreleased]
+[Changed] mobile's equip() function now expects an item's dictionary
+[Added] base_item now includes a to_dict() function
 [Changed] mobile's build process now has networked equip calls
 [Added] equip function to mobile
 [Changed] defined npc() and is_dummy() templates in i_networked.gd

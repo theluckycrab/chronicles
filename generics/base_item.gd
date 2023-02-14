@@ -49,3 +49,9 @@ func take_damage(resist: String, count: int) -> void:
 		current.resists[resist] -= count
 	else:
 		consume_durability(count)
+
+func as_dict():
+	var dict = current.duplicate(true)
+	if dict.has("ability"):
+		dict.ability = dict.ability.current.index
+	return dict

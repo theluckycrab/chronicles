@@ -5,6 +5,3 @@
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
 start_scene = "test_room"
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.977027, 0.213116, 0, -0.213116, 0.977027, 0, 2.38887, 7.07582 )
