@@ -1,4 +1,10 @@
 # [Unreleased]
+
+[Changed] disabled unused signal warning in Project > Debug > Gdscript
+[Added] sm_controlled now counts "ui_opened" and "ui_closed" signals and locks input if != 0
+[Added] server.send_chat(message: Dictionary)
+[Added] chatbox that responds to Events signal "chat_message_received"
+[Changed] moved sm_controlled's input handling into _unhandled_input()
 [Changed] mobile's equip() function now expects an item's dictionary
 [Added] base_item now includes a to_dict() function
 [Changed] mobile's build process now has networked equip calls

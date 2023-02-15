@@ -34,3 +34,6 @@ remote func receive_map_history(history: Dictionary) -> void:
 	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(-150, -37, 0),
 				"unit_uuid":nid}
 	Server.npc(args)
+
+remote func receive_chat(args):
+	Events.emit_signal("chat_message_received", args)

@@ -41,7 +41,8 @@ func _input(event):
 		apply_rotation()
 		apply_limits()
 
-	if event.is_action_released("ui_cancel"):
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:

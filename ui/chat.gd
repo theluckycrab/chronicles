@@ -6,8 +6,11 @@ extends Control
 		However, this opens up the program to several potential user-side issues, such as trying to
 		load images that aren't in the res:// path. Currently, we get more than we lose.
 		
-	Usage : Chat will respond to "say" and "log" events. If you wish to print something to the chat, 
-		you should use Events.emit_signal("chat_message", {args}). 
+	Usage : Entering a message into the chat will send a request to Server.send_chat(words). The 
+		chat history hooks up to the Events signal "chat_message_received". You should emit that 
+		signal to print things to the chatbox.
+		
+	Dependencies : Server, Events
 """
 
 onready var history: RichTextLabel = $VBoxContainer/History
@@ -17,15 +20,25 @@ var entry_history = []
 var entry_history_iterator = 0
 
 func _ready():
-	Events.connect("chat_message_received", self, "on_message_received")
-	entry.connect("text_entered", self, "on_entry")
+	var _discard = entry.connect("text_entered", self, "on_entry")
+	var _d = entry.connect("focus_entered", Events, "emit_signal", ["ui_opened"])
+	var _di = entry.connect("focus_exited", Events, "emit_signal", ["ui_closed"])
 	
 func _input(event):
-	if event.is_action_pressed("ui_up"):
-		traverse_history(1)
-		accept_event()
-	elif event.is_action_pressed("ui_down"):
-		traverse_history(-1)
+	if entry.has_focus():
+		if event.is_action_pressed("ui_up"):
+			traverse_history(1)
+			accept_event()
+		elif event.is_action_pressed("ui_down"):
+			traverse_history(-1)
+			accept_event()
+		elif event.is_action_pressed("`"):
+			abort_entry()
+		elif event.is_action_pressed("ui_cancel"):
+			abort_entry()
+	elif event.is_action_pressed("`"):
+		entry.grab_focus()
+		entry.clear()
 		accept_event()
 	
 func on_message_received(args: Dictionary) -> void:
@@ -33,11 +46,13 @@ func on_message_received(args: Dictionary) -> void:
 		history.add_entry(args.message)
 
 func on_entry(words: String) -> void:
-	Events.emit_signal("chat_message_received", {"message":words})
+	Server.send_chat(words)
+	entry_history_iterator = 0
 	entry_history.append(words)
 	if entry_history.size() > 10:
 		entry_history.remove(0)
 	entry.clear()
+	drop_focus()
 
 func traverse_history(count: int) -> void:
 	entry_history_iterator += count
@@ -47,6 +62,15 @@ func traverse_history(count: int) -> void:
 		return
 	if entry_history_iterator > entry_history.size():
 		entry_history_iterator = entry_history.size()
-	entry.text = entry_history[entry_history_iterator -1]
+	entry.text = entry_history[entry_history.size() - entry_history_iterator]
 	entry.caret_position = entry.text.length() #because we're using ui_up specifically
 	entry.accept_event() #we must consume the input event to avoid lineedits normal behavior
+	
+func drop_focus() -> void:
+	history.grab_click_focus()
+	history.grab_focus()
+
+func abort_entry() -> void:
+	accept_event()
+	drop_focus()
+	entry.clear()

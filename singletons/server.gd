@@ -13,3 +13,6 @@ func npc(args):
 	args["sender"] = get_tree().get_network_unique_id()
 	args["map"] = map
 	rpc_id(1, "npc", args)
+
+func send_chat(message):
+	rpc_id(1, "send_chat", {"text":message})
