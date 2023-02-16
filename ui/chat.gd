@@ -47,10 +47,16 @@ func on_message_received(args: Dictionary) -> void:
 		history.add_entry(args.message)
 
 func on_entry(words: String) -> void:
+	add_to_entry_history(words)
+	if words.begins_with("/"):
+		parse_command(words)
+		return
 	var chat_color = Data.get_char_value("chat_color")
 	var chat_name = Data.get_char_value("name")
 	words = "[color="+chat_color+"]["+chat_name+"]: "+words+"[/color]"
 	Server.send_chat(words)
+	
+func add_to_entry_history(words: String) -> void:
 	entry_history_iterator = 0
 	entry_history.append(words)
 	if entry_history.size() > 10:
@@ -78,3 +84,13 @@ func abort_entry() -> void:
 	accept_event()
 	drop_focus()
 	entry.clear()
+
+func parse_command(s: String) -> void:
+	s = s.lstrip("/")
+	var args = s.split(" ", false, 1)
+	var host = get_node("/root/Main/"+Server.map+"/"+str(Client.nid))
+	if is_instance_valid(host):
+		load("res://commands/"+args[0]+".gd").execute(host, args[1])
+	entry.clear()
+	drop_focus()
+	

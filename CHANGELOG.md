@@ -1,5 +1,8 @@
 # [Unreleased]
 
+[Changed] emote state now defaults to held
+[Fixed] idle now transitions to fall
+[Added] chat commands, emote and skyboost
 [Fixed] interfaces now clean themselves up
 [Added] config file now saves invert/fullscreen values
 [Added] Data now has functions for reading config and saves

@@ -23,7 +23,6 @@ func spawn(args):
 			data[i] = Data.get_char_value(i)
 	m.name = str(args.unit_uuid)
 	m.build_from_dictionary(data)
-	print(data)
 	m.global_transform.origin = args.position
 
 func despawn(args):

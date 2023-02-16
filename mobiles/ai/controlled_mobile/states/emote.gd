@@ -1,7 +1,7 @@
 extends State
 
 var animation: String
-var held: bool = false
+var held: bool = true
 
 func _init() -> void:
 	priority = 2
@@ -12,7 +12,7 @@ func can_enter() -> bool:
 	
 func can_exit() -> bool:
 	if ! held:
-		return ! host.is_using_root_motion()
+		return ! host.armature.is_using_root_motion()
 	else:
 		return host.ai.get_wasd() != Vector3.ZERO
 

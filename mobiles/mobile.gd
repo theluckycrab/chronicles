@@ -70,8 +70,9 @@ func equip(item_dict: Dictionary) -> void:
 			
 			
 ##IActor
-func emote(e: String) -> void:
-	ai.get_state("Emote").animation = e
+func emote(anim: String, repeat: bool = true) -> void:
+	ai.get_state("Emote").animation = anim
+	ai.get_state("Emote").held = repeat
 	ai.set_state("Emote")
 
 func set_velocity(v: Vector3) -> void:
