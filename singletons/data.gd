@@ -25,9 +25,12 @@ extends Node
 var abilities: Dictionary = {}
 var items: Dictionary = {}
 var mobiles: Dictionary = {}
+var config: Dictionary = {"invert_x":1, "invert_y":1, "fullscreen":false}
+var char_data: Dictionary = {"name":"New Character", "equipment":["base_human_body"], "chat_color":"lime"}
 
 func _init() -> void:
 	init_lists()
+	OS.window_fullscreen = get_config_value("fullscreen")
 
 func get_ability(index: String) -> BaseAbility:
 	var ability = abilities[index].duplicate(true)
@@ -42,16 +45,53 @@ func get_item(index: String) -> BaseItem:
 	return BaseItem.new(item)
 
 func init_lists() -> void:
-	abilities = load_json("abilities")
-	items = load_json("items")
-	mobiles = load_json("mobiles")
+	abilities = load_from_file("abilities")
+	items = load_from_file("items")
+	mobiles = load_from_file("mobiles")
+	config = load_from_file("config", "user://", "")
 
-func load_json(file_name: String) -> Dictionary:
+func load_from_file(file_name: String, path: String = "res://data/json/", extension: String = ".json") -> Dictionary:
 	var f = File.new()
 	var list = {}
-	f.open("res://data/json/"+file_name+".json", File.READ)
+	f.open(path+file_name+extension, File.READ)
 	list = JSON.parse(f.get_as_text()).result
 	f.close()
 	return list
 
+func get_char_data() -> Dictionary:
+	return char_data.duplicate(true)
+	
+func get_char_value(key: String):
+	if char_data.has(key):
+		return char_data[key]
+	else:
+		return "Char data does not contain " + key
+	
+func load_char_data(c: String) -> void:
+	char_data = load_from_file(c, "user://saves/", "")
+	
+func get_config_value(key: String): 
+	if config.has(key):
+		return config[key]
+	else:
+		return "Config data does not contain " + key
 
+func get_snake_case(s: String) -> String:
+	s = s.dedent()
+	s = s.to_lower()
+	s = s.replace(" ", "_")
+	return s
+
+func save_char() -> void:
+	var f = File.new()
+	var d = get_char_data()
+	f.open("user://saves/"+get_snake_case(d.name), File.WRITE)
+	f.store_string(JSON.print(d))
+	f.close()
+	
+func save_config() -> void:
+	var f = File.new()
+	var d = config.duplicate(true)
+	f.open("user://"+"config", File.WRITE)
+	f.store_string(JSON.print(d))
+	f.close()

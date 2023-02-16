@@ -1,5 +1,8 @@
 # [Unreleased]
 
+[Fixed] interfaces now clean themselves up
+[Added] config file now saves invert/fullscreen values
+[Added] Data now has functions for reading config and saves
 [Changed] disabled unused signal warning in Project > Debug > Gdscript
 [Added] sm_controlled now counts "ui_opened" and "ui_closed" signals and locks input if != 0
 [Added] server.send_chat(message: Dictionary)

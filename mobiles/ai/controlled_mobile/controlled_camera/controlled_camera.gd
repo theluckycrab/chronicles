@@ -6,7 +6,7 @@ extends Spatial
 		visibility of the cursor by default. Page up and down will invert the axis. The Controlled
 		Camera supports both mouse and joypad inputs (right stick). 
 		
-	Dependencies :
+	Dependencies : Data
 	Setup : 
 		- Self
 			- SpringArm named Vertical
@@ -17,8 +17,6 @@ extends Spatial
 var last_mouse_relative = Vector2.ZERO
 var h_sens = 0.25
 var v_sens = 0.25
-var v_invert = -1
-var h_invert = 1
 var min_v_angle = deg2rad(-25)
 var max_v_angle = deg2rad(25)
 var views = []
@@ -29,6 +27,8 @@ export var spring_height = 2.2
 export var h_offset = 0.05
 export var fov = 90
 
+onready var invert_y = Data.get_config_value("invert_y")
+onready var invert_x = Data.get_config_value("invert_x")
 onready var vertical_pivot = $Vertical
 onready var camera = $Vertical/Camera
 
@@ -49,9 +49,9 @@ func _unhandled_input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
 	if event.is_action_released("ui_page_up"):
-		v_invert *= -1
+		invert_y *= -1
 	if event.is_action_released("ui_page_down"):
-		h_invert *= -1
+		invert_x *= -1
 
 func _process(_delta):
 	if is_instance_valid(lock_target):
@@ -87,11 +87,11 @@ func apply_rotation(joypad=false):
 	if joypad:
 		hmod *= 10
 		vmod *= 10
-	rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), hmod * h_invert)
+	rotation.y = lerp_angle(rotation.y, rotation.y - deg2rad(last_mouse_relative.x), hmod * invert_x)
 	vertical_pivot.rotation.x = \
 			lerp_angle(vertical_pivot.rotation.x,\
 			 vertical_pivot.rotation.x - deg2rad(last_mouse_relative.y),\
-			 vmod * v_invert)
+			 vmod * invert_y)
 	last_mouse_relative = Vector2.ZERO
 	
 func apply_limits():

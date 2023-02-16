@@ -26,3 +26,7 @@ func _init(h, tag = "interface"):
 			implemented = false
 	if implemented:
 		host.add_to_group(tag)
+	host.connect("tree_exiting", self, "_on_host_exit")
+	
+func _on_host_exit():
+	queue_free()

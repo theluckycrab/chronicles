@@ -10,7 +10,7 @@ extends Control
 		chat history hooks up to the Events signal "chat_message_received". You should emit that 
 		signal to print things to the chatbox.
 		
-	Dependencies : Server, Events
+	Dependencies : Server, Events, Data
 """
 
 onready var history: RichTextLabel = $VBoxContainer/History
@@ -23,6 +23,7 @@ func _ready():
 	var _discard = entry.connect("text_entered", self, "on_entry")
 	var _d = entry.connect("focus_entered", Events, "emit_signal", ["ui_opened"])
 	var _di = entry.connect("focus_exited", Events, "emit_signal", ["ui_closed"])
+	entry.add_color_override("font_color", ColorN(Data.get_char_value("chat_color")))
 	
 func _input(event):
 	if entry.has_focus():
@@ -46,6 +47,9 @@ func on_message_received(args: Dictionary) -> void:
 		history.add_entry(args.message)
 
 func on_entry(words: String) -> void:
+	var chat_color = Data.get_char_value("chat_color")
+	var chat_name = Data.get_char_value("name")
+	words = "[color="+chat_color+"]["+chat_name+"]: "+words+"[/color]"
 	Server.send_chat(words)
 	entry_history_iterator = 0
 	entry_history.append(words)
