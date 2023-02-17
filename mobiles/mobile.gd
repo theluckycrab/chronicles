@@ -35,7 +35,9 @@ func build_from_dictionary(data: Dictionary) -> void:
 				add_child(armature)
 			"equipment":
 				for j in data.equipment:
-					npc("equip", Data.get_item(j).as_dict())
+					var item = Data.get_item(j)
+					npc("equip", item.as_dict())
+					item.queue_free()
 			"ai":
 				ai = load("res://mobiles/ai/"+data.ai+"/sm_"+data.ai+".tscn").instance()
 				add_child(ai)
@@ -66,7 +68,9 @@ func sync_move(args: Dictionary) -> void:
 			play(args.animation, args.root_motion)
 			
 func equip(item_dict: Dictionary) -> void:
-	armature.equip(BaseItem.new(item_dict))
+	var item = BaseItem.new(item_dict)
+	armature.equip(item)
+	item.queue_free()
 			
 			
 ##IActor

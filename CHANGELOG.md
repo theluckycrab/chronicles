@@ -1,5 +1,7 @@
-# [Unreleased]
+# [v1.0.0]
 
+[Changed] .gitignore no longer includex export_presets
+[Fixed] BaseItem and BaseAbility were not cleaned up properly during mobile creation
 [Changed] emote state now defaults to held
 [Fixed] idle now transitions to fall
 [Added] chat commands, emote and skyboost

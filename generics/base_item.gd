@@ -55,3 +55,10 @@ func as_dict():
 	if dict.has("ability"):
 		dict.ability = dict.ability.current.index
 	return dict
+
+func _notification(what):
+	match what:
+		NOTIFICATION_PREDELETE:
+			if current.has("ability"):
+				if ! current.ability is String:
+					current.ability.queue_free()

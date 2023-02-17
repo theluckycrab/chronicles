@@ -90,6 +90,8 @@ func parse_command(s: String) -> void:
 	var args = s.split(" ", false, 1)
 	var host = get_node("/root/Main/"+Server.map+"/"+str(Client.nid))
 	if is_instance_valid(host):
+		if args.size() < 2:
+			args.append("")
 		load("res://commands/"+args[0]+".gd").execute(host, args[1])
 	entry.clear()
 	drop_focus()
