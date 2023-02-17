@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://mobiles/armatures/armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/3d/skeletons/humanoid.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://data/assets/3d/animations/humanoid/Walk.anim" type="Animation" id=7]
 [ext_resource path="res://data/assets/3d/animations/humanoid/Run.anim" type="Animation" id=8]
 [ext_resource path="res://data/assets/3d/animations/humanoid/Jump.anim" type="Animation" id=9]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=10]
 
 [node name="Armature" instance=ExtResource( 1 )]
 
@@ -21,4 +22,5 @@ anims/Fist_Idle = ExtResource( 4 )
 anims/Idle = ExtResource( 5 )
 anims/Jump = ExtResource( 9 )
 anims/Run = ExtResource( 8 )
+anims/Sit = ExtResource( 10 )
 anims/Walk = ExtResource( 7 )

@@ -1,5 +1,11 @@
 # [Unreleased]
 
+[Added] additional terrain added to test_room.tscn
+[Changed] movement state values tweaked
+[Changed] /emote now automatically capitalizes the first letter of the argument
+[Added] Client now announces it has joined via system message in chat
+[Changed] mobile.move() now snaps to the floor if there is no verticality
+
 # [v1.0.0]
 
 [Changed] .gitignore no longer includex export_presets

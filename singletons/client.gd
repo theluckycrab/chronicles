@@ -23,6 +23,7 @@ remote func npc(args: Dictionary) -> void:
 
 func on_connection_succeeded() -> void:
 	nid = get_tree().get_network_unique_id()
+	Server.send_chat("[System] " + Data.get_char_value("name") + " has joined the server.")
 	print("You have joined ", ip, " as ", nid)
 
 remote func receive_map_history(history: Dictionary) -> void:

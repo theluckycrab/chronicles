@@ -39,7 +39,7 @@ func _unhandled_input(event):
 	wasd = Vector3.ZERO
 	if !can_act():
 		return
-	if event.is_action("jump") and ! event.is_echo():
+	if event.is_action_pressed("jump") and ! event.is_echo():
 		set_state("Jump")
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")

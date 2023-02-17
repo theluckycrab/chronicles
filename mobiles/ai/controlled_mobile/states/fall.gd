@@ -1,7 +1,7 @@
 extends State
 
-var lateral_speed := 25
-var base_gravity := -19
+var lateral_speed := 13#25
+var base_gravity := -12
 var gravity := base_gravity
 var gravity_acceleration := 1
 var delay := 0

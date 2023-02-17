@@ -1,5 +1,7 @@
 extends Node
 
 static func execute(who, anim):
+	anim = anim.capitalize()
 	if who.has_method("emote"):
-		who.emote(anim, true)
+		if who.armature.animator.has_animation(anim):
+			who.emote(anim, true)
