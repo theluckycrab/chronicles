@@ -44,7 +44,11 @@ func build_from_dictionary(data: Dictionary) -> void:
 				
 func move(delta) -> void:
 	add_force(Vector3.DOWN)
-	var _d = move_and_slide(velocity + force, Vector3.UP, true)
+	var final_move = velocity + force
+	if final_move.y < 0:
+		var _discard = move_and_slide_with_snap(final_move, Vector3.DOWN, Vector3.UP, true)
+	else:
+		var _d = move_and_slide(final_move, Vector3.UP, true)
 	armature.face_dir(velocity, delta)
 	if ! is_dummy():
 		var sync_args = {
