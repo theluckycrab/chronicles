@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://mobiles/armatures/armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/3d/skeletons/humanoid.tscn" type="PackedScene" id=2]
@@ -10,17 +10,71 @@
 [ext_resource path="res://data/assets/3d/animations/humanoid/Run.anim" type="Animation" id=8]
 [ext_resource path="res://data/assets/3d/animations/humanoid/Jump.anim" type="Animation" id=9]
 [ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=10]
+[ext_resource path="res://data/assets/3d/meshes/equipment/base_human.mesh" type="ArrayMesh" id=11]
+[ext_resource path="res://data/assets/3d/animations/humanoid/HangLedge.anim" type="Animation" id=12]
+[ext_resource path="res://mobiles/armatures/sensors.gd" type="Script" id=13]
+[ext_resource path="res://data/assets/3d/animations/humanoid/UpLedge.anim" type="Animation" id=14]
+
+[sub_resource type="AnimationNodeAnimation" id=1]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+resource_local_to_scene = true
+
+[sub_resource type="AnimationNodeOneShot" id=3]
+resource_local_to_scene = true
+fadein_time = 0.0
+fadeout_time = 0.0
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+resource_local_to_scene = true
+graph_offset = Vector2( 0, 51.6667 )
+nodes/Action/node = SubResource( 1 )
+nodes/Action/position = Vector2( 373.333, 240 )
+"nodes/Animation 2/node" = SubResource( 2 )
+"nodes/Animation 2/position" = Vector2( 373.333, 53.3333 )
+nodes/OneShot/node = SubResource( 3 )
+nodes/OneShot/position = Vector2( 640, 80 )
+nodes/output/position = Vector2( 853.333, 106.667 )
+node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneShot", 1, "Action" ]
 
 [node name="Armature" instance=ExtResource( 1 )]
 
 [node name="Skeleton" parent="." index="0" instance=ExtResource( 2 )]
 
+[node name="MeshInstance" type="MeshInstance" parent="Skeleton" index="0"]
+mesh = ExtResource( 11 )
+material/0 = null
+material/1 = null
+material/2 = null
+
 [node name="ArmatureAnimator" parent="." index="1" instance=ExtResource( 3 )]
-root_node = NodePath("../..")
 anims/Fall = ExtResource( 6 )
 anims/Fist_Idle = ExtResource( 4 )
+anims/HangLedge = ExtResource( 12 )
 anims/Idle = ExtResource( 5 )
 anims/Jump = ExtResource( 9 )
 anims/Run = ExtResource( 8 )
 anims/Sit = ExtResource( 10 )
+anims/UpLedge = ExtResource( 14 )
 anims/Walk = ExtResource( 7 )
+
+[node name="AnimationTree" parent="ArmatureAnimator" index="0"]
+tree_root = SubResource( 4 )
+anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/Armature/ArmatureAnimator")
+root_motion_track = NodePath("Armature/Skeleton:root")
+
+[node name="Sensors" type="Spatial" parent="." index="2"]
+script = ExtResource( 13 )
+
+[node name="Overledge" type="RayCast" parent="Sensors" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58382, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 0.75 )
+
+[node name="Underledge" type="RayCast" parent="Sensors/Overledge" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367839, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 0.75 )
+
+[editable path="ArmatureAnimator"]

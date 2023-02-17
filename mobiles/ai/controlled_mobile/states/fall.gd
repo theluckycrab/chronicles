@@ -1,6 +1,6 @@
 extends State
 
-var lateral_speed := 13#25
+var lateral_speed := 13
 var base_gravity := -12
 var gravity := base_gravity
 var gravity_acceleration := 1
@@ -24,6 +24,9 @@ func exit() -> void:
 	pass
 	
 func execute() -> void:
+	if !host.ai.get_state("Hang").has_hung and host.get_ledge() != Vector3.ZERO:
+		host.set_state("Hang")
+		return
 	var wasd: Vector3 = host.ai.get_wasd_cam()
 	host.set_velocity(wasd * lateral_speed)
 	host.add_force(Vector3.DOWN * gravity)

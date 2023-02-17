@@ -26,7 +26,7 @@ nodes/output/position = Vector2( 853.333, 106.667 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneShot", 1, "Action" ]
 
 [node name="ArmatureAnimator" type="AnimationPlayer"]
-root_node = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112")
+root_node = NodePath("../..")
 playback_process_mode = 0
 script = ExtResource( 1 )
 

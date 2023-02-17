@@ -19,6 +19,7 @@ var equipped_items: Dictionary = {}
 var rotation_speed: float = 15
 onready var animator: ArmatureAnimator = $ArmatureAnimator
 onready var skeleton: Skeleton = $Skeleton
+onready var sensors: Spatial = $Sensors
 
 
 func equip(item: BaseItem) -> void:
@@ -51,3 +52,5 @@ func unequip(slot: String) -> void:
 	if equipped_items.has(slot) and is_instance_valid(equipped_items[slot]):
 		equipped_items[slot].queue_free()
 
+func get_ledge():
+	return sensors.get_ledge()

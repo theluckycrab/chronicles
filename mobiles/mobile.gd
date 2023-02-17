@@ -44,12 +44,18 @@ func build_from_dictionary(data: Dictionary) -> void:
 				
 func move(delta) -> void:
 	add_force(Vector3.DOWN)
+	if armature.is_using_root_motion():
+		var m = armature.get_root_motion().origin
+		m = m.rotated(Vector3.UP, armature.rotation.y)
+		m *= 2
+		velocity = m / delta
+	else:
+		armature.face_dir(velocity, delta)
 	var final_move = velocity + force
 	if final_move.y < 0:
 		var _discard = move_and_slide_with_snap(final_move, Vector3.DOWN, Vector3.UP, true)
 	else:
 		var _d = move_and_slide(final_move, Vector3.UP, true)
-	armature.face_dir(velocity, delta)
 	if ! is_dummy():
 		var sync_args = {
 			"function":"sync_move",
@@ -77,6 +83,9 @@ func equip(item_dict: Dictionary) -> void:
 	item.queue_free()
 			
 			
+func get_ledge():
+	return armature.get_ledge()
+			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:
 	ai.get_state("Emote").animation = anim
@@ -91,6 +100,9 @@ func add_force(f: Vector3) -> void:
 
 func play(animation: String, root_motion:bool = false) -> void:
 	armature.play(animation, root_motion)
+	
+func set_state(state):
+	ai.set_state(state)
 	
 ##IContainer
 func add_item(item: BaseItem) -> void:

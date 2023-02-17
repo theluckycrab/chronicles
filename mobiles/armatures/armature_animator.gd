@@ -75,4 +75,4 @@ func setup():
 	tree = get_node("AnimationTree")
 	tree.process_mode = AnimationTree.ANIMATION_PROCESS_PHYSICS
 	tree.anim_player = get_path()
-	tree.root_motion_track = "../../Skeleton:root"
+	#tree.root_motion_track = "../../Skeleton:root"

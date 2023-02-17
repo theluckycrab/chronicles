@@ -3,8 +3,8 @@
 [ext_resource path="res://mobiles/mobile.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.393178
-height = 1.22496
+radius = 0.658652
+height = 0.69864
 
 [node name="Mobile" type="KinematicBody"]
 script = ExtResource( 5 )

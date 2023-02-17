@@ -1,5 +1,10 @@
 # [Unreleased]
 
+[Added] janky ledge sensors to armature
+[Added] climb state for controlled state machine
+[Added] hang state for controlled state machine
+[Added] root motion support for mobile
+[Removed] armature_animator must manually target a root track, as such its been removed from setup()
 [Added] additional terrain added to test_room.tscn
 [Changed] movement state values tweaked
 [Changed] /emote now automatically capitalizes the first letter of the argument
