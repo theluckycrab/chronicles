@@ -1,5 +1,6 @@
-# [Unreleased]
+# [v1.1.0]
 
+[Added] controller support for movement
 [Added] janky ledge sensors to armature
 [Added] climb state for controlled state machine
 [Added] hang state for controlled state machine

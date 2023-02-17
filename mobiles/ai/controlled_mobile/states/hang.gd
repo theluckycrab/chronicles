@@ -34,10 +34,10 @@ func execute():
 	var wasd = host.ai.get_wasd()
 	host.armature.face_dir(-facing, 0.09)
 	host.add_force(Vector3.RIGHT.rotated(Vector3.UP, host.armature.rotation.y) * wasd.x * 5)
-	if Input.is_action_just_pressed("w"):
+	if Input.is_action_just_pressed("hang_climb"):
 		host.set_state("Climb")
 		return
-	if Input.is_action_just_released("s"):
+	if Input.is_action_just_released("hang_drop"):
 		host.add_force(Vector3(0, -1, 1).rotated(Vector3.UP, host.armature.rotation.y) * 20)
 		return
 	pass

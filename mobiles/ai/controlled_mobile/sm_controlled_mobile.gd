@@ -43,6 +43,10 @@ func _unhandled_input(event):
 		set_state("Jump")
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")
+	
+	if wasd == Vector3.ZERO:
+		wasd.x = -round(Input.get_joy_axis(1, 0))
+		wasd.z = -round(Input.get_joy_axis(1, 1))
 
 func can_act() -> bool:
 	return input_locks == 0
