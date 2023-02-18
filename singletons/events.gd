@@ -12,3 +12,4 @@ extends Node
 signal chat_message_received
 signal ui_opened
 signal ui_closed
+signal char_data_changed

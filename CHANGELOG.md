@@ -1,3 +1,8 @@
+# [Unreleased]
+
+[Added] character and config save on exit
+[Added] /exit, /fullscreen, /get_colors, /set_color, /set_name
+
 # [v1.1.0]
 
 [Added] controller support for movement

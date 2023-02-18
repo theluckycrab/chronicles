@@ -50,8 +50,10 @@ func _unhandled_input(event):
 			
 	if event.is_action_released("ui_page_up"):
 		invert_y *= -1
+		Data.set_config_value("invert_y", -1)
 	if event.is_action_released("ui_page_down"):
 		invert_x *= -1
+		Data.set_config_value("invert_x", 1)
 
 func _process(_delta):
 	if is_instance_valid(lock_target):

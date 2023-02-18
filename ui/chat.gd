@@ -23,6 +23,7 @@ func _ready():
 	var _discard = entry.connect("text_entered", self, "on_entry")
 	var _d = entry.connect("focus_entered", Events, "emit_signal", ["ui_opened"])
 	var _di = entry.connect("focus_exited", Events, "emit_signal", ["ui_closed"])
+	var _do = Events.connect("char_data_changed", self, "on_char_data_changed")
 	entry.add_color_override("font_color", ColorN(Data.get_char_value("chat_color")))
 	
 func _input(event):
@@ -92,7 +93,11 @@ func parse_command(s: String) -> void:
 	if is_instance_valid(host):
 		if args.size() < 2:
 			args.append("")
-		load("res://commands/"+args[0]+".gd").execute(host, args[1])
+		if ResourceLoader.exists("res://commands/"+args[0]+".gd"):
+			load("res://commands/"+args[0]+".gd").execute(host, args[1])
 	entry.clear()
 	drop_focus()
 	
+func on_char_data_changed(key: String, value):
+	if key == "chat_color":
+		entry.add_color_override("font_color", ColorN(value))

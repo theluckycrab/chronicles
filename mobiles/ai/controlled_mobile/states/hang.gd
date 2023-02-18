@@ -7,7 +7,7 @@ func _init():
 	priority = 1
 	index = "Hang"
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if host.is_on_floor():
 		has_hung = false
 
