@@ -24,7 +24,7 @@ func _ready():
 	var _d = entry.connect("focus_entered", Events, "emit_signal", ["ui_opened"])
 	var _di = entry.connect("focus_exited", Events, "emit_signal", ["ui_closed"])
 	var _do = Events.connect("char_data_changed", self, "on_char_data_changed")
-	entry.add_color_override("font_color", ColorN(Data.get_char_value("chat_color")))
+	entry.add_color_override("font_color", Color(Data.get_char_value("chat_color")))
 	
 func _input(event):
 	if entry.has_focus():
@@ -54,7 +54,7 @@ func on_entry(words: String) -> void:
 		return
 	var chat_color = Data.get_char_value("chat_color")
 	var chat_name = Data.get_char_value("name")
-	words = "[color="+chat_color+"]["+chat_name+"]: "+words+"[/color]"
+	words = "[color=#"+chat_color+"]["+chat_name+"]: "+words+"[/color]"
 	Server.send_chat(words)
 	
 func add_to_entry_history(words: String) -> void:
@@ -100,4 +100,4 @@ func parse_command(s: String) -> void:
 	
 func on_char_data_changed(key: String, value):
 	if key == "chat_color":
-		entry.add_color_override("font_color", ColorN(value))
+		entry.add_color_override("font_color", Color(Data.get_char_value("chat_color")))

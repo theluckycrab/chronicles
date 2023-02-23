@@ -1,5 +1,7 @@
 # [Unreleased]
 
+[Added] character creation screen to choose name and chat color
+[Changed] character chat colors now use html format
 [Added] character and config save on exit
 [Added] /exit, /fullscreen, /get_colors, /set_color, /set_name
 

@@ -5,6 +5,5 @@
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
-start_scene = "test_room"
 
 [node name="Chat" parent="." instance=ExtResource( 1 )]

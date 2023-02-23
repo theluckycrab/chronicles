@@ -3,8 +3,6 @@ extends Spatial
 var mobile: PackedScene = preload("res://mobiles/mobile.tscn")
 
 func _ready():
-	Client.join()
-	yield(get_tree(), "connected_to_server")
 	get_history()
 	
 func get_history():
