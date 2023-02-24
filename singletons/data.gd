@@ -31,7 +31,8 @@ var config: Dictionary = {
 		"fullscreen":false,
 		"last_character":"new_character",
 			}
-var char_data: Dictionary = {"name":"New Character", "equipment":["base_human_body"], "chat_color":"lime"}
+var new_char_data: Dictionary = {"name":"New Character", "equipment":["base_human_body"], "chat_color":"ffef01"}
+var char_data: Dictionary = new_char_data
 
 func _init() -> void:
 	init_lists()
@@ -75,11 +76,14 @@ func get_char_value(key: String):
 		return "Char data does not contain " + key
 	
 func load_char_data(c: String) -> void:
+	c = get_snake_case(c)
 	var f = File.new()
 	if f.file_exists("user://saves/"+c):
 		char_data = load_from_file(c, "user://saves/", "")
 	else:
+		char_data = new_char_data
 		print(c + " not found in the saves folder.")
+	Events.emit_signal("char_data_changed")
 		
 func load_config() -> void:
 	var f = File.new()
@@ -104,7 +108,7 @@ func get_snake_case(s: String) -> String:
 func set_char_value(key: String, value) -> void:
 	if char_data.has(key):
 		char_data[key] = value
-	Events.emit_signal("char_data_changed", key, value)
+	Events.emit_signal("char_data_changed")
 		
 func set_config_value(key: String, value) -> void:
 	if config.has(key):
@@ -125,6 +129,6 @@ func save_config() -> void:
 	f.close()
 
 func _exit_tree():
-	set_config_value("last_character", get_snake_case(get_char_value("name")))
+	set_config_value("last_character", get_char_value("name"))
 	save_config()
 	save_char()

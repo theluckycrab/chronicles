@@ -1,5 +1,6 @@
 # [Unreleased]
 
+[Changed] Data.load_char_save() now handles get_snake_case(), so all saves should be converted to snake_case and should not be considered case-sensitive
 [Added] character creation screen to choose name and chat color
 [Changed] character chat colors now use html format
 [Added] character and config save on exit

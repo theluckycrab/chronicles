@@ -13,7 +13,7 @@ var current_scene = null
 
 func _ready():
 	switch_scene(start_scene)
-	Events.connect("scene_change_request", self, "switch_scene")
+	var _discard = Events.connect("scene_change_request", self, "switch_scene")
 
 func switch_scene(scene:String ) -> void:
 	if is_instance_valid(current_scene):

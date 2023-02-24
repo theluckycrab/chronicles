@@ -97,10 +97,10 @@ run/main_scene="res://scenes/main.tscn"
 
 [autoload]
 
+Events="*res://singletons/events.gd"
 Client="*res://singletons/client.gd"
 Data="*res://singletons/data.gd"
 Server="*res://singletons/server.gd"
-Events="*res://singletons/events.gd"
 
 [debug]
 

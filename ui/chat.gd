@@ -98,6 +98,5 @@ func parse_command(s: String) -> void:
 	entry.clear()
 	drop_focus()
 	
-func on_char_data_changed(key: String, value):
-	if key == "chat_color":
-		entry.add_color_override("font_color", Color(Data.get_char_value("chat_color")))
+func on_char_data_changed() -> void:
+	entry.add_color_override("font_color", Color(Data.get_char_value("chat_color")))
