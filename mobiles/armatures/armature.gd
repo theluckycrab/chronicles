@@ -7,7 +7,7 @@ class_name Armature
 		"Armature" to play nicely when animating skeletons and meshes that are saved from
 		blender-exported .glb files.
 		
-	Dependencies : ArmatureAnimator, "res://data/assets/3d/meshes/equipment/"
+	Dependencies : ArmatureAnimator, "res://data/assets/3d/meshes/equipment/", Sensors, BaseItem
 	Setup : Do not use the base Armature scene. Inherit it instead.
 			- ArmatureAnimator
 				- Add animations manually

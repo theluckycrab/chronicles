@@ -55,11 +55,6 @@ _global_script_classes=[ {
 "path": "res://interfaces/i_container.gd"
 }, {
 "base": "BaseInterface",
-"class": "IController",
-"language": "GDScript",
-"path": "res://interfaces/i_controller.gd"
-}, {
-"base": "BaseInterface",
 "class": "INetworked",
 "language": "GDScript",
 "path": "res://interfaces/i_networked.gd"
@@ -84,7 +79,6 @@ _global_script_class_icons={
 "Hitbox": "",
 "IActor": "",
 "IContainer": "",
-"IController": "",
 "INetworked": "",
 "State": "",
 "StateMachine": ""

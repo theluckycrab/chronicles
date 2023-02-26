@@ -9,7 +9,6 @@ extends StateMachine
 	Dependencies : ControlledCamera, Events
 """
 
-var interfaces = [IController.new(self)]
 var input_locks = 0
 onready var camera = $ControlledCamera
 onready var state_label = $Label
