@@ -8,6 +8,7 @@ var max_v_angle = deg2rad(25)
 var views = []
 var stored_delta = 0
 var lock_target = null
+var lock_speed = 0.2
 export var spring_length = 4
 export var spring_height = 2.2
 export var h_offset = 0.05
@@ -50,7 +51,7 @@ func _process(_delta):
 	if is_instance_valid(lock_target):
 		var dir = global_transform.origin.direction_to(lock_target.global_transform.origin)
 		var angle = atan2(dir.x, dir.z)
-		rotation.y = lerp_angle(rotation.y, angle, 0.8)
+		rotation.y = lerp_angle(rotation.y, angle, lock_speed)
 	if last_mouse_relative == Vector2.ZERO:
 		last_mouse_relative.x = Input.get_joy_axis(1, 2)
 		last_mouse_relative.y = Input.get_joy_axis(1, 3)

@@ -66,3 +66,6 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="DebugCube"]
 transform = Transform( 1, 0, 0, 0, 0.0555477, 0, 0, 0, 1, 0, -1.03004, 0 )
 shape = SubResource( 4 )
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -192.459, -28.252, 0 )

@@ -3,14 +3,15 @@ extends Spatial
 onready var over_ledge = $Overledge
 onready var under_ledge = $Overledge/Underledge
 onready var interact = $Interact
+var lock_target = null
 
-func get_ledge():
+func get_ledge() -> Vector3:
 	if ! over_ledge.is_colliding() and under_ledge.is_colliding():
 		return under_ledge.get_collision_normal()
 	else:
 		return Vector3.ZERO
 		
-func get_interact_target():
+func get_interact_target() -> Spatial:
 	if interact.is_colliding() and interact.get_collider().has_method("interact"):
 		$Interact/Label.text = interact.get_collider().name
 		return interact.get_collider()

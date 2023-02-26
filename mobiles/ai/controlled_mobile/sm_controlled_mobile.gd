@@ -1,6 +1,7 @@
 extends StateMachine
 
 var input_locks = 0
+var lock_on_view_angle = 60
 onready var camera = $ControlledCamera
 onready var state_label = $Label
 
@@ -35,6 +36,13 @@ func _unhandled_input(event):
 		return
 	if event.is_action_pressed("jump") and ! event.is_echo():
 		set_state("Jump")
+	if event.is_action_pressed("tab") and ! event.is_echo():
+		host.toggle_lock_on(host.get_factions())
+		clear_lock_target_outside_cam_view()
+	if event.is_action_pressed("q") and ! event.is_echo():
+		host.acquire_next_lock_target(host.get_factions())
+		clear_lock_target_outside_cam_view()
+			
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")
 	
@@ -44,3 +52,11 @@ func _unhandled_input(event):
 
 func can_act() -> bool:
 	return input_locks == 0
+
+func clear_lock_target_outside_cam_view() -> void:
+	if is_instance_valid(host.lock_target):
+		var dir = host.direction_to(host.lock_target)
+		var cam_dir = Vector3.BACK.rotated(Vector3.UP, camera.rotation.y)
+		if dir.angle_to(cam_dir) > deg2rad(lock_on_view_angle):
+			host.lock_target = null
+	camera.set_lock_target(host.lock_target)

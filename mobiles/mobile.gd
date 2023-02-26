@@ -8,25 +8,33 @@ var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
 var item_list := []
+var lock_target = null
+var lock_range = 100
+var factions = []
 
 func _physics_process(delta):
 	ai.cycle()
 	move(delta)
 
 func build_from_dictionary(data: Dictionary) -> void:
-	for i in data:
-		match i:
+	for override in data:
+		match override:
 			"skeleton":
 				armature = load("res://mobiles/armatures/"+data.skeleton+"_armature.tscn").instance()
 				add_child(armature)
 			"equipment":
-				for j in data.equipment:
-					var item = Data.get_item(j)
+				for index in data.equipment:
+					var item = Data.get_item(index)
 					npc("equip", item.as_dict())
 					item.queue_free()
 			"ai":
 				ai = load("res://mobiles/ai/"+data.ai+"/sm_"+data.ai+".tscn").instance()
 				add_child(ai)
+			"factions":
+				for faction in data.factions:
+					add_to_group(faction)
+					factions.append(faction)
+				
 				
 func move(delta) -> void:
 	add_force(Vector3.DOWN)
@@ -35,6 +43,8 @@ func move(delta) -> void:
 		m = m.rotated(Vector3.UP, armature.rotation.y)
 		m *= 2
 		velocity = m / delta
+	elif is_instance_valid(lock_target):
+		armature.face_dir(direction_to(lock_target), delta)
 	else:
 		armature.face_dir(velocity, delta)
 	var final_move = velocity + force
@@ -69,11 +79,70 @@ func equip(item_dict: Dictionary) -> void:
 	item.queue_free()
 			
 			
-func get_ledge():
+func get_ledge() -> Vector3:
 	return armature.get_ledge()
 	
-func get_interact_target():
+func get_interact_target() -> Spatial:
 	return armature.get_interact_target()
+	
+func toggle_lock_on(group_filter_array=[]) -> void:
+	if is_instance_valid(lock_target):
+		lock_target = null
+	else:
+		acquire_next_lock_target(group_filter_array)
+			
+func acquire_next_lock_target(group_filter_array=[]) -> void:
+	var next_target = Vector3.ZERO
+	for unit in get_tree().get_nodes_in_group("actors"):
+		if unit != self \
+			and unit != lock_target \
+ 			and can_see(unit)\
+			and distance_to(unit) < lock_range:
+				for group in group_filter_array:
+					if unit.is_in_group(group):
+						break
+				if ! is_instance_valid(lock_target):
+					next_target = unit
+				elif distance_to(unit) <= distance_to(next_target):
+					next_target = unit
+	lock_target = next_target
+			
+func distance_to(target) -> float:
+	if target is Spatial:
+		target = target.global_transform.origin
+	if target is Vector3:
+		return global_transform.origin.distance_to(target)
+	return 0.0
+	
+func direction_to(target) -> Vector3:
+	if target is Spatial:
+		target = target.global_transform.origin
+	if target is Vector3:
+		return global_transform.origin.direction_to(target)
+	return Vector3.ZERO
+
+func get_factions() -> Array:
+	return factions
+	
+func can_see(target) -> bool:
+	if target is Spatial:
+		return can_see_object(target)
+	elif target is Vector3:
+		return can_see_point(target)
+	else:
+		return false
+		
+func can_see_object(target: Spatial) -> bool:
+	var my_pos = armature.global_transform.origin + Vector3(0,2,0)
+	var t_pos = target.global_transform.origin + Vector3(0,2,0)
+	var result = get_world().direct_space_state.intersect_ray(my_pos, t_pos)
+	return target == result.collider
+	
+func can_see_point(target: Vector3) -> bool:
+	var my_pos = armature.global_transform.origin + Vector3(0,2,0)
+	var t_pos = target
+	var result = get_world().direct_space_state.intersect_ray(my_pos, t_pos)
+	return result.empty()
 			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:

@@ -1,3 +1,9 @@
+# [Unreleased]
+
+[Added] helper functions to base mobile, distance_to(spatial or vec3), direction_to(spatial or vec3), can_see(spatial or vec3)
+[Added] raycast-based lock_on
+
+
 # [1.2.0]
 
 [Removed] i_controller

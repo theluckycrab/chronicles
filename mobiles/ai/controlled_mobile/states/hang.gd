@@ -20,7 +20,6 @@ func can_exit():
 func enter():
 	var c = host.get_ledge()
 	facing = c
-	host.ai.get_state("Jump").jumped = false
 	host.play("HangLedge")
 	has_hung = true
 	pass

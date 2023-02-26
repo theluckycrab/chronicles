@@ -38,8 +38,8 @@ func unequip(slot: String) -> void:
 	if equipped_items.has(slot) and is_instance_valid(equipped_items[slot]):
 		equipped_items[slot].queue_free()
 
-func get_ledge():
+func get_ledge() -> Vector3:
 	return sensors.get_ledge()
 
-func get_interact_target():
+func get_interact_target() -> Spatial:
 	return sensors.get_interact_target()
