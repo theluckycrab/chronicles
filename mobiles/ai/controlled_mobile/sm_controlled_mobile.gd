@@ -34,10 +34,14 @@ func _process(_delta):
 		state_label.text = current_state.index
 	else:
 		state_label.text = "No State"
+	host.get_interact_target()
 
 func _unhandled_input(event):
 	wasd = Vector3.ZERO
 	if !can_act():
+		return
+	if is_instance_valid(host.get_interact_target()) and event.is_action_pressed("jump"):
+		host.get_interact_target().interact(host)
 		return
 	if event.is_action_pressed("jump") and ! event.is_echo():
 		set_state("Jump")

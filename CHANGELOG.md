@@ -1,5 +1,7 @@
 # [Unreleased]
 
+[Added] controlled camera can now zoom in and out with mouse wheel
+[Added] a raycast was added to armature/sensors for detecting interactive objects
 [Changed] Data.load_char_save() now handles get_snake_case(), so all saves should be converted to snake_case and should not be considered case-sensitive
 [Added] character creation screen to choose name and chat color
 [Changed] character chat colors now use html format

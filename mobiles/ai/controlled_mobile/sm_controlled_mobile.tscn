@@ -23,6 +23,7 @@ script = ExtResource( 6 )
 script = ExtResource( 3 )
 
 [node name="ControlledCamera" parent="." instance=ExtResource( 7 )]
+spring_length = 6
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5

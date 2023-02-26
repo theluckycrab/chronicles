@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://mobiles/armatures/armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/3d/skeletons/humanoid.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=10]
 [ext_resource path="res://data/assets/3d/meshes/equipment/base_human.mesh" type="ArrayMesh" id=11]
 [ext_resource path="res://data/assets/3d/animations/humanoid/HangLedge.anim" type="Animation" id=12]
-[ext_resource path="res://mobiles/armatures/sensors.gd" type="Script" id=13]
 [ext_resource path="res://data/assets/3d/animations/humanoid/UpLedge.anim" type="Animation" id=14]
 
 [sub_resource type="AnimationNodeAnimation" id=1]
@@ -64,17 +63,5 @@ tree_root = SubResource( 4 )
 anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/Armature/ArmatureAnimator")
 root_motion_track = NodePath("Armature/Skeleton:root")
 
-[node name="Sensors" type="Spatial" parent="." index="2"]
-script = ExtResource( 13 )
-
-[node name="Overledge" type="RayCast" parent="Sensors" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58382, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, 0.75 )
-
-[node name="Underledge" type="RayCast" parent="Sensors/Overledge" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367839, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, 0.75 )
-
 [editable path="ArmatureAnimator"]
+[editable path="Sensors"]

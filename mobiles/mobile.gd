@@ -85,6 +85,9 @@ func equip(item_dict: Dictionary) -> void:
 			
 func get_ledge():
 	return armature.get_ledge()
+	
+func get_interact_target():
+	return armature.get_interact_target()
 			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:

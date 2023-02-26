@@ -40,6 +40,11 @@ func _input(event):
 		last_mouse_relative = event.relative
 		apply_rotation()
 		apply_limits()
+	if event.is_action_pressed("zoom+"):
+		vertical_pivot.spring_length += 1
+	if event.is_action_pressed("zoom-"):
+		vertical_pivot.spring_length -= 1
+	vertical_pivot.spring_length = clamp(vertical_pivot.spring_length, -20, -1)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):

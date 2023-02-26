@@ -54,3 +54,6 @@ func unequip(slot: String) -> void:
 
 func get_ledge():
 	return sensors.get_ledge()
+
+func get_interact_target():
+	return sensors.get_interact_target()
