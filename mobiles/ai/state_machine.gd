@@ -1,17 +1,6 @@
 extends Spatial
 class_name StateMachine
 
-"""
-	The StateMachine handles transitioning from one state to another. Cycle should be called every
-		frame. It will handle checking if a state is ready to exit, enter, interrupt, or if it needs
-		to find a fallback state. After it chooses a state it will run the execute() function of the
-		current state. It is a spatial to allow for placement of a camera.
-		
-	Dependency : State
-	Setup : Fallback states must be children of this node. Optional states must be in the override
-		dictionary or children of this node to be accessed by name alone.
-"""
-
 signal state_changed
 
 var current_state = null

@@ -2,25 +2,6 @@ tool
 extends AnimationPlayer
 class_name ArmatureAnimator
 
-"""
-	The ArmatureAnimator is for simplifying a root-motion workaround. Because AnimationTree is such
-		a pain, we just use a single OneShot node and swap out the animation on it. The animator
-		is responsible for starting/stopping/swapping between a normal AnimationPlayer when
-		root-motion is not needed and the AnimationTree when it is needed. 
-		
-	Dependencies : AnimationTree
-	Setup :
-		AnimationTree needs :
-			- a blend tree root
-				- set resource > local to scene
-			- a oneshot node with blends set to 0
-				- set resource > local to scene
-			- an animation node named "Action"
-				- set resource > local to scene
-			- set output > resource > local to scene
-			- set the root motion bone
-"""
-
 signal keyframe
 var override_list: Dictionary = {}
 var last_animation: String = ""

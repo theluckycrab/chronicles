@@ -1,14 +1,5 @@
 extends StateMachine
 
-"""
-	The Controlled state machine is meant to provide functionality for a basic playable character. 
-		It needs to respond to inputs and switch to relevant states. A portion of this is going to 
-		be calling into the mobile class to use functions that will ultimately call right back. To
-		keep mobiles generic, no actual input should be processed on the mobile script.
-		
-	Dependencies : ControlledCamera, Events
-"""
-
 var input_locks = 0
 onready var camera = $ControlledCamera
 onready var state_label = $Label

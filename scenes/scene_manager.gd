@@ -1,12 +1,5 @@
 extends Spatial
 
-"""
-	The SceneManager is responsible for controlling the current scene.
-	
-	Dependencies : res://scenes
-	Setup : 
-"""
-
 export(String) var start_scene = "char_creation"
 
 var current_scene = null

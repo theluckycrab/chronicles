@@ -1,4 +1,4 @@
-# [Unreleased]
+# [1.2.0]
 
 [Removed] i_controller
 [Added] controlled camera can now zoom in and out with mouse wheel

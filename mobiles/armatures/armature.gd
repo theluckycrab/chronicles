@@ -1,20 +1,6 @@
 extends Spatial
 class_name Armature
 
-"""
-	The Armature is the visual representation of a character in the world. It handles rotation, 
-		animation, root motion, and sensors that need to rotate with the character. It is named
-		"Armature" to play nicely when animating skeletons and meshes that are saved from
-		blender-exported .glb files.
-		
-	Dependencies : ArmatureAnimator, "res://data/assets/3d/meshes/equipment/", Sensors, BaseItem
-	Setup : Do not use the base Armature scene. Inherit it instead.
-			- ArmatureAnimator
-				- Add animations manually
-			- Skeleton
-				- Mesh that is mapped to the skeleton
-"""
-
 var equipped_items: Dictionary = {}
 var rotation_speed: float = 15
 onready var animator: ArmatureAnimator = $ArmatureAnimator

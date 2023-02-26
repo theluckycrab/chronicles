@@ -1,19 +1,5 @@
 extends Spatial
 
-"""
-	The ControlledCamera is a complicated rig requiring a particular setup. As it handles its own
-		input, you'll need to manage when it can and can't act. ui_cancel (Escape) will toggle the
-		visibility of the cursor by default. Page up and down will invert the axis. The Controlled
-		Camera supports both mouse and joypad inputs (right stick). 
-		
-	Dependencies : Data
-	Setup : 
-		- Self
-			- SpringArm named Vertical
-				- Camera named Camera
-		- Set SpringArm height
-"""
-
 var last_mouse_relative = Vector2.ZERO
 var h_sens = 0.25
 var v_sens = 0.25

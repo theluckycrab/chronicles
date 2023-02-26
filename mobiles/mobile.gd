@@ -1,20 +1,6 @@
 extends KinematicBody
 class_name BaseMobile
 
-"""
-	BaseMobile represents any creature in the game world that animates through an Armature and 
-		chooses behavior using a StateMachine. Mobile is the high-level object that will receive 
-		networked function calls from other high-level objects in the game world. None of the 
-		children of BaseMobile should ever be touched directly by another object. BaseMobile exists 
-		to act as a reliable API for the world to interact with a creature. The children 
-		(Armature, StateMachine) are implementation details and are subject to change.
-		
-	Dependency : Armature, StateMachine, IActor, IContainer
-	Setup :
-		- Armature
-		- StateMachine
-"""
-
 var armature: Armature
 onready var ai: StateMachine
 var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
