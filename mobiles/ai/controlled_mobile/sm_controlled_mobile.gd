@@ -39,9 +39,11 @@ func _unhandled_input(event):
 	if event.is_action_pressed("tab") and ! event.is_echo():
 		host.toggle_lock_on(host.get_factions())
 		clear_lock_target_outside_cam_view()
+		camera.set_lock_target(host.lock_target)
 	if event.is_action_pressed("q") and ! event.is_echo():
 		host.acquire_next_lock_target(host.get_factions())
 		clear_lock_target_outside_cam_view()
+		camera.set_lock_target(host.lock_target)
 			
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")
@@ -58,5 +60,5 @@ func clear_lock_target_outside_cam_view() -> void:
 		var dir = host.direction_to(host.lock_target)
 		var cam_dir = Vector3.BACK.rotated(Vector3.UP, camera.rotation.y)
 		if dir.angle_to(cam_dir) > deg2rad(lock_on_view_angle):
-			host.lock_target = null
-	camera.set_lock_target(host.lock_target)
+			host.toggle_lock_on()
+			host.toggle_lock_on(host.get_factions())

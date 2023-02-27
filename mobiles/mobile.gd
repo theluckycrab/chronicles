@@ -92,7 +92,8 @@ func toggle_lock_on(group_filter_array=[]) -> void:
 		acquire_next_lock_target(group_filter_array)
 			
 func acquire_next_lock_target(group_filter_array=[]) -> void:
-	var next_target = Vector3.ZERO
+	print(lock_target)
+	var old_lock = lock_target
 	for unit in get_tree().get_nodes_in_group("actors"):
 		if unit != self \
 			and unit != lock_target \
@@ -102,10 +103,9 @@ func acquire_next_lock_target(group_filter_array=[]) -> void:
 					if unit.is_in_group(group):
 						break
 				if ! is_instance_valid(lock_target):
-					next_target = unit
-				elif distance_to(unit) <= distance_to(next_target):
-					next_target = unit
-	lock_target = next_target
+					lock_target = unit
+				elif distance_to(unit) <= distance_to(lock_target) or (unit != old_lock and old_lock == lock_target):
+					lock_target = unit
 			
 func distance_to(target) -> float:
 	if target is Spatial:
