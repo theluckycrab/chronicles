@@ -1,18 +1,5 @@
 extends Control
 
-"""
-	The chatbox is made up of an entry and a history. It sends and receives printable messages from
-		the Events singleton. History is currently a RichTextLabel to allow for fancy colored text. 
-		However, this opens up the program to several potential user-side issues, such as trying to
-		load images that aren't in the res:// path. Currently, we get more than we lose.
-		
-	Usage : Entering a message into the chat will send a request to Server.send_chat(words). The 
-		chat history hooks up to the Events signal "chat_message_received". You should emit that 
-		signal to print things to the chatbox.
-		
-	Dependencies : Server, Events, Data
-"""
-
 onready var history: RichTextLabel = $VBoxContainer/History
 onready var entry: LineEdit = $VBoxContainer/Entry
 
@@ -89,12 +76,11 @@ func abort_entry() -> void:
 func parse_command(s: String) -> void:
 	s = s.lstrip("/")
 	var args = s.split(" ", false, 1)
-	var host = get_node("/root/Main/"+Server.map+"/"+str(Client.nid))
-	if is_instance_valid(host):
-		if args.size() < 2:
-			args.append("")
-		if ResourceLoader.exists("res://commands/"+args[0]+".gd"):
-			load("res://commands/"+args[0]+".gd").execute(host, args[1])
+	var host = get_node_or_null("/root/Main/"+Server.map+"/"+str(Client.nid))
+	if args.size() < 2:
+		args.append("")
+	if ResourceLoader.exists("res://commands/"+args[0]+".gd"):
+		load("res://commands/"+args[0]+".gd").execute(host, args[1])
 	entry.clear()
 	drop_focus()
 	

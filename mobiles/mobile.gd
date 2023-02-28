@@ -92,7 +92,6 @@ func toggle_lock_on(group_filter_array=[]) -> void:
 		acquire_next_lock_target(group_filter_array)
 			
 func acquire_next_lock_target(group_filter_array=[]) -> void:
-	print(lock_target)
 	var old_lock = lock_target
 	for unit in get_tree().get_nodes_in_group("actors"):
 		if unit != self \
@@ -180,9 +179,10 @@ func get_items() -> Array:
 
 ##INetworked
 func npc(function: String, args: Dictionary) -> void:
-	args["function"] = function
-	args["uuid"] = int(name)
-	Server.npc(args)
+	if is_instance_valid(get_tree().network_peer):
+		args["function"] = function
+		args["uuid"] = int(name)
+		Server.npc(args)
 	
 func is_dummy() -> bool:
 	return int(name) != Client.nid
