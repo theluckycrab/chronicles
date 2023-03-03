@@ -102,7 +102,7 @@ func setup():
 	camera.fov = fov
 	camera.far = 2000
 	camera.rotation_degrees.y = -180
-	camera.current = true
-	vertical_pivot.spring_length = - spring_length
+	#camera.current = true
+	vertical_pivot.spring_length = -spring_length
 	vertical_pivot.global_transform.origin.y = spring_height
 	
