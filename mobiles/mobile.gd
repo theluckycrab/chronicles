@@ -8,6 +8,7 @@ var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
 var item_list := []
+var inventory = Inventory.new()
 var lock_target = null
 var lock_range = 100
 var factions = []
@@ -76,7 +77,9 @@ func sync_move(args: Dictionary) -> void:
 func equip(item_dict: Dictionary) -> void:
 	var item = BaseItem.new(item_dict)
 	armature.equip(item)
-	item.queue_free()
+	inventory.equip(item)
+	inventory.add_item(item)
+	#item.queue_free()
 			
 			
 func get_ledge() -> Vector3:
@@ -95,15 +98,13 @@ func acquire_next_lock_target(group_filter_array=[]) -> void:
 	var old_lock = lock_target
 	for unit in get_tree().get_nodes_in_group("actors"):
 		if unit != self \
-			and unit != lock_target \
+			and unit != old_lock \
  			and can_see(unit)\
 			and distance_to(unit) < lock_range:
 				for group in group_filter_array:
 					if unit.is_in_group(group):
 						break
-				if ! is_instance_valid(lock_target):
-					lock_target = unit
-				elif distance_to(unit) <= distance_to(lock_target) or (unit != old_lock and old_lock == lock_target):
+				if distance_to(unit) <= distance_to(lock_target) or (unit != old_lock and old_lock == lock_target):
 					lock_target = unit
 			
 func distance_to(target) -> float:
@@ -142,6 +143,12 @@ func can_see_point(target: Vector3) -> bool:
 	var t_pos = target
 	var result = get_world().direct_space_state.intersect_ray(my_pos, t_pos)
 	return result.empty()
+	
+func get_equipped(slot: String):
+	if armature.equipped_items.has(slot):
+		return armature.equipped_items[slot]
+	else:
+		return null
 			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:
@@ -163,19 +170,13 @@ func set_state(state):
 	
 ##IContainer
 func add_item(item: BaseItem) -> void:
-	item_list.append(item)
+	inventory.add_item(item)
 	
-func remove_item(removal) -> void:
-	if removal is int:
-		item_list.remove(removal)
-	elif removal is String:
-		for i in item_list:
-			if i.current.index == removal:
-				item_list.erase(i)
-				return
+func remove_item(item: BaseItem) -> void:
+	inventory.remove_item(item)
 	
 func get_items() -> Array:
-	return item_list
+	return inventory.get_items()
 
 ##INetworked
 func npc(function: String, args: Dictionary) -> void:

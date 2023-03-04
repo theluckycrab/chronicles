@@ -41,6 +41,9 @@ func get_resist(r: String) -> int:
 	else:
 		return 0
 		
+func get_slot() -> String:
+	return current.slot
+		
 func is_default() -> bool:
 	return false
 

@@ -2,7 +2,6 @@ extends RichTextLabel
 
 func _ready():
 	var _discard = Events.connect("chat_message_received", self, "on_chat_message_received")
-	Events.emit_signal("chat_message_received", "[System] You begin to feel test message.")
 	
 func get_formatted_string(e: String) -> String:
 	if e.begins_with("[System]"):

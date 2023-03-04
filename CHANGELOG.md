@@ -1,5 +1,7 @@
 # [Unreleased]
 
+[Added] mobile now uses a separate inventory script to manage items
+[Fixed] lock_on no longer ignores targets from backwards angle
 [Fixed] controlled_camera's lock_on rotation speed is now delta based
 [Added] helper functions to base mobile, distance_to(spatial or vec3), direction_to(spatial or vec3), can_see(spatial or vec3)
 [Added] raycast-based lock_on

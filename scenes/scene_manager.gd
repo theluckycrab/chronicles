@@ -1,6 +1,6 @@
 extends Spatial
 
-export(String) var start_scene = "test_room"#"char_creation"
+export(String) var start_scene = "char_creation"
 
 var current_scene = null
 
