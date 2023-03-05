@@ -1,8 +1,10 @@
 # [Unreleased]
 
+[Changed] armature.equipped_items is now a dictionary containing mesh and item
+[Added] strong attack state
 [Added] items now automatically override animations when equipped
 [Added] base_item.get_animation_overrides
-[Added] combo state
+[Added] combo attack state
 [Changed] armature_animator animation overrides are now done in the play function instead of a signal
 [Added] mobile now uses a separate inventory script to manage items
 [Fixed] lock_on no longer ignores targets from backwards angle

@@ -48,7 +48,7 @@ func on_char_data_changed() -> void:
 	chat_color_picker.color = Data.get_char_value("chat_color")
 	
 func build_outfit() -> void:
-	for i in armature.equipped_items:
+	for i in armature.equipped_items.keys():
 		armature.unequip(i)
 	var list = Data.get_char_data()
 	for i in list.equipment:

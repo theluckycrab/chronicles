@@ -46,6 +46,8 @@ func _unhandled_input(event):
 		camera.set_lock_target(host.lock_target)
 	if event.is_action_pressed("combo") and ! event.is_echo():
 		host.set_state("Combo")
+	if event.is_action_pressed("strong") and ! event.is_echo():
+		host.set_state("Strong")
 			
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")
