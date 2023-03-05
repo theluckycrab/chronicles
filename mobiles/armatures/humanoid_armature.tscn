@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://mobiles/armatures/armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/3d/skeletons/humanoid.tscn" type="PackedScene" id=2]
@@ -12,7 +12,11 @@
 [ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=10]
 [ext_resource path="res://data/assets/3d/meshes/equipment/base_human.mesh" type="ArrayMesh" id=11]
 [ext_resource path="res://data/assets/3d/animations/humanoid/HangLedge.anim" type="Animation" id=12]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_2.anim" type="Animation" id=13]
 [ext_resource path="res://data/assets/3d/animations/humanoid/UpLedge.anim" type="Animation" id=14]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Strong.anim" type="Animation" id=15]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_3.anim" type="Animation" id=16]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_1.anim" type="Animation" id=17]
 
 [sub_resource type="AnimationNodeAnimation" id=1]
 resource_local_to_scene = true
@@ -49,7 +53,11 @@ material/2 = null
 
 [node name="ArmatureAnimator" parent="." index="1" instance=ExtResource( 3 )]
 anims/Fall = ExtResource( 6 )
+anims/Fist_Combo_1 = ExtResource( 17 )
+anims/Fist_Combo_2 = ExtResource( 13 )
+anims/Fist_Combo_3 = ExtResource( 16 )
 anims/Fist_Idle = ExtResource( 4 )
+anims/Fist_Strong = ExtResource( 15 )
 anims/HangLedge = ExtResource( 12 )
 anims/Idle = ExtResource( 5 )
 anims/Jump = ExtResource( 9 )

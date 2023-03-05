@@ -9,9 +9,6 @@ onready var tree: AnimationTree
 
 func _enter_tree():
 	setup()
-
-func _ready() -> void:
-	var _discard = connect("animation_started", self, "on_animation_started")
 	
 func get_current_animation() -> String:
 	if is_using_root_motion():
@@ -28,11 +25,9 @@ func keyframe() -> void:
 func get_root_motion() -> Transform:
 	return tree.get_root_motion_transform()
 
-func on_animation_started(anim:String) -> void:
-	if anim in override_list:
-		play(override_list[anim])
-
 func play_animation(animation: String, motion: bool = false):
+	if override_list.has(animation):
+		animation = override_list[animation]
 	if motion:
 		stop()
 		play_with_root_motion(animation)
@@ -56,4 +51,9 @@ func setup():
 	tree = get_node("AnimationTree")
 	tree.process_mode = AnimationTree.ANIMATION_PROCESS_PHYSICS
 	tree.anim_player = get_path()
-	#tree.root_motion_track = "../../Skeleton:root"
+
+func add_animation_override(key, animation):
+	override_list[key] = animation
+	
+func remove_animation_override(key):
+	var _discard = override_list.erase(key)

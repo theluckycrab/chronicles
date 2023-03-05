@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://mobiles/ai/controlled_mobile/sm_controlled_mobile.gd" type="Script" id=1]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/emote.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://mobiles/ai/controlled_mobile/controlled_camera/controlled_camera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/climb.gd" type="Script" id=8]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/hang.gd" type="Script" id=9]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/combo.gd" type="Script" id=10]
 
 [node name="StateMachine" type="Spatial"]
 script = ExtResource( 1 )
@@ -45,3 +46,6 @@ script = ExtResource( 9 )
 
 [node name="Climb" type="Node" parent="."]
 script = ExtResource( 8 )
+
+[node name="Combo" type="Node" parent="."]
+script = ExtResource( 10 )

@@ -65,3 +65,6 @@ func _notification(what):
 			if current.has("ability"):
 				if ! current.ability is String:
 					current.ability.queue_free()
+
+func get_animation_overrides() -> Dictionary:
+	return current.animations

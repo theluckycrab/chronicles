@@ -10,11 +10,15 @@ onready var sensors: Spatial = $Sensors
 
 func equip(item: BaseItem) -> void:
 	var new_mesh := MeshInstance.new()
-	unequip(item.current.slot)
-	equipped_items[item.current.slot] = new_mesh
+	unequip(item.get_slot())
+	equipped_items[item.get_slot()] = new_mesh
 	skeleton.add_child(new_mesh)
 	new_mesh.mesh = load("res://data/assets/3d/meshes/equipment/"+item.current.mesh+".mesh")
 	new_mesh.skeleton = skeleton.get_path()
+	var anims = item.get_animation_overrides()
+	if !anims.empty():
+		for i in anims:
+			animator.add_animation_override(i, anims[i])
 	
 func face_dir(wasd: Vector3, delta: float) -> void:
 	if wasd == Vector3.ZERO:
@@ -36,6 +40,8 @@ func play(animation: String, motion: bool = false):
 
 func unequip(slot: String) -> void:
 	if equipped_items.has(slot) and is_instance_valid(equipped_items[slot]):
+		for i in equipped_items[slot].get_animation_overrides():
+			animator.remove_animation_override(i)
 		equipped_items[slot].queue_free()
 
 func get_ledge() -> Vector3:
