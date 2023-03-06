@@ -61,6 +61,16 @@ func load_char_data(c: String) -> void:
 	else:
 		char_data = new_char_data
 		print(c + " not found in the saves folder.")
+	var player = get_mobile_data("player")
+	for i in player["equipment"]:
+		var will_equip = true
+		var p_item = items[i]
+		for e in char_data.equipment:
+			if p_item.slot == items[e].slot:
+				will_equip = false
+				break
+		if will_equip:
+			char_data.equipment.append(i)
 	Events.emit_signal("char_data_changed")
 		
 func load_config() -> void:

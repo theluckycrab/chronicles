@@ -7,7 +7,6 @@ var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
 
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
-var item_list := []
 var inventory = Inventory.new()
 var lock_target = null
 var lock_range = 100

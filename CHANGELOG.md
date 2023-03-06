@@ -1,5 +1,6 @@
 # [Unreleased]
 
+[Added] player data now fills missing required equipment slots with naked when loaded
 [Changed] armature.equipped_items is now a dictionary containing mesh and item
 [Added] strong attack state
 [Added] items now automatically override animations when equipped

@@ -17,7 +17,7 @@ var raw: Dictionary
 func _init(data: Dictionary) -> void:
 	raw = data
 	current = raw
-	if current.has("ability"):
+	if current.has("ability") and current.ability != "none":
 		current.ability = Data.get_ability(raw.ability)
 	match current.slot:
 		"head":
@@ -55,7 +55,7 @@ func take_damage(resist: String, count: int) -> void:
 
 func as_dict():
 	var dict = current.duplicate(true)
-	if dict.has("ability"):
+	if dict.has("ability") and dict.ability is BaseAbility:
 		dict.ability = dict.ability.current.index
 	return dict
 
