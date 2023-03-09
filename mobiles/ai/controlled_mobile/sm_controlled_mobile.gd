@@ -34,19 +34,19 @@ func _unhandled_input(event):
 	if is_instance_valid(host.get_interact_target()) and event.is_action_pressed("jump"):
 		host.get_interact_target().interact(host)
 		return
-	if event.is_action_pressed("jump") and ! event.is_echo():
+	if event.is_action_pressed("jump"):
 		set_state("Jump")
-	if event.is_action_pressed("tab") and ! event.is_echo():
+	if event.is_action_pressed("tab"):
 		host.toggle_lock_on(host.get_factions())
 		clear_lock_target_outside_cam_view()
 		camera.set_lock_target(host.lock_target)
-	if event.is_action_pressed("q") and ! event.is_echo():
+	if event.is_action_pressed("q"):
 		host.acquire_next_lock_target(host.get_factions())
 		clear_lock_target_outside_cam_view()
 		camera.set_lock_target(host.lock_target)
-	if event.is_action_pressed("combo") and ! event.is_echo():
+	if event.is_action_pressed("combo"):
 		host.set_state("Combo")
-	if event.is_action_pressed("strong") and ! event.is_echo():
+	if event.is_action_pressed("strong"):
 		host.set_state("Strong")
 			
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")

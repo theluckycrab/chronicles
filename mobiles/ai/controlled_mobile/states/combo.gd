@@ -1,7 +1,7 @@
 extends State
 
 var combo_list = ["Combo_1", "Combo_2", "Combo_3"]
-var combo_counter = -1
+var combo_counter = 0
 var will_combo = false
 
 func _init():
@@ -12,24 +12,26 @@ func can_enter() -> bool:
 	return host.is_on_floor()
 	
 func can_exit() -> bool:
-	if will_combo:
+	if will_combo and ! host.armature.is_using_root_motion():
 		enter()
 		return false
 	return ! host.armature.is_using_root_motion()
 
 func enter() -> void:
+	Input.action_release("combo")
 	will_combo = false
 	if combo_counter >= combo_list.size() or ! host.is_on_floor():
 		return
 	tracking()
+	print(combo_counter)
 	host.play(combo_list[combo_counter], true)
 	
 func exit() -> void:
-	combo_counter = -1
+	combo_counter = 0
 	pass
 	
 func execute() -> void:
-	if Input.is_action_just_released("combo") and combo_counter < combo_list.size():
+	if Input.is_action_just_pressed("combo") and combo_counter < combo_list.size() and ! will_combo:
 		combo_counter += 1
 		will_combo = true
 	pass
