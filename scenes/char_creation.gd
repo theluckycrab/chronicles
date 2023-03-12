@@ -2,7 +2,8 @@ extends Spatial
 
 onready var name_entry = $LineEdit
 onready var chat_color_picker = $LineEdit/TestChat/ColorPicker
-onready var join_server_button = $LineEdit/Button
+onready var join_server_button = $LineEdit/VBoxContainer/JoinButton
+onready var offline_button = $LineEdit/VBoxContainer/OfflineButton
 onready var test_chat_history = $LineEdit/TestChat/History
 onready var test_chat_entry = $LineEdit/TestChat/Entry
 onready var armature = $Armature
@@ -12,6 +13,7 @@ func _ready():
 	name_entry.connect("text_entered", self, "on_name_entry")
 	chat_color_picker.connect("popup_closed", self, "on_chat_color_picker")
 	join_server_button.connect("button_down", self, "on_join_server_button")
+	offline_button.connect("button_down", self, "on_offline_button")
 	test_chat_entry.connect("text_entered", self, "on_test_chat_entry")
 	name_entry.text = Data.get_config_value("last_character")
 	chat_color_picker.color = Data.get_char_value("chat_color")
@@ -39,6 +41,12 @@ func on_join_server_button() -> void:
 	yield(get_tree(), "connected_to_server")
 	Events.emit_signal("scene_change_request", "test_room")
 	pass
+	
+func on_offline_button() -> void:
+	if name_entry.text == "":
+		name_entry.text = "Null Edgelord, Grand Orator of Testers"
+	Data.load_char_data(name_entry.text)
+	Events.emit_signal("scene_change_request", "test_room")
 
 func on_test_chat_entry(words: String) -> void:
 	test_chat_history.bbcode_text += "[color=#"+chat_color_picker.color.to_html()+"]"+words+"[/color]\n"
