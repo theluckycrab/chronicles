@@ -40,6 +40,8 @@ func idle() -> void:
 	
 func strike() -> void:
 	state = STATES.STRIKE
+	for i in get_overlapping_areas():
+		on_area_entered(i)
 	
 func on_area_entered(area:Area) -> void:
 	if state == STATES.GHOST or area.state == STATES.GHOST or state == area.state:
