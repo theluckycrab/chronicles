@@ -18,12 +18,14 @@ func enter() -> void:
 		for i in weapon:
 			damage.add(i, weapon[i])
 	host.get_weaponbox().set_damage_profile(damage)
+	host.get_weaponbox().strike()
 	host.play("Strong", true)
 		
 func execute() -> void:
 	pass
 	
 func exit() -> void:
+	host.get_weaponbox().ghost()
 	pass
 	
 

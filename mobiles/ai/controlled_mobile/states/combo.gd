@@ -13,6 +13,7 @@ func can_enter() -> bool:
 	
 func can_exit() -> bool:
 	if will_combo and ! host.armature.is_using_root_motion():
+		host.get_weaponbox().ghost()
 		enter()
 		return false
 	return ! host.armature.is_using_root_motion()
@@ -23,11 +24,14 @@ func enter() -> void:
 	if combo_counter >= combo_list.size() or ! host.is_on_floor():
 		return
 	host.get_weaponbox().set_damage_profile(DamageProfile.new({"light":1}))
+	host.get_weaponbox().strike()
 	tracking()
-	print(combo_counter)
+	#print(combo_counter)
 	host.play(combo_list[combo_counter], true)
 	
 func exit() -> void:
+	print("exit combo")
+	host.get_weaponbox().ghost()
 	combo_counter = 0
 	pass
 	

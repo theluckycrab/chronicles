@@ -40,8 +40,9 @@ func idle() -> void:
 	
 func strike() -> void:
 	state = STATES.STRIKE
+	force_update_transform()
 	for i in get_overlapping_areas():
-		on_area_entered(i)
+		i.on_area_entered(self)
 	
 func on_area_entered(area:Area) -> void:
 	if state == STATES.GHOST or area.state == STATES.GHOST or state == area.state:
@@ -49,10 +50,10 @@ func on_area_entered(area:Area) -> void:
 	elif area.has_method("get_damage_profile"):
 		emit_hit(area.get_damage_profile())
 		
-func emit_hit(h_data: Dictionary) -> void:
+func emit_hit(dp : DamageProfile) -> void:
 	match state:
 		STATES.IDLE:
-			emit_signal("got_hit", damage_profile)
+			emit_signal("got_hit", dp)
 		STATES.STRIKE:
 			emit_signal("hit")
 	
