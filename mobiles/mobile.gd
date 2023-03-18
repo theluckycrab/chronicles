@@ -144,10 +144,13 @@ func can_see_point(target: Vector3) -> bool:
 	return result.empty()
 	
 func get_equipped(slot: String):
-	if armature.equipped_items.has(slot):
-		return armature.equipped_items[slot]
+	if inventory.equipped_items.has(slot):
+		return inventory.equipped_items[slot]
 	else:
 		return null
+		
+func get_weaponbox() -> Hitbox:
+	return armature.get_weaponbox()
 			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:

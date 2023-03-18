@@ -20,7 +20,7 @@ enum STATES {GHOST, IDLE, STRIKE}
 signal hit
 signal got_hit
 
-var hit_data: Dictionary = {}
+var damage_profile: DamageProfile = DamageProfile.new()
 export(STATES) var state: int = STATES.GHOST
 
 func _ready() -> void:
@@ -46,15 +46,18 @@ func strike() -> void:
 func on_area_entered(area:Area) -> void:
 	if state == STATES.GHOST or area.state == STATES.GHOST or state == area.state:
 		return
-	elif area.has_method("get_hit_data"):
-		emit_hit(area.get_hit_data())
+	elif area.has_method("get_damage_profile"):
+		emit_hit(area.get_damage_profile())
 		
 func emit_hit(h_data: Dictionary) -> void:
 	match state:
 		STATES.IDLE:
-			emit_signal("got_hit", h_data)
+			emit_signal("got_hit", damage_profile)
 		STATES.STRIKE:
-			emit_signal("hit", h_data)
+			emit_signal("hit")
 	
-func get_hit_data() -> Dictionary:
-	return hit_data
+func get_damage_profile() -> DamageProfile:
+	return damage_profile
+
+func set_damage_profile(dp: DamageProfile) -> void:
+	damage_profile = dp

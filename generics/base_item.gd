@@ -68,3 +68,11 @@ func _notification(what):
 
 func get_animation_overrides() -> Dictionary:
 	return current.animations
+
+func get_damage_profile() -> DamageProfile:
+	var dp
+	if current.has("damage"):
+		dp = DamageProfile.new(current.damage)
+	else:
+		dp = DamageProfile.new()
+	return dp

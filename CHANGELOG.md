@@ -1,5 +1,8 @@
 # [Unreleased]
 
+[Added] function chain mobile.get_weaponbox() -> armature.get_weaponbox() -> armature.skeleton.get_node("Mainhand/Hitbox")
+[Changed] mobile.get_equipped() now checks the inventory instead of the armature
+[Added] damage profiles as a method for transmitting damage data
 [Added] player data now fills missing required equipment slots with naked when loaded
 [Changed] armature.equipped_items is now a dictionary containing mesh and item
 [Added] strong attack state

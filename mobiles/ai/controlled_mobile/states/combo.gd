@@ -22,6 +22,7 @@ func enter() -> void:
 	will_combo = false
 	if combo_counter >= combo_list.size() or ! host.is_on_floor():
 		return
+	host.get_weaponbox().set_damage_profile(DamageProfile.new({"light":1}))
 	tracking()
 	print(combo_counter)
 	host.play(combo_list[combo_counter], true)
