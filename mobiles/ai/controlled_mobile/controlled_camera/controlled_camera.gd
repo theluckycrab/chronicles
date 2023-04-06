@@ -8,11 +8,11 @@ var max_v_angle = deg2rad(25)
 var views = []
 var stored_delta = 0
 var lock_target = null
-var lock_speed = 4
+var lock_speed = 40
 export var spring_length = 4
 export var spring_height = 2.2
 export var h_offset = 0.05
-export var fov = 90
+export var fov = 65
 
 onready var invert_y = Data.get_config_value("invert_y")
 onready var invert_x = Data.get_config_value("invert_x")
