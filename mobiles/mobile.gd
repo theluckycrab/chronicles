@@ -9,13 +9,15 @@ var force := Vector3.ZERO
 var inventory = Inventory.new()
 var lock_target = null
 var lock_range = 100
-var factions = []
+var stats = {}
 
 func _physics_process(delta):
 	ai.cycle()
 	move(delta)
 
 func build_from_dictionary(data: Dictionary) -> void:
+	add_to_group("actors")
+	stats = data.duplicate(true)
 	for override in data:
 		match override:
 			"skeleton":
@@ -32,7 +34,6 @@ func build_from_dictionary(data: Dictionary) -> void:
 			"factions":
 				for faction in data.factions:
 					add_to_group(faction)
-					factions.append(faction)
 				
 				
 func move(delta) -> void:
@@ -120,7 +121,7 @@ func direction_to(target) -> Vector3:
 	return Vector3.ZERO
 
 func get_factions() -> Array:
-	return factions
+	return stats.factions
 	
 func can_see(target) -> bool:
 	if target is Spatial:
