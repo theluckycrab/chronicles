@@ -191,3 +191,15 @@ func npc(function: String, args: Dictionary) -> void:
 	
 func is_dummy() -> bool:
 	return int(name) != Client.nid
+
+func strike(bone: String = "Mainhand", damage = {}):
+	armature.strike(bone, damage)
+
+func reset_strikeboxes():
+	armature.reset_strikeboxes()
+	
+func grab_keyframe(who):
+	armature.grab_keyframe(who)
+	
+func drop_keyframe(who):
+	armature.drop_keyframe(who)

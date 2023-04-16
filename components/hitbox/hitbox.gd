@@ -38,7 +38,8 @@ func ghost() -> void:
 func idle() -> void:
 	state = STATES.IDLE
 	
-func strike() -> void:
+func strike(damage = {}) -> void:
+	damage_profile = DamageProfile.new(damage)
 	state = STATES.STRIKE
 	force_update_transform()
 	for i in get_overlapping_areas():

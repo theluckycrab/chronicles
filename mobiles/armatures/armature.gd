@@ -53,3 +53,20 @@ func get_interact_target() -> Spatial:
 
 func get_weaponbox() -> Hitbox:
 	return weaponbox
+
+func strike(bone: String = "Mainhand", damage = {}):
+	var b = skeleton.get_node_or_null(bone + "/Hitbox")
+	if is_instance_valid(b):
+		b.strike(damage)
+		
+func reset_strikeboxes():
+	for child in skeleton.get_children():
+		for grandchild in child.get_children():
+			if grandchild is Hitbox:
+				grandchild.ghost()
+
+func grab_keyframe(who):
+	animator.connect("keyframe", who, "on_keyframe", [], CONNECT_ONESHOT)
+	
+func drop_keyframe(who):
+	animator.disconnect("keyframe", who, "on_keyframe")
