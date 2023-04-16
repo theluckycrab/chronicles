@@ -5,8 +5,6 @@ var item_list = []
 var equipped_items = {}
 var defaults = {}
 
-var interfaces = [IContainer.new(self)]
-
 func equip(item: BaseItem) -> void:
 	var slot = item.get_slot()
 	if equipped_items.has(slot):
@@ -36,7 +34,6 @@ func set_default(item: BaseItem) -> void:
 	defaults[slot] = item
 	pass
 
-#IContainer
 func add_item(item: BaseItem) -> void:
 	item_list.append(item)
 	

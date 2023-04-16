@@ -13,8 +13,6 @@ var fallback_states = ["Fall", "Walk", "Idle"]
 onready var host = get_parent()
 
 func _ready():
-	if ! host.is_in_group("actors"):
-		print(host, " was given a state machine but is not an actor.")
 	for i in get_children():
 		if i is State:
 			i.host = host

@@ -3,7 +3,6 @@ class_name BaseMobile
 
 var armature: Armature
 onready var ai: StateMachine
-var interfaces = [IActor.new(self), IContainer.new(self), INetworked.new(self)]
 
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
