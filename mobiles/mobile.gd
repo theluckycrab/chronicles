@@ -148,9 +148,6 @@ func get_equipped(slot: String):
 		return inventory.equipped_items[slot]
 	else:
 		return null
-		
-func get_weaponbox() -> Hitbox:
-	return armature.get_weaponbox()
 			
 ##IActor
 func emote(anim: String, repeat: bool = true) -> void:

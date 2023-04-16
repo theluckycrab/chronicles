@@ -6,7 +6,6 @@ var rotation_speed: float = 15
 onready var animator: ArmatureAnimator = $ArmatureAnimator
 onready var skeleton: Skeleton = $Skeleton
 onready var sensors: Spatial = $Sensors
-onready var weaponbox: Hitbox = $Skeleton.get_node("Mainhand/Hitbox")
 
 func equip(item: BaseItem) -> void:
 	var new_mesh := MeshInstance.new()
@@ -49,9 +48,6 @@ func get_ledge() -> Vector3:
 
 func get_interact_target() -> Spatial:
 	return sensors.get_interact_target()
-
-func get_weaponbox() -> Hitbox:
-	return weaponbox
 
 func strike(bone: String = "Mainhand", damage = {}):
 	var b = skeleton.get_node_or_null(bone + "/Hitbox")
