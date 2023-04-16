@@ -19,8 +19,8 @@ func get_current_animation() -> String:
 func is_using_root_motion() -> bool:
 	return tree.get("parameters/OneShot/active")
 	
-func keyframe() -> void:
-	emit_signal("keyframe")
+func keyframe(bone:String = "Mainhand") -> void:
+	emit_signal("keyframe", bone)
 
 func get_root_motion() -> Transform:
 	return tree.get_root_motion_transform()

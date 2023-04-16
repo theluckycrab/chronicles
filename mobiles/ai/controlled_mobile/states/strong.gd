@@ -21,12 +21,12 @@ func exit() -> void:
 	host.reset_strikeboxes()
 	pass
 
-func on_keyframe():
+func on_keyframe(bone):
 	var damage = DamageProfile.new({"strong":3})
 	var weapon = host.get_equipped("mainhand")
 	if is_instance_valid(weapon): 
 		weapon = weapon.get_damage_profile().as_dict()
 		for i in weapon:
 			damage.add(i, weapon[i])
-	host.strike("Mainhand", damage.as_dict())
+	host.strike(bone, damage.as_dict())
 	

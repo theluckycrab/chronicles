@@ -63,7 +63,7 @@ material/1 = null
 material/2 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Skeleton" index="1"]
-transform = Transform( -0.99426, 0.09016, -0.0575853, 0.106674, 0.876408, -0.469605, 0.00812826, -0.473032, -0.881021, -0.0631503, 1.40992, 0.575659 )
+transform = Transform( -0.0336156, 0.986434, -0.160681, 0.99794, 0.0418766, 0.0482994, 0.0543668, -0.158725, -0.98585, -0.327741, 1.48104, 0.198734 )
 bone_name = "weapon.r"
 
 [node name="Hitbox" parent="Skeleton/Mainhand" index="0" instance=ExtResource( 18 )]
@@ -73,7 +73,7 @@ state = 2
 shape = SubResource( 5 )
 
 [node name="Offhand" type="BoneAttachment" parent="Skeleton" index="2"]
-transform = Transform( -0.975866, -0.0017777, 0.218362, -0.106672, 0.876408, -0.469605, -0.190537, -0.481544, -0.855471, 0.106584, 1.18292, 0.429525 )
+transform = Transform( -0.73423, -0.533821, 0.419439, -0.634442, 0.759422, -0.144078, -0.24161, -0.371884, -0.896304, 0.227666, 1.21715, 0.83481 )
 bone_name = "weapon.l"
 
 [node name="Hitbox" parent="Skeleton/Offhand" index="0" instance=ExtResource( 18 )]

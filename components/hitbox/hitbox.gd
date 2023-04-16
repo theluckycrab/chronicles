@@ -21,6 +21,7 @@ signal hit
 signal got_hit
 
 var damage_profile: DamageProfile = DamageProfile.new()
+var collision_stack = []
 export(STATES) var state: int = STATES.GHOST
 
 func _ready() -> void:
@@ -34,6 +35,7 @@ func setup() -> void:
 	
 func ghost() -> void:
 	state = STATES.GHOST
+	collision_stack.clear()
 	
 func idle() -> void:
 	state = STATES.IDLE
@@ -49,13 +51,20 @@ func on_area_entered(area:Area) -> void:
 	if state == STATES.GHOST or area.state == STATES.GHOST or state == area.state:
 		return
 	elif area.has_method("get_damage_profile"):
+		if collision_stack.has(area):
+			return
+		collision_stack.append(area)
 		emit_hit(area.get_damage_profile())
+	yield(get_tree().create_timer(0.5), "timeout")
+	collision_stack.clear()
 		
 func emit_hit(dp : DamageProfile) -> void:
 	match state:
 		STATES.IDLE:
 			emit_signal("got_hit", dp)
 		STATES.STRIKE:
+			if !damage_profile.has("multihit"):
+				ghost()
 			emit_signal("hit")
 	
 func get_damage_profile() -> DamageProfile:

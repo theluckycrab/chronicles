@@ -13,7 +13,7 @@ func can_enter() -> bool:
 	
 func can_exit() -> bool:
 	if will_combo and ! host.armature.is_using_root_motion():
-		host.get_weaponbox().ghost()
+		host.reset_strikeboxes()
 		enter()
 		return false
 	return ! host.armature.is_using_root_motion()
@@ -23,15 +23,13 @@ func enter() -> void:
 	will_combo = false
 	if combo_counter >= combo_list.size() or ! host.is_on_floor():
 		return
-	host.get_weaponbox().set_damage_profile(DamageProfile.new({"light":1}))
-	host.get_weaponbox().strike()
 	tracking()
-	#print(combo_counter)
+	host.grab_keyframe(self)
 	host.play(combo_list[combo_counter], true)
 	
 func exit() -> void:
-	print("exit combo")
-	host.get_weaponbox().ghost()
+	host.reset_strikeboxes()
+	host.drop_keyframe(self)
 	combo_counter = 0
 	pass
 	
@@ -50,3 +48,6 @@ func tracking():
 			var dir = host.ai.get_wasd_cam()
 			var angle = atan2(dir.x, dir.z)
 			host.armature.rotation.y = angle
+
+func on_keyframe(bone):
+	host.strike(bone, {"light":1})

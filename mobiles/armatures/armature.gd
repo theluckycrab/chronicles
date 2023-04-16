@@ -8,7 +8,6 @@ onready var skeleton: Skeleton = $Skeleton
 onready var sensors: Spatial = $Sensors
 onready var weaponbox: Hitbox = $Skeleton.get_node("Mainhand/Hitbox")
 
-
 func equip(item: BaseItem) -> void:
 	var new_mesh := MeshInstance.new()
 	unequip(item.get_slot())
@@ -69,4 +68,5 @@ func grab_keyframe(who):
 	animator.connect("keyframe", who, "on_keyframe", [], CONNECT_ONESHOT)
 	
 func drop_keyframe(who):
-	animator.disconnect("keyframe", who, "on_keyframe")
+	if animator.is_connected("keyframe", who, "on_keyframe"):
+		animator.disconnect("keyframe", who, "on_keyframe")
