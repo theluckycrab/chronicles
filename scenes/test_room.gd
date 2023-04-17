@@ -3,13 +3,13 @@ extends Spatial
 var mobile: PackedScene = preload("res://mobiles/mobile.tscn")
 
 func _ready():
-	spawn({"unit":"dummy", "position":Vector3(-180, -41, 0), "unit_uuid":1000})
-	spawn({"unit":"dummy", "position":Vector3(-185, -41, 0), "unit_uuid":2000})
-	spawn({"unit":"dummy", "position":Vector3(-190, -41, 0), "unit_uuid":3000})
 	if is_instance_valid(get_tree().network_peer):
 		get_history()
 	else:
-		spawn({"unit":"player", "position":Vector3(-190, -41, 0), "unit_uuid":1})
+		spawn({"unit":"dummy", "position":Vector3(0, 5, 0), "unit_uuid":1000})
+		spawn({"unit":"dummy", "position":Vector3(-5, 5, 0), "unit_uuid":2000})
+		spawn({"unit":"dummy", "position":Vector3(-10, 5, 0), "unit_uuid":3000})
+		spawn({"unit":"player", "position":Vector3(0, 15, 0), "unit_uuid":1})
 	
 func get_history():
 	Server.get_history("test_room")
