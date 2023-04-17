@@ -8,9 +8,6 @@ onready var skeleton: Skeleton = $Skeleton
 onready var sensors: Spatial = $Sensors
 onready var hitboxes: Dictionary = {}
 
-func _ready():
-	link_hitboxes()
-
 func equip(item: BaseItem) -> void:
 	var new_mesh := MeshInstance.new()
 	unequip(item.get_slot())
@@ -73,6 +70,7 @@ func link_hitboxes():
 		for j in i.get_children():
 			if j is Hitbox:
 				hitboxes[i.name] = j
+				j.damage_profile.set_source(int(get_parent().name))
 				j.connect("got_hit", self, "on_got_hit")
 				
 func on_got_hit(damage_profile):

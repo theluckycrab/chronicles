@@ -34,6 +34,7 @@ func build_from_dictionary(data: Dictionary) -> void:
 			"factions":
 				for faction in data.factions:
 					add_to_group(faction)
+	armature.link_hitboxes()
 				
 				
 func move(delta) -> void:

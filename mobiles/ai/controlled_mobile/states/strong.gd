@@ -22,7 +22,7 @@ func exit() -> void:
 	pass
 
 func on_keyframe(bone):
-	var damage = DamageProfile.new({"strong":3})
+	var damage = DamageProfile.new({"strong":3, "multihit":0})
 	var weapon = host.get_equipped("mainhand")
 	if is_instance_valid(weapon): 
 		weapon = weapon.get_damage_profile().as_dict()

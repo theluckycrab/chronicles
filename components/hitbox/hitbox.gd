@@ -1,19 +1,6 @@
 extends Area
 class_name Hitbox
 
-"""
-	Hitboxes are areas that are used to detect combat collisions. Each hitbox may be in one of three
-		states. Ghost state ignores all collisions. Idle state is prepared to get hit. Strike state
-		is ready to hit an Idle state. Upon collision, the hit_data dictionary is sent to the other
-		party and the appropriate signal is emitted. The owner of the hitbox must decide what to do
-		with the hit_data dictionary and the signal. Assume that the other party was deleted instantly
-		upon collision.
-		
-	Dependencies : 
-	Setup : A collision layer for hitboxen should be defined in the Project Settings.
-			The collision shape of the Hitbox scene should be set as local to scene
-"""
-
 const HITBOX_LAYER: int = 2
 enum STATES {GHOST, IDLE, STRIKE}
 
@@ -43,32 +30,31 @@ func idle() -> void:
 	
 func reset() -> void:
 	state = start_state
+	collision_stack.clear()
 	
 func strike(damage = DamageProfile.new()) -> void:
+	collision_stack.clear()
 	damage_profile = damage
 	state = STATES.STRIKE
 	force_update_transform()
 	for i in get_overlapping_areas():
-		i.on_area_entered(self)
+		on_area_entered(i)
 	
 func on_area_entered(area:Area) -> void:
-	if state == STATES.GHOST or area.state == STATES.GHOST or state == area.state:
+	if state == STATES.GHOST or area.state == STATES.GHOST or area.state == STATES.STRIKE or collision_stack.has(area):
 		return
-	elif area.has_method("get_damage_profile"):
-		if collision_stack.has(area):
-			return
-		collision_stack.append(area)
-		emit_hit(area.get_damage_profile())
-	yield(get_tree().create_timer(0.5), "timeout")
-	collision_stack.clear()
+	match state:
+		STATES.STRIKE:
+			if !damage_profile.has("multihit") and !collision_stack.empty():
+				return
+			touched(area)
+			area.touched(self)
 		
 func emit_hit(dp : DamageProfile) -> void:
 	match state:
 		STATES.IDLE:
 			emit_signal("got_hit", dp)
 		STATES.STRIKE:
-			if !damage_profile.has("multihit"):
-				ghost()
 			emit_signal("hit")
 	
 func get_damage_profile() -> DamageProfile:
@@ -76,3 +62,7 @@ func get_damage_profile() -> DamageProfile:
 
 func set_damage_profile(dp: DamageProfile) -> void:
 	damage_profile = dp
+
+func touched(area):
+	collision_stack.append(area)
+	emit_hit(area.get_damage_profile())
