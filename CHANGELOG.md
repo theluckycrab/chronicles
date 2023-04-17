@@ -1,6 +1,9 @@
 # [Unreleased]
 
-[Added] function chain mobile.get_weaponbox() -> armature.get_weaponbox() -> armature.skeleton.get_node("Mainhand/Hitbox")
+[Added] armature now has functions to manage hitzones strike(zone, damage) and reset_hitboxes()
+[Added] hitboxen now track their starting state for use with hitbox.reset()
+[Added] mobile.strike(zone, damage) and mobile.reset_hitboxes()
+[Changed] mobile.factions moved into a mobile.stats dictionary
 [Changed] mobile.get_equipped() now checks the inventory instead of the armature
 [Added] damage profiles as a method for transmitting damage data
 [Added] player data now fills missing required equipment slots with naked when loaded

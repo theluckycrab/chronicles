@@ -28,5 +28,5 @@ func on_keyframe(bone):
 		weapon = weapon.get_damage_profile().as_dict()
 		for i in weapon:
 			damage.add(i, weapon[i])
-	host.strike(bone, damage.as_dict())
+	host.strike(bone, damage)
 	

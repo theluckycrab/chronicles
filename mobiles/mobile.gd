@@ -78,8 +78,6 @@ func equip(item_dict: Dictionary) -> void:
 	armature.equip(item)
 	inventory.equip(item)
 	inventory.add_item(item)
-	#item.queue_free()
-			
 			
 func get_ledge() -> Vector3:
 	return armature.get_ledge()
@@ -189,7 +187,8 @@ func npc(function: String, args: Dictionary) -> void:
 func is_dummy() -> bool:
 	return int(name) != Client.nid
 
-func strike(bone: String = "Mainhand", damage = {}):
+func strike(bone: String = "Mainhand", damage: DamageProfile = DamageProfile.new()):
+	damage.set_source(int(name))
 	armature.strike(bone, damage)
 
 func reset_hitboxes():

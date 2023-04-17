@@ -2,9 +2,11 @@ extends Node
 class_name DamageProfile
 
 var profile = {}
+var source_nid = 0
 
-func _init(dp:Dictionary = {}):
+func _init(dp:Dictionary = {}, source:int = 0):
 	profile = dp.duplicate(true)
+	set_source(source)
 
 func add(type, value=0) -> void:
 	if profile.has(type):
@@ -28,3 +30,9 @@ func has(type) -> bool:
 
 func as_dict() -> Dictionary:
 	return profile
+
+func set_source(nid: int) -> void:
+	source_nid = nid
+		
+func get_source() -> int:
+	return source_nid

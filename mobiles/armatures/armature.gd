@@ -73,3 +73,8 @@ func link_hitboxes():
 		for j in i.get_children():
 			if j is Hitbox:
 				hitboxes[i.name] = j
+				j.connect("got_hit", self, "on_got_hit")
+				
+func on_got_hit(damage_profile):
+	if damage_profile.get_source() != int(get_parent().name):
+		print(get_parent().name, damage_profile.as_dict())

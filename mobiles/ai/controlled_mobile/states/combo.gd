@@ -3,6 +3,7 @@ extends State
 var combo_list = ["Combo_1", "Combo_2", "Combo_3"]
 var combo_counter = 0
 var will_combo = false
+var damage = DamageProfile.new({"light":1})
 
 func _init():
 	priority = 2
@@ -50,4 +51,4 @@ func tracking():
 			host.armature.rotation.y = angle
 
 func on_keyframe(bone):
-	host.strike(bone, {"light":1})
+	host.strike(bone, damage)
