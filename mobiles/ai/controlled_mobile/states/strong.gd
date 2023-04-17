@@ -18,7 +18,7 @@ func execute() -> void:
 	pass
 	
 func exit() -> void:
-	host.reset_strikeboxes()
+	host.reset_hitboxes()
 	pass
 
 func on_keyframe(bone):

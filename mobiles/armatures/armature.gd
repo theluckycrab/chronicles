@@ -6,6 +6,10 @@ var rotation_speed: float = 15
 onready var animator: ArmatureAnimator = $ArmatureAnimator
 onready var skeleton: Skeleton = $Skeleton
 onready var sensors: Spatial = $Sensors
+onready var hitboxes: Dictionary = {}
+
+func _ready():
+	link_hitboxes()
 
 func equip(item: BaseItem) -> void:
 	var new_mesh := MeshInstance.new()
@@ -50,15 +54,12 @@ func get_interact_target() -> Spatial:
 	return sensors.get_interact_target()
 
 func strike(bone: String = "Mainhand", damage = {}):
-	var b = skeleton.get_node_or_null(bone + "/Hitbox")
-	if is_instance_valid(b):
-		b.strike(damage)
+	if hitboxes.has(bone):
+		hitboxes[bone].strike(damage)
 		
-func reset_strikeboxes():
-	for child in skeleton.get_children():
-		for grandchild in child.get_children():
-			if grandchild is Hitbox:
-				grandchild.ghost()
+func reset_hitboxes():
+	for i in hitboxes:
+		hitboxes[i].reset()
 
 func grab_keyframe(who):
 	animator.connect("keyframe", who, "on_keyframe", [], CONNECT_ONESHOT)
@@ -66,3 +67,9 @@ func grab_keyframe(who):
 func drop_keyframe(who):
 	if animator.is_connected("keyframe", who, "on_keyframe"):
 		animator.disconnect("keyframe", who, "on_keyframe")
+
+func link_hitboxes():
+	for i in skeleton.get_children():
+		for j in i.get_children():
+			if j is Hitbox:
+				hitboxes[i.name] = j

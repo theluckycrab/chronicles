@@ -23,6 +23,7 @@ signal got_hit
 var damage_profile: DamageProfile = DamageProfile.new()
 var collision_stack = []
 export(STATES) var state: int = STATES.GHOST
+onready var start_state = state
 
 func _ready() -> void:
 	var _discard = connect("area_entered", self, "on_area_entered")
@@ -39,6 +40,9 @@ func ghost() -> void:
 	
 func idle() -> void:
 	state = STATES.IDLE
+	
+func reset() -> void:
+	state = start_state
 	
 func strike(damage = {}) -> void:
 	damage_profile = DamageProfile.new(damage)

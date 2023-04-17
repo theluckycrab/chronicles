@@ -192,8 +192,8 @@ func is_dummy() -> bool:
 func strike(bone: String = "Mainhand", damage = {}):
 	armature.strike(bone, damage)
 
-func reset_strikeboxes():
-	armature.reset_strikeboxes()
+func reset_hitboxes():
+	armature.reset_hitboxes()
 	
 func grab_keyframe(who):
 	armature.grab_keyframe(who)

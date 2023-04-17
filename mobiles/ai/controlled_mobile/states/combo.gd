@@ -13,7 +13,7 @@ func can_enter() -> bool:
 	
 func can_exit() -> bool:
 	if will_combo and ! host.armature.is_using_root_motion():
-		host.reset_strikeboxes()
+		host.reset_hitboxes()
 		enter()
 		return false
 	return ! host.armature.is_using_root_motion()
@@ -28,7 +28,7 @@ func enter() -> void:
 	host.play(combo_list[combo_counter], true)
 	
 func exit() -> void:
-	host.reset_strikeboxes()
+	host.reset_hitboxes()
 	host.drop_keyframe(self)
 	combo_counter = 0
 	pass
