@@ -18,21 +18,21 @@ func _physics_process(delta):
 func build_from_dictionary(data: Dictionary) -> void:
 	add_to_group("actors")
 	stats = data.duplicate(true)
-	for override in data:
+	for override in stats:
 		match override:
 			"skeleton":
-				armature = load("res://mobiles/armatures/"+data.skeleton+"_armature.tscn").instance()
+				armature = load("res://mobiles/armatures/"+stats.skeleton+"_armature.tscn").instance()
 				add_child(armature)
 			"equipment":
-				for index in data.equipment:
+				for index in stats.equipment:
 					var item = Data.get_item(index)
 					npc("equip", item.as_dict())
 					item.queue_free()
 			"ai":
-				ai = load("res://mobiles/ai/"+data.ai+"/sm_"+data.ai+".tscn").instance()
+				ai = load("res://mobiles/ai/"+stats.ai+"/sm_"+stats.ai+".tscn").instance()
 				add_child(ai)
 			"factions":
-				for faction in data.factions:
+				for faction in stats.factions:
 					add_to_group(faction)
 	armature.link_hitboxes()
 				
@@ -178,7 +178,7 @@ func get_items() -> Array:
 
 ##INetworked
 func npc(function: String, args: Dictionary) -> void:
-	if is_instance_valid(get_tree().network_peer):
+	if is_instance_valid(get_tree().network_peer) and ! is_dummy():
 		args["function"] = function
 		args["uuid"] = int(name)
 		Server.npc(args)

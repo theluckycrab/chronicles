@@ -19,7 +19,7 @@ func spawn(args):
 	add_child(m)
 	if args.unit == "player":
 		if args.unit_uuid != Client.nid:
-			args.unit = "dummy"
+			args.unit = "player_dummy"
 	var data = Data.get_mobile_data(args.unit)
 	if args.unit_uuid == Client.nid:
 		for i in Data.get_char_data():
