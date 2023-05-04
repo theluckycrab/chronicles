@@ -16,7 +16,6 @@ func _physics_process(delta):
 	move(delta)
 
 func build_from_dictionary(data: Dictionary) -> void:
-	add_to_group("actors")
 	stats = data.duplicate(true)
 	for override in stats:
 		match override:
@@ -148,7 +147,6 @@ func get_equipped(slot: String):
 	else:
 		return null
 			
-##IActor
 func emote(anim: String, repeat: bool = true) -> void:
 	ai.get_state("Emote").animation = anim
 	ai.get_state("Emote").held = repeat
@@ -166,7 +164,6 @@ func play(animation: String, root_motion:bool = false) -> void:
 func set_state(state):
 	ai.set_state(state)
 	
-##IContainer
 func add_item(item: BaseItem) -> void:
 	inventory.add_item(item)
 	
@@ -176,7 +173,6 @@ func remove_item(item: BaseItem) -> void:
 func get_items() -> Array:
 	return inventory.get_items()
 
-##INetworked
 func npc(function: String, args: Dictionary) -> void:
 	if is_instance_valid(get_tree().network_peer) and ! is_dummy():
 		args["function"] = function

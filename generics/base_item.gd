@@ -1,16 +1,6 @@
 extends Node
 class_name BaseItem
 
-"""
-	These items are specific to the Delonda structure, where each item comes along with abilities
-		and every item has durability. BaseItem is not intended to be used directly but dispatched
-		from Data.get_item(index) to utilize a dictionary read from a json file. Activating the item
-		is simply passes the call through to its ability. It will require a reference to the user of
-		the ability.
-	
-	Dependencies: BaseAbility
-"""
-
 var current: Dictionary
 var raw: Dictionary
 

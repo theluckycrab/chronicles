@@ -57,8 +57,6 @@ node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneSh
 [node name="Armature" instance=ExtResource( 1 )]
 
 [node name="Skeleton" parent="." index="0" instance=ExtResource( 2 )]
-bones/40/bound_children = [ NodePath("Offhand") ]
-bones/64/bound_children = [ NodePath("Mainhand") ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Skeleton" index="0"]
 mesh = ExtResource( 11 )
@@ -67,7 +65,7 @@ material/1 = null
 material/2 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Skeleton" index="1"]
-transform = Transform( -0.132178, 0.972601, -0.19125, 0.967176, 0.168785, 0.189893, 0.216955, -0.159872, -0.963024, -0.0820426, 1.49242, 3.10575 )
+transform = Transform( -1, 5.58794e-07, 3.81097e-06, 3.83495e-06, -2.58908e-06, 1.00001, 6.03497e-07, 1, -7.45058e-08, -0.338867, 0.887099, 0.0232547 )
 bone_name = "weapon.r"
 
 [node name="Hitbox" parent="Skeleton/Mainhand" index="0" instance=ExtResource( 18 )]
@@ -76,7 +74,7 @@ bone_name = "weapon.r"
 shape = SubResource( 5 )
 
 [node name="Offhand" type="BoneAttachment" parent="Skeleton" index="2"]
-transform = Transform( -0.0793422, 0.99266, 0.0912671, 0.96485, 0.053471, 0.257262, 0.250477, 0.10847, -0.962049, 0.169907, 1.11691, 2.40759 )
+transform = Transform( -1, -2.04891e-06, -3.60981e-06, -3.61912e-06, -2.68966e-06, 1.00001, -2.11596e-06, 1, -6.33299e-08, 0.338867, 0.887099, 0.0232546 )
 bone_name = "weapon.l"
 
 [node name="Hitbox" parent="Skeleton/Offhand" index="0" instance=ExtResource( 18 )]
@@ -85,7 +83,7 @@ bone_name = "weapon.l"
 shape = SubResource( 6 )
 
 [node name="Hitbox" type="BoneAttachment" parent="Skeleton" index="3"]
-transform = Transform( 0.731497, 0.163168, 0.662033, 0.185504, 0.88668, -0.423504, -0.656125, 0.432606, 0.618346, 0.00533882, 1.19451, 2.12833 )
+transform = Transform( 1, -1.188e-20, -8.8012e-21, -3.00746e-20, 0.999984, -2.2389e-06, 5.50571e-21, -6.10948e-07, 1, -1.34566e-20, 1.17083, -1.51247e-06 )
 bone_name = "Spine2"
 
 [node name="Hitbox" parent="Skeleton/Hitbox" index="0" instance=ExtResource( 18 )]

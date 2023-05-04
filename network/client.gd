@@ -19,7 +19,9 @@ remote func npc(args: Dictionary) -> void:
 		if str(args.uuid) == Server.map:
 			get_node("/root/Main/"+args.uuid).call(args.function, args)
 		else:
-			get_node("/root/Main/"+str(args.map)+"/"+str(args.uuid)).call(args.function, args)
+			var unit = get_node_or_null("/root/Main/"+str(args.map)+"/"+str(args.uuid))
+			if is_instance_valid(unit):
+				unit.call(args.function, args)
 
 func on_connection_succeeded() -> void:
 	nid = get_tree().get_network_unique_id()
@@ -27,10 +29,10 @@ func on_connection_succeeded() -> void:
 	print("You have joined ", ip, " as ", nid)
 
 remote func receive_map_history(history: Dictionary) -> void:
-	for call_dict in history:
-		if history[call_dict].size() > 0:
-			for entry in history[call_dict]:
-				npc(history[call_dict][entry])
+	for map in history:
+		if history[map].size() > 0:
+			for command in history[map]:
+				npc(command)
 
 	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 15, 0),
 				"unit_uuid":nid}

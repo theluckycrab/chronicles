@@ -61,8 +61,9 @@ func traverse_history(count: int) -> void:
 	if entry_history_iterator > entry_history.size():
 		entry_history_iterator = entry_history.size()
 	entry.text = entry_history[entry_history.size() - entry_history_iterator]
-	entry.caret_position = entry.text.length() #because we're using ui_up specifically
-	entry.accept_event() #we must consume the input event to avoid lineedits normal behavior
+	entry.caret_position = entry.text.length() 
+	entry.accept_event()#because we're using ui_up specifically
+						#we must consume the input event to avoid lineedits normal behavior
 	
 func drop_focus() -> void:
 	history.grab_click_focus()

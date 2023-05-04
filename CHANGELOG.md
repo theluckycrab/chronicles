@@ -1,5 +1,9 @@
 # [Unreleased]
 
+[Removed] mobile.gd from "actors" group
+[Fixed] /emote now replaces spaces with _
+[Added] /echo
+[Removed] /fullscreen, /get_colors, /set_color, /set_name, /skyboost
 [Added] armature now has functions to manage hitzones strike(zone, damage) and reset_hitboxes()
 [Added] hitboxen now track their starting state for use with hitbox.reset()
 [Added] mobile.strike(zone, damage) and mobile.reset_hitboxes()
