@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://generics/base_ability.gd"
 }, {
+"base": "Spatial",
+"class": "BaseBuff",
+"language": "GDScript",
+"path": "res://generics/base_buff.gd"
+}, {
 "base": "Node",
 "class": "BaseItem",
 "language": "GDScript",
@@ -63,6 +68,7 @@ _global_script_class_icons={
 "Armature": "",
 "ArmatureAnimator": "",
 "BaseAbility": "",
+"BaseBuff": "",
 "BaseItem": "",
 "BaseMobile": "",
 "DamageProfile": "",

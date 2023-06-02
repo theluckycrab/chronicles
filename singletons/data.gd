@@ -3,6 +3,7 @@ extends Node
 var abilities: Dictionary = {}
 var items: Dictionary = {}
 var mobiles: Dictionary = {}
+var buffs: Dictionary = {}
 var config: Dictionary = {
 		"invert_x":1, 
 		"invert_y":-1, 
@@ -27,11 +28,16 @@ func get_mobile_data(index: String) -> Dictionary:
 func get_item(index: String) -> BaseItem:
 	var item = items[index].duplicate(true)
 	return BaseItem.new(item)
+	
+func get_buff(index: String) -> BaseBuff:
+	var buff = buffs[index].duplicate(true)
+	return BaseBuff.new(buff)
 
 func init_lists() -> void:
 	abilities = load_from_file("abilities")
 	items = load_from_file("items")
 	mobiles = load_from_file("mobiles")
+	buffs = load_from_file("buffs")
 	load_config()
 	load_char_data(get_config_value("last_character"))
 
@@ -42,6 +48,9 @@ func load_from_file(file_name: String, path: String = "res://data/json/", extens
 		f.open(path+file_name+extension, File.READ)
 		list = JSON.parse(f.get_as_text()).result
 		f.close()
+	if path == "res://data/json/":
+		for i in list:
+			list[i]["index"] = i
 	return list
 
 func get_char_data() -> Dictionary:

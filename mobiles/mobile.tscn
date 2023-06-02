@@ -12,3 +12,5 @@ script = ExtResource( 5 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.0011, 0 )
 shape = SubResource( 1 )
+
+[node name="BuffList" type="Spatial" parent="."]

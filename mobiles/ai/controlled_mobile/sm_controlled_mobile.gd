@@ -49,7 +49,9 @@ func _unhandled_input(event):
 	if event.is_action_pressed("strong"):
 		host.set_state("Strong")
 	if event.is_action_pressed("debug"):
-		host.activate_item("core")
+		#host.remove_buff("debug")
+		host.add_buff(Data.get_buff("debug"))
+		#host.activate_item("core")
 			
 	wasd.x = Input.get_action_strength("a") - Input.get_action_strength("d")
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")

@@ -3,6 +3,7 @@ class_name BaseMobile
 
 var armature: Armature
 onready var ai: StateMachine
+onready var buff_list = $BuffList
 
 var velocity := Vector3.ZERO
 var force := Vector3.ZERO
@@ -205,3 +206,21 @@ func activate_item(slot):
 	
 func highlight(color):
 	armature.highlight(color)
+	
+func add_buff(buff: BaseBuff):
+	buff.set_host(self)
+	buff_list.add_child(buff)
+	
+func remove_buff(index: String, all_instances = false):
+	for i in buff_list.get_children():
+		if i is BaseBuff and i.get_index() == index:
+			i.exit()
+			if ! all_instances:
+				return
+
+func get_buffs():
+	var return_list = []
+	for i in buff_list.get_children():
+		if i is BaseBuff:
+			return_list.append(i)
+	return return_list
