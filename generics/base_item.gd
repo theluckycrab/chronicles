@@ -7,8 +7,7 @@ var raw: Dictionary
 func _init(data: Dictionary) -> void:
 	raw = data
 	current = raw
-	if current.has("ability") and current.ability != "none":
-		current.ability = Data.get_ability(raw.ability)
+	current.ability = Data.get_ability(raw.ability)
 	match current.slot:
 		"head":
 			current.resists["head"] = 0

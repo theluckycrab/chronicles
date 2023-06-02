@@ -57,6 +57,9 @@ node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneSh
 [node name="Armature" instance=ExtResource( 1 )]
 
 [node name="Skeleton" parent="." index="0" instance=ExtResource( 2 )]
+bones/2/bound_children = [ NodePath("Hitbox") ]
+bones/40/bound_children = [ NodePath("Offhand") ]
+bones/64/bound_children = [ NodePath("Mainhand") ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Skeleton" index="0"]
 mesh = ExtResource( 11 )

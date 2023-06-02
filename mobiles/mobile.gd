@@ -196,3 +196,12 @@ func grab_keyframe(who):
 	
 func drop_keyframe(who):
 	armature.drop_keyframe(who)
+
+func on_got_hit(damage):
+	print(damage)
+
+func activate_item(slot):
+	inventory.get_equipped(slot).activate(self)
+	
+func highlight(color):
+	armature.highlight(color)

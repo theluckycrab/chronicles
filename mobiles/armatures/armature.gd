@@ -76,3 +76,20 @@ func link_hitboxes():
 func on_got_hit(damage_profile):
 	if damage_profile.get_source() != int(get_parent().name):
 		print(get_parent().name, damage_profile.as_dict())
+		var args = damage_profile.as_dict()
+		args["uuid"] = get_parent().name
+		args["function"] = "on_got_hit"
+		args["map"] = "test_room"
+		Server.npc(args)
+
+func highlight(color):
+	for i in skeleton.get_children():
+		if i is MeshInstance:
+			if is_instance_valid(i.material_override):
+				i.material_override = null
+				return
+			var m = SpatialMaterial.new()
+			m.albedo_color = color
+			i.material_override = m
+			i.material_override.flags_no_depth_test = true
+	print(color)

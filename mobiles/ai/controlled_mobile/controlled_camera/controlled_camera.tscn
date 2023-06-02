@@ -13,4 +13,5 @@ spring_length = -4.0
 
 [node name="Camera" type="Camera" parent="Vertical"]
 environment = ExtResource( 1 )
+far = 1000.0
 script = ExtResource( 3 )
