@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://mobiles/buff_list.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mobiles/mobile.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -13,4 +14,4 @@ script = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.0011, 0 )
 shape = SubResource( 1 )
 
-[node name="BuffList" type="Spatial" parent="."]
+[node name="BuffList" parent="." instance=ExtResource( 1 )]

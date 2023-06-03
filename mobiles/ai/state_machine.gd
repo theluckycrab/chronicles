@@ -84,3 +84,9 @@ func fallback() -> void:
 				set_state(get_state(i))
 				return
 		print("couldn't find a fallback state for ", get_parent())
+
+func get_current_state_index():
+	if !is_instance_valid(current_state):
+		return "Null"
+	else:
+		return current_state.index

@@ -14,6 +14,7 @@ var stats = {}
 
 func _physics_process(delta):
 	ai.cycle()
+	buff_list.tick(delta)
 	move(delta)
 
 func build_from_dictionary(data: Dictionary) -> void:
@@ -208,19 +209,13 @@ func highlight(color):
 	armature.highlight(color)
 	
 func add_buff(buff: BaseBuff):
-	buff.set_host(self)
-	buff_list.add_child(buff)
+	buff_list.add_buff(buff)
 	
 func remove_buff(index: String, all_instances = false):
-	for i in buff_list.get_children():
-		if i is BaseBuff and i.get_index() == index:
-			i.exit()
-			if ! all_instances:
-				return
+	buff_list.remove_buff(index, all_instances)
 
 func get_buffs():
-	var return_list = []
-	for i in buff_list.get_children():
-		if i is BaseBuff:
-			return_list.append(i)
-	return return_list
+	return buff_list.get_buffs()
+	
+func get_state():
+	return ai.get_current_state_index()

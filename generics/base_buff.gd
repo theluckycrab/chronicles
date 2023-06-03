@@ -3,43 +3,41 @@ class_name BaseBuff
 
 var raw = {}
 var current = {}
-var timer = Timer.new()
 var host = null
 var done = false
+var paused = false
 var time_elapsed = 0.0
 var tick_rate = 1.0
 
 func _init(data):
 	raw = data
 	current = raw
+	if ! current.has("constant"):
+		current["constant"] = {}
+	if ! current.has("tick"):
+		current["tick"] = {}
 	
-func _ready():
-	timer.autostart = false
-	timer.one_shot = bool(current.duration)
-	add_child(timer)
-	timer.connect("timeout", self, "on_timeout")
-	timer.start(current.duration)
-	enter()
+func can_exit():
+	return done
 	
-func _process(delta):
+func update(delta):
 	time_elapsed += delta
-	if done:
+	if done or current.duration == 0:
 		exit()
-	elif ! timer.is_stopped() and time_elapsed > tick_rate:
-		tick()
+	elif ! paused and time_elapsed > tick_rate:
 		time_elapsed = 0.0
+		tick()
 	constant(delta)
-	pass
-	
-func on_timeout():
-	done = true
 	
 func exit():
 	undo()
 	queue_free()
 	
 func pause():
-	timer.stop()
+	paused = true
+	
+func unpause():
+	paused = false
 	
 func set_host(who):
 	host = who
@@ -53,10 +51,36 @@ func enter():
 	pass
 	
 func constant(delta):
+	for i in current.constant:
+		call(i, current.constant[i])
 	pass
 	
 func tick():
+	if current.duration > 0:
+		current.duration -= 1
+	for i in current.tick:
+		call(i, current.tick[i])
 	pass
 	
 func undo():
+	for i in current.tick:
+		match i:
+			"highlight":
+				var args = current.tick.highlight
+				args.color = "reset"
+				highlight(args)
 	pass
+
+############
+
+func gravity(args):
+	if host.get_state() == "Fall":
+		var g = host.force.y
+		host.add_force(Vector3.UP * (-g * args.mod))
+
+func highlight(args):
+	for i in args.factions:
+		var units = get_tree().get_nodes_in_group(i)
+		for each in units:
+			if each.has_method("highlight"):
+				each.highlight(args.color)

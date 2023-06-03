@@ -85,11 +85,13 @@ func on_got_hit(damage_profile):
 func highlight(color):
 	for i in skeleton.get_children():
 		if i is MeshInstance:
-			if is_instance_valid(i.material_override):
+			if color == "reset":
 				i.material_override = null
-				return
-			var m = SpatialMaterial.new()
+				continue
+			var m
+			if is_instance_valid(i.material_override):
+				m = i.material_override
+			m = SpatialMaterial.new()
 			m.albedo_color = color
 			i.material_override = m
 			i.material_override.flags_no_depth_test = true
-	print(color)
