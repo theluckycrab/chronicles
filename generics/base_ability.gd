@@ -3,19 +3,45 @@ class_name BaseAbility
 
 var current: Dictionary
 var raw: Dictionary
+var state = null
+var active = false
 
 func _init(data: Dictionary) -> void:
 	raw = data
 	current = raw
+	if current.effects.has("state"):
+		var n = Node.new()
+		n.set_script(load("res://mobiles/ai/controlled_mobile/states/abilities/"+current.effects.state+".gd"))
+		state = n
+		
 	
 func execute(host) -> void:
-	host.emote(current.animation)
-	match current.type:
-		"projectile":
-			pass
-		"sight":
-			var color = Color(current.color_r, current.color_g, current.color_b, .5)
-			for i in current.targets:
-				for j in host.get_tree().get_nodes_in_group(i):
-					if j.has_method("highlight"):
-						j.highlight(color)
+	if ! check_requirements(host):
+		return
+	if !is_instance_valid(state):
+		host.emote(current.animation, false)
+	active = !active
+		
+	for i in current.effects:
+		match i:
+			"buff":
+				buff(host, current.effects[i])
+			"state":
+				host.set_state(state)
+
+func check_requirements(host):
+	for i in current.requirements:
+		match i:
+			"grounded":
+				if !host.is_on_floor():
+					return false
+			"ungrounded":
+				if host.is_on_floor():
+					return false
+	return true
+	
+func buff(host, entry):
+	if !active and current.type == "sight":
+		host.remove_buff(entry)
+	else:
+		host.add_buff(Data.get_buff(entry))

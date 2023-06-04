@@ -69,7 +69,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1319, 40.3034, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3267, 3.15374, 18.389 )
 collision_layer = 5
 collision_mask = 5
-script = ExtResource( 4 )
 
 [node name="Climb" type="Node" parent="DebugCube"]
 script = ExtResource( 5 )
@@ -81,6 +80,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 53.5542, 28.8294, 0 )
 transform = Transform( 1, 0, 0, 0, 0.0555477, 0, 0, 0, 1, 0, -1.03004, 0 )
 mesh = SubResource( 3 )
 material/0 = null
+script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="DebugCube"]
 transform = Transform( 1, 0, 0, 0, 0.0555477, 0, 0, 0, 1, 0, -1.03004, 0 )

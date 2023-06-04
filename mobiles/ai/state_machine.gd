@@ -50,6 +50,9 @@ func set_state(state) -> void:
 		next_state = get_state(state)
 	elif state is State:
 		next_state = state
+		if ! state in get_children():
+			if ! is_instance_valid(state.get_parent()):
+				add_child(state)
 	if is_instance_valid(next_state):
 		next_state.host = host
 	cycle()

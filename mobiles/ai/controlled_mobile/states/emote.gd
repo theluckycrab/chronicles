@@ -1,7 +1,7 @@
 extends State
 
 var animation: String
-var held: bool = true
+var held: bool = false
 
 func _init() -> void:
 	priority = 2

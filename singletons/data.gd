@@ -51,6 +51,10 @@ func load_from_file(file_name: String, path: String = "res://data/json/", extens
 	if path == "res://data/json/":
 		for i in list:
 			list[i]["index"] = i
+			if i != "base":
+				for field in list.base:
+					if ! list[i].has(field):
+						list[i][field] = list.base[field]
 	return list
 
 func get_char_data() -> Dictionary:

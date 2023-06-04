@@ -6,8 +6,8 @@ var current = {}
 var host = null
 var done = false
 var paused = false
-var time_elapsed = 0.0
 var tick_rate = 1.0
+var time_elapsed = tick_rate
 
 func _init(data):
 	raw = data

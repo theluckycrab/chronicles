@@ -68,7 +68,7 @@ material/1 = null
 material/2 = null
 
 [node name="Mainhand" type="BoneAttachment" parent="Skeleton" index="1"]
-transform = Transform( -1, 5.58794e-07, 3.81097e-06, 3.83495e-06, -2.58908e-06, 1.00001, 6.03497e-07, 1, -7.45058e-08, -0.338867, 0.887099, 0.0232547 )
+transform = Transform( -0.129531, 0.98856, -0.077264, 0.475305, -0.00648379, -0.879813, -0.870231, -0.150686, -0.469026, -0.333958, 2.25162, 0.459962 )
 bone_name = "weapon.r"
 
 [node name="Hitbox" parent="Skeleton/Mainhand" index="0" instance=ExtResource( 18 )]
@@ -77,7 +77,7 @@ bone_name = "weapon.r"
 shape = SubResource( 5 )
 
 [node name="Offhand" type="BoneAttachment" parent="Skeleton" index="2"]
-transform = Transform( -1, -2.04891e-06, -3.60981e-06, -3.61912e-06, -2.68966e-06, 1.00001, -2.11596e-06, 1, -6.33299e-08, 0.338867, 0.887099, 0.0232546 )
+transform = Transform( -0.129532, -0.98856, 0.0772643, -0.475303, -0.00648408, -0.879813, 0.870232, -0.150686, -0.469024, 0.333957, 2.25162, 0.459962 )
 bone_name = "weapon.l"
 
 [node name="Hitbox" parent="Skeleton/Offhand" index="0" instance=ExtResource( 18 )]
@@ -86,7 +86,7 @@ bone_name = "weapon.l"
 shape = SubResource( 6 )
 
 [node name="Hitbox" type="BoneAttachment" parent="Skeleton" index="3"]
-transform = Transform( 1, -1.188e-20, -8.8012e-21, -3.00746e-20, 0.999984, -2.2389e-06, 5.50571e-21, -6.10948e-07, 1, -1.34566e-20, 1.17083, -1.51247e-06 )
+transform = Transform( 0.999956, -0.00864075, -0.00364077, 0.00889881, 0.996885, 0.078167, 0.00295403, -0.0782, 0.996934, -0.00674726, 1.25114, 0.292019 )
 bone_name = "Spine2"
 
 [node name="Hitbox" parent="Skeleton/Hitbox" index="0" instance=ExtResource( 18 )]
