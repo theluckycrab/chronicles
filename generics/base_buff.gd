@@ -70,6 +70,10 @@ func undo():
 				args.color = "reset"
 				highlight(args)
 	pass
+	
+func as_dict() -> Dictionary:
+	var dict = current.duplicate(true)
+	return dict
 
 ############
 

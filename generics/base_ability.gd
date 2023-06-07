@@ -28,6 +28,13 @@ func execute(host) -> void:
 				buff(host, current.effects[i])
 			"state":
 				host.set_state(state)
+			"projectile":
+				var p = load("res://generics/base_projectile.tscn").instance()
+				var d = DamageProfile.new(current.effects.projectile.damage_profile)
+				d.set_source(int(host.name))
+				p.set_damage_profile(d)
+				var position = host.global_transform.origin + Vector3(0,0,1).rotated(Vector3.UP, host.armature.rotation.y)
+				Simulation.spawn(p, position)
 
 func check_requirements(host):
 	for i in current.requirements:
@@ -45,3 +52,7 @@ func buff(host, entry):
 		host.remove_buff(entry)
 	else:
 		host.add_buff(Data.get_buff(entry))
+
+func as_dict() -> Dictionary:
+	var dict = current.duplicate(true)
+	return dict

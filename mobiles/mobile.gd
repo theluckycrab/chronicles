@@ -18,6 +18,12 @@ func _physics_process(delta):
 	move(delta)
 
 func build_from_dictionary(data: Dictionary) -> void:
+	if data.index == "player":
+		if is_dummy():
+			data.ai = "dummy"
+		else:
+			for i in Data.get_char_data():
+				data[i] = Data.get_char_value(i)
 	stats = data.duplicate(true)
 	for override in stats:
 		match override:
@@ -200,7 +206,7 @@ func drop_keyframe(who):
 	armature.drop_keyframe(who)
 
 func on_got_hit(damage):
-	print(damage)
+	pass
 
 func activate_item(slot):
 	inventory.get_equipped(slot).activate(self)
@@ -219,3 +225,9 @@ func get_buffs():
 	
 func get_state():
 	return ai.get_current_state_index()
+
+func as_dict() -> Dictionary:
+	var dict = {}
+	dict = stats.duplicate(true)
+	dict["category"] = "mobile"
+	return dict

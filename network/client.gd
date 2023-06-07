@@ -15,13 +15,7 @@ func join() -> void:
 	get_tree().network_peer = peer
 
 remote func npc(args: Dictionary) -> void:
-	if args.has("function"):
-		if str(args.uuid) == Server.map:
-			get_node("/root/Main/"+args.uuid).call(args.function, args)
-		else:
-			var unit = get_node_or_null("/root/Main/"+str(args.map)+"/"+str(args.uuid))
-			if is_instance_valid(unit):
-				unit.call(args.function, args)
+	Simulation.parse_npc(args)
 
 func on_connection_succeeded() -> void:
 	nid = get_tree().get_network_unique_id()
@@ -34,9 +28,12 @@ remote func receive_map_history(history: Dictionary) -> void:
 			for command in history[map]:
 				npc(command)
 
-	var args = {"uuid":"test_room", "function":"spawn", "unit":"player", "position":Vector3(0, 15, 0),
-				"unit_uuid":nid}
-	Server.npc(args)
+	var p = load("res://mobiles/mobile.tscn").instance()
+	add_child(p)
+	p.name = str(nid)
+	p.build_from_dictionary(Data.get_mobile_data("player"))
+	Simulation.spawn(p, Vector3(0,15,0))
+	p.queue_free()
 
 remote func receive_chat(args):
 	Events.emit_signal("chat_message_received", args)

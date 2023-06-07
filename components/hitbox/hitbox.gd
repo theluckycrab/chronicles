@@ -63,5 +63,6 @@ func set_damage_profile(dp: DamageProfile) -> void:
 	damage_profile = dp
 
 func touched(area):
-	collision_stack.append(area)
-	emit_hit(area.get_damage_profile())
+	if area.damage_profile.get_source() != damage_profile.get_source():
+		collision_stack.append(area)
+		emit_hit(area.get_damage_profile())

@@ -33,6 +33,7 @@ func as_dict() -> Dictionary:
 
 func set_source(nid: int) -> void:
 	source_nid = nid
+	add("source", nid)
 		
 func get_source() -> int:
 	return source_nid

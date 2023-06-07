@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://mobiles/mobile.gd"
 }, {
+"base": "KinematicBody",
+"class": "BaseProjectile",
+"language": "GDScript",
+"path": "res://generics/base_projectile.gd"
+}, {
 "base": "Node",
 "class": "DamageProfile",
 "language": "GDScript",
@@ -71,6 +76,7 @@ _global_script_class_icons={
 "BaseBuff": "",
 "BaseItem": "",
 "BaseMobile": "",
+"BaseProjectile": "",
 "DamageProfile": "",
 "Hitbox": "",
 "Inventory": "",
@@ -89,6 +95,7 @@ Events="*res://singletons/events.gd"
 Client="*res://network/client.gd"
 Data="*res://singletons/data.gd"
 Server="*res://network/server.gd"
+Simulation="*res://singletons/simulation.gd"
 
 [debug]
 
