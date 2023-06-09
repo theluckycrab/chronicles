@@ -25,11 +25,12 @@ func get_map_name():
 func parse_npc(args):
 	current_scene.parse_npc(args)
 
-func spawn(object, location):
+func spawn(object, location=Vector3.ZERO, rotation=0):
 	var args = {"uuid":get_map_name(), 
 			"function":"spawn", 
 			"object":object.as_dict(), 
-			"position":location}
+			"position":location,
+			"rotation":rotation}
 	if object.name.is_valid_integer():
 		args["unit_uuid"] = object.name
 	Server.npc(args)

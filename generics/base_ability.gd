@@ -30,11 +30,10 @@ func execute(host) -> void:
 				host.set_state(state)
 			"projectile":
 				var p = load("res://generics/base_projectile.tscn").instance()
-				var d = DamageProfile.new(current.effects.projectile.damage_profile)
-				d.set_source(int(host.name))
-				p.set_damage_profile(d)
+				p.build_from_dictionary(current.effects.projectile)
+				p.set_source(int(host.name))
 				var position = host.global_transform.origin + Vector3(0,0,1).rotated(Vector3.UP, host.armature.rotation.y)
-				Simulation.spawn(p, position)
+				Simulation.spawn(p, position, host.armature.rotation.y)
 
 func check_requirements(host):
 	for i in current.requirements:
