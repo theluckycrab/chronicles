@@ -70,17 +70,16 @@ func link_hitboxes():
 		for j in i.get_children():
 			if j is Hitbox:
 				hitboxes[i.name] = j
-				j.damage_profile.set_source(int(get_parent().name))
+				j.set_source(int(get_parent().name))
 				j.connect("got_hit", self, "on_got_hit")
 				
 func on_got_hit(damage_profile):
-	if damage_profile.get_source() != int(get_parent().name):
-		var args = damage_profile.as_dict()
-		args["uuid"] = get_parent().name
-		args["function"] = "on_got_hit"
-		args["map"] = "test_room"
-		Server.npc(args)
-		reset_hitboxes()
+	var args = damage_profile.as_dict()
+	args["uuid"] = get_parent().name
+	args["function"] = "on_got_hit"
+	args["map"] = "test_room"
+	Server.npc(args)
+	reset_hitboxes()
 
 func highlight(color):
 	for i in skeleton.get_children():

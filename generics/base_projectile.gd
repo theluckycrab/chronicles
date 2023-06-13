@@ -10,10 +10,10 @@ func _ready():
 
 func set_damage_profile(d:DamageProfile):
 	current["damage_profile"] = d
-	$Hitbox.damage_profile = d
+	$Hitbox.set_damage_profile(d)
 
 func get_damage_profile():
-	return $Hitbox.damage_profile
+	return $Hitbox.get_damage_profile()
 
 func as_dict() -> Dictionary:
 	var dict = current.duplicate(true)
@@ -34,9 +34,13 @@ func build_from_dictionary(dict):
 
 func on_hit():
 	$Hitbox.reset()
+	Simulation.despawn(self)
 
 func set_source(s):
-	current.damage_profile.set_source(s)
+	$Hitbox.set_source(s)
+	
+func get_source():
+	return $Hitbox.get_source()
 
 func sync_move(args):
 	global_transform.origin = args.position

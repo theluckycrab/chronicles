@@ -34,3 +34,9 @@ func spawn(object, location=Vector3.ZERO, rotation=0):
 	if object.name.is_valid_integer():
 		args["unit_uuid"] = object.name
 	Server.npc(args)
+	
+func despawn(object):
+	var args = {"uuid":get_map_name(),
+	"function":"despawn",
+	"unit":object.name}
+	Server.npc(args)

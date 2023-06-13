@@ -231,3 +231,6 @@ func as_dict() -> Dictionary:
 	dict = stats.duplicate(true)
 	dict["category"] = "mobile"
 	return dict
+
+func body_face_cam():
+	armature.rotation.y = get_viewport().get_camera().rotation.y

@@ -4,12 +4,13 @@ class_name DamageProfile
 var profile = {}
 var source_nid = 0
 
-func _init(dp:Dictionary = {}, source:int = 0):
+func _init(dp:Dictionary = {}):
 	profile = dp.duplicate(true)
-	set_source(source)
+	if dp.has("source"):
+		set_source(dp.source)
 
 func add(type, value=0) -> void:
-	if profile.has(type):
+	if profile.has(type) and type != "source":
 		profile[type] += value
 	else:
 		profile[type] = value

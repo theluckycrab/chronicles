@@ -63,12 +63,14 @@ margin_left = 10.0
 margin_top = 0.199982
 margin_right = 354.76
 margin_bottom = -10.0
+mouse_filter = 2
 
 [node name="History" type="RichTextLabel" parent="VBoxContainer"]
 margin_right = 355.0
 margin_bottom = 60.0
 grow_vertical = 0
 focus_mode = 2
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 11
 bbcode_enabled = true
@@ -79,3 +81,4 @@ script = ExtResource( 2 )
 margin_top = 64.0
 margin_right = 355.0
 margin_bottom = 78.0
+mouse_filter = 2

@@ -21,6 +21,7 @@ func execute(host) -> void:
 	if !is_instance_valid(state):
 		host.emote(current.animation, false)
 	active = !active
+	host.body_face_cam()
 		
 	for i in current.effects:
 		match i:
@@ -32,7 +33,7 @@ func execute(host) -> void:
 				var p = load("res://generics/base_projectile.tscn").instance()
 				p.build_from_dictionary(current.effects.projectile)
 				p.set_source(int(host.name))
-				var position = host.global_transform.origin + Vector3(0,0,1).rotated(Vector3.UP, host.armature.rotation.y)
+				var position = host.global_transform.origin + Vector3(0,0,-1).rotated(Vector3.UP, host.armature.rotation.y)
 				Simulation.spawn(p, position, host.armature.rotation.y)
 
 func check_requirements(host):
