@@ -21,6 +21,8 @@ func spawn(args):
 			o = load("res://generics/base_projectile.tscn").instance()
 		"mobile":
 			o = load("res://mobiles/mobile.tscn").instance()
+		"item_pickup":
+			o = load("res://objects/interactable/item_pickup.tscn").instance()
 	add_child(o)
 	o.name = str(args.unit_uuid)
 	o.build_from_dictionary(args.object)

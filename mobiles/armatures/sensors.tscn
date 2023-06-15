@@ -20,6 +20,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88221, 0.13958 )
 enabled = true
 cast_to = Vector3( 0, -2, 1 )
 collision_mask = 4
+collide_with_areas = true
 
 [node name="Label" type="Label" parent="Interact"]
 anchor_left = 0.5

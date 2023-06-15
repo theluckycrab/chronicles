@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://components/hitbox/hitbox.gd"
 }, {
+"base": "Area",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://objects/interactable/interactable.gd"
+}, {
 "base": "Node",
 "class": "Inventory",
 "language": "GDScript",
@@ -79,6 +84,7 @@ _global_script_class_icons={
 "BaseProjectile": "",
 "DamageProfile": "",
 "Hitbox": "",
+"Interactable": "",
 "Inventory": "",
 "State": "",
 "StateMachine": ""
