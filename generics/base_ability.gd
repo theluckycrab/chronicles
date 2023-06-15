@@ -37,6 +37,8 @@ func execute(host) -> void:
 				Simulation.spawn(p, position, host.armature.rotation.y)
 
 func check_requirements(host):
+	if current.index == "none":
+		return false
 	for i in current.requirements:
 		match i:
 			"grounded":

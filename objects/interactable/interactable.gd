@@ -26,9 +26,5 @@ func highlight(color):
 				i.material_override = m
 				i.material_override.flags_no_depth_test = true
 
-func build_from_dictionary(dict={}):
-	if dict.has("item"):
-		item = dict.item
-
 func as_dict():
-	return {"category":"interactable", "item":item}
+	return {"category":"interactable"}

@@ -85,7 +85,7 @@ func equip(item_dict: Dictionary) -> void:
 	var item = BaseItem.new(item_dict)
 	armature.equip(item)
 	inventory.equip(item)
-	inventory.add_item(item)
+	#inventory.add_item(item)
 			
 func get_ledge() -> Vector3:
 	return armature.get_ledge()
@@ -209,7 +209,9 @@ func on_got_hit(damage):
 	pass
 
 func activate_item(slot):
-	inventory.get_equipped(slot).activate(self)
+	var item = inventory.get_equipped(slot)
+	if is_instance_valid(item):
+		item.activate(self)
 	
 func highlight(color):
 	armature.highlight(color)
