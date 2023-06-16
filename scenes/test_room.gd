@@ -39,7 +39,9 @@ func spawn(args):
 	#m.global_transform.origin = args.position
 
 func despawn(args):
-	get_node(str(args.unit)).queue_free()
+	var u = get_node_or_null(args.unit)
+	if is_instance_valid(u):
+		get_node(str(args.unit)).queue_free()
 
 func parse_npc(args):
 	if !args.has("uuid"):

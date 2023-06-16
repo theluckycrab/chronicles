@@ -53,7 +53,7 @@ func _unhandled_input(event):
 		#host.add_buff(Data.get_buff("debug"))
 		#host.activate_item("head")
 		for i in host.get_items():
-			host.equip(i.as_dict())
+			host.npc("equip", i.as_dict())
 	if event.is_action_pressed("toggle_sight"):
 		host.activate_item("head")
 			
