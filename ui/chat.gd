@@ -77,7 +77,7 @@ func abort_entry() -> void:
 func parse_command(s: String) -> void:
 	s = s.lstrip("/")
 	var args = s.split(" ", false, 1)
-	var host = get_node_or_null("/root/Main/"+Server.map+"/"+str(Client.nid))
+	var host = Simulation.current_scene.get_node_or_null(str(Client.nid))
 	if args.size() < 2:
 		args.append("")
 	if ResourceLoader.exists("res://commands/"+args[0]+".gd"):
