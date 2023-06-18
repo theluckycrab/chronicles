@@ -18,7 +18,7 @@ func _ready():
 	feedback_nevermind_button.connect("button_down", self, "on_feedback_nevermind")
 	
 func on_start():
-	Events.emit_signal("scene_change_request", "char_creation")
+	Events.emit_signal("scene_change_request", "character_select")
 	pass
 	
 func on_feedback():

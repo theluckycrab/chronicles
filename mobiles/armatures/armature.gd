@@ -94,3 +94,8 @@ func highlight(color):
 			m.albedo_color = color
 			i.material_override = m
 			i.material_override.flags_no_depth_test = true
+
+func reset_equipment():
+	var items = equipped_items.duplicate(true)
+	for i in items:
+		unequip(i)

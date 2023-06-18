@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/character_select.gd" type="Script" id=1]
+[ext_resource path="res://mobiles/armatures/humanoid_armature.tscn" type="PackedScene" id=2]
+[ext_resource path="res://data/assets/2d/button.png" type="Texture" id=3]
+[ext_resource path="res://data/assets/misc/default_env.tres" type="Environment" id=4]
+[ext_resource path="res://data/assets/3d/meshes/terrain/tavern.tres" type="ArrayMesh" id=5]
+[ext_resource path="res://ui/labeled_button.tscn" type="PackedScene" id=6]
+
+[node name="CharacterSelect" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.986779, -0.028143, 0.159607, 0, 0.984808, 0.173648, -0.162069, -0.171352, 0.971788, 0.845777, 2.44069, 6.19197 )
+environment = ExtResource( 4 )
+fov = 28.9
+
+[node name="Armature" parent="." instance=ExtResource( 2 )]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 30.0
+margin_right = -30.0
+margin_bottom = -30.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="NameList" type="VBoxContainer" parent="Control/HBoxContainer"]
+margin_bottom = 540.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 0
+alignment = 2
+
+[node name="ItemList" type="VBoxContainer" parent="Control/HBoxContainer3"]
+margin_left = 964.0
+margin_right = 964.0
+margin_bottom = 540.0
+
+[node name="CurrentCharName" type="TextureRect" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -44.0
+margin_right = 50.0
+texture = ExtResource( 3 )
+flip_h = true
+flip_v = true
+
+[node name="Label" type="Label" parent="Control/CurrentCharName"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.0705882, 0.0980392, 0.0235294, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Dongetto"
+align = 1
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -204.0
+margin_top = -44.0
+
+[node name="JoinButton" parent="Control/HBoxContainer2" instance=ExtResource( 6 )]
+margin_top = 0.0
+margin_bottom = 44.0
+
+[node name="Label" parent="Control/HBoxContainer2/JoinButton" index="0"]
+text = "Join Test Server"
+
+[node name="BackButton" parent="Control/HBoxContainer2" instance=ExtResource( 6 )]
+margin_left = 104.0
+margin_top = 0.0
+margin_right = 204.0
+margin_bottom = 44.0
+
+[node name="Label" parent="Control/HBoxContainer2/BackButton" index="0"]
+text = "Main Menu"
+
+[node name="Background" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.76626, -0.10158, -1.38176 )
+mesh = ExtResource( 5 )
+material/0 = null
+material/1 = null
+
+[editable path="Control/HBoxContainer2/JoinButton"]
+[editable path="Control/HBoxContainer2/BackButton"]
