@@ -1,0 +1,185 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://data/assets/2d/button.png" type="Texture" id=1]
+[ext_resource path="res://ui/labeled_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/main_menu.gd" type="Script" id=3]
+[ext_resource path="res://ui/options_menu.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise;
+
+void vertex() {
+	//COLOR = texture(noise, UV);
+	UV.x -= TIME / 75.0; 
+	UV.y -= TIME / 150.0;
+	}
+	
+void fragment() {
+	vec2 orig = UV + (TIME * vec2(75.0, 150.0));
+	COLOR = texture(TEXTURE, UV);
+	COLOR *= texture(noise, UV);
+	COLOR.g -= 0.05;
+	COLOR.b -= 0.05;
+	}"
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+width = 2000
+height = 2000
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 1 )
+shader_param/noise = SubResource( 6 )
+
+[node name="MainMenu" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 200.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/HBoxContainer"]
+margin_left = 462.0
+margin_right = 562.0
+margin_bottom = 400.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="StartButton" parent="Control/HBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 37.0
+margin_bottom = 81.0
+
+[node name="Label" parent="Control/HBoxContainer/VBoxContainer/StartButton" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -72.0
+margin_top = -22.0
+margin_right = 72.0
+margin_bottom = 22.0
+text = "Start Game"
+
+[node name="Feedback" parent="Control/HBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 131.0
+margin_bottom = 175.0
+
+[node name="Label" parent="Control/HBoxContainer/VBoxContainer/Feedback" index="0"]
+text = "Feedback"
+
+[node name="OptionsButton" parent="Control/HBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 225.0
+margin_bottom = 269.0
+
+[node name="Label" parent="Control/HBoxContainer/VBoxContainer/OptionsButton" index="0"]
+text = "Options"
+
+[node name="ExitButton" parent="Control/HBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 319.0
+margin_bottom = 363.0
+
+[node name="Label" parent="Control/HBoxContainer/VBoxContainer/ExitButton" index="0"]
+text = "Exit"
+
+[node name="TitleLabel" type="Label" parent="Control"]
+anchor_right = 1.0
+margin_top = 200.0
+margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Chronicles of Delonda"
+align = 1
+valign = 1
+
+[node name="Background" type="TextureRect" parent="Control"]
+show_behind_parent = true
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+expand = true
+flip_h = true
+
+[node name="VersionLabel" type="Label" parent="Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+text = "Version : Testing"
+align = 1
+valign = 1
+
+[node name="FeedbackForm" type="Popup" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/FeedbackForm"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Control/FeedbackForm/VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 0.831373, 0.321569, 0.952941, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Please, let me know how it's going. The text you submit will be sent as a raw string to a private Discord channel. 
+No additional information will be gathered or included."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="TextEdit" type="TextEdit" parent="Control/FeedbackForm/VBoxContainer"]
+margin_top = 35.0
+margin_right = 924.0
+margin_bottom = 452.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/FeedbackForm/VBoxContainer"]
+margin_top = 456.0
+margin_right = 924.0
+margin_bottom = 500.0
+alignment = 1
+
+[node name="SubmitButton" parent="Control/FeedbackForm/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 360.0
+margin_top = 0.0
+margin_right = 460.0
+margin_bottom = 44.0
+
+[node name="Label" parent="Control/FeedbackForm/VBoxContainer/HBoxContainer/SubmitButton" index="0"]
+text = "Submit"
+
+[node name="NevermindButton" parent="Control/FeedbackForm/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 464.0
+margin_top = 0.0
+margin_right = 564.0
+margin_bottom = 44.0
+
+[node name="Label" parent="Control/FeedbackForm/VBoxContainer/HBoxContainer/NevermindButton" index="0"]
+text = "Nevermind"
+
+[node name="OptionsMenu" parent="Control" instance=ExtResource( 4 )]
+visible = false
+
+[editable path="Control/HBoxContainer/VBoxContainer/StartButton"]
+[editable path="Control/HBoxContainer/VBoxContainer/Feedback"]
+[editable path="Control/HBoxContainer/VBoxContainer/OptionsButton"]
+[editable path="Control/HBoxContainer/VBoxContainer/ExitButton"]
+[editable path="Control/FeedbackForm/VBoxContainer/HBoxContainer/SubmitButton"]
+[editable path="Control/FeedbackForm/VBoxContainer/HBoxContainer/NevermindButton"]

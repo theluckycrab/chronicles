@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://mobiles/armatures/humanoid_armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/char_creation.gd" type="Script" id=2]
+[ext_resource path="res://ui/labeled_button.tscn" type="PackedScene" id=3]
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
@@ -24,21 +25,26 @@ align = 1
 placeholder_text = "Enter name here"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LineEdit"]
-margin_left = -90.0
-margin_top = -12.0
-margin_right = -11.0
-margin_bottom = 32.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -307.0
+margin_top = -94.0
+margin_right = -207.0
+margin_bottom = -2.0
 
-[node name="OfflineButton" type="Button" parent="LineEdit/VBoxContainer"]
-margin_right = 79.0
-margin_bottom = 20.0
+[node name="OfflineButton" parent="LineEdit/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 0.0
+margin_bottom = 44.0
+
+[node name="Label" parent="LineEdit/VBoxContainer/OfflineButton" index="0"]
 text = "Offline"
 
-[node name="JoinButton" type="Button" parent="LineEdit/VBoxContainer"]
-margin_top = 24.0
-margin_right = 79.0
-margin_bottom = 44.0
-text = "Join Server"
+[node name="JoinButton" parent="LineEdit/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 48.0
+margin_bottom = 92.0
+
+[node name="Label" parent="LineEdit/VBoxContainer/JoinButton" index="0"]
+text = "Join"
 
 [node name="TestChat" type="VBoxContainer" parent="LineEdit"]
 anchor_left = 1.0
@@ -68,3 +74,6 @@ margin_right = 139.0
 margin_bottom = 229.0
 color = Color( 0.466667, 0.211765, 0.247059, 1 )
 edit_alpha = false
+
+[editable path="LineEdit/VBoxContainer/OfflineButton"]
+[editable path="LineEdit/VBoxContainer/JoinButton"]
