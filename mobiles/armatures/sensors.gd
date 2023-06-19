@@ -12,7 +12,7 @@ func get_ledge() -> Vector3:
 		return Vector3.ZERO
 		
 func get_interact_target() -> Spatial:
-	if interact.is_colliding() and interact.get_collider().has_method("interact"):
+	if interact.is_colliding() and is_instance_valid(interact.get_collider()) and interact.get_collider().has_method("interact"):
 		$Interact/Label.text = interact.get_collider().name
 		return interact.get_collider()
 	else:

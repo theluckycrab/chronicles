@@ -31,7 +31,6 @@ func generate_nameplates():
 		i.queue_free()
 	characters.clear()
 	var dir = Directory.new()
-	var file = File.new()
 	dir.open("user://saves/")
 	dir.list_dir_begin()
 	var file_name = dir.get_next()
@@ -51,10 +50,11 @@ func on_char_button(n):
 	for i in item_list.get_children():
 		i.queue_free()
 	Data.load_char_data(n)
-	generate_item_list(Data.get_char_data())
+	char_data = Data.get_char_data()
+	generate_item_list()
 	
 	
-func generate_item_list(char_data):
+func generate_item_list():
 	for i in char_data.equipment:
 		var item = Data.get_item(i)
 		preview_model.equip(item)
@@ -89,8 +89,6 @@ func on_name_edit():
 	name_entry_form.show()
 	
 func on_name_entry(n):
-	print("yo")
-	var dir = Directory.new()
 	name_entry_form.hide()
 	name_edit_button.set_text(n)
 	Data.set_char_value("name", n)

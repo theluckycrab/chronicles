@@ -50,7 +50,7 @@ func get_index():
 func enter():
 	pass
 	
-func constant(delta):
+func constant(_delta):
 	for i in current.constant:
 		call(i, current.constant[i])
 	pass

@@ -14,6 +14,7 @@ void vertex() {
 	//COLOR = texture(noise, UV);
 	UV.x -= TIME / 75.0; 
 	UV.y -= TIME / 150.0;
+	//UV *= 4.5;
 	}
 	
 void fragment() {
@@ -27,8 +28,6 @@ void fragment() {
 [sub_resource type="OpenSimplexNoise" id=5]
 
 [sub_resource type="NoiseTexture" id=6]
-width = 2000
-height = 2000
 seamless = true
 noise = SubResource( 5 )
 

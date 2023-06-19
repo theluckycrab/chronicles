@@ -49,7 +49,7 @@ func on_feedback_submit():
 	request.request(url, headers, true, HTTPClient.METHOD_POST, data)
 	pass
 	
-func on_feedback_response(a, b, c, d, e):
+func on_feedback_response(_a, _b, _c, _d, e):
 	e.queue_free()
 	
 func on_feedback_nevermind():

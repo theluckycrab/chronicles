@@ -59,7 +59,7 @@ func reset_hitboxes():
 		hitboxes[i].reset()
 
 func grab_keyframe(who):
-	animator.connect("keyframe", who, "on_keyframe", [], CONNECT_ONESHOT)
+	var _discard = animator.connect("keyframe", who, "on_keyframe", [], CONNECT_ONESHOT)
 	
 func drop_keyframe(who):
 	if animator.is_connected("keyframe", who, "on_keyframe"):
