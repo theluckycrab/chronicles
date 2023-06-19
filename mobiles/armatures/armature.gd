@@ -99,3 +99,6 @@ func reset_equipment():
 	var items = equipped_items.duplicate(true)
 	for i in items:
 		unequip(i)
+
+func get_animation_list():
+	return animator.get_animation_list()

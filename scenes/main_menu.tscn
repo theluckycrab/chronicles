@@ -14,7 +14,7 @@ void vertex() {
 	//COLOR = texture(noise, UV);
 	UV.x -= TIME / 75.0; 
 	UV.y -= TIME / 150.0;
-	//UV *= 4.5;
+	UV *= 4.5;
 	}
 	
 void fragment() {
