@@ -15,6 +15,7 @@ onready var delete_button = $Control/VBoxContainer/DeleteButton
 onready var new_button = $Control/VBoxContainer/NewCharacterButton
 onready var name_entry_form = $Control/NameEntryForm
 onready var name_entry = $Control/NameEntryForm/NameEntry
+onready var name_entry_form_color = $Control/NameEntryForm/ColorPickerButton
 
 func _ready():
 	generate_nameplates()
@@ -89,10 +90,14 @@ func on_new():
 
 func on_name_edit():
 	name_entry_form.show()
+	name_entry.grab_focus()
+	name_entry.text = char_data.name
 	
 func on_name_entry(n):
 	name_entry_form.hide()
 	name_edit_button.set_text(n)
 	Data.set_char_value("name", n)
+	Data.set_char_value("chat_color", name_entry_form_color.color.to_html())
 	Data.save_char()
 	generate_nameplates()
+	on_char_button(n)
