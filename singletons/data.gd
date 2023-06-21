@@ -10,7 +10,11 @@ var config: Dictionary = {
 		"fullscreen":false,
 		"last_character":"new_character",
 			}
-var new_char_data: Dictionary = {"name":"New Character", "equipment":["base_human_body"], "chat_color":"ffef01"}
+var new_char_data: Dictionary = {
+		"name":"New Character", 
+		"equipment":["base_human_body"], 
+		"chat_color":"ffef01", 
+		"last_map":"test_room"}
 var char_data: Dictionary = new_char_data
 
 func _init() -> void:
@@ -74,16 +78,9 @@ func load_char_data(c: String) -> void:
 	else:
 		char_data = new_char_data
 		print(c + " not found in the saves folder.")
-	var player = get_mobile_data("player")
-	for i in player["equipment"]:
-		var will_equip = true
-		var p_item = items[i]
-		for e in char_data.equipment:
-			if p_item.slot == items[e].slot:
-				will_equip = false
-				break
-		if will_equip:
-			char_data.equipment.append(i)
+	for i in new_char_data:
+		if ! char_data.has(i):
+			char_data[i] = new_char_data[i]
 	Events.emit_signal("char_data_changed")
 		
 func load_config() -> void:
