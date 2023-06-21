@@ -18,22 +18,18 @@ func _ready():
 	feedback_nevermind_button.connect("button_down", self, "on_feedback_nevermind")
 	
 func on_start():
-	Events.emit_signal("scene_change_request", "character_select")
-	pass
+	Simulation.switch_scene("character_select")
 	
 func on_feedback():
 	feedback_form.show()
 	exit_button.hide()
 	$Control/VersionLabel.hide()
-	pass
 	
 func on_options():
 	$Control/OptionsMenu.show()
-	pass
 	
 func on_exit():
 	get_tree().quit()
-	pass
 	
 func on_feedback_submit():
 	var data = {"content":feedback_form_text.text}
@@ -47,7 +43,6 @@ func on_feedback_submit():
 	add_child(request)
 	request.connect("request_completed", self, "on_feedback_response", [request])
 	request.request(url, headers, true, HTTPClient.METHOD_POST, data)
-	pass
 	
 func on_feedback_response(_a, _b, _c, _d, e):
 	e.queue_free()
@@ -56,4 +51,3 @@ func on_feedback_nevermind():
 	feedback_form_text = ""
 	feedback_form.hide()
 	exit_button.show()
-	pass

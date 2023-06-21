@@ -2,10 +2,6 @@ extends Node
 
 var current_scene = null
 
-
-func _ready():
-	var _discard = Events.connect("scene_change_request", self, "switch_scene")
-
 func switch_scene(scene:String ) -> void:
 	if is_instance_valid(current_scene):
 		current_scene.queue_free()

@@ -71,10 +71,10 @@ func generate_item_list():
 func on_join() -> void:
 	Client.join()
 	yield(get_tree(), "connected_to_server")
-	Events.emit_signal("scene_change_request", "test_room")
+	Simulation.switch_scene(Data.get_char_value("last_map"))
 	
 func on_back():
-	Events.emit_signal("scene_change_request", "main_menu")
+	Simulation.switch_scene("main_menu")
 
 func on_delete():
 	var dir = Directory.new()
