@@ -1,4 +1,4 @@
-extends Node
+extends Reference
 class_name Inventory
 
 var item_list = []

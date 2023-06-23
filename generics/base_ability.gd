@@ -35,6 +35,7 @@ func execute(host) -> void:
 				p.set_source(int(host.name))
 				var position = host.global_transform.origin + Vector3(0,0,-1).rotated(Vector3.UP, host.armature.rotation.y)
 				Simulation.spawn(p, position, host.armature.rotation.y)
+				p.free()
 
 func check_requirements(host):
 	if current.index == "none":
@@ -58,3 +59,9 @@ func buff(host, entry):
 func as_dict() -> Dictionary:
 	var dict = current.duplicate(true)
 	return dict
+	
+func _notification(what):
+	match what:
+		NOTIFICATION_PREDELETE:
+			if is_instance_valid(state):
+				state.free()
