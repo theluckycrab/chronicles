@@ -72,3 +72,9 @@ func set_source(s: int):
 	
 func get_source():
 	return damage_profile.get_source()
+
+func _notification(what):
+	match what:
+		NOTIFICATION_PREDELETE:
+			if is_instance_valid(damage_profile):
+				damage_profile.free()
