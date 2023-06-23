@@ -34,7 +34,6 @@ func build_from_dictionary(data: Dictionary) -> void:
 				for index in stats.equipment:
 					var item = Data.get_item(index)
 					npc("equip", item.as_dict())
-					item.queue_free()
 			"ai":
 				ai = load("res://mobiles/ai/"+stats.ai+"/sm_"+stats.ai+".tscn").instance()
 				add_child(ai)
