@@ -23,10 +23,12 @@ func on_connection_succeeded() -> void:
 	print("You have joined ", ip, " as ", nid)
 
 remote func receive_map_history(history: Dictionary) -> void:
-	for map in history:
-		if history[map].size() > 0:
-			for command in history[map]:
-				npc(command)
+	if !history.client_version == Data.get_client_version():
+		OS.alert("Client version is out of date. Please download the latest client : " + Data.get_client_version(), "Chronicles of Delonda")
+		get_tree().quit(0)
+		return
+	for command in history[Simulation.get_map_name()]:
+		npc(command)
 
 	var p = load("res://mobiles/mobile.tscn").instance()
 	add_child(p)

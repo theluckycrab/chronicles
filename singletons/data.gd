@@ -1,5 +1,7 @@
 extends Node
 
+const CLIENT_VERSION = "1.0.0"
+
 var abilities: Dictionary = {}
 var items: Dictionary = {}
 var mobiles: Dictionary = {}
@@ -9,6 +11,7 @@ var config: Dictionary = {
 		"invert_y":-1, 
 		"fullscreen":false,
 		"last_character":"new_character",
+		"client_version":get_client_version()
 			}
 var new_char_data: Dictionary = {
 		"name":"New Character", 
@@ -113,6 +116,7 @@ func set_config_value(key: String, value) -> void:
 		config[key] = value
 
 func save_char() -> void:
+	set_char_value("client_version", get_client_version())
 	var f = File.new()
 	var d = get_char_data()
 	f.open("user://saves/"+get_snake_case(d.name), File.WRITE)
@@ -120,6 +124,7 @@ func save_char() -> void:
 	f.close()
 	
 func save_config() -> void:
+	set_config_value("client_version", get_client_version())
 	var f = File.new()
 	var d = config.duplicate(true)
 	f.open("user://"+"config", File.WRITE)
@@ -130,3 +135,6 @@ func _exit_tree():
 	set_config_value("last_character", get_char_value("name"))
 	save_config()
 	save_char()
+
+func get_client_version():
+	return CLIENT_VERSION
