@@ -10,7 +10,7 @@ var stored_delta = 0
 var lock_target = null
 var lock_speed = 40
 export var spring_length = 4
-export var spring_height = 2.2
+export var spring_height = 1.5
 export var h_offset = 0.05
 export var fov = 65
 

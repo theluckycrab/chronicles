@@ -24,6 +24,8 @@ func build_from_dictionary(data: Dictionary) -> void:
 		else:
 			for i in Data.get_char_data():
 				data[i] = Data.get_char_value(i)
+	else:
+		add_to_group("lock_on_targets")
 	stats = data.duplicate(true)
 	for override in stats:
 		match override:
@@ -100,7 +102,7 @@ func toggle_lock_on(group_filter_array=[]) -> void:
 			
 func acquire_next_lock_target(group_filter_array=[]) -> void:
 	var old_lock = lock_target
-	for unit in get_tree().get_nodes_in_group("actors"):
+	for unit in get_tree().get_nodes_in_group("lock_on_targets"):
 		if unit != self \
 			and unit != old_lock \
  			and can_see(unit)\
