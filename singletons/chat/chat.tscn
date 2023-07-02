@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://ui/chat.gd" type="Script" id=1]
-[ext_resource path="res://ui/chat_history.gd" type="Script" id=2]
+[ext_resource path="res://singletons/chat/chat.gd" type="Script" id=1]
+[ext_resource path="res://singletons/chat/chat_history.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )

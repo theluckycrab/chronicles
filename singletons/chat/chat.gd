@@ -12,6 +12,7 @@ func _ready():
 	var _di = entry.connect("focus_exited", Events, "emit_signal", ["ui_closed"])
 	var _do = Events.connect("char_data_changed", self, "on_char_data_changed")
 	entry.add_color_override("font_color", Color(Data.get_char_value("chat_color")))
+	hide()
 	
 func _input(event):
 	if entry.has_focus():

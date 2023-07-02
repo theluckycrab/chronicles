@@ -5,6 +5,7 @@ var mobile: PackedScene = preload("res://mobiles/mobile.tscn")
 func _ready():
 	if is_instance_valid(get_tree().network_peer):
 		get_history()
+		Chat.show()
 	else:
 		spawn({"unit":"dummy", "position":Vector3(0, 5, 0), "unit_uuid":1000})
 		spawn({"unit":"dummy", "position":Vector3(-5, 5, 0), "unit_uuid":2000})

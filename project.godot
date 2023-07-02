@@ -102,6 +102,7 @@ Client="*res://network/client.gd"
 Data="*res://singletons/data.gd"
 Server="*res://network/server.gd"
 Simulation="*res://singletons/simulation.gd"
+Chat="*res://singletons/chat/chat.tscn"
 
 [debug]
 
