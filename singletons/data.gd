@@ -1,6 +1,6 @@
 extends Node
 
-const CLIENT_VERSION = "1.0.0"
+var client_version = ""
 
 var abilities: Dictionary = {}
 var items: Dictionary = {}
@@ -21,6 +21,7 @@ var new_char_data: Dictionary = {
 var char_data: Dictionary = new_char_data
 
 func _init() -> void:
+	validate_installation()
 	init_lists()
 	OS.window_fullscreen = get_config_value("fullscreen")
 
@@ -123,6 +124,10 @@ func save_char() -> void:
 	f.store_string(JSON.print(d))
 	f.close()
 	
+func delete_char_save(n):
+	var dir = Directory.new()
+	dir.remove("user://saves/"+Data.get_snake_case(Data.get_char_data().name))
+	
 func save_config() -> void:
 	set_config_value("client_version", get_client_version())
 	var f = File.new()
@@ -136,5 +141,49 @@ func _exit_tree():
 	save_config()
 	save_char()
 
+func load_client_version():
+	var f = File.new()
+	f.open("res://data/json/shared_config.json", File.READ)
+	var sc = JSON.parse(f.get_as_text()).result
+	f.close()
+	if ! sc.has("client_version"):
+		return false
+	else:
+		client_version = sc.client_version
+		return true
+	
 func get_client_version():
-	return CLIENT_VERSION
+	return client_version
+	
+func get_saved_character(n):
+	var f = File.new()
+	var char_data = {}
+	f.open("user://saves/"+get_snake_case(n), File.READ)
+	char_data = JSON.parse(f.get_as_text()).result
+	f.close()
+	return char_data
+	
+func get_all_saves():
+	var dir = Directory.new()
+	var characters = {}
+	dir.open("user://saves/")
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if file_name != "." and file_name != ".." and file_name != "new_character" and file_name != "null_edgelord,_grand_orator_of_testers":
+			characters[file_name] = get_saved_character(file_name)
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	return characters
+	
+func validate_installation():
+	var d = Directory.new()
+	var f = File.new()
+	if ! load_client_version():
+		OS.alert("No version info?", "Chronciles of Delonda")
+	if ! d.dir_exists("user://saves/"):
+		d.make_dir("user://saves/")
+	if ! f.file_exists("user://saves/new_character"):
+		save_char()
+	if ! f.file_exists("user://config"):
+		save_config()

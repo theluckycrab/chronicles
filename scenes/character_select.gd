@@ -31,15 +31,7 @@ func generate_nameplates():
 	for i in name_list.get_children():
 		i.queue_free()
 	characters.clear()
-	var dir = Directory.new()
-	dir.open("user://saves/")
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-	while file_name != "":
-		if file_name != "." and file_name != ".." and file_name != "new_character" and file_name != "null_edgelord,_grand_orator_of_testers":
-			characters.append(file_name)
-		file_name = dir.get_next()
-	dir.list_dir_end()
+	characters = Data.get_all_saves()
 	for i in characters:
 		var l = char_label.instance()
 		l.set_text(i)
@@ -77,12 +69,11 @@ func on_back():
 	Simulation.switch_scene("main_menu")
 
 func on_delete():
-	var dir = Directory.new()
-	dir.remove("user://saves/"+Data.get_snake_case(Data.get_char_data().name))
+	Data.delete_char_save(Data.get_char_data().name)
 	if characters.empty():
 		on_char_button("new_character")
 	else:
-		on_char_button(characters.front())
+		on_char_button(characters.keys()[0])
 	generate_nameplates()
 	
 func on_new():

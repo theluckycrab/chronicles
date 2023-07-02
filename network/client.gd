@@ -23,8 +23,10 @@ func on_connection_succeeded() -> void:
 	print("You have joined ", ip, " as ", nid)
 
 remote func receive_map_history(history: Dictionary) -> void:
-	if !history.client_version == Data.get_client_version():
-		OS.alert("Client version is out of date. Please download the latest client : " + Data.get_client_version(), "Chronicles of Delonda")
+	if history.client_version != Data.get_client_version():
+		OS.alert("Version Mismatch\n"\
+			+"\nYour Version: "+Data.get_client_version()\
+			+"\nServer Version: " + history.client_version, "Chronicles of Delonda")
 		get_tree().quit(0)
 		return
 	for command in history[Simulation.get_map_name()]:
