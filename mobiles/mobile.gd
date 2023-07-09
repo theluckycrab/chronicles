@@ -91,6 +91,12 @@ func equip(item_dict: Dictionary) -> void:
 func get_ledge() -> Vector3:
 	return armature.get_ledge()
 	
+func get_grounded():
+	return armature.get_grounded()
+	
+func get_ground_point():
+	return armature.get_ground_point()
+	
 func get_interact_target() -> Spatial:
 	return armature.get_interact_target()
 	

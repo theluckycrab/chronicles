@@ -29,3 +29,7 @@ margin_left = -20.0
 margin_top = 20.0
 margin_right = 20.0
 margin_bottom = 14.0
+
+[node name="Ground" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -2, 0 )

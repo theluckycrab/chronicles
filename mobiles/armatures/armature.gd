@@ -49,6 +49,12 @@ func get_ledge() -> Vector3:
 
 func get_interact_target() -> Spatial:
 	return sensors.get_interact_target()
+	
+func get_grounded():
+	return sensors.get_grounded()
+	
+func get_ground_point():
+	return sensors.get_ground_point()
 
 func strike(bone: String = "Mainhand", damage = {}):
 	if hitboxes.has(bone):

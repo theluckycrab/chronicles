@@ -1,11 +1,11 @@
 extends State
 
-var base_speed: float = 10
+var base_speed: float = 6#10
 var move_speed: float= base_speed
 var sprint_speed: float = base_speed * 3.75
 var sprint_acceleration: float = base_speed
-var turn_speed: float = 8
-var turn_angle_limit: float = 45
+var turn_speed: float = 4#8
+var turn_angle_limit: float = 35
 var exit_delay: float = 0
 var strafe_speed: float = base_speed * 1.5
 
@@ -17,7 +17,7 @@ func can_enter() -> bool:
 	return host.is_on_floor() and host.ai.get_wasd() != Vector3.ZERO
 	
 func can_exit() -> bool:
-	return ! host.is_on_floor() or (host.ai.get_wasd() == Vector3.ZERO and exit_delay > 3)
+	return (! host.is_on_floor() or host.ai.get_wasd() == Vector3.ZERO) and exit_delay > 3
 
 func enter() -> void:
 	exit_delay = 0
@@ -34,7 +34,10 @@ func execute() -> void:
 	else:
 		host.play("Walk")
 	host.set_velocity(host.ai.get_wasd_cam() * move_speed)
-	if host.ai.get_wasd() == Vector3.ZERO:
+	if host.get_ground_point() != Vector3.ZERO and ! host.is_on_floor():
+		host.add_force(Vector3.DOWN * 9 * (host.global_transform.origin.distance_to(host.get_ground_point())))
+		print("grav")
+	if host.ai.get_wasd() == Vector3.ZERO or ! host.get_grounded():
 		exit_delay += 1
 	else:
 		exit_delay = 0

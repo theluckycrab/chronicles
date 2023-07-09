@@ -57,9 +57,6 @@ node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneSh
 [node name="Armature" instance=ExtResource( 1 )]
 
 [node name="Skeleton" parent="." index="0" instance=ExtResource( 2 )]
-bones/2/bound_children = [ NodePath("Hitbox") ]
-bones/40/bound_children = [ NodePath("Offhand") ]
-bones/64/bound_children = [ NodePath("Mainhand") ]
 
 [node name="MeshInstance" type="MeshInstance" parent="Skeleton" index="0"]
 mesh = ExtResource( 11 )
@@ -112,8 +109,11 @@ anims/Walk = ExtResource( 7 )
 
 [node name="AnimationTree" parent="ArmatureAnimator" index="0"]
 tree_root = SubResource( 4 )
-anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/Armature/ArmatureAnimator")
+anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6279/@@6113/@@6114/@@6115/@@6116/@@6117/Armature/ArmatureAnimator")
 root_motion_track = NodePath("Armature/Skeleton:root")
+
+[node name="Overledge" parent="Sensors" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3228, 0 )
 
 [editable path="Skeleton/Mainhand/Hitbox"]
 [editable path="Skeleton/Offhand/Hitbox"]
