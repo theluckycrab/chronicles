@@ -8,7 +8,9 @@ var mobiles: Dictionary = {}
 var buffs: Dictionary = {}
 var config: Dictionary = {
 		"invert_x":1, 
-		"invert_y":-1, 
+		"invert_y":-1,
+		"h_sens":0.5,
+		"v_sens":0.5, 
 		"fullscreen":false,
 		"last_character":"new_character",
 		"client_version":get_client_version()
@@ -19,6 +21,7 @@ var new_char_data: Dictionary = {
 		"chat_color":"ffef01", 
 		"last_map":"test_room"}
 var char_data: Dictionary = new_char_data
+signal config_changed
 
 func _init() -> void:
 	validate_installation()
@@ -115,6 +118,8 @@ func set_char_value(key: String, value) -> void:
 func set_config_value(key: String, value) -> void:
 	if config.has(key):
 		config[key] = value
+	else:
+		print("Config does not contain ", key)
 
 func save_char() -> void:
 	set_char_value("client_version", get_client_version())
@@ -135,6 +140,7 @@ func save_config() -> void:
 	f.open("user://"+"config", File.WRITE)
 	f.store_string(JSON.print(d))
 	f.close()
+	emit_signal("config_changed")
 
 func _exit_tree():
 	set_config_value("last_character", get_char_value("name"))

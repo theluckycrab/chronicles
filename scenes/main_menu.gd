@@ -26,7 +26,11 @@ func on_feedback():
 	$Control/VersionLabel.hide()
 	
 func on_options():
-	$Control/OptionsMenu.show()
+	var i = InputEventAction.new()
+	i.action = "options_menu"
+	i.pressed = true
+	Input.parse_input_event(i)
+	#$Control/OptionsMenu.show()
 	
 func on_exit():
 	get_tree().quit()
@@ -51,3 +55,6 @@ func on_feedback_nevermind():
 	feedback_form_text = ""
 	feedback_form.hide()
 	exit_button.show()
+
+func parse_npc(args):
+	return

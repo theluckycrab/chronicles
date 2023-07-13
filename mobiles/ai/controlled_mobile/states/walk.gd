@@ -8,6 +8,7 @@ var turn_speed: float = 4#8
 var turn_angle_limit: float = 35
 var exit_delay: float = 0
 var strafe_speed: float = base_speed * 1.5
+var lock_target = null
 
 func _init():
 	priority = 0
@@ -45,6 +46,13 @@ func execute() -> void:
 func handle_sprint() -> void:
 	if Input.is_action_just_pressed("sprint"):
 		sprint_acceleration = base_speed * 1.15
+		lock_target = host.lock_target
+		host.lock_target = null
+		get_parent().camera.set_lock_target(null)
+	if Input.is_action_just_released("sprint"):
+		if is_instance_valid(lock_target):
+			host.lock_target = lock_target
+			get_parent().camera.set_lock_target(lock_target)
 	if Input.is_action_pressed("sprint"):
 		sprint_acceleration += base_speed * 0.03
 		if sprint_acceleration > sprint_speed:
@@ -56,6 +64,7 @@ func handle_sprint() -> void:
 func check_turning(host) -> void:
 	if move_speed < sprint_speed:
 		return
+	return
 	var arm_rot = int(rad2deg(host.armature.rotation.y)) % 360
 	var wasd = host.ai.get_wasd_cam()
 	var angle = rad2deg(atan2(wasd.x, wasd.z))

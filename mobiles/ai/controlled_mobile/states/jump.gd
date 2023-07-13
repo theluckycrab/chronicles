@@ -28,9 +28,10 @@ func can_exit() -> bool:
 		or host.global_transform.origin.y > enter_y + max_height
 
 func enter() -> void:
+	jumped = true
 	enter_y = host.global_transform.origin.y
 	lateral_speed = base_lat
-	jumped = true
+	host.play("Jump")
 	
 func exit() -> void:
 	pass
@@ -44,4 +45,4 @@ func execute() -> void:
 	lateral_speed += lat_acceleration
 	lateral_speed = clamp(lateral_speed, 0, max_lat)
 	
-	host.play("Jump")
+	

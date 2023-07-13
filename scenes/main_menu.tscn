@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://data/assets/2d/button.png" type="Texture" id=1]
 [ext_resource path="res://ui/labeled_button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/main_menu.gd" type="Script" id=3]
-[ext_resource path="res://ui/options_menu.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -172,9 +171,6 @@ margin_bottom = 44.0
 
 [node name="Label" parent="Control/FeedbackForm/VBoxContainer/HBoxContainer/NevermindButton" index="0"]
 text = "Nevermind"
-
-[node name="OptionsMenu" parent="Control" instance=ExtResource( 4 )]
-visible = false
 
 [editable path="Control/HBoxContainer/VBoxContainer/StartButton"]
 [editable path="Control/HBoxContainer/VBoxContainer/Feedback"]

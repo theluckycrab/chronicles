@@ -146,7 +146,7 @@ func can_see(target) -> bool:
 		
 func can_see_object(target: Spatial) -> bool:
 	var my_pos = armature.global_transform.origin + Vector3(0,2,0)
-	var t_pos = target.global_transform.origin + Vector3(0,2,0)
+	var t_pos = target.global_transform.origin
 	var result = get_world().direct_space_state.intersect_ray(my_pos, t_pos)
 	return target == result.collider
 	

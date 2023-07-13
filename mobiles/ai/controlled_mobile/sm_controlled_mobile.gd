@@ -2,7 +2,8 @@ extends StateMachine
 
 var input_locks = 0
 var lock_on_view_angle = 60
-onready var camera = $ControlledCamera
+var controller_id = 0
+onready var camera = get_viewport().get_camera()
 onready var state_label = $Label
 
 var wasd: Vector3 = Vector3.ZERO
@@ -28,6 +29,7 @@ func _process(_delta):
 	host.get_interact_target()
 
 func _unhandled_input(event):
+	controller_id = event.get_device()
 	wasd = Vector3.ZERO
 	if !can_act():
 		return
@@ -61,8 +63,8 @@ func _unhandled_input(event):
 	wasd.z = Input.get_action_strength("w") - Input.get_action_strength("s")
 	
 	if wasd == Vector3.ZERO:
-		wasd.x = -round(Input.get_joy_axis(1, 0))
-		wasd.z = -round(Input.get_joy_axis(1, 1))
+		wasd.x = -round(Input.get_joy_axis(controller_id, 0))
+		wasd.z = -round(Input.get_joy_axis(controller_id, 1))
 
 func can_act() -> bool:
 	return input_locks == 0
