@@ -10,6 +10,7 @@ var force := Vector3.ZERO
 var inventory = Inventory.new()
 var lock_target = null
 var lock_range = 100
+var weapon_drawn = false
 var stats = {}
 
 func _physics_process(delta):
@@ -103,6 +104,7 @@ func get_interact_target() -> Spatial:
 func toggle_lock_on(group_filter_array=[]) -> void:
 	if is_instance_valid(lock_target):
 		lock_target = null
+		get_viewport().get_camera().set_lock_target(null)
 	else:
 		acquire_next_lock_target(group_filter_array)
 			
@@ -118,6 +120,7 @@ func acquire_next_lock_target(group_filter_array=[]) -> void:
 						break
 				if distance_to(unit) <= distance_to(lock_target) or (unit != old_lock and old_lock == lock_target):
 					lock_target = unit
+					get_viewport().get_camera().set_lock_target(unit)
 			
 func distance_to(target) -> float:
 	if target is Spatial:

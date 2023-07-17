@@ -104,7 +104,8 @@ func lock_on():
 	var half = mypos.distance_to(tpos) / 2
 	var dir = mypos.direction_to(tpos)
 	rotation.y = lerp_angle(rotation.y, target.rotation.y, 0.99)
-	offset.z = lerp(offset.z, -2, 0.02)
+	offset.z = lerp(offset.z, -1.5, 0.02)
+	offset.y = lerp(offset.y, 1.5, 0.02)
 
 func get_invert():
 	var x = Data.get_config_value("invert_x")

@@ -18,6 +18,7 @@ func execute() -> void:
 	pass
 	
 func exit() -> void:
+	host.drop_keyframe(self)
 	host.reset_hitboxes()
 	pass
 

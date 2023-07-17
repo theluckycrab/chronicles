@@ -17,4 +17,7 @@ func exit() -> void:
 	pass
 	
 func execute() -> void:
-	host.play("Idle")
+	if host.weapon_drawn:
+		host.play("Fist_Idle")
+	else:
+		host.play("Idle")

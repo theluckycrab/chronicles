@@ -25,6 +25,7 @@ func enter() -> void:
 	if combo_counter >= combo_list.size() or ! host.is_on_floor():
 		return
 	tracking()
+	host.drop_keyframe(self)
 	host.grab_keyframe(self)
 	host.play(combo_list[combo_counter], true)
 	
