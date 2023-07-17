@@ -86,8 +86,6 @@ func smooth_reset_zoom(delta):
 	var y = rad2deg(rotation.x) as int % 360
 	if abs(x) > 10:
 		offset.z = lerp(offset.z, -5 - abs(x / 3), 0.02)
-		print(last_mouse_relative)
-		pass
 	elif y < - 10:
 		offset.z = lerp(offset.z, -5 - ((abs(rotation_degrees.x) / 3) as int % 360), 0.02)
 	elif y > 25:

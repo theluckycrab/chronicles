@@ -17,7 +17,8 @@ var config: Dictionary = {
 			}
 var new_char_data: Dictionary = {
 		"name":"New Character", 
-		"equipment":["base_human_body"], 
+		"equipment":["naked_chest", "naked_legs", "naked_head", "naked_gloves",\
+				"naked_boots", "naked_mainhand", "naked_offhand"], 
 		"chat_color":"ffef01", 
 		"last_map":"test_room"}
 var char_data: Dictionary = new_char_data

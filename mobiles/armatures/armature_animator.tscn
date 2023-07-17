@@ -32,7 +32,7 @@ script = ExtResource( 1 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 4 )
-anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6275/@@6109/@@6110/@@6111/@@6112/@@6113/ArmatureAnimator")
+anim_player = NodePath("/root/EditorNode/@@592/@@593/@@601/@@603/@@607/@@611/@@612/@@613/@@629/@@630/@@639/@@640/@@6279/@@6113/@@6114/@@6115/@@6116/@@6117/ArmatureAnimator")
 process_mode = 0
 root_motion_track = NodePath("../../Skeleton:root")
 parameters/OneShot/active = false

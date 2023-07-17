@@ -20,7 +20,7 @@ func equip(item: BaseItem) -> void:
 		animator.add_animation_override(i, anims[i])
 	
 func face_dir(wasd: Vector3, delta: float) -> void:
-	if wasd == Vector3.ZERO:
+	if wasd * Vector3(1,0,1) == Vector3.ZERO:
 		return
 	var a = atan2(wasd.x, wasd.z)
 	rotation.y = lerp_angle(rotation.y, a, rotation_speed * delta)

@@ -162,9 +162,9 @@ func get_equipped(slot: String):
 	else:
 		return null
 			
-func emote(anim: String, repeat: bool = true) -> void:
+func emote(anim: String, oneshot: bool = false) -> void:
 	ai.get_state("Emote").animation = anim
-	ai.get_state("Emote").held = repeat
+	ai.get_state("Emote").oneshot = oneshot
 	ai.set_state("Emote")
 
 func set_velocity(v: Vector3) -> void:

@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.658652
-height = 0.69864
+height = 0.921432
 
 [node name="Mobile" type="KinematicBody"]
 script = ExtResource( 5 )

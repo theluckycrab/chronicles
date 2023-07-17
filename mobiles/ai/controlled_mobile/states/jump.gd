@@ -8,8 +8,8 @@ var max_lat: float = 30
 var enter_y: float = 0
 var jumped: bool = false
 
-var max_height: float = 2
-var actual_time: float = 0.33
+var max_height: float = 1.5 #not accurate due to fall state anti-grav
+var actual_time: float = 0.15
 var frame_height: float = max_height / actual_time
 
 func _init():
@@ -40,7 +40,6 @@ func execute() -> void:
 	var wasd: Vector3 = host.ai.get_wasd_cam()
 	host.set_velocity(wasd * lateral_speed)
 	host.add_force(Vector3.UP * frame_height)
-	host.add_force(Vector3.UP * 8)
 	
 	lateral_speed += lat_acceleration
 	lateral_speed = clamp(lateral_speed, 0, max_lat)

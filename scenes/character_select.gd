@@ -48,8 +48,8 @@ func on_char_button(n):
 	
 	
 func generate_item_list():
-	preview_model.animator.get_animation("Idle").loop = true
-	preview_model.play("Idle")
+	#preview_model.animator.get_animation("Idle").loop = true
+	#preview_model.play("Idle")
 	for i in char_data.equipment:
 		var item = Data.get_item(i)
 		preview_model.equip(item)

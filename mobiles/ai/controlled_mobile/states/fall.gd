@@ -24,12 +24,8 @@ func exit() -> void:
 	pass
 	
 func execute() -> void:
-	if !host.ai.get_state("Hang").has_hung and host.get_ledge() != Vector3.ZERO:
-		host.set_state("Hang")
-		return
 	var wasd: Vector3 = host.ai.get_wasd_cam()
-	host.set_velocity(wasd * lateral_speed)
-	host.add_force(Vector3.DOWN * gravity)
+	host.set_velocity((wasd * lateral_speed) + (Vector3.DOWN * gravity))
 	gravity += gravity_acceleration
 	if delay > 3:
 		host.play("Fall")

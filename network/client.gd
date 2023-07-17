@@ -36,7 +36,7 @@ remote func receive_map_history(history: Dictionary) -> void:
 	add_child(p)
 	p.name = str(nid)
 	p.build_from_dictionary(Data.get_mobile_data("player"))
-	Simulation.spawn(p, Vector3(0,15,0))
+	Simulation.spawn(p, Vector3(0,15,-45))
 	p.queue_free()
 
 remote func receive_chat(args):

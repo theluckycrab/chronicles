@@ -1,22 +1,14 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://mobiles/armatures/armature.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/assets/3d/skeletons/humanoid.tscn" type="PackedScene" id=2]
 [ext_resource path="res://mobiles/armatures/armature_animator.tscn" type="PackedScene" id=3]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Idle.anim" type="Animation" id=4]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Idle.anim" type="Animation" id=5]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fall.anim" type="Animation" id=6]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Walk.anim" type="Animation" id=7]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Run.anim" type="Animation" id=8]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Jump.anim" type="Animation" id=9]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=10]
-[ext_resource path="res://data/assets/3d/meshes/equipment/base_human.mesh" type="ArrayMesh" id=11]
-[ext_resource path="res://data/assets/3d/animations/humanoid/HangLedge.anim" type="Animation" id=12]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_2.anim" type="Animation" id=13]
-[ext_resource path="res://data/assets/3d/animations/humanoid/UpLedge.anim" type="Animation" id=14]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Strong.anim" type="Animation" id=15]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_3.anim" type="Animation" id=16]
-[ext_resource path="res://data/assets/3d/animations/humanoid/Fist_Combo_1.anim" type="Animation" id=17]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Idle.anim" type="Animation" id=4]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Fall.anim" type="Animation" id=5]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Walk.anim" type="Animation" id=6]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Run.anim" type="Animation" id=7]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Jump.anim" type="Animation" id=8]
+[ext_resource path="res://data/assets/3d/animations/humanoid/Sit.anim" type="Animation" id=9]
 [ext_resource path="res://components/hitbox/hitbox.tscn" type="PackedScene" id=18]
 
 [sub_resource type="BoxShape" id=5]
@@ -58,14 +50,8 @@ node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation 2", "OneSh
 
 [node name="Skeleton" parent="." index="0" instance=ExtResource( 2 )]
 
-[node name="MeshInstance" type="MeshInstance" parent="Skeleton" index="0"]
-mesh = ExtResource( 11 )
-material/0 = null
-material/1 = null
-material/2 = null
-
-[node name="Mainhand" type="BoneAttachment" parent="Skeleton" index="1"]
-transform = Transform( -1, 5.58794e-07, 3.81097e-06, 3.83495e-06, -2.58908e-06, 1.00001, 6.03497e-07, 1, -7.45058e-08, -0.338867, 0.887099, 0.0232547 )
+[node name="Mainhand" type="BoneAttachment" parent="Skeleton" index="0"]
+transform = Transform( -1, 2.68221e-07, -1.02427e-05, -1.01011e-05, 0.184339, 0.98285, 2.05636e-06, 0.982862, -0.184344, -0.316154, 1.05762, 0.0062869 )
 bone_name = "weapon.r"
 
 [node name="Hitbox" parent="Skeleton/Mainhand" index="0" instance=ExtResource( 18 )]
@@ -73,8 +59,8 @@ bone_name = "weapon.r"
 [node name="CollisionShape" parent="Skeleton/Mainhand/Hitbox" index="0"]
 shape = SubResource( 5 )
 
-[node name="Offhand" type="BoneAttachment" parent="Skeleton" index="2"]
-transform = Transform( -1, -2.04891e-06, -3.60981e-06, -3.61912e-06, -2.68966e-06, 1.00001, -2.11596e-06, 1, -6.33299e-08, 0.338867, 0.887099, 0.0232546 )
+[node name="Offhand" type="BoneAttachment" parent="Skeleton" index="1"]
+transform = Transform( -1, -2.16067e-07, 1.09035e-05, 1.07903e-05, 0.184339, 0.982849, -2.13832e-06, 0.982862, -0.184344, 0.316154, 1.05762, 0.00628685 )
 bone_name = "weapon.l"
 
 [node name="Hitbox" parent="Skeleton/Offhand" index="0" instance=ExtResource( 18 )]
@@ -82,8 +68,8 @@ bone_name = "weapon.l"
 [node name="CollisionShape" parent="Skeleton/Offhand/Hitbox" index="0"]
 shape = SubResource( 6 )
 
-[node name="Hitbox" type="BoneAttachment" parent="Skeleton" index="3"]
-transform = Transform( 1, -1.188e-20, -8.8012e-21, -3.00746e-20, 0.999984, -2.2389e-06, 5.50571e-21, -6.10948e-07, 1, -1.34566e-20, 1.17083, -1.51247e-06 )
+[node name="Hitbox" type="BoneAttachment" parent="Skeleton" index="2"]
+transform = Transform( 1, 8.71011e-08, 2.52802e-07, -1.36371e-07, 0.979369, 0.202002, -2.29996e-07, -0.202008, 0.979384, 3.76417e-08, 1.34763, -0.0640507 )
 bone_name = "Spine2"
 
 [node name="Hitbox" parent="Skeleton/Hitbox" index="0" instance=ExtResource( 18 )]
@@ -93,19 +79,12 @@ state = 1
 shape = SubResource( 7 )
 
 [node name="ArmatureAnimator" parent="." index="1" instance=ExtResource( 3 )]
-anims/Fall = ExtResource( 6 )
-anims/Fist_Combo_1 = ExtResource( 17 )
-anims/Fist_Combo_2 = ExtResource( 13 )
-anims/Fist_Combo_3 = ExtResource( 16 )
-anims/Fist_Idle = ExtResource( 4 )
-anims/Fist_Strong = ExtResource( 15 )
-anims/HangLedge = ExtResource( 12 )
-anims/Idle = ExtResource( 5 )
-anims/Jump = ExtResource( 9 )
-anims/Run = ExtResource( 8 )
-anims/Sit = ExtResource( 10 )
-anims/UpLedge = ExtResource( 14 )
-anims/Walk = ExtResource( 7 )
+anims/Fall = ExtResource( 5 )
+anims/Idle = ExtResource( 4 )
+anims/Jump = ExtResource( 8 )
+anims/Run = ExtResource( 7 )
+anims/Sit = ExtResource( 9 )
+anims/Walk = ExtResource( 6 )
 
 [node name="AnimationTree" parent="ArmatureAnimator" index="0"]
 tree_root = SubResource( 4 )
