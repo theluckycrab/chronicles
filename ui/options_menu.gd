@@ -18,7 +18,10 @@ func on_save():
 func _input(event):
 	if event is InputEvent:
 		if event.is_action("options_menu") and event.is_pressed():
-			show()
+			if visible:
+				hide()
+			else:
+				show()
 
 func on_vis():
 	load_config()

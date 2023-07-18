@@ -25,7 +25,6 @@ margin_bottom = 436.0
 size_flags_vertical = 3
 
 [node name="General" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -59,6 +58,7 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="Controls" type="VBoxContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -94,9 +94,9 @@ margin_left = 84.0
 margin_right = 916.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
-min_value = 0.1
+min_value = 0.01
 max_value = 1.0
-step = 0.1
+step = 0.01
 value = 0.1
 tick_count = 10
 
@@ -116,9 +116,9 @@ margin_left = 82.0
 margin_right = 916.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
-min_value = 0.1
+min_value = 0.01
 max_value = 1.0
-step = 0.1
+step = 0.01
 value = 0.1
 tick_count = 10
 

@@ -5,7 +5,7 @@ extends Node
 """
 
 var port := 5555
-var ip := "108.160.216.96"
+onready var ip := IP.resolve_hostname("alpha.crabsoft.download")
 var peer := NetworkedMultiplayerENet.new()
 var nid := 1
 
@@ -26,7 +26,7 @@ remote func receive_map_history(history: Dictionary) -> void:
 	if history.client_version != Data.get_client_version():
 		OS.alert("Version Mismatch\n"\
 			+"\nYour Version: "+Data.get_client_version()\
-			+"\nServer Version: " + history.client_version, "Chronicles of Delonda")
+			+"\nServer Version: " + history.client_version + "\nwebsite.crafsoft.download/chronicles.zip", "Chronicles of Delonda")
 		get_tree().quit(0)
 		return
 	for command in history[Simulation.get_map_name()]:

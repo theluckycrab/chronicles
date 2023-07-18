@@ -7,8 +7,8 @@ var items: Dictionary = {}
 var mobiles: Dictionary = {}
 var buffs: Dictionary = {}
 var config: Dictionary = {
-		"invert_x":1, 
-		"invert_y":-1,
+		"invert_x":false, 
+		"invert_y":false,
 		"h_sens":0.5,
 		"v_sens":0.5, 
 		"fullscreen":false,
@@ -58,7 +58,12 @@ func load_from_file(file_name: String, path: String = "res://data/json/", extens
 	var list = {}
 	if f.file_exists(path + file_name + extension):
 		f.open(path+file_name+extension, File.READ)
-		list = JSON.parse(f.get_as_text()).result
+		var parse = JSON.parse(f.get_as_text())
+		if parse.error_string != "":
+			print(parse.error_string)
+			f.close()
+			return parse.error_string
+		list = parse.result
 		f.close()
 	if path == "res://data/json/":
 		for i in list:
@@ -95,6 +100,10 @@ func load_config() -> void:
 	var f = File.new()
 	if f.file_exists("user://config"):
 		var inc = load_from_file("config", "user://", "")
+		if inc is String:
+			print(inc)
+			save_config()
+			return
 		for i in config:
 			if inc.has(i):
 				config[i] = inc[i]
@@ -187,7 +196,7 @@ func validate_installation():
 	var d = Directory.new()
 	var f = File.new()
 	if ! load_client_version():
-		OS.alert("No version info?", "Chronciles of Delonda")
+		OS.alert("No version info?", "Chronicles of Delonda")
 	if ! d.dir_exists("user://saves/"):
 		d.make_dir("user://saves/")
 	if ! f.file_exists("user://saves/new_character"):

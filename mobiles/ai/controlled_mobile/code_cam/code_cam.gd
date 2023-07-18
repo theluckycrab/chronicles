@@ -110,10 +110,16 @@ func lock_on():
 func get_invert():
 	var x = Data.get_config_value("invert_x")
 	var y = Data.get_config_value("invert_y")
-	if x == false:
-		x = -1
-	if y == false:
-		y = -1
+	match x:
+		true:
+			x = -1
+		false:
+			x = 1
+	match y:
+		true:
+			y = -1
+		false:
+			y = 1
 	return Vector2(x, y)
 
 func on_config_changed():
