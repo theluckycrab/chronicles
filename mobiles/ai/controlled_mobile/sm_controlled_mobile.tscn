@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://mobiles/ai/controlled_mobile/sm_controlled_mobile.gd" type="Script" id=1]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/emote.gd" type="Script" id=2]
@@ -8,8 +8,13 @@
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/walk.gd" type="Script" id=6]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/draw.gd" type="Script" id=7]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/sidestep.gd" type="Script" id=8]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/falling_attack.gd" type="Script" id=9]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/combo.gd" type="Script" id=10]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/strong.gd" type="Script" id=11]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/break.gd" type="Script" id=12]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/stagger.gd" type="Script" id=13]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/downed.gd" type="Script" id=14]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/downed_up.gd" type="Script" id=15]
 
 [node name="StateMachine" type="Spatial"]
 script = ExtResource( 1 )
@@ -49,3 +54,18 @@ script = ExtResource( 7 )
 
 [node name="Sidestep" type="Node" parent="."]
 script = ExtResource( 8 )
+
+[node name="FallingAttack" type="Node" parent="."]
+script = ExtResource( 9 )
+
+[node name="Break" type="Node" parent="."]
+script = ExtResource( 12 )
+
+[node name="Stagger" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="Downed" type="Node" parent="."]
+script = ExtResource( 14 )
+
+[node name="DownedUp" type="Node" parent="."]
+script = ExtResource( 15 )

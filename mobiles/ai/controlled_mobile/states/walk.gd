@@ -24,6 +24,7 @@ func enter() -> void:
 	exit_delay = 0
 	
 func exit() -> void:
+	lock()
 	pass
 	
 func execute() -> void:

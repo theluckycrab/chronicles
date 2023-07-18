@@ -75,8 +75,9 @@ func hybrid_input(event):
 		#host.remove_buff("debug")
 		#host.add_buff(Data.get_buff("debug"))
 		#host.activate_item("head")
-		for i in host.get_items():
-			host.npc("equip", i.as_dict())
+#		for i in host.get_items():
+#			host.npc("equip", i.as_dict())
+		set_state("Downed")
 		return true
 	elif event.is_action_pressed("toggle_sight"):
 		host.activate_item("head")
@@ -87,7 +88,10 @@ func combat_input(event):
 	if ! host.weapon_drawn:
 		return false
 	elif event.is_action_pressed("combo"):
-		host.set_state("Combo")
+		if ! host.is_on_floor():
+			host.set_state("FallingAttack")
+		else:
+			host.set_state("Combo")
 		return true
 	elif event.is_action_pressed("strong"):
 		host.set_state("Strong")
