@@ -22,6 +22,7 @@ void fragment() {
 	COLOR *= texture(noise, UV);
 	COLOR.g -= 0.05;
 	COLOR.b -= 0.05;
+	COLOR.r -= 1.0;
 	}"
 
 [sub_resource type="OpenSimplexNoise" id=5]
