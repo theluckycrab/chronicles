@@ -14,6 +14,7 @@ onready var invert = get_invert()
 onready var sens = get_sens()
 
 var last_mouse_relative = Vector2.ZERO
+var joypad = false
 
 onready var camera = $Camera
 
@@ -25,8 +26,8 @@ func _input(event):
 	controller_id = event.get_device()
 	if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE and event is InputEventMouseMotion:
 		last_mouse_relative = event.relative
-		apply_rotation()
-		apply_limits()
+		joypad = false
+		
 
 func _physics_process(delta):
 	if last_mouse_relative == Vector2.ZERO:
@@ -34,8 +35,9 @@ func _physics_process(delta):
 		last_mouse_relative.y = Input.get_joy_axis(controller_id, 3)
 		if abs(last_mouse_relative.x) < 0.25 and abs(last_mouse_relative.y) < 0.25 or last_mouse_relative == Vector2.ZERO:
 			last_mouse_relative = Vector2.ZERO
-		apply_rotation(true)
-		apply_limits()
+		joypad = true
+	apply_rotation()
+	apply_limits()
 	if is_instance_valid(target):
 		var dir = direction_to_target()
 		var dist = distance_to_target()
@@ -50,7 +52,7 @@ func _physics_process(delta):
 	else:
 		target = Simulation.get_map().get_node_or_null(str(Client.nid)+"/Armature")
 			
-func apply_rotation(joypad=false):
+func apply_rotation():
 	if joypad:
 		last_mouse_relative *= 8
 		last_mouse_relative.y *= 0.5
