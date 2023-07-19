@@ -218,7 +218,7 @@ func drop_keyframe(who):
 func on_got_hit(damage):
 	pass
 
-func activate_item(slot):
+func activate_slot(slot):
 	var item = inventory.get_equipped(slot)
 	if is_instance_valid(item):
 		item.activate(self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://mobiles/ai/controlled_mobile/sm_controlled_mobile.gd" type="Script" id=1]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/emote.gd" type="Script" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/stagger.gd" type="Script" id=13]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/downed.gd" type="Script" id=14]
 [ext_resource path="res://mobiles/ai/controlled_mobile/states/downed_up.gd" type="Script" id=15]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/dead.gd" type="Script" id=16]
+[ext_resource path="res://mobiles/ai/controlled_mobile/states/block.gd" type="Script" id=17]
 
 [node name="StateMachine" type="Spatial"]
 script = ExtResource( 1 )
@@ -69,3 +71,9 @@ script = ExtResource( 14 )
 
 [node name="DownedUp" type="Node" parent="."]
 script = ExtResource( 15 )
+
+[node name="Dead" type="Node" parent="."]
+script = ExtResource( 16 )
+
+[node name="Block" type="Node" parent="."]
+script = ExtResource( 17 )

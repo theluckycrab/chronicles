@@ -68,16 +68,28 @@ func hybrid_input(event):
 		if is_instance_valid(target):
 			target.interact(host)
 			return true
-	elif Input.is_action_just_pressed("draw"):
+	elif event.is_action_pressed("draw"):
 		set_state("Draw")
+		return true
+	elif event.is_action_pressed("activate_mainhand"):
+		host.activate_slot("mainhand")
+		return true
+	elif event.is_action_pressed("activate_offhand"):
+		host.activate_slot("offhand")
+		return true
+	elif event.is_action_pressed("activate_boots"):
+		host.activate_slot("boots")
+		return true
+	elif event.is_action_pressed("activate_helm"):
+		host.activate_slot("helm")
 		return true
 	elif event.is_action_pressed("debug"):
 		#host.remove_buff("debug")
 		#host.add_buff(Data.get_buff("debug"))
 		#host.activate_item("head")
-#		for i in host.get_items():
-#			host.npc("equip", i.as_dict())
-		set_state("Downed")
+		for i in host.get_items():
+			host.npc("equip", i.as_dict())
+		#set_state("Downed")
 		return true
 	elif event.is_action_pressed("toggle_sight"):
 		host.activate_item("head")
@@ -98,6 +110,9 @@ func combat_input(event):
 		return true
 	elif event.is_action_pressed("jump"):
 		set_state("Sidestep")
+		return true
+	elif event.is_action_pressed("block"):
+		set_state("Block")
 		return true
 	return false
 	
